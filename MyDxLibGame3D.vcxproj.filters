@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ZombiFPS">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ZombiFPS\Main">
+      <UniqueIdentifier>{ff55cb12-35a0-490e-a9a1-6be7bed4faaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System">
+      <UniqueIdentifier>{253d590e-9e94-452a-bc7a-8b4547874815}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\GameManager">
+      <UniqueIdentifier>{71f35da0-3c1e-4c27-8e8e-7bf9a5cb5822}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\Scene">
+      <UniqueIdentifier>{d1941093-e148-4b9d-a651-5f9cad8646f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\SceneUI">
+      <UniqueIdentifier>{dc7cb7d7-0c7b-4c11-9761-02598bac74d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\Scene\SceneBase">
+      <UniqueIdentifier>{21c9bf82-3034-48f6-93f7-fbdc9d697a34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\SceneUI\SceneUIBase">
+      <UniqueIdentifier>{225d09c6-04e6-452e-a0db-34f7765415a2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>ZombiFPS\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>ZombiFPS\System\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneBase.cpp">
+      <Filter>ZombiFPS\System\Scene\SceneBase</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneUIBase.cpp">
+      <Filter>ZombiFPS\System\SceneUI\SceneUIBase</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>ZombiFPS\System\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>ZombiFPS\System\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultScene.cpp">
+      <Filter>ZombiFPS\System\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleSceneUI.cpp">
+      <Filter>ZombiFPS\System\SceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSceneUI.cpp">
+      <Filter>ZombiFPS\System\SceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultSceneUI.cpp">
+      <Filter>ZombiFPS\System\SceneUI</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
+      <Filter>ZombiFPS\System\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>ZombiFPS\System\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBase.h">
+      <Filter>ZombiFPS\System\Scene\SceneBase</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneUIBase.h">
+      <Filter>ZombiFPS\System\SceneUI\SceneUIBase</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>ZombiFPS\System\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>ZombiFPS\System\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultScene.h">
+      <Filter>ZombiFPS\System\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleSceneUI.h">
+      <Filter>ZombiFPS\System\SceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSceneUI.h">
+      <Filter>ZombiFPS\System\SceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultSceneUI.h">
+      <Filter>ZombiFPS\System\SceneUI</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
