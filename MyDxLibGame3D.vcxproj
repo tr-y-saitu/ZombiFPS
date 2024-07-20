@@ -19,6 +19,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AssaultRifle.cpp" />
+    <ClCompile Include="BattleRifle.cpp" />
+    <ClCompile Include="GunBase.cpp" />
+    <ClCompile Include="GunIdleState.cpp" />
+    <ClCompile Include="GunReloadState.cpp" />
+    <ClCompile Include="GunRunState.cpp" />
+    <ClCompile Include="GunShotState.cpp" />
+    <ClCompile Include="GunStateBase.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerCamera.cpp" />
+    <ClCompile Include="PlayerIdleState.cpp" />
+    <ClCompile Include="PlayerOnHitEnemyState.cpp" />
+    <ClCompile Include="PlayerRunState.cpp" />
+    <ClCompile Include="PlayerStateBase.cpp" />
+    <ClCompile Include="PlayerWalkState.cpp" />
+    <ClCompile Include="SceneCamera.cpp" />
     <ClCompile Include="EffectDataManager.cpp" />
     <ClCompile Include="EffectPlayManager.cpp" />
     <ClCompile Include="FrameRateManager.cpp" />
@@ -32,12 +49,32 @@
     <ClCompile Include="ResultSceneUI.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="SceneUIBase.cpp" />
+    <ClCompile Include="Shot.cpp" />
     <ClCompile Include="SoundDataManager.cpp" />
     <ClCompile Include="SoundPlayManager.cpp" />
+    <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="SubmachineGun.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="TitleSceneUI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssaultRifle.h" />
+    <ClInclude Include="BattleRifle.h" />
+    <ClInclude Include="GunBase.h" />
+    <ClInclude Include="GunIdleState.h" />
+    <ClInclude Include="GunReloadState.h" />
+    <ClInclude Include="GunRunState.h" />
+    <ClInclude Include="GunShotState.h" />
+    <ClInclude Include="GunStateBase.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerCamera.h" />
+    <ClInclude Include="PlayerIdleState.h" />
+    <ClInclude Include="PlayerOnHitEnemyState.h" />
+    <ClInclude Include="PlayerRunState.h" />
+    <ClInclude Include="PlayerStateBase.h" />
+    <ClInclude Include="PlayerWalkState.h" />
+    <ClInclude Include="SceneCamera.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="EffectDataManager.h" />
     <ClInclude Include="EffectPlayManager.h" />
@@ -51,8 +88,11 @@
     <ClInclude Include="ResultSceneUI.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneUIBase.h" />
+    <ClInclude Include="Shot.h" />
     <ClInclude Include="SoundDataManager.h" />
     <ClInclude Include="SoundPlayManager.h" />
+    <ClInclude Include="Stage.h" />
+    <ClInclude Include="SubmachineGun.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="TitleSceneUI.h" />
   </ItemGroup>

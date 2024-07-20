@@ -5,6 +5,7 @@
 class FrameRateManager;
 class EffectPlayManager;
 class SoundPlayManager;
+class Input;
 
 /// <summary>
 /// ゲーム全体の管理
@@ -54,14 +55,11 @@ private:
     SceneBase* nowScene;                    // 現在のシーン
     SceneBase* nextScene;                   // 次のシーン
 
-    // フレームレート制御
+    // 管理クラス
     FrameRateManager* frameRateManager;     // フレームレート制御
-
-    // エフェクト管理
     EffectPlayManager* effectPlayManager;   // エフェクト管理
-
-    // サウンド管理
     SoundPlayManager* soundPlayManager;     // サウンド管理
+    Input* input;                           // 入力処理
 
     // キー入力
     bool    keyOn;                          // キー入力されているか

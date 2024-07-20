@@ -3,6 +3,7 @@
 #include "FrameRateManager.h"
 #include "EffectPlayManager.h"
 #include "SoundPlayManager.h"
+#include "Input.h"
 
 /// <summary>
 /// コンストラクタ
@@ -23,6 +24,9 @@ Game::Game()
     frameRateManager = FrameRateManager::GetInstance();
     effectPlayManager = EffectPlayManager::GetInstance();
     soundPlayManager = SoundPlayManager::GetInstance();
+
+    // 管理クラス
+    input = new Input();
 }
 
 /// <summary>
