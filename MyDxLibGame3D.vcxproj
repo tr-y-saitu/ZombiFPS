@@ -19,26 +19,40 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EffectDataManager.cpp" />
+    <ClCompile Include="EffectPlayManager.cpp" />
+    <ClCompile Include="FrameRateManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameSceneUI.cpp" />
+    <ClCompile Include="ImageDataManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="ModleDataManager.cpp" />
     <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="ResultSceneUI.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="SceneUIBase.cpp" />
+    <ClCompile Include="SoundDataManager.cpp" />
+    <ClCompile Include="SoundPlayManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="TitleSceneUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h" />
+    <ClInclude Include="EffectDataManager.h" />
+    <ClInclude Include="EffectPlayManager.h" />
+    <ClInclude Include="FrameRateManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameSceneUI.h" />
+    <ClInclude Include="ImageDataManager.h" />
+    <ClInclude Include="ModleDataManager.h" />
     <ClInclude Include="ResultScene.h" />
     <ClInclude Include="ResultSceneUI.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneUIBase.h" />
+    <ClInclude Include="SoundDataManager.h" />
+    <ClInclude Include="SoundPlayManager.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="TitleSceneUI.h" />
   </ItemGroup>

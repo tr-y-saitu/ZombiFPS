@@ -26,6 +26,30 @@
     <Filter Include="ZombiFPS\System\SceneUI\SceneUIBase">
       <UniqueIdentifier>{225d09c6-04e6-452e-a0db-34f7765415a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ZombiFPS\System\FrameRateManager">
+      <UniqueIdentifier>{f6f4a13e-6bd9-4fc3-915c-b9592f86fa23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\DataLoad">
+      <UniqueIdentifier>{03eb2b2e-0a56-4dc5-9176-61d125585f62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\DataLoad\ImageDataManager">
+      <UniqueIdentifier>{3c27cac9-6aaa-4838-81d6-88890c16030e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\DataLoad\ModleDataManager">
+      <UniqueIdentifier>{f5a14349-b195-4720-b173-14978df2d76c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\DataLoad\SoundDataManager">
+      <UniqueIdentifier>{4829d0db-ef70-43cc-8951-3b4a09c17544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\DataLoad\EffectDataManager">
+      <UniqueIdentifier>{0c286570-4616-4c63-82de-a04623d05cca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\Sound">
+      <UniqueIdentifier>{051da761-b455-41bc-8646-ca8c784d703b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\Effect">
+      <UniqueIdentifier>{14b02818-c6d6-4fb1-a6f2-4ff984dc2e54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -58,6 +82,27 @@
     <ClCompile Include="ResultSceneUI.cpp">
       <Filter>ZombiFPS\System\SceneUI</Filter>
     </ClCompile>
+    <ClCompile Include="FrameRateManager.cpp">
+      <Filter>ZombiFPS\System\FrameRateManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageDataManager.cpp">
+      <Filter>ZombiFPS\System\DataLoad\ImageDataManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ModleDataManager.cpp">
+      <Filter>ZombiFPS\System\DataLoad\ModleDataManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundDataManager.cpp">
+      <Filter>ZombiFPS\System\DataLoad\SoundDataManager</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectDataManager.cpp">
+      <Filter>ZombiFPS\System\DataLoad\EffectDataManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundPlayManager.cpp">
+      <Filter>ZombiFPS\System\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectPlayManager.cpp">
+      <Filter>ZombiFPS\System\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -89,6 +134,27 @@
     </ClInclude>
     <ClInclude Include="ResultSceneUI.h">
       <Filter>ZombiFPS\System\SceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameRateManager.h">
+      <Filter>ZombiFPS\System\FrameRateManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageDataManager.h">
+      <Filter>ZombiFPS\System\DataLoad\ImageDataManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ModleDataManager.h">
+      <Filter>ZombiFPS\System\DataLoad\ModleDataManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundDataManager.h">
+      <Filter>ZombiFPS\System\DataLoad\SoundDataManager</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectDataManager.h">
+      <Filter>ZombiFPS\System\DataLoad\EffectDataManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundPlayManager.h">
+      <Filter>ZombiFPS\System\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectPlayManager.h">
+      <Filter>ZombiFPS\System\Effect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

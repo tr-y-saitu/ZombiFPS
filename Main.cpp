@@ -8,6 +8,16 @@
 #include "DxLib.h"
 #include "EffekseerForDXLib.h"
 // 自作ヘッダー
+// シングルトン
+#include "FrameRateManager.h"
+#include "ImageDataManager.h"
+#include "ModleDataManager.h"
+#include "EffectDataManager.h"
+#include "SoundDataManager.h"
+#include "EffectPlayManager.h"
+#include "SoundPlayManager.h"
+
+// 各ヘッダー
 #include "Common.h"
 #include "Game.h"
 
@@ -37,6 +47,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
     // 描画先グラフィック領域の指定
     SetDrawScreen(DX_SCREEN_BACK);
+
+    // シングルトンクラスをインスタンス化
+    FrameRateManager::CreateInstance();     // フレームレート
+    ImageDataManager::CreateInstance();     // 画像データ
+    ModleDataManager::CreateInstance();     // モデルデータ
+    EffectDataManager::CreateInstance();    // エフェクトデータ
+    SoundDataManager::CreateInstance();     // 音データ
+    EffectPlayManager::CreateInstance();    // エフェクト再生
+    SoundPlayManager::CreateInstance();     // 音再生
 
     // ゲームのインスタンスを作成
     Game game;
