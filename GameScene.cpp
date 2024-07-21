@@ -1,4 +1,5 @@
 #include "Common.h"
+#include "Input.h"
 #include "ImageDataManager.h"
 #include "ModleDataManager.h"
 #include "EffectDataManager.h"
@@ -24,6 +25,9 @@
 /// </summary>
 GameScene::GameScene()
 {
+    // 入力処理
+    input = new Input();
+
     // データ関連
     
 
@@ -72,6 +76,7 @@ GameScene::~GameScene()
 void GameScene::Initialize()
 {
     stage->Initialize();
+    player->Initialize();
     playerCamera->Initialize();
 }
 
@@ -85,8 +90,10 @@ SceneBase* GameScene::UpdateScene()
     DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene", true);
 
     // オブジェクト更新
-    gameSceneUI->Update();      // UIの更新
-    playerCamera->Update();     // プレイヤーカメラの更新
+    input->Update();                                    // 入力処理
+    player->Update(*input,*playerCamera,*stage);        // プレイヤー
+    playerCamera->Update(*input, *player,*stage);       // プレイヤーカメラの更新
+    gameSceneUI->Update();                              // UIの更新
 
 
     // 現状のシーンを返す
@@ -99,6 +106,7 @@ SceneBase* GameScene::UpdateScene()
 void GameScene::Draw()
 {
     stage->Draw();      // ステージ
+    player->Draw();     // プレイヤー
     DrawUI();           // UIの描画
 }
 

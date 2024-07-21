@@ -1,7 +1,7 @@
 #pragma once
 #include "SceneBase.h"
 
-
+class Input;
 class ImageDataManager;
 class ModleDataManager;
 class EffectDataManager;
@@ -70,6 +70,9 @@ private:
     // 定数
 
     // 変数
+    // 入力処理
+    Input*              input;              // 入力判定処理
+
     // データ関連
     ImageDataManager*   imageDataManager;   // 画像データ
     ModleDataManager*   modleDataManager;   // モデルデータ

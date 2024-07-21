@@ -27,7 +27,7 @@ void Stage::Initialize()
 {
     // ステージモデルの読み込み
     modelHandle = MV1LoadModel("Data/Stage/BO2Map.mv1");
-    //MV1SetScale(modelHandle, VGet(4, 4, 4));
+    MV1SetScale(modelHandle, VGet(4, 4, 4));
     
     // モデル全体のコリジョン情報のセットアップ
     MV1SetupCollInfo(modelHandle, -1);
