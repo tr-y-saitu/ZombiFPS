@@ -1,23 +1,21 @@
 #pragma once
 #include "Common.h"
 
-class EnemyGroup;
-
 /// <summary>
-/// 集合したエネミーを一つにまとめる
+/// 銃の強化マシン
 /// </summary>
-class EnemyGroupController
+class GunPowerUpMachine
 {
 public:
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    EnemyGroupController();
-    
+    GunPowerUpMachine();
+
     /// <summary>
     /// デストラクタ
     /// </summary>
-    virtual ~EnemyGroupController();
+    ~GunPowerUpMachine();
 
     /// <summary>
     /// 初期化
@@ -29,11 +27,12 @@ public:
     /// </summary>
     void Update();
 
+    /// <summary>
+    /// 描画
+    /// </summary>
+    void Draw();
+
 private:
-    // 定数
-
-
-    // 変数
+    VECTOR position;        // 座標
 };
-
 

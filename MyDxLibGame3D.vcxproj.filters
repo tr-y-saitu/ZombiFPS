@@ -74,9 +74,6 @@
     <Filter Include="ZombiFPS\GameObject\Enemy">
       <UniqueIdentifier>{2a1a376c-acac-4b4a-9e53-22f9d15a8b7a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ZombiFPS\GameObject\Enemy\EnemyObjectPools">
-      <UniqueIdentifier>{6cb515a0-f61e-44c5-9a5b-1ac6db32bad4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ZombiFPS\GameObject\Enemy\EnemyGroupController">
       <UniqueIdentifier>{6fba90dd-d023-4692-860d-12c6beb805a8}</UniqueIdentifier>
     </Filter>
@@ -124,6 +121,30 @@
     </Filter>
     <Filter Include="ZombiFPS\GameObject\EnemyWaveController">
       <UniqueIdentifier>{64e00f30-c1ae-4456-a0c1-5a30ff8d7199}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\EnemyObjectPools">
+      <UniqueIdentifier>{6cb515a0-f61e-44c5-9a5b-1ac6db32bad4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\PowerUpMachine">
+      <UniqueIdentifier>{214e606d-5a36-4480-ac40-a81b3465a81c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\PowerUpMachine\GunPowerUpMachine">
+      <UniqueIdentifier>{8e1b2360-7432-445d-918b-463088131969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\PowerUpMachine\PlayerPowerUpMachine">
+      <UniqueIdentifier>{a5406c36-9433-4cb9-a9ae-44e711478652}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Stage\Shutter">
+      <UniqueIdentifier>{00cf0cc9-8942-4ac9-9fe1-ed70400a6838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Item">
+      <UniqueIdentifier>{afc8864e-2d7e-4ecb-8120-fb72a6586398}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Item\MaxAmmo">
+      <UniqueIdentifier>{26974534-5130-4d5f-8c58-38cb7f711039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Item\IncomeDouble">
+      <UniqueIdentifier>{f39f5f61-1f09-40bf-bd11-266c8ee5071c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -254,13 +275,28 @@
       <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup</Filter>
     </ClCompile>
     <ClCompile Include="EnemyObjectPools.cpp">
-      <Filter>ZombiFPS\GameObject\Enemy\EnemyObjectPools</Filter>
+      <Filter>ZombiFPS\GameObject\EnemyObjectPools</Filter>
     </ClCompile>
     <ClCompile Include="EnemyWaveController.cpp">
       <Filter>ZombiFPS\GameObject\EnemyWaveController</Filter>
     </ClCompile>
     <ClCompile Include="EnemyGroupController.cpp">
       <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController</Filter>
+    </ClCompile>
+    <ClCompile Include="GunPowerUpMachine.cpp">
+      <Filter>ZombiFPS\GameObject\PowerUpMachine\GunPowerUpMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPowerUpMachine.cpp">
+      <Filter>ZombiFPS\GameObject\PowerUpMachine\PlayerPowerUpMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Shutter.cpp">
+      <Filter>ZombiFPS\GameObject\Stage\Shutter</Filter>
+    </ClCompile>
+    <ClCompile Include="MaxAmmo.cpp">
+      <Filter>ZombiFPS\GameObject\Item\MaxAmmo</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeDouble.cpp">
+      <Filter>ZombiFPS\GameObject\Item\IncomeDouble</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -391,13 +427,28 @@
       <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup</Filter>
     </ClInclude>
     <ClInclude Include="EnemyObjectPools.h">
-      <Filter>ZombiFPS\GameObject\Enemy\EnemyObjectPools</Filter>
+      <Filter>ZombiFPS\GameObject\EnemyObjectPools</Filter>
     </ClInclude>
     <ClInclude Include="EnemyWaveController.h">
       <Filter>ZombiFPS\GameObject\EnemyWaveController</Filter>
     </ClInclude>
     <ClInclude Include="EnemyGroupController.h">
       <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController</Filter>
+    </ClInclude>
+    <ClInclude Include="GunPowerUpMachine.h">
+      <Filter>ZombiFPS\GameObject\PowerUpMachine\GunPowerUpMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerPowerUpMachine.h">
+      <Filter>ZombiFPS\GameObject\PowerUpMachine\PlayerPowerUpMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Shutter.h">
+      <Filter>ZombiFPS\GameObject\Stage\Shutter</Filter>
+    </ClInclude>
+    <ClInclude Include="MaxAmmo.h">
+      <Filter>ZombiFPS\GameObject\Item\MaxAmmo</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeDouble.h">
+      <Filter>ZombiFPS\GameObject\Item\IncomeDouble</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

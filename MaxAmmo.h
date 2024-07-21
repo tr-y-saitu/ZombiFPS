@@ -1,23 +1,21 @@
 #pragma once
 #include "Common.h"
 
-class EnemyGroup;
-
 /// <summary>
-/// 集合したエネミーを一つにまとめる
+/// 所持弾薬が最大まで補充されるアイテム
 /// </summary>
-class EnemyGroupController
+class MaxAmmo
 {
 public:
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    EnemyGroupController();
-    
+    MaxAmmo();
+
     /// <summary>
     /// デストラクタ
     /// </summary>
-    virtual ~EnemyGroupController();
+    ~MaxAmmo();
 
     /// <summary>
     /// 初期化
@@ -29,11 +27,12 @@ public:
     /// </summary>
     void Update();
 
+    /// <summary>
+    /// 描画
+    /// </summary>
+    void Draw();
+
 private:
-    // 定数
-
-
-    // 変数
+    VECTOR position;            // 座標
 };
-
 

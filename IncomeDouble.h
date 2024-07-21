@@ -1,23 +1,21 @@
 #pragma once
 #include "Common.h"
 
-class EnemyGroup;
-
 /// <summary>
-/// 集合したエネミーを一つにまとめる
+/// 取得金額が2倍になるアイテム
 /// </summary>
-class EnemyGroupController
+class IncomeDouble
 {
 public:
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    EnemyGroupController();
-    
+    IncomeDouble();
+
     /// <summary>
     /// デストラクタ
     /// </summary>
-    virtual ~EnemyGroupController();
+    ~IncomeDouble();
 
     /// <summary>
     /// 初期化
@@ -29,11 +27,12 @@ public:
     /// </summary>
     void Update();
 
+    /// <summary>
+    /// 描画
+    /// </summary>
+    void Draw();
+
 private:
-    // 定数
-
-
-    // 変数
+    VECTOR position;            // 座標
 };
-
 

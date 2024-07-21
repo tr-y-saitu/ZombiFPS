@@ -1,4 +1,5 @@
 #include "Stage.h"
+#include "Shutter.h"
 #include "Player.h"
 
 

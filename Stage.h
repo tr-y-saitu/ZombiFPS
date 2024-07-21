@@ -2,6 +2,7 @@
 #include "Common.h"
 
 class Player;
+class Shutter;
 
 
 /// <summary>
@@ -67,6 +68,8 @@ private:
     MV1_COLL_RESULT_POLY*       wall[MaxHitColl];   // 壁ポリゴンとの接触したポリゴンのアドレスを保存する構造体
     MV1_COLL_RESULT_POLY*       floor[MaxHitColl];  // 床ポリゴンとの接触したポリゴンのアドレスを保存する構造体
 
+    // シャッター(ドア)
+    Shutter* shutter;                               // シャッター(ドア)
 
     // 検出されたポリゴンが壁ポリゴン( ＸＺ平面に垂直なポリゴン )か床ポリゴン( ＸＺ平面に垂直ではないポリゴン )かを判断し、保存する
     void AnalyzeWallAndFloor(const VECTOR& CheckPosition);
