@@ -16,6 +16,8 @@ Stage::Stage()
 /// </summary>
 Stage::~Stage()
 {
+    // 終了処理
+    Finalize();
 }
 
 /// <summary>
@@ -24,7 +26,7 @@ Stage::~Stage()
 void Stage::Initialize()
 {
     // ステージモデルの読み込み
-    modelHandle = MV1LoadModel("BO2Map0716.mv1");
+    modelHandle = MV1LoadModel("Data/Stage/BO2Map0716.mv1");
     MV1SetScale(modelHandle, VGet(4, 4, 4));
     
     // モデル全体のコリジョン情報のセットアップ

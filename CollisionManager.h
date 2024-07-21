@@ -5,7 +5,7 @@
 /// <summary>
 /// 値り判定処理クラス
 /// </summary>
-class CollisionManager
+class CollisionManager  final
 {
 public:
     /// <summary>
@@ -23,6 +23,22 @@ public:
     virtual ~CollisionManager();
 
     /// <summary>
+    /// インスタス作成
+    /// </summary>
+    static void CreateInstance();
+
+    /// <summary>
+    /// エフェクトマネージャーのインスタンスのポインタを渡す
+    /// </summary>
+    /// <returns>EffectPlayManagerのポインタ</returns>
+    static CollisionManager* GetInstance();
+
+    /// <summary>
+    /// インスタンスの削除
+    /// </summary>
+    static void DeleteInstance();
+
+    /// <summary>
     /// 初期化
     /// </summary>
     void Initialize();
@@ -37,6 +53,11 @@ private:
     /// コンストラクタ
     /// </summary>
     CollisionManager();
+
+    // 管理用
+    static CollisionManager* collisionManager;      // コリジョンマネージャーのインスタンス
+
+    // 当たり判定用データ
 
 };
 
