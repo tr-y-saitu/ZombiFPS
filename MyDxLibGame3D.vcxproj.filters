@@ -74,9 +74,6 @@
     <Filter Include="ZombiFPS\GameObject\Enemy">
       <UniqueIdentifier>{2a1a376c-acac-4b4a-9e53-22f9d15a8b7a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ZombiFPS\GameObject\Enemy\EnemyWaveController">
-      <UniqueIdentifier>{2b7e2b0c-0458-46ac-84cb-2e913de1a688}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ZombiFPS\GameObject\Enemy\EnemyObjectPools">
       <UniqueIdentifier>{6cb515a0-f61e-44c5-9a5b-1ac6db32bad4}</UniqueIdentifier>
     </Filter>
@@ -124,6 +121,9 @@
     </Filter>
     <Filter Include="ZombiFPS\GameObject\Stage">
       <UniqueIdentifier>{6d3bce42-d271-451b-a099-dc9d9ecbda28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\EnemyWaveController">
+      <UniqueIdentifier>{64e00f30-c1ae-4456-a0c1-5a30ff8d7199}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +238,30 @@
     <ClCompile Include="Stage.cpp">
       <Filter>ZombiFPS\GameObject\Stage</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>ZombiFPS\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Pathfinding.cpp">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup\Pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="Boids.cpp">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup\Boids</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyGroup.cpp">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyObjectPools.cpp">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyObjectPools</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyWaveController.cpp">
+      <Filter>ZombiFPS\GameObject\EnemyWaveController</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyGroupController.cpp">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -350,6 +374,30 @@
     </ClInclude>
     <ClInclude Include="Stage.h">
       <Filter>ZombiFPS\GameObject\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>ZombiFPS\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Pathfinding.h">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup\Pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="Boids.h">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup\Boids</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyGroup.h">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyObjectPools.h">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyObjectPools</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyWaveController.h">
+      <Filter>ZombiFPS\GameObject\EnemyWaveController</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyGroupController.h">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

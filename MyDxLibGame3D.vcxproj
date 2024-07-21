@@ -21,6 +21,13 @@
   <ItemGroup>
     <ClCompile Include="AssaultRifle.cpp" />
     <ClCompile Include="BattleRifle.cpp" />
+    <ClCompile Include="Boids.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyGroup.cpp" />
+    <ClCompile Include="EnemyGroupController.cpp" />
+    <ClCompile Include="EnemyObjectPools.cpp" />
+    <ClCompile Include="EnemyWaveController.cpp" />
     <ClCompile Include="GunBase.cpp" />
     <ClCompile Include="GunIdleState.cpp" />
     <ClCompile Include="GunReloadState.cpp" />
@@ -28,6 +35,7 @@
     <ClCompile Include="GunShotState.cpp" />
     <ClCompile Include="GunStateBase.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Pathfinding.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="PlayerIdleState.cpp" />
@@ -60,6 +68,13 @@
   <ItemGroup>
     <ClInclude Include="AssaultRifle.h" />
     <ClInclude Include="BattleRifle.h" />
+    <ClInclude Include="Boids.h" />
+    <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyGroup.h" />
+    <ClInclude Include="EnemyGroupController.h" />
+    <ClInclude Include="EnemyObjectPools.h" />
+    <ClInclude Include="EnemyWaveController.h" />
     <ClInclude Include="GunBase.h" />
     <ClInclude Include="GunIdleState.h" />
     <ClInclude Include="GunReloadState.h" />
@@ -67,6 +82,7 @@
     <ClInclude Include="GunShotState.h" />
     <ClInclude Include="GunStateBase.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Pathfinding.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCamera.h" />
     <ClInclude Include="PlayerIdleState.h" />

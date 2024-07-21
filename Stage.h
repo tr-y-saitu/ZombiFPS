@@ -26,6 +26,11 @@ public:
     void Initialize();
 
     /// <summary>
+    /// I—¹ˆ—
+    /// </summary>
+    void Finalize();
+
+    /// <summary>
     /// •`‰æ
     /// </summary>
     void Draw();
