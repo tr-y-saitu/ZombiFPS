@@ -57,7 +57,7 @@ private:
     static constexpr float	HitSlideLength = 5.0f;  // 一度の壁押し出し処理でスライドさせる距離
 
     // 変数
-    // モデル関係
+    // モデル関係 Dim → Dimensions (次元)
     int                         modelHandle;        // モデルハンドル
     MV1_COLL_RESULT_POLY_DIM    hitDim;             // プレイヤー周辺の当たりのポリゴンの衝突結果
     bool                        isCreatedHitDim;
