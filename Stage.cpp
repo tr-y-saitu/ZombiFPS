@@ -27,7 +27,7 @@ void Stage::Initialize()
 {
     // ステージモデルの読み込み
     modelHandle = MV1LoadModel("Data/Stage/BO2Map.mv1");
-    MV1SetScale(modelHandle, VGet(4, 4, 4));
+    MV1SetScale(modelHandle, VGet(0.1f, 0.1f, 0.1f));
     
     // モデル全体のコリジョン情報のセットアップ
     MV1SetupCollInfo(modelHandle, -1);
@@ -66,7 +66,7 @@ void Stage::Draw()
 /// <param name="player">プレイヤー</param>
 /// <param name="checkPosition">当たり判定をしたい座標</param>
 /// <param name="moveVector"></param>
-void Stage::IsHitCollision(Player& player, const VECTOR& checkPosition, const VECTOR& moveVector)
+VECTOR Stage::IsHitCollision(Player& player, const VECTOR& checkPosition, const VECTOR& moveVector)
 {
     // 検出したプレイヤーの周囲のポリゴン情報を開放する
     if (isCreatedHitDim)
@@ -92,10 +92,13 @@ void Stage::IsHitCollision(Player& player, const VECTOR& checkPosition, const VE
     // 床ポリゴンとの当たりをチェックし、移動ベクトルを補正する
     FixedPos = CheckHitWithFloor(player, FixedPos);
 
-    //return FixedPos;
+    return FixedPos;
 }
 
-
+/// <summary>
+/// 検出されたポリゴンの種類を調べ保存(壁 or 床)
+/// </summary>
+/// <param name="CheckPosition">当たり判定をしたいポリゴン座標</param>
 void Stage::AnalyzeWallAndFloor(const VECTOR& CheckPosition)
 {
     // 壁ポリゴンと床ポリゴンの数を初期化する
@@ -139,6 +142,12 @@ void Stage::AnalyzeWallAndFloor(const VECTOR& CheckPosition)
     }
 }
 
+/// <summary>
+/// 壁ポリゴンとの当たり判定
+/// </summary>
+/// <param name="player">プレイヤー</param>
+/// <param name="CheckPosition">当たり判定したいポリゴン座標</param>
+/// <returns>補正する移動ベクトル</returns>
 VECTOR Stage::CheckHitWithWall(Player& player, const VECTOR& CheckPosition)
 {
     VECTOR FixedPos = CheckPosition;
@@ -197,7 +206,12 @@ VECTOR Stage::CheckHitWithWall(Player& player, const VECTOR& CheckPosition)
     return FixedPos;
 }
 
-
+/// <summary>
+/// 床ポリゴンとの当たり判定
+/// </summary>
+/// <param name="player">プレイヤー</param>
+/// <param name="CheckPosition">当たり判定したいポリゴン座標</param>
+/// <returns>補正する移動ベクトル</returns>
 VECTOR Stage::CheckHitWithFloor(Player& player, const VECTOR& CheckPosition)
 {
     VECTOR FixedPos = CheckPosition;

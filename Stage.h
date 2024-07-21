@@ -42,7 +42,7 @@ public:
     /// <param name="player">プレイヤー</param>
     /// <param name="checkPosition">当たり判定をしたい対象</param>
     /// <param name="moveVector">移動方向</param>
-    void IsHitCollision(Player& player, const VECTOR& checkPosition, const VECTOR& moveVector);
+    VECTOR IsHitCollision(Player& player, const VECTOR& checkPosition, const VECTOR& moveVector);
 
     // ゲッター
     int GetModelHandle() const { return modelHandle; }
@@ -71,13 +71,26 @@ private:
     // シャッター(ドア)
     Shutter* shutter;                               // シャッター(ドア)
 
-    // 検出されたポリゴンが壁ポリゴン( ＸＺ平面に垂直なポリゴン )か床ポリゴン( ＸＺ平面に垂直ではないポリゴン )かを判断し、保存する
+    /// <summary>
+    /// 検出されたポリゴンの種類を調べ保存(壁 or 床)
+    /// </summary>
+    /// <param name="CheckPosition">当たり判定をしたいポリゴン座標</param>
     void AnalyzeWallAndFloor(const VECTOR& CheckPosition);
 
-    // 壁ポリゴンとの当たりをチェックし、補正すべき移動ベクトルを返す
+    /// <summary>
+    /// 壁ポリゴンとの当たり判定
+    /// </summary>
+    /// <param name="player">プレイヤー</param>
+    /// <param name="CheckPosition">当たり判定したいポリゴン座標</param>
+    /// <returns>補正する移動ベクトル</returns>
     VECTOR CheckHitWithWall(Player& player, const VECTOR& CheckPosition);
 
-    // 床ポリゴンとの当たりをチェックし、補正すべき移動ベクトルを返す
+    /// <summary>
+    /// 床ポリゴンとの当たり判定
+    /// </summary>
+    /// <param name="player">プレイヤー</param>
+    /// <param name="CheckPosition">当たり判定したいポリゴン座標</param>
+    /// <returns>補正する移動ベクトル</returns>
     VECTOR CheckHitWithFloor(Player& player, const VECTOR& CheckPosition);
 };
 

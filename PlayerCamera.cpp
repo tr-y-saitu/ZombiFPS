@@ -9,8 +9,8 @@
 PlayerCamera::PlayerCamera()
     : angleHorizon          (DX_PI_F)
     , angleVertical         (0.0f)
-    , targetPosition        (VGet(-100,5,-5))
-    , cameraPosition        (VGet(10,5,5))
+    , targetPosition        (VGet(0,0,0))
+    , cameraPosition        (VGet(0,0,0))
 {
     // •`‰æ”ÍˆÍ‚Ìİ’è
     SetCameraNearFar(0.1f, 600.0f);
@@ -95,9 +95,9 @@ void PlayerCamera::UpdateCameraAngle(const Input& input)
             angleVertical -= AngleSpeed;
     
             // ‚ ‚éˆê’èŠp“xˆÈ‰º‚É‚Í‚È‚ç‚È‚¢‚æ‚¤‚É‚·‚é
-            if (angleVertical < -DX_PI_F / 2.0f + 0.6f)
+            if (angleVertical < -DX_PI_F / AngleVerticalOffset)
             {
-                angleVertical = -DX_PI_F / 2.0f + 0.6f;
+                angleVertical = -DX_PI_F / AngleVerticalOffset;
             }
         }
         

@@ -26,32 +26,35 @@
 GameScene::GameScene()
 {
     // 入力処理
-    input = new Input();
+    input                   = new Input();
 
     // データ関連
     
 
     // 演出関連
-    effectPlayManager = EffectPlayManager::GetInstance();
-    soundPlayManager = SoundPlayManager::GetInstance();
+    effectPlayManager       = EffectPlayManager::GetInstance();
+    soundPlayManager        = SoundPlayManager::GetInstance();
 
     // 当たり判定
-    collisionManager = CollisionManager::GetInstance();
+    collisionManager        = CollisionManager::GetInstance();
 
     // オブジェクト関連
-    stage = new Stage();
-    player = new Player();
-    playerCamera = new PlayerCamera();
-    enemyGroupController = new EnemyGroupController();
-    enemyWaveController = new EnemyWaveController();
-    enemyObjectPools = new EnemyObjectPools();
+    stage                   = new Stage();
+    player                  = new Player();
+    playerCamera            = new PlayerCamera();
+    enemyGroupController    = new EnemyGroupController();
+    enemyWaveController     = new EnemyWaveController();
+    enemyObjectPools        = new EnemyObjectPools();
 
     // アイテム関連
-    maxAmmoItem = new MaxAmmo();
-    incomeDoubleItem = new IncomeDouble();
+    maxAmmoItem             = new MaxAmmo();
+    incomeDoubleItem        = new IncomeDouble();
 
     // UI関連
-    gameSceneUI = new GameSceneUI();
+    gameSceneUI             = new GameSceneUI();
+
+    // 初期化
+    Initialize();
 }
 
 /// <summary>
@@ -95,7 +98,6 @@ SceneBase* GameScene::UpdateScene()
     playerCamera->Update(*input, *player,*stage);       // プレイヤーカメラの更新
     gameSceneUI->Update();                              // UIの更新
 
-
     // 現状のシーンを返す
     return this;
 }
@@ -105,9 +107,9 @@ SceneBase* GameScene::UpdateScene()
 /// </summary>
 void GameScene::Draw()
 {
-    stage->Draw();      // ステージ
-    player->Draw();     // プレイヤー
-    DrawUI();           // UIの描画
+    stage->Draw();          // ステージ
+    player->Draw(*stage);   // プレイヤー
+    DrawUI();               // UIの描画
 }
 
 /// <summary>
