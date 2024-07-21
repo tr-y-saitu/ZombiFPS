@@ -28,11 +28,11 @@ public:
     /// </summary>
     enum class AnimationType : int
     {
-        None,       // 何もしていない
-        Wolk,       // 歩き
+        None = 5,   // 何もしていない
+        Wolk = 5,   // 歩き
+        Stop = 5,   // 停止
         Run,        // 走り
         Jump,       // ジャンプ
-        Stop,       // 停止
     };
 
     /// <summary>
@@ -84,8 +84,8 @@ public:
 
 private:
     // 定数
-    static constexpr float	PlayAnimSpeed = 250.0f; // アニメーション速度
-    static constexpr float	MoveSpeed = 3.0f;       // 移動速度
+    static constexpr float	PlayAnimSpeed = 1.0f;  // アニメーション速度
+    static constexpr float	MoveSpeed = 100.0f;       // 移動速度
     static constexpr float	AnimBlendSpeed = 0.1f;  // アニメーションのブレンド率変化速度
     static constexpr float	AngleSpeed = 0.2f;      // 角度変化速度
     static constexpr float	JumpPower = 100.0f;     // ジャンプ力

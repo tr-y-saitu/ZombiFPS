@@ -34,16 +34,16 @@ Player::~Player()
 void Player::Initialize()
 {
     // 座標設定
-    position = VGet(0.0f, 5.0f, 0.0f);
+    position = VGet(0.0f, 500.0f, 0.0f);
     
     // 角度を設定
     angle = 0.0f;
 
     // モデルハンドルを取得
-    modelHandle = MV1LoadModel("Data/Player/DxChara.x");
+    modelHandle = MV1LoadModel("Data/Player/playerBoxCollision.mv1");
 
     // モデルサイズを再設定
-    MV1SetScale(modelHandle, VGet(1,1,1));
+    MV1SetScale(modelHandle, VGet(2,2,2));
     
     // 状態を初期化
     state = State::None;
@@ -357,12 +357,6 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
 
     // ステージとの当たり判定処理
     position = stage.IsHitCollision(*this, NextPos, MoveVector);
-
-    // 落下しないように修正
-    if (position.y <= 5)
-    {
-        position.y = 5;
-    }
 
     // プレイヤーのモデルの座標を更新する
     MV1SetPosition(modelHandle, position);

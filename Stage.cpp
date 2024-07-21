@@ -27,14 +27,13 @@ void Stage::Initialize()
 {
     // ステージモデルの読み込み
     modelHandle = MV1LoadModel("Data/Stage/BO2Map.mv1");
-    MV1SetScale(modelHandle, VGet(0.1f, 0.1f, 0.1f));
+    //MV1SetScale(modelHandle, VGet(0.1f, 0.1f, 0.1f));
+    // サイズを小さくしすぎると当たり判定できなくなる
+    MV1SetScale(modelHandle, VGet(4,4,4));
     
     // モデル全体のコリジョン情報のセットアップ
     MV1SetupCollInfo(modelHandle, -1);
     
-    // テスト
-    MV1SetPosition(modelHandle,VGet(0,0,0));
-
     isCreatedHitDim = false;
 }
 
@@ -307,7 +306,7 @@ VECTOR Stage::CheckHitWithFloor(Player& player, const VECTOR& CheckPosition)
         }
 
         // 床ポリゴンに当たったかどうかで処理を分岐
-        if (IsHitFloor == true)
+         if (IsHitFloor == true)
         {
             // 当たった場合
             // 接触したポリゴンで一番高いＹ座標をプレイヤーのＹ座標にする
