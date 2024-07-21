@@ -5,6 +5,7 @@ class PlayerStateBase;
 class Gun;
 class Input;
 class PlayerCamera;
+class Stage;
 
 /// <summary>
 /// プレイヤー
@@ -12,11 +13,24 @@ class PlayerCamera;
 class Player
 {
 public:
-    enum State
+    /// <summary>
+    /// プレイヤーの状態
+    /// </summary>
+    enum class State : int
     {
         None,   // 何もしていない
         Run,    // 走り
         Jump,   // ジャンプ
+    };
+
+    /// <summary>
+    /// アニメーションタイプ
+    /// </summary>
+    enum class AnimationType : int
+    {
+        None,       // 何もしていない
+        Wolk,       // 歩き
+        Run,        // 走り
     };
 
     /// <summary>
@@ -37,7 +51,7 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    void Update(Input& input,PlayerCamera& palyerCamera);
+    void Update(const Input& input,PlayerCamera& palyerCamera, Stage& stage);
 
     /// <summary>
     /// 描画
@@ -107,9 +121,9 @@ private:
     //void Move(const VECTOR& MoveVector, Stage& stage);
 
     void UpdateAngle();                                 // 回転制御
-    //void PlayAnim(AnimKind PlayAnim);                 // 新たなアニメーションを再生する
+    void PlayAnim(AnimationType PlayAnim);                 // 新たなアニメーションを再生する
     void UpdateAnimation();                             // アニメーション処理
-    //void DrawShadow(const Stage& stage);              // 影を描画
+    void DrawShadow(const Stage& stage);              // 影を描画
 
 
 };
