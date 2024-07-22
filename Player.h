@@ -28,9 +28,9 @@ public:
     /// </summary>
     enum class AnimationType : int
     {
-        None = 5,   // 何もしていない
-        Wolk = 5,   // 歩き
-        Stop = 5,   // 停止
+        None = 8,   // 何もしていない
+        Wolk = 8,   // 歩き
+        Stop = 8,   // 停止
         Run,        // 走り
         Jump,       // ジャンプ
     };
@@ -70,12 +70,6 @@ public:
     /// </summary>
     void OnHitFloor();
     
-    /// <summary>
-    /// 落下が確定した時の処理
-    /// </summary>
-    void OnFall();
-
-
     // ゲッター、セッター
     const VECTOR& GetPosition() const { return position; }
     bool GetIsMove() const { return isMove; }
@@ -84,15 +78,17 @@ public:
 
 private:
     // 定数
-    static constexpr float	PlayAnimSpeed = 1.0f;  // アニメーション速度
-    static constexpr float	MoveSpeed = 100.0f;       // 移動速度
-    static constexpr float	AnimBlendSpeed = 0.1f;  // アニメーションのブレンド率変化速度
-    static constexpr float	AngleSpeed = 0.2f;      // 角度変化速度
-    static constexpr float	JumpPower = 100.0f;     // ジャンプ力
-    static constexpr float	Gravity = 3.0f;         // 重力
-    static constexpr float	ShadowSize = 200.0f;    // 影の大きさ
-    static constexpr float	ShadowHeight = 700.0f;  // 影が落ちる高さ
-    static constexpr float	FallUpPower = 20.0f;	// 足を踏み外した時のジャンプ力
+    static constexpr float  PlayAnimSpeed = 1.0f;   // アニメーション速度
+    static constexpr float  MoveSpeed = 100.0f;     // 移動速度
+    static constexpr float  AnimBlendSpeed = 0.1f;  // アニメーションのブレンド率変化速度
+    static constexpr float  AngleSpeed = 0.2f;      // 角度変化速度
+    static constexpr float  JumpPower = 100.0f;     // ジャンプ力
+    static constexpr float  Gravity = 3.0f;         // 重力
+    static constexpr float  ShadowSize = 200.0f;    // 影の大きさ
+    static constexpr float  ShadowHeight = 700.0f;  // 影が落ちる高さ
+    static constexpr float  FallUpPower = 20.0f;    // 足を踏み外した時のジャンプ力
+    static constexpr float  MoveLimitY = 100.0f;    // Y軸の移動制限
+
 
     // 変数
     VECTOR              position;       // 座標

@@ -13,7 +13,7 @@ PlayerCamera::PlayerCamera()
     , cameraPosition        (VGet(0,0,0))
 {
     // •`‰æ”ÍˆÍ‚Ìİ’è
-    SetCameraNearFar(0.1f, 6000.0f);
+    SetCameraNearFar(0.1f, 10000.0f);
 
     // ƒJƒƒ‰‚ğİ’è
     SetCameraPositionAndTarget_UpVecY(cameraPosition, targetPosition);

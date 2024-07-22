@@ -25,10 +25,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
     // DXライブラリの表示方法をウィンドウモードに変更する。
 #ifdef _DEBUG
-    ChangeWindowMode(true);     // ウィンドウモード
+    //ChangeWindowMode(true);     // ウィンドウモード
 #else
     ChangeWindowMode(false);    // 全画面モード
 #endif
+
+    //ChangeWindowMode(false);     // ウィンドウモード
 
     //描画先を裏画面に変更する。
     SetDrawScreen(DX_SCREEN_BACK);

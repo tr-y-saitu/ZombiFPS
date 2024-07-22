@@ -29,7 +29,7 @@ void Stage::Initialize()
     modelHandle = MV1LoadModel("Data/Stage/BO2Map.mv1");
     //MV1SetScale(modelHandle, VGet(0.1f, 0.1f, 0.1f));
     // サイズを小さくしすぎると当たり判定できなくなる
-    MV1SetScale(modelHandle, VGet(4,4,4));
+    MV1SetScale(modelHandle, VGet(1,1,1));
     
     // モデル全体のコリジョン情報のセットアップ
     MV1SetupCollInfo(modelHandle, -1);
@@ -314,11 +314,6 @@ VECTOR Stage::CheckHitWithFloor(Player& player, const VECTOR& CheckPosition)
 
             // 床に当たった時
             player.OnHitFloor();
-        }
-        else
-        {
-            // 床コリジョンに当たっていなくて且つジャンプ状態ではなかった場合は
-            player.OnFall();
         }
     }
 

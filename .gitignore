@@ -35,8 +35,8 @@ bld/
 [Ll]ogs/
 
 # Chosen by yourself
-.blend/
-.blend1/
+*.blend
+*.blend1
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/

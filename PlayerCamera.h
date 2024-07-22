@@ -56,9 +56,8 @@ private:
     static constexpr float CameraPlayerTargetHeight = 5.0f;     // プレイヤー座標からどれだけ高い位置を注視点とするか
     static constexpr float ToPlayerLength = 150.0f;              // プレイヤーとの距離
     static constexpr float CollisionSize = 1.0f;                // カメラの当たり判定サイズ
-    static constexpr VECTOR CameraPlayerTargetPosition = { 0.0f,CameraPlayerTargetHeight,0.0f };    // カメラの注視点の座標
+    static constexpr VECTOR CameraPlayerTargetPosition = { 10.0f,CameraPlayerTargetHeight,0.0f };    // カメラの注視点の座標
     static constexpr float AngleVerticalOffset = 2.6f;          // 一定角度以上上を向かないようにするためのバフ値
-
 
     // 変数
     float   angleHorizon;       // 水平角度

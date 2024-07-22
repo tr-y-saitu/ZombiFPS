@@ -16,6 +16,7 @@ Player::Player()
 {
     playerState = new PlayerIdleState();
     Initialize();
+    MV1SetRotationXYZ(modelHandle, VGet(0, 10 * DX_PI_F / 180.0f, 0));
 }
 
 /// <summary>
@@ -34,16 +35,16 @@ Player::~Player()
 void Player::Initialize()
 {
     // 座標設定
-    position = VGet(0.0f, 500.0f, 0.0f);
+    position = VGet(0.0f, MoveLimitY, 0.0f);
     
     // 角度を設定
     angle = 0.0f;
 
     // モデルハンドルを取得
-    modelHandle = MV1LoadModel("Data/Player/playerBoxCollision.mv1");
+    modelHandle = MV1LoadModel("Data/Player/playerScaleMini.mv1");
 
     // モデルサイズを再設定
-    MV1SetScale(modelHandle, VGet(2,2,2));
+    MV1SetScale(modelHandle, VGet(1,1,1));
     
     // 状態を初期化
     state = State::None;
@@ -151,6 +152,9 @@ void Player::Draw(const Stage& stage)
 {
     MV1DrawModel(modelHandle);
     DrawShadow(stage);
+
+    // 座標描画
+    DrawFormatString(100,0,GetColor(255,255,255),"X:%f Y:%f Z:%f",position.x,position.y,position.z);
 }
 
 /// <summary>
@@ -189,24 +193,6 @@ void Player::OnHitFloor()
 
         // 着地時はアニメーションのブレンドは行わない
         animBlendRate = 1.0f;
-    }
-}
-
-/// <summary>
-/// 落下が確定した時の処理
-/// </summary>
-void Player::OnFall()
-{
-    if (state != State::Jump)
-    {
-        // ジャンプ中(落下中）にする
-        state = State::Jump;
-
-        // ちょっとだけジャンプする
-        currentJumpPower = FallUpPower;
-
-        // アニメーションは落下中のものにする
-        PlayAnim(AnimationType::Jump);
     }
 }
 
@@ -318,17 +304,17 @@ bool Player::UpdateMoveParameterWithPad(const Input& input, const PlayerCamera& 
         }
 
         // プレイヤーの状態が「ジャンプ」ではなく、且つボタン１が押されていたらジャンプする
-        if (state != State::Jump && (input.GetNowNewFrameInput() & PAD_INPUT_A))
-        {
-            // 状態を「ジャンプ」にする
-            state = State::Jump;
+        //if (state != State::Jump && (input.GetNowNewFrameInput() & PAD_INPUT_A))
+        //{
+        //    // 状態を「ジャンプ」にする
+        //    state = State::Jump;
 
-            // Ｙ軸方向の速度をセット
-            currentJumpPower = JumpPower;
+        //    // Ｙ軸方向の速度をセット
+        //    currentJumpPower = JumpPower;
 
-            // ジャンプアニメーションの再生
-            PlayAnim(AnimationType::Jump);
-        }
+        //    // ジャンプアニメーションの再生
+        //    PlayAnim(AnimationType::Jump);
+        //}
     }
     return IsPressMoveButton;
 }
@@ -357,6 +343,12 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
 
     // ステージとの当たり判定処理
     position = stage.IsHitCollision(*this, NextPos, MoveVector);
+
+    // 床より少し高くする
+    if (position.y <= MoveLimitY)
+    {
+        position.y = MoveLimitY;
+    }
 
     // プレイヤーのモデルの座標を更新する
     MV1SetPosition(modelHandle, position);
