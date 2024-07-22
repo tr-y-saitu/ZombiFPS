@@ -49,18 +49,21 @@ public:
     // ゲッター
     const VECTOR& GetCameraPosition() const { return cameraPosition; }
     const VECTOR& GetTargetPosition() const { return targetPosition; }
+    const float GetAngleHorizon() const { return angleHorizon; }
+    const float GetAngleVertical() const { return angleVertical; }
 
 private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     static constexpr float  CameraNearClip              = 0.1f;     // カメラのニアクリップ
-    static constexpr float  CameraFarClip               = 500.0f;   // カメラのファークリップ
+    static constexpr float  CameraFarClip               = 200.0f;   // カメラのファークリップ
     static constexpr float  AngleSpeed                  = 0.05f;    // 旋回速度
     static constexpr float  CameraPlayerTargetHeight    = 1.0f;     // プレイヤー座標からどれだけ高い位置を注視点とするか
-    static constexpr float  ToPlayerLength              = 2.0f;     // プレイヤーとの距離
+    static constexpr float  ToPlayerLength              = 0.1f;     // プレイヤーとの距離
     static constexpr float  CollisionSize               = 1.0f;     // カメラの当たり判定サイズ
     static constexpr float  AngleVerticalOffset         = 2.6f;     // 一定角度以上上を向かないようにするためのバフ値
+    static constexpr float  AngleVerticalDonwOffset     = 1.4f;     // 下入力時に一定以上角度が下にならないようにするためのバフ値
     static constexpr VECTOR CameraPlayerTargetPosition  = { 0.0f,CameraPlayerTargetHeight,0.0f };    // カメラの注視点の座標
 
 

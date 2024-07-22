@@ -55,7 +55,7 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    void Update(const Input& input, PlayerCamera& palyerCamera, Stage& stage);
+    void Update(const Input& input, PlayerCamera& playerCamera, Stage& stage);
 
     /// <summary>
     /// 描画
@@ -106,7 +106,7 @@ private:
     /// <summary>
     /// 回転制御
     /// </summary>
-    void UpdateAngle();
+    void UpdateAngle(float angleHorizon,float angleVertical);
 
     /// <summary>
     /// アニメーションを新しく再生する

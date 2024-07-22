@@ -55,7 +55,7 @@ private:
     /// <summary>
     /// モデルデータの読み込み
     /// </summary>
-    static void ModelDataLoad();
+    void ModelDataLoad();
 
     // 変数
     static ModelDataManager*            modelDataManager;   // モデル管理クラスのインスタンスのアドレス

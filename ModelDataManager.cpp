@@ -53,7 +53,6 @@ void ModelDataManager::DeleteInstance()
 /// </summary>
 void ModelDataManager::ModelDataLoad()
 {
-    //modelDataList[StageModelData] = MV1LoadModel("Data/Stage/BO2Map.mv1");            // スケール通常サイズ
     modelDataList[StageModelData] = MV1LoadModel("Data/Stage/backroomsScaleMini.mv1");
     modelDataList[PlayerModelData] = MV1LoadModel("Data/Player/playerScaleMini.mv1");
 }

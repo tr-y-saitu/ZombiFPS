@@ -77,8 +77,8 @@ void Player::Initialize()
 /// 更新
 /// </summary>
 /// <param name="input">入力状態</param>
-/// <param name="palyerCamera">プレイヤーのカメラ</param>
-void Player::Update(const Input& input, PlayerCamera& palyerCamera, Stage& stage)
+/// <param name="playerCamera">プレイヤーのカメラ</param>
+void Player::Update(const Input& input, PlayerCamera& playerCamera, Stage& stage)
 {
     // ルートフレームのＺ軸方向の移動パラメータを無効にする
     DisableRootFrameZMove();
@@ -87,7 +87,7 @@ void Player::Update(const Input& input, PlayerCamera& palyerCamera, Stage& stage
     VECTOR	UpMoveVec;		// 方向ボタン「↑」を入力をしたときのプレイヤーの移動方向ベクトル
     VECTOR	LeftMoveVec;	// 方向ボタン「←」を入力をしたときのプレイヤーの移動方向ベクトル
     VECTOR	MoveVec;		// このフレームの移動ベクトル
-    auto IsPressMoveButton = UpdateMoveParameterWithPad(input, palyerCamera, UpMoveVec, LeftMoveVec, MoveVec);
+    auto IsPressMoveButton = UpdateMoveParameterWithPad(input, playerCamera, UpMoveVec, LeftMoveVec, MoveVec);
 
     // 移動ボタンが押されたかどうかで処理を分岐
     if (IsPressMoveButton)
@@ -139,7 +139,7 @@ void Player::Update(const Input& input, PlayerCamera& palyerCamera, Stage& stage
     }
 
     // プレイヤーの移動方向にモデルの方向を近づける
-    UpdateAngle();
+    UpdateAngle(playerCamera.GetAngleHorizon(),playerCamera.GetAngleVertical());
 
     // 移動ベクトルを元にコリジョンを考慮しつつプレイヤーを移動
     Move(MoveVec, stage);
@@ -362,7 +362,7 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
 /// <summary>
 /// 回転制御
 /// </summary>
-void Player::UpdateAngle()
+void Player::UpdateAngle(float angleHorizon, float angleVertical)
 {
     // プレイヤーの移動方向にモデルの方向を近づける
     float TargetAngle;          // 目標角度
@@ -405,8 +405,19 @@ void Player::UpdateAngle()
             difference = 0.0f;
         }
     }
+    
+    //// プレイヤーカメラと同様の回転を行う
+    //MATRIX rotateY, rotateZ;
+
+    //// 水平方向回転値を求める(横のカメラ移動)
+    //rotateY = MGetRotY(angleHorizon);
+
+    //// 垂直方向回転値を求める(縦のカメラ移動)
+    //rotateZ = MGetRotZ(angleVertical);
+
 
     // モデルの角度を更新
+    // この段階だと横方向しか動かない
     angle = TargetAngle - difference;
     MV1SetRotationXYZ(modelHandle, VGet(0.0f, angle + DX_PI_F, 0.0f));
 }
