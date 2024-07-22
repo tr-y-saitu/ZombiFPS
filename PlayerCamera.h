@@ -52,6 +52,8 @@ public:
 
 private:
     // 定数
+    static constexpr float CameraNearClip = 0.1f;               // カメラのニアクリップ
+    static constexpr float CameraFarClip = 5000.0f;             // カメラのファークリップ
     static constexpr float AngleSpeed = 0.05f;                  // 旋回速度
     static constexpr float CameraPlayerTargetHeight = 5.0f;     // プレイヤー座標からどれだけ高い位置を注視点とするか
     static constexpr float ToPlayerLength = 150.0f;              // プレイヤーとの距離
