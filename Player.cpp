@@ -303,6 +303,8 @@ bool Player::UpdateMoveParameterWithPad(const Input& input, const PlayerCamera& 
             }
         }
 
+        // HACk:
+        // のちにジャンプを追加する可能性があるためコメントアウトしています
         // プレイヤーの状態が「ジャンプ」ではなく、且つボタン１が押されていたらジャンプする
         //if (state != State::Jump && (input.GetNowNewFrameInput() & PAD_INPUT_A))
         //{

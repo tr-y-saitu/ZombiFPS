@@ -29,14 +29,12 @@ Stage::~Stage()
 /// </summary>
 void Stage::Initialize()
 {
-    // ステージモデルの読み込み
-    modelHandle = MV1LoadModel("Data/Stage/BO2Map.mv1");
-    //
-    //// モデルのスケールを調整
-    //// スケールを小さくしすぎると当たり判定できなくなる
-    //MV1SetScale(modelHandle, VGet(0.1,0.1,0.1));
     // モデル読み込み
-    //modelHandle = modelDataManager->GetModelHandle(ModelDataManager::ModelDataType::StageModelData);
+    modelHandle = modelDataManager->GetModelHandle(ModelDataManager::ModelDataType::StageModelData);
+
+    // モデルのスケールを調整
+    // スケールを小さくしすぎると当たり判定できなくなる
+    MV1SetScale(modelHandle, VGet(0.1,0.1,0.1));
 
     // スケールを調整
     MV1SetScale(modelHandle, StageModelScale);

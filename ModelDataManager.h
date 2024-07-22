@@ -13,7 +13,9 @@ public:
     /// </summary>
     enum ModelDataType
     {
-        StageModelData,      // ステージモデル
+        StageModelData,         // ステージモデル
+        PlayerModelData,        // プレイヤーモデル
+        EnemyModelData,         // エネミーモデル
     };
 
     /// <summary>

@@ -75,18 +75,18 @@ private:
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     // 当たり判定
-    static const int MaxHitColl = 2048;             // 処理するコリジョンポリゴンの最大数
-    static constexpr float	DefaultSize = 20.0f;    // 周囲のポリゴン検出に使用する球の初期サイズ
-    static constexpr float	HitWidth = 10.0f;       // 当たり判定カプセルの半径
-    static constexpr float	HitHeight = 10.0f;     // 当たり判定カプセルの高さ
-    static constexpr int	HitTryNum = 16;         // 壁押し出し処理の最大試行回数
-    static constexpr float	HitSlideLength = 5.0f;  // 一度の壁押し出し処理でスライドさせる距離
+    static const int        MaxHitColl = 2048;                      // 処理するコリジョンポリゴンの最大数
+    static constexpr float  DefaultSize = 20.0f;                    // 周囲のポリゴン検出に使用する球の初期サイズ
+    static constexpr float  HitWidth = 10.0f;                       // 当たり判定カプセルの半径
+    static constexpr float  HitHeight = 10.0f;                      // 当たり判定カプセルの高さ
+    static constexpr int    HitTryNum = 16;                         // 壁押し出し処理の最大試行回数
+    static constexpr float  HitSlideLength = 1.0f;                  // 一度の壁押し出し処理でスライドさせる距離
     static constexpr int    SelectCollisionEntire = -1;             // モデル全体にコリジョンを適用させる
     static constexpr float  NormalVecterMaximumValue = 0.000001f;   // 法線のY成分の最大値(垂直判定用)
     static constexpr float  NormalVecterMinimumValue = -0.000001f;  // 法線のY成分の最大値(垂直判定用)
     static constexpr float  CheckPositionOffset = 0.1f;             // ポリゴンとの当たり判定処理の余分量
     // ステータス
-    static constexpr VECTOR StageModelScale = { 0.1,0.1,0.1 };  // ステージモデルのスケール
+    static constexpr VECTOR StageModelScale = { 0.1,0.1,0.1 };      // ステージモデルのスケール
 
 
     //---------------------------------------------------------------------------------//
