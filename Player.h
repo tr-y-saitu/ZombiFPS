@@ -55,7 +55,7 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    void Update(const Input& input,PlayerCamera& palyerCamera, Stage& stage);
+    void Update(const Input& input, PlayerCamera& palyerCamera, Stage& stage);
 
     /// <summary>
     /// 描画
@@ -66,12 +66,12 @@ public:
     /// 天井に接触した時の処理
     /// </summary>
     void OnHitRoof();
-    
+
     /// <summary>
     /// 床に当たった時の処理
     /// </summary>
     void OnHitFloor();
-    
+
     // ゲッター、セッター
     const VECTOR& GetPosition() const { return position; }
     bool GetIsMove() const { return isMove; }
@@ -83,7 +83,7 @@ private:
     /// ルートフレームのZ軸方向の移動パラメータを無効にする
     /// </summary>
     void DisableRootFrameZMove();
-    
+
     /// <summary>
     /// 入力情報に応じた移動パラメータを設定する
     /// </summary>
@@ -107,18 +107,18 @@ private:
     /// 回転制御
     /// </summary>
     void UpdateAngle();
- 
+
     /// <summary>
     /// アニメーションを新しく再生する
     /// </summary>
     /// <param name="type">アニメーションの種類</param>
     void PlayAnim(AnimationType type);
-    
+
     /// <summary>
     /// アニメーション処理
     /// </summary>
     void UpdateAnimation();
-    
+
     /// <summary>
     /// 影を描画する
     /// </summary>
@@ -131,7 +131,7 @@ private:
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     static constexpr float  PlayAnimSpeed   = 1.0f;     // アニメーション速度
-    static constexpr float  MoveSpeed       = 2.0f;     // 移動速度
+    static constexpr float  MoveSpeed       = 0.5f;     // 移動速度
     static constexpr float  AnimBlendSpeed  = 0.1f;     // アニメーションのブレンド率変化速度
     static constexpr float  AngleSpeed      = 0.2f;     // 角度変化速度
     static constexpr float  JumpPower       = 100.0f;   // ジャンプ力
@@ -139,12 +139,15 @@ private:
     static constexpr float  ShadowSize      = 200.0f;   // 影の大きさ
     static constexpr float  ShadowHeight    = 700.0f;   // 影が落ちる高さ
     static constexpr float  FallUpPower     = 20.0f;    // 足を踏み外した時のジャンプ力
-    static constexpr float  MoveLimitY      =  5.0f;    // Y軸の移動制限
-
+    static constexpr float  MoveLimitY      = 5.0f;     // Y軸の移動制限
+    static constexpr VECTOR PlayerScale     = { 0.05f,0.05f,0.05f };    // プレイヤーのスケール
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
+    // ロード関係
+    ModelDataManager* modelDataManager; // モデルデータマネージャー
+    
     // 基本情報
     VECTOR              position;       // 座標
     PlayerStateBase*    playerState;    // プレイヤーの状態

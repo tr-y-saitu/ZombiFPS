@@ -6,6 +6,7 @@
 #include "PlayerOnHitEnemyState.h"
 #include "PlayerRunState.h"
 #include "PlayerWalkState.h"
+#include "ModelDataManager.h"
 
 
 /// <summary>
@@ -14,7 +15,8 @@
 Player::Player()
     : position      (VGet(0,0,0))
 {
-    playerState = new PlayerIdleState();
+    modelDataManager    = ModelDataManager::GetInstance();
+    playerState         = new PlayerIdleState();
     Initialize();
     MV1SetRotationXYZ(modelHandle, VGet(0, 10 * DX_PI_F / 180.0f, 0));
 }
@@ -41,10 +43,11 @@ void Player::Initialize()
     angle = 0.0f;
 
     // モデルハンドルを取得
-    modelHandle = MV1LoadModel("Data/Player/playerScaleMini.mv1");
+    modelHandle = modelDataManager->GetModelHandle(ModelDataManager::ModelDataType::PlayerModelData);
+    //modelHandle = MV1LoadModel("Data/Player/playerScaleMini.mv1");
 
     // モデルサイズを再設定
-    MV1SetScale(modelHandle, VGet(0.1,0.1,0.1));
+    MV1SetScale(modelHandle, PlayerScale);
     
     // 状態を初期化
     state = State::None;
