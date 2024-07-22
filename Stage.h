@@ -49,11 +49,10 @@ public:
 
 private:
     // 定数
-
     static const int MaxHitColl = 2048;             // 処理するコリジョンポリゴンの最大数
     static constexpr float	DefaultSize = 20.0f;    // 周囲のポリゴン検出に使用する球の初期サイズ
     static constexpr float	HitWidth = 10.0f;       // 当たり判定カプセルの半径
-    static constexpr float	HitHeight = 50.0f;     // 当たり判定カプセルの高さ
+    static constexpr float	HitHeight = 10.0f;     // 当たり判定カプセルの高さ
     static constexpr int	HitTryNum = 16;         // 壁押し出し処理の最大試行回数
     static constexpr float	HitSlideLength = 5.0f;  // 一度の壁押し出し処理でスライドさせる距離
 

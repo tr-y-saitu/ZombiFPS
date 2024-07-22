@@ -87,7 +87,7 @@ private:
     static constexpr float  ShadowSize = 200.0f;    // ‰e‚Ì‘å‚«‚³
     static constexpr float  ShadowHeight = 700.0f;  // ‰e‚ª—‚¿‚é‚‚³
     static constexpr float  FallUpPower = 20.0f;    // ‘«‚ğ“¥‚İŠO‚µ‚½‚ÌƒWƒƒƒ“ƒv—Í
-    static constexpr float  MoveLimitY = 50.0f;    // Y²‚ÌˆÚ“®§ŒÀ
+    static constexpr float  MoveLimitY = 10.0f;    // Y²‚ÌˆÚ“®§ŒÀ
 
 
     // •Ï”

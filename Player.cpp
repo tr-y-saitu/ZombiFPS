@@ -44,7 +44,7 @@ void Player::Initialize()
     modelHandle = MV1LoadModel("Data/Player/playerScaleMini.mv1");
 
     // モデルサイズを再設定
-    MV1SetScale(modelHandle, VGet(0.5,0.5,0.5));
+    MV1SetScale(modelHandle, VGet(0.1,0.1,0.1));
     
     // 状態を初期化
     state = State::None;
