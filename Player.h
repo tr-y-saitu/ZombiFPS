@@ -15,6 +15,7 @@ public:
     enum State
     {
         None,   // ‰½‚à‚µ‚Ä‚¢‚È‚¢
+        Walk,   // •à‚«
         Run,    // ‘–‚è
         Jump,   // ƒWƒƒƒ“ƒv
     };

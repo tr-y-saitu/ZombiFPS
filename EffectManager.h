@@ -4,7 +4,7 @@
 /// <summary>
 /// エフェクト再生管理クラス
 /// </summary>
-class EffectPlayManager     final
+class EffectManager     final
 {
 public:
     /// <summary>
@@ -27,7 +27,7 @@ public:
     /// <summary>
     /// デストラクタ
     /// </summary>
-    ~EffectPlayManager();
+    ~EffectManager();
 
     /// <summary>
     /// インスタス作成
@@ -37,8 +37,8 @@ public:
     /// <summary>
     /// エフェクトマネージャーのインスタンスのポインタを渡す
     /// </summary>
-    /// <returns>EffectPlayManagerのポインタ</returns>
-    static EffectPlayManager* GetInstance();
+    /// <returns>EffectManagerのポインタ</returns>
+    static EffectManager* GetInstance();
 
     /// <summary>
     /// インスタンスの削除
@@ -80,10 +80,10 @@ private:
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    EffectPlayManager();
+    EffectManager();
 
     // 管理用
-    static EffectPlayManager* effectPlayManager;    // エフェクトマネージャーのインスタンス
+    static EffectManager* effectManager;    // エフェクトマネージャーのインスタンス
     int playingEffectHandle;                        // 現在再生中のエフェクトのハンドル
     vector<int> playingList;                        // 現在再生中のリスト
     map< EffectType, int> effectList;               // 再生するエフェクトのリスト

@@ -3,13 +3,13 @@
 /// <summary>
 /// モデルデータ管理クラス
 /// </summary>
-class ModleDataManager
+class ModelDataManager
 {
 public:
     /// <summary>
     /// デストラクタ
     /// </summary>
-    ~ModleDataManager();
+    ~ModelDataManager();
 
     /// <summary>
     /// インスタス作成
@@ -19,8 +19,8 @@ public:
     /// <summary>
     /// エフェクトマネージャーのインスタンスのポインタを渡す
     /// </summary>
-    /// <returns>EffectPlayManagerのポインタ</returns>
-    static ModleDataManager* GetInstance();
+    /// <returns>EffectManagerのポインタ</returns>
+    static ModelDataManager* GetInstance();
 
     /// <summary>
     /// インスタンスの削除
@@ -31,10 +31,10 @@ private:
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    ModleDataManager();
+    ModelDataManager();
 
     // 変数
-    static ModleDataManager* modleDataManager;     // モデル管理クラスのインスタンスのアドレス
+    static ModelDataManager* modelDataManager;     // モデル管理クラスのインスタンスのアドレス
 
 };
 

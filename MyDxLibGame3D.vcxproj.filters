@@ -38,12 +38,6 @@
     <Filter Include="ZombiFPS\System\DataLoad\ModleDataManager">
       <UniqueIdentifier>{f5a14349-b195-4720-b173-14978df2d76c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ZombiFPS\System\DataLoad\SoundDataManager">
-      <UniqueIdentifier>{4829d0db-ef70-43cc-8951-3b4a09c17544}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ZombiFPS\System\DataLoad\EffectDataManager">
-      <UniqueIdentifier>{0c286570-4616-4c63-82de-a04623d05cca}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ZombiFPS\System\Sound">
       <UniqueIdentifier>{051da761-b455-41bc-8646-ca8c784d703b}</UniqueIdentifier>
     </Filter>
@@ -184,19 +178,13 @@
     <ClCompile Include="ImageDataManager.cpp">
       <Filter>ZombiFPS\System\DataLoad\ImageDataManager</Filter>
     </ClCompile>
-    <ClCompile Include="ModleDataManager.cpp">
+    <ClCompile Include="ModelDataManager.cpp">
       <Filter>ZombiFPS\System\DataLoad\ModleDataManager</Filter>
     </ClCompile>
-    <ClCompile Include="SoundDataManager.cpp">
-      <Filter>ZombiFPS\System\DataLoad\SoundDataManager</Filter>
-    </ClCompile>
-    <ClCompile Include="EffectDataManager.cpp">
-      <Filter>ZombiFPS\System\DataLoad\EffectDataManager</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundPlayManager.cpp">
+    <ClCompile Include="SoundManager.cpp">
       <Filter>ZombiFPS\System\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="EffectPlayManager.cpp">
+    <ClCompile Include="EffectManager.cpp">
       <Filter>ZombiFPS\System\Effect</Filter>
     </ClCompile>
     <ClCompile Include="SceneCamera.cpp">
@@ -336,19 +324,13 @@
     <ClInclude Include="ImageDataManager.h">
       <Filter>ZombiFPS\System\DataLoad\ImageDataManager</Filter>
     </ClInclude>
-    <ClInclude Include="ModleDataManager.h">
+    <ClInclude Include="ModelDataManager.h">
       <Filter>ZombiFPS\System\DataLoad\ModleDataManager</Filter>
     </ClInclude>
-    <ClInclude Include="SoundDataManager.h">
-      <Filter>ZombiFPS\System\DataLoad\SoundDataManager</Filter>
-    </ClInclude>
-    <ClInclude Include="EffectDataManager.h">
-      <Filter>ZombiFPS\System\DataLoad\EffectDataManager</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundPlayManager.h">
+    <ClInclude Include="SoundManager.h">
       <Filter>ZombiFPS\System\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="EffectPlayManager.h">
+    <ClInclude Include="EffectManager.h">
       <Filter>ZombiFPS\System\Effect</Filter>
     </ClInclude>
     <ClInclude Include="SceneCamera.h">

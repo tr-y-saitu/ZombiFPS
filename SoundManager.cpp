@@ -1,12 +1,12 @@
-#include "SoundPlayManager.h"
+#include "SoundManager.h"
 
 // 初期化
-SoundPlayManager* SoundPlayManager::soundPlayManager = NULL;
+SoundManager* SoundManager::soundManager = NULL;
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
-SoundPlayManager::SoundPlayManager()
+SoundManager::SoundManager()
     : playingSoundHandle(0)
 {
     // サウンドデータ読み込み
@@ -16,7 +16,7 @@ SoundPlayManager::SoundPlayManager()
 /// <summary>
 /// デストラクタ
 /// </summary>
-SoundPlayManager::~SoundPlayManager()
+SoundManager::~SoundManager()
 {
     DeleteSoundMem(pushuSE);
     DeleteSoundMem(titleSceneBGM);
@@ -27,7 +27,7 @@ SoundPlayManager::~SoundPlayManager()
 /// <summary>
 /// サウンドデータの読み込み
 /// </summary>
-void SoundPlayManager::LoadData()
+void SoundManager::LoadData()
 {
     // 効果音
     pushuSE = LoadSoundMem("data/sound/Common/pushuSE.mp3");
@@ -46,34 +46,34 @@ void SoundPlayManager::LoadData()
 /// <summary>
 /// インスタンスの作成
 /// </summary>
-void SoundPlayManager::CreateInstance()
+void SoundManager::CreateInstance()
 {
-    if (soundPlayManager == NULL)
+    if (soundManager == NULL)
     {
-        soundPlayManager = new SoundPlayManager();
+        soundManager = new SoundManager();
     }
 }
 
 /// <summary>
 /// サウンドマネージャークラスのインスタンスポインタを渡す
 /// </summary>
-SoundPlayManager* SoundPlayManager::GetInstance()
+SoundManager* SoundManager::GetInstance()
 {
-    return soundPlayManager;
+    return soundManager;
 }
 
 /// <summary>
 /// インスタンスの削除
 /// </summary>
-void SoundPlayManager::DeleteInstance()
+void SoundManager::DeleteInstance()
 {
-    delete(soundPlayManager);
+    delete(soundManager);
 }
 
 /// <summary>
 /// 更新
 /// </summary>
-void SoundPlayManager::Update()
+void SoundManager::Update()
 {
 
 }
@@ -81,7 +81,7 @@ void SoundPlayManager::Update()
 /// <summary>
 /// 再生中の音をすべて止める
 /// </summary>
-void SoundPlayManager::StopAllSounds()
+void SoundManager::StopAllSounds()
 {
     // 再生中のサウンドを探す
     for (int i = playingList.size() - 1; i >= 0; i--)
@@ -98,7 +98,7 @@ void SoundPlayManager::StopAllSounds()
 /// 読み込んだサウンドリストから効果音再生
 /// </summary>
 /// <param name="soundType">再生したい効果音の種類</param>
-void SoundPlayManager::PlaySoundListSE(PlaySoundSE soundType)
+void SoundManager::PlaySoundListSE(PlaySoundSE soundType)
 {
     playingSoundHandle = soundListSE[soundType];
     playingList.push_back(playingSoundHandle);
@@ -109,7 +109,7 @@ void SoundPlayManager::PlaySoundListSE(PlaySoundSE soundType)
 /// 読み込んだサウンドリストからBGM再生
 /// </summary>
 /// <param name="soundType">再生したいBGMの種類</param>
-void SoundPlayManager::PlaySoundListBGM(PlaySoundBGM soundType)
+void SoundManager::PlaySoundListBGM(PlaySoundBGM soundType)
 {
     playingSoundHandle = soundListBGM[soundType];
     if (!CheckSoundMem(playingSoundHandle))

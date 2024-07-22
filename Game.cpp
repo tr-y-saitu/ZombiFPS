@@ -1,8 +1,8 @@
 #include "Game.h"
 #include "Common.h"
 #include "FrameRateManager.h"
-#include "EffectPlayManager.h"
-#include "SoundPlayManager.h"
+#include "EffectManager.h"
+#include "SoundManager.h"
 #include "Input.h"
 
 /// <summary>
@@ -22,8 +22,8 @@ Game::Game()
 
     // シングルトンクラス
     frameRateManager = FrameRateManager::GetInstance();
-    effectPlayManager = EffectPlayManager::GetInstance();
-    soundPlayManager = SoundPlayManager::GetInstance();
+    effectManager = EffectManager::GetInstance();
+    soundManager = SoundManager::GetInstance();
 
     // 管理クラス
     input = new Input();
