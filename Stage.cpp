@@ -29,7 +29,7 @@ void Stage::Initialize()
     modelHandle = MV1LoadModel("Data/Stage/BO2Map.mv1");
     //MV1SetScale(modelHandle, VGet(0.1f, 0.1f, 0.1f));
     // サイズを小さくしすぎると当たり判定できなくなる
-    MV1SetScale(modelHandle, VGet(0.7,0.7,0.7));
+    MV1SetScale(modelHandle, VGet(0.3,0.3,0.3));
     
     // モデル全体のコリジョン情報のセットアップ
     MV1SetupCollInfo(modelHandle, -1);
