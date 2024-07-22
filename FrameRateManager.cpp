@@ -60,10 +60,10 @@ void FrameRateManager::Update()
         fpsCountStartTime = GetNowCount();	//基準となる時間を決める
     }
     // 60フレーム目なら平均を計算する
-    if (nowFpsCount == (float)SET_FPS)
+    if (nowFpsCount == (float)SetFPS)
     {
         int nowTime = GetNowCount();		//今の時間を設定
-        deltaTime = 1000.f / ((nowTime - fpsCountStartTime) / (float)SET_FPS);	//１フレームにかかった時間を計算
+        deltaTime = 1000.f / ((nowTime - fpsCountStartTime) / (float)SetFPS);	//１フレームにかかった時間を計算
         nowFpsCount = 0;					//フレームのカウントを初期化
     }
     else
@@ -80,7 +80,7 @@ void FrameRateManager::SleepForFPS()
     //かかった時間
     int _tookTime = GetNowCount() - fpsCountStartTime;
     //待つべき時間
-    int _waitTime = nowFpsCount * 1000 / SET_FPS - _tookTime;
+    int _waitTime = nowFpsCount * 1000 / SetFPS - _tookTime;
 
     //待つべき時間待機する
     if (_waitTime > 0)

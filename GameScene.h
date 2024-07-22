@@ -4,10 +4,8 @@
 class Input;
 class ImageDataManager;
 class ModleDataManager;
-class EffectDataManager;
-class SoundDataManager;
-class EffectPlayManager;
-class SoundPlayManager;
+class EffectManager;
+class SoundManager;
 class CollisionManager;
 class Stage;
 class Player;
@@ -76,12 +74,10 @@ private:
     // データ関連
     ImageDataManager*   imageDataManager;   // 画像データ
     ModleDataManager*   modleDataManager;   // モデルデータ
-    EffectDataManager*  effectDataManager;  // エフェクトデータ
-    SoundDataManager*   soundDataManager;   // サウンドデータ
     
     // 演出関連
-    EffectPlayManager*  effectPlayManager;  // エフェクト再生用
-    SoundPlayManager*   soundPlayManager;   // サウンド再生用
+    EffectManager*  effectManager;  // エフェクト再生用
+    SoundManager*   soundManager;   // サウンド再生用
 
     // オブジェクト関連
     CollisionManager*   collisionManager;   // 当たり判定

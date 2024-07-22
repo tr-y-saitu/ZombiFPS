@@ -11,11 +11,9 @@
 // シングルトン
 #include "FrameRateManager.h"
 #include "ImageDataManager.h"
-#include "ModleDataManager.h"
-#include "EffectDataManager.h"
-#include "SoundDataManager.h"
-#include "EffectPlayManager.h"
-#include "SoundPlayManager.h"
+#include "ModelDataManager.h"
+#include "EffectManager.h"
+#include "SoundManager.h"
 
 // 各ヘッダー
 #include "Common.h"
@@ -53,11 +51,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     // シングルトンクラスをインスタンス化
     FrameRateManager::CreateInstance();     // フレームレート
     ImageDataManager::CreateInstance();     // 画像データ
-    ModleDataManager::CreateInstance();     // モデルデータ
-    EffectDataManager::CreateInstance();    // エフェクトデータ
-    SoundDataManager::CreateInstance();     // 音データ
-    EffectPlayManager::CreateInstance();    // エフェクト再生
-    SoundPlayManager::CreateInstance();     // 音再生
+    ModelDataManager::CreateInstance();     // モデルデータ
+    EffectManager::CreateInstance();    // エフェクト再生
+    SoundManager::CreateInstance();     // 音再生
 
     // ゲームのインスタンスを作成
     Game game;

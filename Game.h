@@ -3,8 +3,8 @@
 #include "TitleScene.h"
 
 class FrameRateManager;
-class EffectPlayManager;
-class SoundPlayManager;
+class EffectManager;
+class SoundManager;
 class Input;
 
 /// <summary>
@@ -57,8 +57,8 @@ private:
 
     // 管理クラス
     FrameRateManager* frameRateManager;     // フレームレート制御
-    EffectPlayManager* effectPlayManager;   // エフェクト管理
-    SoundPlayManager* soundPlayManager;     // サウンド管理
+    EffectManager* effectManager;   // エフェクト管理
+    SoundManager* soundManager;     // サウンド管理
     Input* input;                           // 入力処理
 
     // キー入力

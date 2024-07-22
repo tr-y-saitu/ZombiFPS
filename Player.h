@@ -19,6 +19,7 @@ public:
     enum class State : int
     {
         None,   // ‰½‚à‚µ‚Ä‚¢‚È‚¢
+        Walk,   // •à‚«
         Run,    // ‘–‚è
         Jump,   // ƒWƒƒƒ“ƒv
     };

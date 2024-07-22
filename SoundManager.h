@@ -5,7 +5,7 @@
 /// サウンドマネージャー
 /// </summary>
 /// MEMO:シングルトンクラス
-class SoundPlayManager  final
+class SoundManager  final
 {
 public:
     /// <summary>
@@ -30,7 +30,7 @@ public:
     /// <summary>
     /// デストラクタ
     /// </summary>
-    virtual ~SoundPlayManager();
+    virtual ~SoundManager();
 
     /// <summary>
     /// インスタンス作成
@@ -40,8 +40,8 @@ public:
     /// <summary>
     /// サウンドマネージャーのインスタンスのポインタを渡す
     /// </summary>
-    /// <returns>SoundPlayManagerのポインタ</returns>
-    static SoundPlayManager* GetInstance();
+    /// <returns>SoundManagerのポインタ</returns>
+    static SoundManager* GetInstance();
 
     /// <summary>
     /// インスタンスの削除
@@ -79,10 +79,10 @@ private:
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    SoundPlayManager();
+    SoundManager();
 
     // 管理用
-    static SoundPlayManager* soundPlayManager;      // サウンドマネージャークラスのインスタンス
+    static SoundManager* soundManager;      // サウンドマネージャークラスのインスタンス
     int playingSoundHandle;                 // 現在再生中のサウンド
     vector<int> playingList;                // 現在再生中のサウンドリスト
     map<PlaySoundSE, int> soundListSE;    // 再生する効果音のリスト

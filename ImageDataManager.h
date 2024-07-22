@@ -19,7 +19,7 @@ public:
     /// <summary>
     /// エフェクトマネージャーのインスタンスのポインタを渡す
     /// </summary>
-    /// <returns>EffectPlayManagerのポインタ</returns>
+    /// <returns>EffectManagerのポインタ</returns>
     static ImageDataManager* GetInstance();
 
     /// <summary>
