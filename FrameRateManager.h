@@ -46,7 +46,7 @@ private:
     FrameRateManager();
 
     // 定数
-    static constexpr int Set_FPS = 60;          // 設定したFPS値
+    static constexpr int SetFPS = 60;          // 設定したFPS値
 
     // 変数
     static FrameRateManager* frameRateManager;  // フレームレートマネージャーのインスタンス
