@@ -29,20 +29,17 @@ Stage::~Stage()
 /// </summary>
 void Stage::Initialize()
 {
-<<<<<<< HEAD
     // ステージモデルの読み込み
     modelHandle = MV1LoadModel("Data/Stage/BO2Map.mv1");
-    
-    // モデルのスケールを調整
-    // スケールを小さくしすぎると当たり判定できなくなる
-    MV1SetScale(modelHandle, VGet(0.1,0.1,0.1));
-=======
+    //
+    //// モデルのスケールを調整
+    //// スケールを小さくしすぎると当たり判定できなくなる
+    //MV1SetScale(modelHandle, VGet(0.1,0.1,0.1));
     // モデル読み込み
-    modelHandle = modelDataManager->GetModelHandle(ModelDataManager::ModelDataType::StageModelData);
+    //modelHandle = modelDataManager->GetModelHandle(ModelDataManager::ModelDataType::StageModelData);
 
     // スケールを調整
     MV1SetScale(modelHandle, StageModelScale);
->>>>>>> Stage
     
     // モデル全体のコリジョン情報のセットアップ
     MV1SetupCollInfo(modelHandle, SelectCollisionEntire);
@@ -107,16 +104,9 @@ VECTOR Stage::IsHitCollision(Player& player, const VECTOR& checkPosition, const 
     return FixedPos;
 }
 
-/// <summary>
-<<<<<<< HEAD
-/// 検出されたポリゴンの種類を調べ保存(壁 or 床)
-/// </summary>
-/// <param name="CheckPosition">当たり判定をしたいポリゴン座標</param>
-=======
 /// 判定処理する壁と床のポリゴン数を検出する
 /// </summary>
 /// <param name="CheckPosition">判定する座標</param>
->>>>>>> Stage
 void Stage::AnalyzeWallAndFloor(const VECTOR& CheckPosition)
 {
     // 壁ポリゴンと床ポリゴンの数を初期化する
@@ -162,18 +152,10 @@ void Stage::AnalyzeWallAndFloor(const VECTOR& CheckPosition)
     }
 }
 
-/// <summary>
-<<<<<<< HEAD
-/// 壁ポリゴンとの当たり判定
-/// </summary>
-/// <param name="player">プレイヤー</param>
-/// <param name="CheckPosition">当たり判定したいポリゴン座標</param>
-=======
 /// 壁ポリゴンとの当たり判定をチェックし、そこからずらす量を返す
 /// </summary>
 /// <param name="player">プレイヤー</param>
 /// <param name="CheckPosition">当たり判定する座標</param>
->>>>>>> Stage
 /// <returns>補正する移動ベクトル</returns>
 VECTOR Stage::CheckHitWithWall(Player& player, const VECTOR& CheckPosition)
 {
@@ -233,18 +215,10 @@ VECTOR Stage::CheckHitWithWall(Player& player, const VECTOR& CheckPosition)
     return FixedPos;
 }
 
-/// <summary>
-<<<<<<< HEAD
-/// 床ポリゴンとの当たり判定
-/// </summary>
-/// <param name="player">プレイヤー</param>
-/// <param name="CheckPosition">当たり判定したいポリゴン座標</param>
-=======
 /// 床ポリゴンとの当たり判定をチェックし、そこからずらす量を返す
 /// </summary>
 /// <param name="player">プレイヤー</param>
 /// <param name="CheckPosition">当たり判定する座標</param>
->>>>>>> Stage
 /// <returns>補正する移動ベクトル</returns>
 VECTOR Stage::CheckHitWithFloor(Player& player, const VECTOR& CheckPosition)
 {
