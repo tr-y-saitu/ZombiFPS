@@ -1,4 +1,5 @@
 #pragma once
+#include "Common.h"
 
 /// <summary>
 /// モデルデータ管理クラス
@@ -6,6 +7,15 @@
 class ModelDataManager
 {
 public:
+
+    /// <summary>
+    /// 読み込むデータの種類
+    /// </summary>
+    enum ModelDataType
+    {
+        StageModelData,      // ステージモデル
+    };
+
     /// <summary>
     /// デストラクタ
     /// </summary>
@@ -27,14 +37,27 @@ public:
     /// </summary>
     static void DeleteInstance();
 
+    /// <summary>
+    /// 使用したいモデルデータを取得する
+    /// </summary>
+    /// <param name="type">データの種類</param>
+    /// <returns>データハンドル</returns>
+    static int GetModelHandle(ModelDataType type);
+
 private:
     /// <summary>
     /// コンストラクタ
     /// </summary>
     ModelDataManager();
 
+    /// <summary>
+    /// モデルデータの読み込み
+    /// </summary>
+    static void ModelDataLoad();
+
     // 変数
-    static ModelDataManager* modelDataManager;     // モデル管理クラスのインスタンスのアドレス
+    static ModelDataManager*            modelDataManager;   // モデル管理クラスのインスタンスのアドレス
+    static map<ModelDataType, int>      modelDataList;      // 使用するモデルデータのリスト
 
 };
 

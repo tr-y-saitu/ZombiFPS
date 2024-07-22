@@ -1,12 +1,16 @@
 #include "Player.h"
 #include "Shutter.h"
 #include "Stage.h"
+#include "ModelDataManager.h"
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
 Stage::Stage()
 {
+    // データマネージャーのアドレスを所持
+    modelDataManager = ModelDataManager::GetInstance();
+
     // 初期化
     Initialize();
 }
@@ -25,12 +29,14 @@ Stage::~Stage()
 /// </summary>
 void Stage::Initialize()
 {
-    // ステージモデルの読み込み
-    modelHandle = MV1LoadModel("Data/Stage/BO2Map0716.mv1");
-    MV1SetScale(modelHandle, VGet(4, 4, 4));
+    // モデル読み込み
+    modelHandle = modelDataManager->GetModelHandle(ModelDataManager::ModelDataType::StageModelData);
+
+    // スケールを調整
+    MV1SetScale(modelHandle, StageModelScale);
     
     // モデル全体のコリジョン情報のセットアップ
-    MV1SetupCollInfo(modelHandle, -1);
+    MV1SetupCollInfo(modelHandle, SelectCollisionEntire);
     
     isCreatedHitDim = false;
 }
@@ -92,7 +98,10 @@ void Stage::IsHitCollision(Player& player, const VECTOR& checkPosition, const VE
     //return FixedPos;
 }
 
-
+/// <summary>
+/// 判定処理する壁と床のポリゴン数を検出する
+/// </summary>
+/// <param name="CheckPosition">判定する座標</param>
 void Stage::AnalyzeWallAndFloor(const VECTOR& CheckPosition)
 {
     // 壁ポリゴンと床ポリゴンの数を初期化する
@@ -103,12 +112,14 @@ void Stage::AnalyzeWallAndFloor(const VECTOR& CheckPosition)
     for (int i = 0; i < hitDim.HitNum; i++)
     {
         // ＸＺ平面に垂直かどうかはポリゴンの法線のＹ成分が０に限りなく近いかどうかで判断する
-        if (hitDim.Dim[i].Normal.y < 0.000001f && hitDim.Dim[i].Normal.y > -0.000001f)
+        // 法線とは表面に垂直なベクトルのこと
+        if (hitDim.Dim[i].Normal.y < NormalVecterMaximumValue 
+            && hitDim.Dim[i].Normal.y > NormalVecterMinimumValue)
         {
             // 壁ポリゴンと判断された場合でも、プレイヤーのＹ座標＋１．０ｆより高いポリゴンのみ当たり判定を行う
-            if (hitDim.Dim[i].Position[0].y > CheckPosition.y + 1.0f ||
-                hitDim.Dim[i].Position[1].y > CheckPosition.y + 1.0f ||
-                hitDim.Dim[i].Position[2].y > CheckPosition.y + 1.0f)
+            if (hitDim.Dim[i].Position[0].y > CheckPosition.y + CheckPositionOffset ||
+                hitDim.Dim[i].Position[1].y > CheckPosition.y + CheckPositionOffset ||
+                hitDim.Dim[i].Position[2].y > CheckPosition.y + CheckPositionOffset)
             {
                 // ポリゴンの数が列挙できる限界数に達していなかったらポリゴンを配列に追加
                 if (wallNum < MaxHitColl)
@@ -136,6 +147,12 @@ void Stage::AnalyzeWallAndFloor(const VECTOR& CheckPosition)
     }
 }
 
+/// <summary>
+/// 壁ポリゴンとの当たり判定をチェックし、そこからずらす量を返す
+/// </summary>
+/// <param name="player">プレイヤー</param>
+/// <param name="CheckPosition">当たり判定する座標</param>
+/// <returns>補正する移動ベクトル</returns>
 VECTOR Stage::CheckHitWithWall(Player& player, const VECTOR& CheckPosition)
 {
     VECTOR FixedPos = CheckPosition;
@@ -194,7 +211,12 @@ VECTOR Stage::CheckHitWithWall(Player& player, const VECTOR& CheckPosition)
     return FixedPos;
 }
 
-
+/// <summary>
+/// 床ポリゴンとの当たり判定をチェックし、そこからずらす量を返す
+/// </summary>
+/// <param name="player">プレイヤー</param>
+/// <param name="CheckPosition">当たり判定する座標</param>
+/// <returns>補正する移動ベクトル</returns>
 VECTOR Stage::CheckHitWithFloor(Player& player, const VECTOR& CheckPosition)
 {
     VECTOR FixedPos = CheckPosition;

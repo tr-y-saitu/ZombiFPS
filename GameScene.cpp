@@ -1,11 +1,9 @@
 #include "Common.h"
 #include "ImageDataManager.h"
-#include "ModleDataManager.h"
-#include "EffectDataManager.h"
-#include "SoundDataManager.h"
+#include "ModelDataManager.h"
 #include "CollisionManager.h"
-#include "EffectPlayManager.h"
-#include "SoundPlayManager.h"
+#include "EffectManager.h"
+#include "SoundManager.h"
 #include "Stage.h"
 #include "Player.h"
 #include "PlayerCamera.h"
@@ -28,8 +26,8 @@ GameScene::GameScene()
     
 
     // ‰‰oŠÖ˜A
-    effectPlayManager = EffectPlayManager::GetInstance();
-    soundPlayManager = SoundPlayManager::GetInstance();
+    effectManager = EffectManager::GetInstance();
+    soundManager = SoundManager::GetInstance();
 
     // “–‚½‚è”»’è
     collisionManager = CollisionManager::GetInstance();
