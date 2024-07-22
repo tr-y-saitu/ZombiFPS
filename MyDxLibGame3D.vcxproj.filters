@@ -26,6 +26,120 @@
     <Filter Include="ZombiFPS\System\SceneUI\SceneUIBase">
       <UniqueIdentifier>{225d09c6-04e6-452e-a0db-34f7765415a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ZombiFPS\System\FrameRateManager">
+      <UniqueIdentifier>{f6f4a13e-6bd9-4fc3-915c-b9592f86fa23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\DataLoad">
+      <UniqueIdentifier>{03eb2b2e-0a56-4dc5-9176-61d125585f62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\DataLoad\ImageDataManager">
+      <UniqueIdentifier>{3c27cac9-6aaa-4838-81d6-88890c16030e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\DataLoad\ModleDataManager">
+      <UniqueIdentifier>{f5a14349-b195-4720-b173-14978df2d76c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\Sound">
+      <UniqueIdentifier>{051da761-b455-41bc-8646-ca8c784d703b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\Effect">
+      <UniqueIdentifier>{14b02818-c6d6-4fb1-a6f2-4ff984dc2e54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\Camera">
+      <UniqueIdentifier>{c70a90cf-b723-4734-9163-56fa6a7002ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\CollisionManager">
+      <UniqueIdentifier>{bcf0d8fd-c2a8-49ef-9d45-de132d9e2438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject">
+      <UniqueIdentifier>{27127627-1762-4c3b-bbdd-7ded543049f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\Camera\SceneCamera">
+      <UniqueIdentifier>{765c5456-8fc4-4b22-9b5f-8e5962b5c8ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\Camera\PlayerCamera">
+      <UniqueIdentifier>{21eefb0c-1741-4c8f-92a7-5b21ab52a3e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\Input">
+      <UniqueIdentifier>{9f697bf1-fbfa-4d3f-8637-4851843f3cb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Player">
+      <UniqueIdentifier>{18292b09-0c5a-41c8-b58b-af529c9f52a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Enemy">
+      <UniqueIdentifier>{2a1a376c-acac-4b4a-9e53-22f9d15a8b7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Enemy\EnemyGroupController">
+      <UniqueIdentifier>{6fba90dd-d023-4692-860d-12c6beb805a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup">
+      <UniqueIdentifier>{723d7831-8db8-4c38-a09e-e55ab5910958}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup\Boids">
+      <UniqueIdentifier>{a4780a5b-7b80-44bc-b186-971b2e7b1bbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup\Pathfinding">
+      <UniqueIdentifier>{8f067fa8-3e71-41bb-97be-f15467e1bbe2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup\Enemy">
+      <UniqueIdentifier>{555916b4-1dd9-4513-8933-d227aee17ea2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Player\PlayerState">
+      <UniqueIdentifier>{501e2b15-0368-45a3-839f-a8b5c9457258}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Player\PlayerState\PlayerStateBase">
+      <UniqueIdentifier>{7b510b1c-bbd0-4112-ae63-e929372c8af4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Player\PlayerState\Status">
+      <UniqueIdentifier>{51fff5d8-1a9e-4227-b8b4-58b05c6ba1bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Player\Gun">
+      <UniqueIdentifier>{707068de-6e98-401a-95f4-f65f48d17135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Player\Gun\GunBase">
+      <UniqueIdentifier>{868003ae-d902-46de-84c1-d675db9bf17f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Player\Gun\GunState">
+      <UniqueIdentifier>{309d4616-db5d-4f4c-a5b4-6948fe04f99d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Player\Gun\Guns">
+      <UniqueIdentifier>{9d86f85b-4aac-401f-9d91-3fea816f1d3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Player\Gun\GunState\GunStateBase">
+      <UniqueIdentifier>{6ee82564-092f-4f60-aafc-31333eb03247}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Player\Gun\Shot">
+      <UniqueIdentifier>{d0a59a57-069a-4a40-83c1-d123b35a2cda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Stage">
+      <UniqueIdentifier>{6d3bce42-d271-451b-a099-dc9d9ecbda28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\EnemyWaveController">
+      <UniqueIdentifier>{64e00f30-c1ae-4456-a0c1-5a30ff8d7199}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\EnemyObjectPools">
+      <UniqueIdentifier>{6cb515a0-f61e-44c5-9a5b-1ac6db32bad4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\PowerUpMachine">
+      <UniqueIdentifier>{214e606d-5a36-4480-ac40-a81b3465a81c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\PowerUpMachine\GunPowerUpMachine">
+      <UniqueIdentifier>{8e1b2360-7432-445d-918b-463088131969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\PowerUpMachine\PlayerPowerUpMachine">
+      <UniqueIdentifier>{a5406c36-9433-4cb9-a9ae-44e711478652}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Stage\Shutter">
+      <UniqueIdentifier>{00cf0cc9-8942-4ac9-9fe1-ed70400a6838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Item">
+      <UniqueIdentifier>{afc8864e-2d7e-4ecb-8120-fb72a6586398}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Item\MaxAmmo">
+      <UniqueIdentifier>{26974534-5130-4d5f-8c58-38cb7f711039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Item\IncomeDouble">
+      <UniqueIdentifier>{f39f5f61-1f09-40bf-bd11-266c8ee5071c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -58,6 +172,120 @@
     <ClCompile Include="ResultSceneUI.cpp">
       <Filter>ZombiFPS\System\SceneUI</Filter>
     </ClCompile>
+    <ClCompile Include="FrameRateManager.cpp">
+      <Filter>ZombiFPS\System\FrameRateManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageDataManager.cpp">
+      <Filter>ZombiFPS\System\DataLoad\ImageDataManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelDataManager.cpp">
+      <Filter>ZombiFPS\System\DataLoad\ModleDataManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>ZombiFPS\System\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>ZombiFPS\System\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneCamera.cpp">
+      <Filter>ZombiFPS\Camera\SceneCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCamera.cpp">
+      <Filter>ZombiFPS\Camera\PlayerCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>ZombiFPS\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ZombiFPS\GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateBase.cpp">
+      <Filter>ZombiFPS\GameObject\Player\PlayerState\PlayerStateBase</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerIdleState.cpp">
+      <Filter>ZombiFPS\GameObject\Player\PlayerState\Status</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerWalkState.cpp">
+      <Filter>ZombiFPS\GameObject\Player\PlayerState\Status</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRunState.cpp">
+      <Filter>ZombiFPS\GameObject\Player\PlayerState\Status</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerOnHitEnemyState.cpp">
+      <Filter>ZombiFPS\GameObject\Player\PlayerState\Status</Filter>
+    </ClCompile>
+    <ClCompile Include="GunBase.cpp">
+      <Filter>ZombiFPS\GameObject\Player\Gun\GunBase</Filter>
+    </ClCompile>
+    <ClCompile Include="AssaultRifle.cpp">
+      <Filter>ZombiFPS\GameObject\Player\Gun\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleRifle.cpp">
+      <Filter>ZombiFPS\GameObject\Player\Gun\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="SubmachineGun.cpp">
+      <Filter>ZombiFPS\GameObject\Player\Gun\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="GunStateBase.cpp">
+      <Filter>ZombiFPS\GameObject\Player\Gun\GunState\GunStateBase</Filter>
+    </ClCompile>
+    <ClCompile Include="GunIdleState.cpp">
+      <Filter>ZombiFPS\GameObject\Player\Gun\GunState</Filter>
+    </ClCompile>
+    <ClCompile Include="GunRunState.cpp">
+      <Filter>ZombiFPS\GameObject\Player\Gun\GunState</Filter>
+    </ClCompile>
+    <ClCompile Include="GunShotState.cpp">
+      <Filter>ZombiFPS\GameObject\Player\Gun\GunState</Filter>
+    </ClCompile>
+    <ClCompile Include="GunReloadState.cpp">
+      <Filter>ZombiFPS\GameObject\Player\Gun\GunState</Filter>
+    </ClCompile>
+    <ClCompile Include="Shot.cpp">
+      <Filter>ZombiFPS\GameObject\Player\Gun\Shot</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>ZombiFPS\GameObject\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>ZombiFPS\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Pathfinding.cpp">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup\Pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="Boids.cpp">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup\Boids</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyGroup.cpp">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyObjectPools.cpp">
+      <Filter>ZombiFPS\GameObject\EnemyObjectPools</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyWaveController.cpp">
+      <Filter>ZombiFPS\GameObject\EnemyWaveController</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyGroupController.cpp">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController</Filter>
+    </ClCompile>
+    <ClCompile Include="GunPowerUpMachine.cpp">
+      <Filter>ZombiFPS\GameObject\PowerUpMachine\GunPowerUpMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPowerUpMachine.cpp">
+      <Filter>ZombiFPS\GameObject\PowerUpMachine\PlayerPowerUpMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Shutter.cpp">
+      <Filter>ZombiFPS\GameObject\Stage\Shutter</Filter>
+    </ClCompile>
+    <ClCompile Include="MaxAmmo.cpp">
+      <Filter>ZombiFPS\GameObject\Item\MaxAmmo</Filter>
+    </ClCompile>
+    <ClCompile Include="IncomeDouble.cpp">
+      <Filter>ZombiFPS\GameObject\Item\IncomeDouble</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -89,6 +317,120 @@
     </ClInclude>
     <ClInclude Include="ResultSceneUI.h">
       <Filter>ZombiFPS\System\SceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameRateManager.h">
+      <Filter>ZombiFPS\System\FrameRateManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageDataManager.h">
+      <Filter>ZombiFPS\System\DataLoad\ImageDataManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelDataManager.h">
+      <Filter>ZombiFPS\System\DataLoad\ModleDataManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>ZombiFPS\System\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>ZombiFPS\System\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneCamera.h">
+      <Filter>ZombiFPS\Camera\SceneCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCamera.h">
+      <Filter>ZombiFPS\Camera\PlayerCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>ZombiFPS\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ZombiFPS\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateBase.h">
+      <Filter>ZombiFPS\GameObject\Player\PlayerState\PlayerStateBase</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerIdleState.h">
+      <Filter>ZombiFPS\GameObject\Player\PlayerState\Status</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerWalkState.h">
+      <Filter>ZombiFPS\GameObject\Player\PlayerState\Status</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerRunState.h">
+      <Filter>ZombiFPS\GameObject\Player\PlayerState\Status</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerOnHitEnemyState.h">
+      <Filter>ZombiFPS\GameObject\Player\PlayerState\Status</Filter>
+    </ClInclude>
+    <ClInclude Include="GunBase.h">
+      <Filter>ZombiFPS\GameObject\Player\Gun\GunBase</Filter>
+    </ClInclude>
+    <ClInclude Include="AssaultRifle.h">
+      <Filter>ZombiFPS\GameObject\Player\Gun\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleRifle.h">
+      <Filter>ZombiFPS\GameObject\Player\Gun\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="SubmachineGun.h">
+      <Filter>ZombiFPS\GameObject\Player\Gun\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="GunStateBase.h">
+      <Filter>ZombiFPS\GameObject\Player\Gun\GunState\GunStateBase</Filter>
+    </ClInclude>
+    <ClInclude Include="GunIdleState.h">
+      <Filter>ZombiFPS\GameObject\Player\Gun\GunState</Filter>
+    </ClInclude>
+    <ClInclude Include="GunRunState.h">
+      <Filter>ZombiFPS\GameObject\Player\Gun\GunState</Filter>
+    </ClInclude>
+    <ClInclude Include="GunShotState.h">
+      <Filter>ZombiFPS\GameObject\Player\Gun\GunState</Filter>
+    </ClInclude>
+    <ClInclude Include="GunReloadState.h">
+      <Filter>ZombiFPS\GameObject\Player\Gun\GunState</Filter>
+    </ClInclude>
+    <ClInclude Include="Shot.h">
+      <Filter>ZombiFPS\GameObject\Player\Gun\Shot</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>ZombiFPS\GameObject\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>ZombiFPS\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Pathfinding.h">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup\Pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="Boids.h">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup\Boids</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyGroup.h">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController\EnemyGroup</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyObjectPools.h">
+      <Filter>ZombiFPS\GameObject\EnemyObjectPools</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyWaveController.h">
+      <Filter>ZombiFPS\GameObject\EnemyWaveController</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyGroupController.h">
+      <Filter>ZombiFPS\GameObject\Enemy\EnemyGroupController</Filter>
+    </ClInclude>
+    <ClInclude Include="GunPowerUpMachine.h">
+      <Filter>ZombiFPS\GameObject\PowerUpMachine\GunPowerUpMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerPowerUpMachine.h">
+      <Filter>ZombiFPS\GameObject\PowerUpMachine\PlayerPowerUpMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Shutter.h">
+      <Filter>ZombiFPS\GameObject\Stage\Shutter</Filter>
+    </ClInclude>
+    <ClInclude Include="MaxAmmo.h">
+      <Filter>ZombiFPS\GameObject\Item\MaxAmmo</Filter>
+    </ClInclude>
+    <ClInclude Include="IncomeDouble.h">
+      <Filter>ZombiFPS\GameObject\Item\IncomeDouble</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

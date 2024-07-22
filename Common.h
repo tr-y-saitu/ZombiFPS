@@ -5,6 +5,8 @@
 #include "DxLib.h"
 #include "EffekseerForDXLib.h"
 
+using namespace std;
+
 // ‹¤’Ê‚Ì’è”
 static const int ScreenWidth = 1980;        // ‰æ–Ê‚Ì•
 static const int ScreenHeight = 1080;       // ‰æ–Ê‚Ì‚‚³

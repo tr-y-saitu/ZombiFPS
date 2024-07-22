@@ -1,5 +1,9 @@
 #include "Game.h"
 #include "Common.h"
+#include "FrameRateManager.h"
+#include "EffectManager.h"
+#include "SoundManager.h"
+#include "Input.h"
 
 /// <summary>
 /// コンストラクタ
@@ -15,6 +19,14 @@ Game::Game()
     nowScene = SceneBase::InitializeBase();
     // 次のシーンの初期化
     nextScene = NULL;
+
+    // シングルトンクラス
+    frameRateManager = FrameRateManager::GetInstance();
+    effectManager = EffectManager::GetInstance();
+    soundManager = SoundManager::GetInstance();
+
+    // 管理クラス
+    input = new Input();
 }
 
 /// <summary>
@@ -33,9 +45,15 @@ void Game::Update()
     // 画面の削除
     ClearDrawScreen();
 
+    // フレームレート計測処理
+    frameRateManager->Update();
+
     // 現在シーンの更新・描画
     nextScene = nowScene->UpdateScene();
     nowScene->Draw();
+
+    // フレームレート待機処理
+    frameRateManager->SleepForFPS();
 
     // 描画を反映
     ScreenFlip();
