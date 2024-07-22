@@ -21,7 +21,7 @@ public:
     /// <summary>
     /// エフェクトマネージャーのインスタンスのポインタを渡す
     /// </summary>
-    /// <returns>EffectPlayManagerのポインタ</returns>
+    /// <returns>EffectManagerのポインタ</returns>
     static FrameRateManager* GetInstance();
 
     /// <summary>
@@ -46,7 +46,7 @@ private:
     FrameRateManager();
 
     // 定数
-    static constexpr int SET_FPS = 60;  // 設定したFPS値
+    static constexpr int Set_FPS = 60;          // 設定したFPS値
 
     // 変数
     static FrameRateManager* frameRateManager;  // フレームレートマネージャーのインスタンス

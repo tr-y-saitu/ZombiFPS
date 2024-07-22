@@ -1,12 +1,12 @@
-#include "EffectPlayManager.h"
+#include "EffectManager.h"
 
 // 初期化
-EffectPlayManager* EffectPlayManager::effectPlayManager = NULL;
+EffectManager* EffectManager::effectManager = NULL;
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
-EffectPlayManager::EffectPlayManager()
+EffectManager::EffectManager()
     : playingEffectHandle(0)
 {
     // DirectX11を使用するようにする。(DirectX9も可、一部機能不可)
@@ -46,7 +46,7 @@ EffectPlayManager::EffectPlayManager()
 /// <summary>
 /// デストラクタ
 /// </summary>
-EffectPlayManager::~EffectPlayManager()
+EffectManager::~EffectManager()
 {
     // エフェクトリソースを削除する。(Effekseer終了時に破棄されるので削除しなくてもいい)
 }
@@ -54,7 +54,7 @@ EffectPlayManager::~EffectPlayManager()
 /// <summary>
 /// エフェクトの読み込み
 /// </summary>
-void EffectPlayManager::LoadEffect()
+void EffectManager::LoadEffect()
 {
     // エフェクトのロード
 
@@ -65,35 +65,35 @@ void EffectPlayManager::LoadEffect()
 /// <summary>
 /// インスタンスを作成
 /// </summary>
-void EffectPlayManager::CreateInstance()
+void EffectManager::CreateInstance()
 {
-    if (effectPlayManager == NULL)
+    if (effectManager == NULL)
     {
-        effectPlayManager = new EffectPlayManager();
+        effectManager = new EffectManager();
     }
 }
 
 /// <summary>
 /// エフェクトマネージャーのインスタンスのポインタを渡す
 /// </summary>
-/// <returns>EffectPlayManagerのポインタ</returns>
-EffectPlayManager* EffectPlayManager::GetInstance()
+/// <returns>EffectManagerのポインタ</returns>
+EffectManager* EffectManager::GetInstance()
 {
-    return effectPlayManager;
+    return effectManager;
 }
 
 /// <summary>
 /// エフェクトマネージャーの削除
 /// </summary>
-void EffectPlayManager::DeleteInstance()
+void EffectManager::DeleteInstance()
 {
-    delete(effectPlayManager);
+    delete(effectManager);
 }
 
 /// <summary>
 /// 初期化
 /// </summary>
-void EffectPlayManager::Initialize()
+void EffectManager::Initialize()
 {
     //// 再生中のエフェクトを削除する
     for (int i = playingList.size() - 1; i >= 0; i--)
@@ -110,7 +110,7 @@ void EffectPlayManager::Initialize()
 /// <summary>
 /// 更新
 /// </summary>
-void EffectPlayManager::Update()
+void EffectManager::Update()
 {
     // エフェクトが終了したら、再生中から削除する
     for (int i = 0; i < playingList.size(); i++)
@@ -127,7 +127,7 @@ void EffectPlayManager::Update()
 /// 現在再生中のエフェクトがあるかどうか
 /// </summary>
 /// <returns>ある:true  ない:false</returns>
-bool EffectPlayManager::IsAnyEffectPlaying()
+bool EffectManager::IsAnyEffectPlaying()
 {
     bool isPlaying = false;
 
@@ -151,7 +151,7 @@ bool EffectPlayManager::IsAnyEffectPlaying()
 /// <param name="scale">※エフェクトの描画サイズ</param>
 /// NOTE:第3引数の「scale」はデフォルト引数　デフォルト値{1.0f,1.0f,1.0f}
 ///      1.0fが読み込み時サイズ
-void EffectPlayManager::PlayEffectList(EffectType effectType, VECTOR playPosition, VECTOR scale)
+void EffectManager::PlayEffectList(EffectType effectType, VECTOR playPosition, VECTOR scale)
 {
     // 再生するエフェクトを設定
     playingEffectHandle = effectList[effectType];

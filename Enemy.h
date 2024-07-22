@@ -13,7 +13,7 @@ public:
     enum EnemyState
     {
         None,       // ’â~
-        Wolk,       // •à‚«
+        Walk,       // •à‚«
         Run,        // ‘–‚è
         Attack,     // UŒ‚
     };
