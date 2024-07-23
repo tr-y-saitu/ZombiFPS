@@ -38,13 +38,6 @@ public:
     static void DeleteInstance();
 
     /// <summary>
-    /// 使用したいモデルデータを取得する
-    /// </summary>
-    /// <param name="type">データの種類</param>
-    /// <returns>データハンドル</returns>
-    int GetModelHandle(ModelDataType type);
-
-    /// <summary>
     /// 一つしか使用しないモデルデータを取得する
     /// </summary>
     /// <param name="type">モデルの種類</param>
