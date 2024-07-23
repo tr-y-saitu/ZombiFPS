@@ -12,7 +12,7 @@ class PlayerCamera;
 class Player
 {
 public:
-    enum PlayerMoveState
+    enum State
     {
         None,   // 何もしていない
         Walk,   // 歩き
@@ -63,6 +63,9 @@ public:
 
     // ゲッター、セッター
     const VECTOR& GetPosition() const { return position; }
+    bool GetIsMove() const { return isMove; }
+    State GetState() const { return state; }
+    float GetJumpPower() const { return currentJumpPower; }
 
 private:
     // 定数
@@ -86,7 +89,7 @@ private:
     float               currentJumpPower;       // Ｙ軸方向の速度
     int                 modelHandle;            // モデルハンドル
     int                 shadowHandle;           // 影画像ハンドル
-    PlayerMoveState     state;                  // 状態
+    State               state;                  // 状態
     // アニメーション関係
     int         currentPlayAnim;        // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
     float       currentAnimCount;       // 再生しているアニメーションの再生時間

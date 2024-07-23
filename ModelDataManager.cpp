@@ -1,4 +1,3 @@
-#include "Common.h"
 #include "ModelDataManager.h"
 
 // 初期化
@@ -9,6 +8,8 @@ ModelDataManager* ModelDataManager::modelDataManager = NULL;
 /// </summary>
 ModelDataManager::ModelDataManager()
 {
+    // モデルデータの読み込み
+    ModelDataLoad();
 }
 
 /// <summary>
@@ -16,6 +17,15 @@ ModelDataManager::ModelDataManager()
 /// </summary>
 ModelDataManager::~ModelDataManager()
 {
+    // モデルデータの削除
+    for (int i = 0; i < modelDataList.size(); i++)
+    {
+        // リストにデータが入っていれば
+        if (modelDataList[(ModelDataType)i])
+        {
+            MV1DeleteModel(modelDataList[(ModelDataType)i]);
+        }
+    }
 }
 
 /// <summary>
@@ -44,4 +54,34 @@ ModelDataManager* ModelDataManager::GetInstance()
 void ModelDataManager::DeleteInstance()
 {
     delete(modelDataManager);
+}
+
+/// <summary>
+/// モデルデータの読み込み
+/// </summary>
+void ModelDataManager::ModelDataLoad()
+{
+    modelDataList[StageModelData] = MV1LoadModel("Data/Stage/BO2Map.mv1");
+}
+
+/// <summary>
+/// 一つしか使用しないモデルデータを取得する
+/// </summary>
+/// <param name="type">モデルの種類</param>
+/// <returns>データハンドル</returns>
+int ModelDataManager::GetOriginalModelHandle(ModelDataType type)
+{
+    // オリジナルデータを渡す
+    return modelDataList[type];
+}
+
+/// <summary>
+/// 複製し使用するモデルデータを取得する
+/// </summary>
+/// <param name="type">データの種類</param>
+/// <returns>データハンドル</returns>
+int ModelDataManager::GetDuplicatesModelHandle(ModelDataType type)
+{
+    // 複製データを渡す
+    return MV1DuplicateModel(modelDataList[type]);
 }
