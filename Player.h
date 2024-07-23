@@ -38,6 +38,16 @@ public:
     };
 
     /// <summary>
+    /// 所持している銃の種類
+    /// </summary>
+    enum  class GunType : int
+    {
+        AssaultRifle,       // アサルトライフル
+        BattleRifle,        // バトルライフル
+        SubmachineGun,      // サブマシンガン
+    };
+
+    /// <summary>
     /// コンストラクタ
     /// </summary>
     Player();

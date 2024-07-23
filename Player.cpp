@@ -7,6 +7,9 @@
 #include "PlayerRunState.h"
 #include "PlayerWalkState.h"
 #include "ModelDataManager.h"
+#include "AssaultRifle.h"
+#include "BattleRifle.h"
+#include "SubmachineGun.h"
 
 
 /// <summary>
