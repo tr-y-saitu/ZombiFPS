@@ -42,7 +42,21 @@ public:
     /// </summary>
     /// <param name="type">データの種類</param>
     /// <returns>データハンドル</returns>
-    static int GetModelHandle(ModelDataType type);
+    int GetModelHandle(ModelDataType type);
+
+    /// <summary>
+    /// 一つしか使用しないモデルデータを取得する
+    /// </summary>
+    /// <param name="type">モデルの種類</param>
+    /// <returns>データハンドル</returns>
+    int GetOriginalModelHandle(ModelDataType type);
+
+    /// <summary>
+    /// 複製し使用するモデルデータを取得する
+    /// </summary>
+    /// <param name="type">データの種類</param>
+    /// <returns>データハンドル</returns>
+    int GetDuplicatesModelHandle(ModelDataType type);
 
 private:
     /// <summary>
@@ -53,11 +67,11 @@ private:
     /// <summary>
     /// モデルデータの読み込み
     /// </summary>
-    static void ModelDataLoad();
+    void ModelDataLoad();
 
     // 変数
     static ModelDataManager*            modelDataManager;   // モデル管理クラスのインスタンスのアドレス
-    static map<ModelDataType, int>      modelDataList;      // 使用するモデルデータのリスト
+    map<ModelDataType, int>      modelDataList;      // 使用するモデルデータのリスト
 
 };
 
