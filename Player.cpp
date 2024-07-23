@@ -265,7 +265,7 @@ bool Player::UpdateMoveParameterWithPad(const Input& input, const PlayerCamera& 
     if (CheckHitKey(KEY_INPUT_LSHIFT) == 0 && (input.GetCurrentFrameInput() & PAD_INPUT_C) == 0)
     {
         // 方向ボタン「←」が入力されたらカメラの見ている方向から見て左方向に移動する
-        if (input.GetCurrentFrameInput() & PAD_INPUT_LEFT)
+        if (input.GetCurrentFrameInput() & PAD_INPUT_LEFT || CheckHitKey(KEY_INPUT_A))
         {
             // 移動ベクトルに「←」が入力された時の移動ベクトルを加算する
             MoveVec = VAdd(MoveVec, LeftMoveVec);
@@ -276,7 +276,7 @@ bool Player::UpdateMoveParameterWithPad(const Input& input, const PlayerCamera& 
         else
         {
             // 方向ボタン「→」が入力されたらカメラの見ている方向から見て右方向に移動する
-            if (input.GetCurrentFrameInput() & PAD_INPUT_RIGHT)
+            if (input.GetCurrentFrameInput() & PAD_INPUT_RIGHT || CheckHitKey(KEY_INPUT_D))
             {
                 // 移動ベクトルに「←」が入力された時の移動ベクトルを反転したものを加算する
                 MoveVec = VAdd(MoveVec, VScale(LeftMoveVec, -1.0f));
@@ -287,7 +287,7 @@ bool Player::UpdateMoveParameterWithPad(const Input& input, const PlayerCamera& 
         }
 
         // 方向ボタン「↑」が入力されたらカメラの見ている方向に移動する
-        if (input.GetCurrentFrameInput() & PAD_INPUT_UP)
+        if (input.GetCurrentFrameInput() & PAD_INPUT_UP || CheckHitKey(KEY_INPUT_W))
         {
             // 移動ベクトルに「↑」が入力された時の移動ベクトルを加算する
             MoveVec = VAdd(MoveVec, UpMoveVec);
@@ -298,7 +298,7 @@ bool Player::UpdateMoveParameterWithPad(const Input& input, const PlayerCamera& 
         else
         {
             // 方向ボタン「↓」が入力されたらカメラの方向に移動する
-            if (input.GetCurrentFrameInput() & PAD_INPUT_DOWN)
+            if (input.GetCurrentFrameInput() & PAD_INPUT_DOWN || CheckHitKey(KEY_INPUT_S))
             {
                 // 移動ベクトルに「↑」が入力された時の移動ベクトルを反転したものを加算する
                 MoveVec = VAdd(MoveVec, VScale(UpMoveVec, -1.0f));
