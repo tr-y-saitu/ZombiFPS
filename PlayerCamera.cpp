@@ -218,9 +218,20 @@ void PlayerCamera::UpdateCameraForwardVector()
 /// 上下角度のみこの関数で更新
 void PlayerCamera::UpdateCameraPitch()
 {
-    // カメラの前方向ベクトル
+    // カメラの前方向ベクトル取得（カメラがどこを向いているのか）
     VECTOR forwardVector = cameraForwardVector;
 
-    // カメラが上下角度のどの位置にあるか計算
-    cameraPitch = atan2f(forwardVector.y, sqrtf(forwardVector.x * forwardVector.x + forwardVector.z * forwardVector.z));
+    //---- カメラが上下にどのくらい傾いているかを計算 ----//
+    
+    // 前方向ベクトルの長さを計算
+    // MEMO：
+    //  この軸から回転させる
+    //  X軸とZ軸とで作った平面からどの程度カメラの前方向ベクトルが伸びているかが計算される
+    float horizonLength = sqrt(forwardVector.x * forwardVector.x + forwardVector.z * forwardVector.z);
+    
+    // X軸とZ軸から作った平面の長さからどのくらい傾いているか計算
+    // MEMO:
+    //  horizonLengthを２次元平面上の軸とし、
+    //  そこからforwardVector.yまでどのくらいの角度があるかを計算する
+    cameraPitch = atan2f(forwardVector.y, horizonLength);
 }

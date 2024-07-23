@@ -140,7 +140,7 @@ void Player::Update(const Input& input, PlayerCamera& playerCamera, Stage& stage
         MoveVec.y = currentJumpPower;
     }
 
-    // プレイヤーの移動方向にモデルの方向を近づける
+    // プレイヤーモデルとプレイヤーカメラの回転率を同期させる
     UpdateAngle(playerCamera);
 
     // 移動ベクトルを元にコリジョンを考慮しつつプレイヤーを移動
@@ -308,7 +308,7 @@ bool Player::UpdateMoveParameterWithPad(const Input& input, const PlayerCamera& 
             }
         }
 
-        // HACk:
+        // MEMO:
         // のちにジャンプを追加する可能性があるためコメントアウトしています
         // プレイヤーの状態が「ジャンプ」ではなく、且つボタン１が押されていたらジャンプする
         //if (state != State::Jump && (input.GetNowNewFrameInput() & PAD_INPUT_A))
@@ -364,9 +364,11 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
 /// <summary>
 /// 回転制御
 /// </summary>
-/// <param name="playerCamera"></param>
+/// <param name="playerCamera">プレイヤーカメラ</param>
 void Player::UpdateAngle(const PlayerCamera& playerCamera)
 {
+    // プレイヤーモデルをプレイヤーカメラの回転率と同様に回転させる
+
     // プレイヤー専用カメラの方向を取得
     VECTOR cameraForward = playerCamera.GetCameraForwardVector();
     float cameraPitch = playerCamera.GetCameraPitch();

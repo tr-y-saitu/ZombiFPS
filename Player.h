@@ -114,9 +114,9 @@ private:
     void Move(const VECTOR& MoveVector, Stage& stage);
 
     /// <summary>
-    /// 回転制御
+    /// プレイヤーカメラが回転した分プレイヤーモデルを回転させる
     /// </summary>
-    /// <param name="playerCamera"></param>
+    /// <param name="playerCamera">プレイヤーカメラ</param>
     void UpdateAngle(const PlayerCamera& playerCamera);
 
     /// <summary>
