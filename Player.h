@@ -116,7 +116,8 @@ private:
     /// <summary>
     /// 回転制御
     /// </summary>
-    void UpdateAngle(float angleHorizon,float angleVertical);
+    /// <param name="playerCamera"></param>
+    void UpdateAngle(const PlayerCamera& playerCamera);
 
     /// <summary>
     /// アニメーションを新しく再生する
@@ -140,7 +141,7 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
-    static constexpr float  PlayAnimSpeed   = 1.0f;     // アニメーション速度
+    static constexpr float  PlayAnimSpeed   = 0.5f;     // アニメーション速度
     static constexpr float  MoveSpeed       = 0.5f;     // 移動速度
     static constexpr float  AnimBlendSpeed  = 0.1f;     // アニメーションのブレンド率変化速度
     static constexpr float  AngleSpeed      = 0.2f;     // 角度変化速度

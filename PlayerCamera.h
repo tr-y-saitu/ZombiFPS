@@ -46,9 +46,24 @@ public:
     /// <param name="stage">ステージ</param>
     void FixCameraPosition(const Stage& stage);
 
+    /// <summary>
+    /// カメラの前方向ベクトルを更新する
+    /// </summary>
+    void UpdateCameraForwardVector();
+
+    /// <summary>
+    /// カメラのピッチ角度を更新する
+    /// </summary>
+    /// HACK:
+    /// ピッチ：上下角度
+    /// プレイヤーモデルとプレイヤーカメラの角度は同期しているので、
+    /// 上下角度のみこの関数で更新
+    void UpdateCameraPitch();
+
     // ゲッター
     const VECTOR& GetCameraPosition() const { return cameraPosition; }
     const VECTOR& GetTargetPosition() const { return targetPosition; }
+    const VECTOR& GetCameraForwardVector() const { return cameraForwardVector; }
     const float GetAngleHorizon() const { return angleHorizon; }
     const float GetAngleVertical() const { return angleVertical; }
 
@@ -60,7 +75,7 @@ private:
     static constexpr float  CameraFarClip               = 200.0f;   // カメラのファークリップ
     static constexpr float  AngleSpeed                  = 0.05f;    // 旋回速度
     static constexpr float  CameraPlayerTargetHeight    = 1.0f;     // プレイヤー座標からどれだけ高い位置を注視点とするか
-    static constexpr float  ToPlayerLength              = 0.1f;     // プレイヤーとの距離
+    static constexpr float  ToPlayerLength              = 3.0f;     // プレイヤーとの距離
     static constexpr float  CollisionSize               = 1.0f;     // カメラの当たり判定サイズ
     static constexpr float  AngleVerticalOffset         = 2.6f;     // 一定角度以上上を向かないようにするためのバフ値
     static constexpr float  AngleVerticalDonwOffset     = 1.4f;     // 下入力時に一定以上角度が下にならないようにするためのバフ値
@@ -70,9 +85,10 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
-    float   angleHorizon;       // 水平角度
-    float   angleVertical;      // 垂直角度
-    VECTOR  targetPosition;     // カメラが見る視点座標
-    VECTOR  cameraPosition;     // カメラ自身の座標
+    float   angleHorizon;           // 水平角度
+    float   angleVertical;          // 垂直角度
+    VECTOR  targetPosition;         // カメラが見る視点座標
+    VECTOR  cameraPosition;         // カメラ自身の座標
+    VECTOR  cameraForwardVector;    // カメラの前方向ベクトル
 };
 

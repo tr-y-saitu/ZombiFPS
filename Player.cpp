@@ -21,7 +21,7 @@ Player::Player()
     modelDataManager    = ModelDataManager::GetInstance();
     playerState         = new PlayerIdleState();
     Initialize();
-    MV1SetRotationXYZ(modelHandle, VGet(0, 10 * DX_PI_F / 180.0f, 0));
+    MV1SetRotationXYZ(modelHandle, VGet(0, 0.0f * DX_PI_F / 180.0f, 0));
 }
 
 /// <summary>
@@ -47,7 +47,6 @@ void Player::Initialize()
 
     // モデルハンドルを取得
     modelHandle = modelDataManager->GetModelHandle(ModelDataManager::ModelDataType::PlayerModelData);
-    //modelHandle = MV1LoadModel("Data/Player/playerScaleMini.mv1");
 
     // モデルサイズを再設定
     MV1SetScale(modelHandle, PlayerScale);
@@ -142,7 +141,7 @@ void Player::Update(const Input& input, PlayerCamera& playerCamera, Stage& stage
     }
 
     // プレイヤーの移動方向にモデルの方向を近づける
-    UpdateAngle(playerCamera.GetAngleHorizon(),playerCamera.GetAngleVertical());
+    UpdateAngle(playerCamera);
 
     // 移動ベクトルを元にコリジョンを考慮しつつプレイヤーを移動
     Move(MoveVec, stage);
@@ -365,67 +364,26 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
 /// <summary>
 /// 回転制御
 /// </summary>
-void Player::UpdateAngle(float angleHorizon, float angleVertical)
+/// <param name="playerCamera"></param>
+void Player::UpdateAngle(const PlayerCamera& playerCamera)
 {
-    // プレイヤーの移動方向にモデルの方向を近づける
-    float TargetAngle;          // 目標角度
-    float difference;           // 目標角度と現在の角度との差
+    // プレイヤー専用カメラの方向を取得
+    VECTOR cameraForward = playerCamera.GetCameraForwardVector();
 
-    // 目標の方向ベクトルから角度値を算出する
-    TargetAngle = static_cast<float>(atan2(targetMoveDirection.x, targetMoveDirection.z));
+    // プレイヤーモデルの回転を更新
+    float playerAngleY = atan2f(cameraForward.x, cameraForward.z);
 
-    // 目標の角度と現在の角度との差を割り出す
-    // 最初は単純に引き算
-    difference = TargetAngle - angle;
+    // プレイヤーモデルを追加で180度回転
+    playerAngleY += DX_PI_F;
 
-    // ある方向からある方向の差が１８０度以上になることは無いので
-    // 差の値が１８０度以上になっていたら修正する
-    if (difference < -DX_PI_F)
-    {
-        difference += DX_TWO_PI_F;
-    }
-    else if (difference > DX_PI_F)
-    {
-        difference -= DX_TWO_PI_F;
-    }
-
-    // 角度の差が０に近づける
-    if (difference > 0.0f)
-    {
-        // 差がプラスの場合は引く
-        difference -= AngleSpeed;
-        if (difference < 0.0f)
-        {
-            difference = 0.0f;
-        }
-    }
-    else
-    {
-        // 差がマイナスの場合は足す
-        difference += AngleSpeed;
-        if (difference > 0.0f)
-        {
-            difference = 0.0f;
-        }
-    }
-    
-    //// プレイヤーカメラと同様の回転を行う
-    //MATRIX rotateY, rotateZ;
-
-    //// 水平方向回転値を求める(横のカメラ移動)
-    //rotateY = MGetRotY(angleHorizon);
-
-    //// 垂直方向回転値を求める(縦のカメラ移動)
-    //rotateZ = MGetRotZ(angleVertical);
-
-
-    // モデルの角度を更新
-    // この段階だと横方向しか動かない
-    angle = TargetAngle - difference;
-    MV1SetRotationXYZ(modelHandle, VGet(0.0f, angle + DX_PI_F, 0.0f));
+    // モデルの回転
+    MV1SetRotationXYZ(modelHandle, VGet(0.0f, playerAngleY, 0.0f));
 }
 
-// プレイヤーのアニメーションを再生する
+/// <summary>
+/// プレイヤーのアニメーションを新しく追加する
+/// </summary>
+/// <param name="PlayAnim">再生したいアニメーション番号</param>
 void Player::PlayAnim(AnimationType PlayAnim)
 {
     // HACK: 指定した番号のアニメーションをアタッチし、直前に再生していたアニメーションの情報をprevに移行している

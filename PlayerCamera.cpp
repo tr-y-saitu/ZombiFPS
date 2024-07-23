@@ -52,6 +52,9 @@ void PlayerCamera::Update(const Input& input, const Player& player, const Stage&
     // カメラの座標を補正する
     FixCameraPosition(stage);
 
+    // カメラの前方向ベクトルの更新
+    UpdateCameraForwardVector();
+
     // カメラの更新
     SetCameraPositionAndTarget_UpVecY(cameraPosition, targetPosition);
 }
@@ -188,4 +191,28 @@ void PlayerCamera::FixCameraPosition(const Stage& stage)
         // カメラの座標をセット
         cameraPosition = TestPosition;
     }
+}
+
+/// <summary>
+/// カメラの前方向ベクトルを更新する
+/// </summary>
+void PlayerCamera::UpdateCameraForwardVector()
+{
+    // カメラから視点方向へのベクトル
+    cameraForwardVector = VSub(targetPosition, cameraPosition);
+
+    // 正規化
+    cameraForwardVector = VNorm(cameraForwardVector);
+}
+
+/// <summary>
+/// カメラのピッチ角度を更新する
+/// </summary>
+/// HACK:
+/// ピッチ：上下角度
+/// プレイヤーモデルとプレイヤーカメラの角度は同期しているので、
+/// 上下角度のみこの関数で更新
+void PlayerCamera::UpdateCameraPitch()
+{
+
 }
