@@ -20,10 +20,7 @@ ModelDataManager::~ModelDataManager()
     // モデルデータの削除
     for (int i = 0; i < modelDataList.size(); i++)
     {
-<<<<<<< HEAD
-=======
         // リストにデータが入っていれば
->>>>>>> main
         if (modelDataList[(ModelDataType)i])
         {
             MV1DeleteModel(modelDataList[(ModelDataType)i]);

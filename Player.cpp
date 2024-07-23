@@ -46,7 +46,7 @@ void Player::Initialize()
     angle = 0.0f;
 
     // モデルハンドルを取得
-    modelHandle = modelDataManager->GetModelHandle(ModelDataManager::ModelDataType::PlayerModelData);
+    modelHandle = modelDataManager->GetOriginalModelHandle(ModelDataManager::ModelDataType::PlayerModelData);
 
     // モデルサイズを再設定
     MV1SetScale(modelHandle, PlayerScale);
@@ -369,15 +369,16 @@ void Player::UpdateAngle(const PlayerCamera& playerCamera)
 {
     // プレイヤー専用カメラの方向を取得
     VECTOR cameraForward = playerCamera.GetCameraForwardVector();
+    float cameraPitch = playerCamera.GetCameraPitch();
 
-    // プレイヤーモデルの回転を更新
+    // モデルの水平方向回転値を計算
     float playerAngleY = atan2f(cameraForward.x, cameraForward.z);
-
+    
     // プレイヤーモデルを追加で180度回転
     playerAngleY += DX_PI_F;
 
     // モデルの回転
-    MV1SetRotationXYZ(modelHandle, VGet(0.0f, playerAngleY, 0.0f));
+    MV1SetRotationXYZ(modelHandle, VGet(cameraPitch, playerAngleY, 0.0f));
 }
 
 /// <summary>

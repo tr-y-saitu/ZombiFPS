@@ -9,6 +9,7 @@
 PlayerCamera::PlayerCamera()
     : angleHorizon          (DX_PI_F)
     , angleVertical         (0.0f)
+    , cameraPitch           (0.0f)
     , targetPosition        (VGet(0,0,0))
     , cameraPosition        (VGet(0,0,0))
 {
@@ -54,6 +55,9 @@ void PlayerCamera::Update(const Input& input, const Player& player, const Stage&
 
     // カメラの前方向ベクトルの更新
     UpdateCameraForwardVector();
+
+    // カメラのピッチ角度計算
+    UpdateCameraPitch();
 
     // カメラの更新
     SetCameraPositionAndTarget_UpVecY(cameraPosition, targetPosition);
@@ -214,5 +218,9 @@ void PlayerCamera::UpdateCameraForwardVector()
 /// 上下角度のみこの関数で更新
 void PlayerCamera::UpdateCameraPitch()
 {
+    // カメラの前方向ベクトル
+    VECTOR forwardVector = cameraForwardVector;
 
+    // カメラが上下角度のどの位置にあるか計算
+    cameraPitch = atan2f(forwardVector.y, sqrtf(forwardVector.x * forwardVector.x + forwardVector.z * forwardVector.z));
 }

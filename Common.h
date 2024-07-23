@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include "math.h"
 #include "DxLib.h"
 #include "EffekseerForDXLib.h"
 

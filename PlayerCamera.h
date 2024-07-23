@@ -66,6 +66,7 @@ public:
     const VECTOR& GetCameraForwardVector() const { return cameraForwardVector; }
     const float GetAngleHorizon() const { return angleHorizon; }
     const float GetAngleVertical() const { return angleVertical; }
+    const float GetCameraPitch() const { return cameraPitch; }
 
 private:
     //---------------------------------------------------------------------------------//
@@ -87,6 +88,7 @@ private:
     //---------------------------------------------------------------------------------//
     float   angleHorizon;           // 水平角度
     float   angleVertical;          // 垂直角度
+    float   cameraPitch;            // 上下の角度量
     VECTOR  targetPosition;         // カメラが見る視点座標
     VECTOR  cameraPosition;         // カメラ自身の座標
     VECTOR  cameraForwardVector;    // カメラの前方向ベクトル

@@ -72,7 +72,8 @@ void Stage::Draw()
 /// </summary>
 /// <param name="player">プレイヤー</param>
 /// <param name="checkPosition">当たり判定をしたい座標</param>
-void Stage::IsHitCollision(Player& player, const VECTOR& checkPosition, const VECTOR& moveVector)
+/// <param name="moveVector"></param>
+VECTOR Stage::IsHitCollision(Player& player, const VECTOR& checkPosition, const VECTOR& moveVector)
 {
     // 検出したプレイヤーの周囲のポリゴン情報を開放する
     if (isCreatedHitDim)
@@ -97,6 +98,8 @@ void Stage::IsHitCollision(Player& player, const VECTOR& checkPosition, const VE
     // 床ポリゴンとの当たり判定
     // 床ポリゴンとの当たりをチェックし、移動ベクトルを補正する
     FixedPos = CheckHitWithFloor(player, FixedPos);
+
+    return FixedPos;
 }
 
 /// 判定処理する壁と床のポリゴン数を検出する
