@@ -29,7 +29,7 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    /// <param name="input">入力処理</param>
+    /// <param name="input">入力更新情報</param>
     /// <param name="player">プレイヤー</param>
     /// <param name="stage">ステージ</param>
     void Update(const Input& input, const Player& player, const Stage& stage);
@@ -37,8 +37,14 @@ public:
     /// <summary>
     /// カメラの角度を更新する
     /// </summary>
-    /// <param name="input"></param>
+    /// <param name="input">入力更新情報</param>
     void UpdateCameraAngle(const Input& input);
+
+    /// <summary>
+    /// マウスでのカメラの角度更新
+    /// </summary>
+    /// <param name="input">入力更新情報</param>
+    void UpdateCameraAngleMouse(const Input& input);
 
     /// <summary>
     /// カメラ座標の修正

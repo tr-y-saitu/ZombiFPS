@@ -28,7 +28,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     ChangeWindowMode(false);    // 全画面モード
 #endif
 
-    //ChangeWindowMode(false);     // 全画面モード
+    ChangeWindowMode(false);     // 全画面モード
 
     //描画先を裏画面に変更する。
     SetDrawScreen(DX_SCREEN_BACK);

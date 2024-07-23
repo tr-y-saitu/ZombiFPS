@@ -1,12 +1,15 @@
 #include "Common.h"
 #include "Input.h"
 
+
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
 Input::Input()
     : currentFrameInput     (0)
     , nowFrameNewInput      (0)
+    , mousePosition         ({0,0})
 {
 }
 
@@ -27,10 +30,33 @@ void Input::Update()
     int oldFrameInput;
     oldFrameInput = currentFrameInput;
 
-    // 現在の入力状態を取得
+#ifdef USE_MOUSE
+    // マウスで入力状態を更新
+    UpdateMouse();
+#else
+    // パッド、キーボード処理
     currentFrameInput = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+#endif
 
     // 現在のフレームで新たに入力されたボタンのビットが立っている値を
     // nowFrameNewInput に代入する
     nowFrameNewInput = currentFrameInput & ~oldFrameInput;
+}
+
+/// <summary>
+/// マウスでの更新処理
+/// </summary>
+/// MEMO：
+/// マウスはスクリーン中央に固定する
+void Input::UpdateMouse()
+{
+    // 入力更新
+    //currentFrameInput = GetMouseInput();                  // クリック
+    GetMousePoint(&mousePosition.x, &mousePosition.y);      // カーソル
+
+    // 移動だけキー入力
+    currentFrameInput = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+
+    // スクリーン中央に固定
+    SetMousePoint(ScreenWidthHalf, ScreenHeightHalf);
 }

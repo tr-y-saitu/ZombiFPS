@@ -44,8 +44,14 @@ void PlayerCamera::Update(const Input& input, const Player& player, const Stage&
     // DXライブラリのカメラとEffekseerのカメラを同期する。
     Effekseer_Sync3DSetting();
 
-    // カメラの角度を更新
+
+#ifdef USE_MOUSE
+    // マウスを使ってカメラの角度を更新
+    UpdateCameraAngleMouse(input);
+#else
+    // パッド、キーボード入力でカメラの角度を更新
     UpdateCameraAngle(input);
+#endif
 
     // カメラの注視点をプレイヤーよりも上に設定
     targetPosition = VAdd(player.GetPosition(), CameraPlayerTargetPosition);
@@ -120,6 +126,50 @@ void PlayerCamera::UpdateCameraAngle(const Input& input)
             }
         }
     }
+}
+
+/// <summary>
+/// マウスでのカメラ角度更新
+/// </summary>
+/// <param name="input">入力更新情報</param>
+void PlayerCamera::UpdateCameraAngleMouse(const Input& input)
+{
+    // マウスカーソル位置の取得
+    Input::MousePosition mousePosition = input.GetMousePosition();
+    int deltaX = mousePosition.x - ScreenWidthHalf;     // 画面の中心からどのくらい離れているか
+    int deltaY = mousePosition.y - ScreenHeightHalf;    // 画面の中心からどのくらい離れているか
+
+    // マウス感度を設定
+    float mouseSensitivity = input.MouseSensitivity;
+
+    angleHorizon += deltaX * mouseSensitivity;
+
+    // １８０度以上になったら角度値が大きくなりすぎないように３６０度を引く
+    if (angleHorizon > DX_PI_F)
+    {
+        angleHorizon -= DX_TWO_PI_F;
+    }
+    else if (angleHorizon < -DX_PI_F)
+    {
+        angleHorizon += DX_TWO_PI_F;
+    }
+
+    // 垂直角度を更新
+    angleVertical -= deltaY * mouseSensitivity; // マウスY軸は逆方向にすることが多い
+
+    // ある一定角度以上/以下にはならないようにする
+    float maxVerticalAngle = DX_PI_F / 2.0f - 0.6f;
+    float minVerticalAngle = -DX_PI_F / AngleVerticalOffset;
+
+    if (angleVertical > maxVerticalAngle)
+    {
+        angleVertical = maxVerticalAngle;
+    }
+    else if (angleVertical < minVerticalAngle)
+    {
+        angleVertical = minVerticalAngle;
+    }
+
 }
 
 /// <summary>
