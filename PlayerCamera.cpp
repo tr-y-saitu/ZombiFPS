@@ -136,13 +136,19 @@ void PlayerCamera::UpdateCameraAngleMouse(const Input& input)
 {
     // マウスカーソル位置の取得
     Input::MousePosition mousePosition = input.GetMousePosition();
-    int deltaX = mousePosition.x - ScreenWidthHalf;     // 画面の中心からどのくらい離れているか
-    int deltaY = mousePosition.y - ScreenHeightHalf;    // 画面の中心からどのくらい離れているか
+
+    // 画面の中心からどのくらい離れているか
+    int deltaX = mousePosition.x - ScreenWidthHalf;
+    int deltaY = mousePosition.y - ScreenHeightHalf;
 
     // マウス感度を設定
     float mouseSensitivity = input.MouseSensitivity;
 
-    angleHorizon += deltaX * mouseSensitivity;
+    // 水平角度を更新
+    if (fabs(deltaX) * mouseSensitivity >= MouseInputDeadZoneMin)
+    {
+        angleHorizon += deltaX * mouseSensitivity;
+    }
 
     // １８０度以上になったら角度値が大きくなりすぎないように３６０度を引く
     if (angleHorizon > DX_PI_F)
@@ -155,10 +161,13 @@ void PlayerCamera::UpdateCameraAngleMouse(const Input& input)
     }
 
     // 垂直角度を更新
-    angleVertical -= deltaY * mouseSensitivity; // マウスY軸は逆方向にすることが多い
+    if (fabs(deltaY) * mouseSensitivity >= MouseInputDeadZoneMin)
+    {
+        angleVertical -= deltaY * mouseSensitivity;
+    }
 
     // ある一定角度以上/以下にはならないようにする
-    float maxVerticalAngle = DX_PI_F / 2.0f - 0.6f;
+    float maxVerticalAngle = DX_PI_F / 2.0f - 0.6;
     float minVerticalAngle = -DX_PI_F / AngleVerticalOffset;
 
     if (angleVertical > maxVerticalAngle)
@@ -169,7 +178,6 @@ void PlayerCamera::UpdateCameraAngleMouse(const Input& input)
     {
         angleVertical = minVerticalAngle;
     }
-
 }
 
 /// <summary>

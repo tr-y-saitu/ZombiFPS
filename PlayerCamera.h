@@ -87,7 +87,7 @@ private:
     static constexpr float  AngleVerticalOffset         = 2.6f;     // 一定角度以上上を向かないようにするためのバフ値
     static constexpr float  AngleVerticalDonwOffset     = 1.4f;     // 下入力時に一定以上角度が下にならないようにするためのバフ値
     static constexpr VECTOR CameraPlayerTargetPosition  = { 0.0f,CameraPlayerTargetHeight,0.0f };    // カメラの注視点の座標
-
+    static constexpr float  MouseInputDeadZoneMin       = 0.009f;   // マウスの入力を受け付ける最小値
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
