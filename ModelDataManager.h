@@ -40,11 +40,18 @@ public:
     static void DeleteInstance();
 
     /// <summary>
-    /// 使用したいモデルデータを取得する
+    /// 一つしか使用しないモデルデータを取得する
+    /// </summary>
+    /// <param name="type">モデルの種類</param>
+    /// <returns>データハンドル</returns>
+    int GetOriginalModelHandle(ModelDataType type);
+
+    /// <summary>
+    /// 複製し使用するモデルデータを取得する
     /// </summary>
     /// <param name="type">データの種類</param>
     /// <returns>データハンドル</returns>
-    static int GetModelHandle(ModelDataType type);
+    int GetDuplicatesModelHandle(ModelDataType type);
 
 private:
     /// <summary>
@@ -59,7 +66,7 @@ private:
 
     // 変数
     static ModelDataManager*            modelDataManager;   // モデル管理クラスのインスタンスのアドレス
-    static map<ModelDataType, int>      modelDataList;      // 使用するモデルデータのリスト
+    map<ModelDataType, int>      modelDataList;      // 使用するモデルデータのリスト
 
 };
 

@@ -2,7 +2,6 @@
 
 // 初期化
 ModelDataManager* ModelDataManager::modelDataManager = NULL;
-map<ModelDataManager::ModelDataType, int> ModelDataManager::modelDataList;
 
 /// <summary>
 /// コンストラクタ
@@ -21,6 +20,10 @@ ModelDataManager::~ModelDataManager()
     // モデルデータの削除
     for (int i = 0; i < modelDataList.size(); i++)
     {
+<<<<<<< HEAD
+=======
+        // リストにデータが入っていれば
+>>>>>>> main
         if (modelDataList[(ModelDataType)i])
         {
             MV1DeleteModel(modelDataList[(ModelDataType)i]);
@@ -67,11 +70,22 @@ void ModelDataManager::ModelDataLoad()
 }
 
 /// <summary>
-/// 使用したいモデルデータを取得する
+/// 一つしか使用しないモデルデータを取得する
+/// </summary>
+/// <param name="type">モデルの種類</param>
+/// <returns>データハンドル</returns>
+int ModelDataManager::GetOriginalModelHandle(ModelDataType type)
+{
+    // オリジナルデータを渡す
+    return modelDataList[type];
+}
+
+/// <summary>
+/// 複製し使用するモデルデータを取得する
 /// </summary>
 /// <param name="type">データの種類</param>
 /// <returns>データハンドル</returns>
-int ModelDataManager::GetModelHandle(ModelDataType type)
+int ModelDataManager::GetDuplicatesModelHandle(ModelDataType type)
 {
     // 複製データを渡す
     return MV1DuplicateModel(modelDataList[type]);

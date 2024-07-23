@@ -30,7 +30,7 @@ Stage::~Stage()
 void Stage::Initialize()
 {
     // モデル読み込み
-    modelHandle = modelDataManager->GetModelHandle(ModelDataManager::ModelDataType::StageModelData);
+    modelHandle = modelDataManager->GetOriginalModelHandle(ModelDataManager::ModelDataType::StageModelData);
 
     // モデルのスケールを調整
     // スケールを小さくしすぎると当たり判定できなくなる
@@ -72,8 +72,7 @@ void Stage::Draw()
 /// </summary>
 /// <param name="player">プレイヤー</param>
 /// <param name="checkPosition">当たり判定をしたい座標</param>
-/// <param name="moveVector"></param>
-VECTOR Stage::IsHitCollision(Player& player, const VECTOR& checkPosition, const VECTOR& moveVector)
+void Stage::IsHitCollision(Player& player, const VECTOR& checkPosition, const VECTOR& moveVector)
 {
     // 検出したプレイヤーの周囲のポリゴン情報を開放する
     if (isCreatedHitDim)
@@ -98,8 +97,6 @@ VECTOR Stage::IsHitCollision(Player& player, const VECTOR& checkPosition, const 
     // 床ポリゴンとの当たり判定
     // 床ポリゴンとの当たりをチェックし、移動ベクトルを補正する
     FixedPos = CheckHitWithFloor(player, FixedPos);
-
-    return FixedPos;
 }
 
 /// 判定処理する壁と床のポリゴン数を検出する
