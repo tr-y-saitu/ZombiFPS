@@ -1,24 +1,24 @@
-#pragma once
+ï»¿#pragma once
 #include "PlayerStateBase.h"
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚ªƒGƒlƒ~[‚ÌUŒ‚‚ğó‚¯‚½ó‘Ô
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‚¨ãƒãƒŸãƒ¼ã®æ”»æ’ƒã‚’å—ã‘ãŸçŠ¶æ…‹
 /// </summary>
 class PlayerOnHitEnemyState : public PlayerStateBase
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     PlayerOnHitEnemyState();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~PlayerOnHitEnemyState();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update() override;
 

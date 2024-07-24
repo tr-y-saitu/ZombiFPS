@@ -1,21 +1,21 @@
-#include "SceneUIBase.h"
+ï»¿#include "SceneUIBase.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 SceneUIBase::SceneUIBase()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 SceneUIBase::~SceneUIBase()
 {
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void SceneUIBase::Update()
 {
@@ -23,7 +23,7 @@ void SceneUIBase::Update()
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void SceneUIBase::Draw()
 {

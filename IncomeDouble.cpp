@@ -1,22 +1,22 @@
-#include "IncomeDouble.h"
+ï»¿#include "IncomeDouble.h"
 
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 IncomeDouble::IncomeDouble()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 IncomeDouble::~IncomeDouble()
 {
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void IncomeDouble::Initialize()
 {
@@ -24,7 +24,7 @@ void IncomeDouble::Initialize()
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void IncomeDouble::Update()
 {
@@ -32,7 +32,7 @@ void IncomeDouble::Update()
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void IncomeDouble::Draw()
 {

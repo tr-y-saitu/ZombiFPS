@@ -1,21 +1,21 @@
-#include "EnemyWaveController.h"
+ï»¿#include "EnemyWaveController.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 EnemyWaveController::EnemyWaveController()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 EnemyWaveController::~EnemyWaveController()
 {
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void EnemyWaveController::Initialize()
 {
@@ -23,7 +23,7 @@ void EnemyWaveController::Initialize()
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void EnemyWaveController::Update()
 {

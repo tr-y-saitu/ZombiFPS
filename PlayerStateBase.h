@@ -1,23 +1,23 @@
-#pragma once
+ï»¿#pragma once
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[ƒXƒe[ƒgŠî‘bƒNƒ‰ƒX
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆåŸºç¤ã‚¯ãƒ©ã‚¹
 /// </summary>
 class PlayerStateBase
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     PlayerStateBase();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~PlayerStateBase();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     virtual void Update() abstract;
 

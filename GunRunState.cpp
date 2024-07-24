@@ -1,21 +1,21 @@
-#include "GunRunState.h"
+ï»¿#include "GunRunState.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 GunRunState::GunRunState()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 GunRunState::~GunRunState()
 {
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void GunRunState::Update()
 {

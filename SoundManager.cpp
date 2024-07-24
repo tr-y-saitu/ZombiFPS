@@ -1,20 +1,20 @@
-#include "SoundManager.h"
+ï»¿#include "SoundManager.h"
 
-// ‰Šú‰»
+// åˆæœŸåŒ–
 SoundManager* SoundManager::soundManager = NULL;
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 SoundManager::SoundManager()
     : playingSoundHandle(0)
 {
-    // ƒTƒEƒ“ƒhƒf[ƒ^“Ç‚İ‚İ
+    // ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
     LoadData();
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 SoundManager::~SoundManager()
 {
@@ -25,11 +25,11 @@ SoundManager::~SoundManager()
 }
 
 /// <summary>
-/// ƒTƒEƒ“ƒhƒf[ƒ^‚Ì“Ç‚İ‚İ
+/// ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 /// </summary>
 void SoundManager::LoadData()
 {
-    // Œø‰Ê‰¹
+    // åŠ¹æœéŸ³
     pushuSE = LoadSoundMem("data/sound/Common/pushuSE.mp3");
     soundListSE[PUSH_SE] = pushuSE;
     // BGM
@@ -44,7 +44,7 @@ void SoundManager::LoadData()
 }
 
 /// <summary>
-/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìì¬
+/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ä½œæˆ
 /// </summary>
 void SoundManager::CreateInstance()
 {
@@ -55,7 +55,7 @@ void SoundManager::CreateInstance()
 }
 
 /// <summary>
-/// ƒTƒEƒ“ƒhƒ}ƒl[ƒWƒƒ[ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒXƒ|ƒCƒ“ƒ^‚ğ“n‚·
+/// ã‚µã‚¦ãƒ³ãƒ‰ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãƒã‚¤ãƒ³ã‚¿ã‚’æ¸¡ã™
 /// </summary>
 SoundManager* SoundManager::GetInstance()
 {
@@ -63,7 +63,7 @@ SoundManager* SoundManager::GetInstance()
 }
 
 /// <summary>
-/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìíœ
+/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å‰Šé™¤
 /// </summary>
 void SoundManager::DeleteInstance()
 {
@@ -71,7 +71,7 @@ void SoundManager::DeleteInstance()
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void SoundManager::Update()
 {
@@ -79,25 +79,25 @@ void SoundManager::Update()
 }
 
 /// <summary>
-/// Ä¶’†‚Ì‰¹‚ğ‚·‚×‚Ä~‚ß‚é
+/// å†ç”Ÿä¸­ã®éŸ³ã‚’ã™ã¹ã¦æ­¢ã‚ã‚‹
 /// </summary>
 void SoundManager::StopAllSounds()
 {
-    // Ä¶’†‚ÌƒTƒEƒ“ƒh‚ğ’T‚·
+    // å†ç”Ÿä¸­ã®ã‚µã‚¦ãƒ³ãƒ‰ã‚’æ¢ã™
     for (int i = playingList.size() - 1; i >= 0; i--)
     {
         if (CheckSoundMem(playingList[i]))
         {
-            StopSoundMem(playingList[i]);               // ’â~
+            StopSoundMem(playingList[i]);               // åœæ­¢
         }
-        playingList.erase(playingList.begin() + i);     // íœ
+        playingList.erase(playingList.begin() + i);     // å‰Šé™¤
     }
 }
 
 /// <summary>
-/// “Ç‚İ‚ñ‚¾ƒTƒEƒ“ƒhƒŠƒXƒg‚©‚çŒø‰Ê‰¹Ä¶
+/// èª­ã¿è¾¼ã‚“ã ã‚µã‚¦ãƒ³ãƒ‰ãƒªã‚¹ãƒˆã‹ã‚‰åŠ¹æœéŸ³å†ç”Ÿ
 /// </summary>
-/// <param name="soundType">Ä¶‚µ‚½‚¢Œø‰Ê‰¹‚Ìí—Ş</param>
+/// <param name="soundType">å†ç”Ÿã—ãŸã„åŠ¹æœéŸ³ã®ç¨®é¡</param>
 void SoundManager::PlaySoundListSE(PlaySoundSE soundType)
 {
     playingSoundHandle = soundListSE[soundType];
@@ -106,9 +106,9 @@ void SoundManager::PlaySoundListSE(PlaySoundSE soundType)
 }
 
 /// <summary>
-/// “Ç‚İ‚ñ‚¾ƒTƒEƒ“ƒhƒŠƒXƒg‚©‚çBGMÄ¶
+/// èª­ã¿è¾¼ã‚“ã ã‚µã‚¦ãƒ³ãƒ‰ãƒªã‚¹ãƒˆã‹ã‚‰BGMå†ç”Ÿ
 /// </summary>
-/// <param name="soundType">Ä¶‚µ‚½‚¢BGM‚Ìí—Ş</param>
+/// <param name="soundType">å†ç”Ÿã—ãŸã„BGMã®ç¨®é¡</param>
 void SoundManager::PlaySoundListBGM(PlaySoundBGM soundType)
 {
     playingSoundHandle = soundListBGM[soundType];

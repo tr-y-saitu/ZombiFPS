@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 #include "Common.h"
@@ -7,33 +7,33 @@
 class Enemy;
 
 /// <summary>
-/// ƒGƒlƒ~[‚ÌƒIƒuƒWƒFƒNƒgƒv[ƒ‹
+/// ã‚¨ãƒãƒŸãƒ¼ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«
 /// </summary>
 class EnemyObjectPools
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     EnemyObjectPools();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~EnemyObjectPools();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize();
 
 private:
-    // ’è”
-    static constexpr int EnemyTotalNum = 100;   // ƒGƒlƒ~[‚Ì‘‡”
+    // å®šæ•°
+    static constexpr int EnemyTotalNum = 100;   // ã‚¨ãƒãƒŸãƒ¼ã®ç·åˆæ•°
 
-    // •Ï”
-    Enemy   activeEnemy[EnemyTotalNum];         // g—p’†ƒGƒlƒ~[
-    Enemy   nonActiveEenmy[EnemyTotalNum];      // g—p‚µ‚Ä‚¢‚È‚¢ƒGƒlƒ~[
+    // å¤‰æ•°
+    Enemy   activeEnemy[EnemyTotalNum];         // ä½¿ç”¨ä¸­ã‚¨ãƒãƒŸãƒ¼
+    Enemy   nonActiveEenmy[EnemyTotalNum];      // ä½¿ç”¨ã—ã¦ã„ãªã„ã‚¨ãƒãƒŸãƒ¼
 
 
 };

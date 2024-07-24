@@ -1,25 +1,25 @@
-#pragma once
+ï»¿#pragma once
 #include "PlayerStateBase.h"
 
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚ª‰½‚à‚µ‚Ä‚¢‚È‚¢ó‘Ô
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒä½•ã‚‚ã—ã¦ã„ãªã„çŠ¶æ…‹
 /// </summary>
 class PlayerIdleState : public PlayerStateBase
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     PlayerIdleState();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~PlayerIdleState();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update() override;
 

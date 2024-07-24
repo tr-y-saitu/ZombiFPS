@@ -1,39 +1,39 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 
 /// <summary>
-/// ƒVƒƒƒbƒ^[(áŠQ•¨‚ÌƒhƒA)
+/// ã‚·ãƒ£ãƒƒã‚¿ãƒ¼(éšœå®³ç‰©ã®ãƒ‰ã‚¢)
 /// </summary>
 class Shutter
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     Shutter();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ~Shutter();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update();
 
     /// <summary>
-    /// •`‰æ
+    /// æç”»
     /// </summary>
     void Draw();
 
 private:
-    VECTOR position;        // À•W
+    VECTOR position;        // åº§æ¨™
 };
 

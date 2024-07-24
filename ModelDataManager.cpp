@@ -1,26 +1,26 @@
-#include "ModelDataManager.h"
+ï»¿#include "ModelDataManager.h"
 
-// ‰Šú‰»
+// åˆæœŸåŒ–
 ModelDataManager* ModelDataManager::modelDataManager = NULL;
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 ModelDataManager::ModelDataManager()
 {
-    // ƒ‚ƒfƒ‹ƒf[ƒ^‚Ì“Ç‚İ‚İ
+    // ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
     ModelDataLoad();
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 ModelDataManager::~ModelDataManager()
 {
-    // ƒ‚ƒfƒ‹ƒf[ƒ^‚Ìíœ
+    // ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤
     for (int i = 0; i < modelDataList.size(); i++)
     {
-        // ƒŠƒXƒg‚Éƒf[ƒ^‚ª“ü‚Á‚Ä‚¢‚ê‚Î
+        // ãƒªã‚¹ãƒˆã«ãƒ‡ãƒ¼ã‚¿ãŒå…¥ã£ã¦ã„ã‚Œã°
         if (modelDataList[(ModelDataType)i])
         {
             MV1DeleteModel(modelDataList[(ModelDataType)i]);
@@ -29,7 +29,7 @@ ModelDataManager::~ModelDataManager()
 }
 
 /// <summary>
-/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìì¬
+/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ä½œæˆ
 /// </summary>
 void ModelDataManager::CreateInstance()
 {
@@ -40,16 +40,16 @@ void ModelDataManager::CreateInstance()
 }
 
 /// <summary>
-/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìæ“¾
+/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å–å¾—
 /// </summary>
-/// <returns>‰æ‘œƒf[ƒ^ƒ}ƒl[ƒWƒƒ[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ÌƒAƒhƒŒƒX</returns>
+/// <returns>ç”»åƒãƒ‡ãƒ¼ã‚¿ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã‚¢ãƒ‰ãƒ¬ã‚¹</returns>
 ModelDataManager* ModelDataManager::GetInstance()
 {
     return modelDataManager;
 }
 
 /// <summary>
-/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìíœ
+/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å‰Šé™¤
 /// </summary>
 void ModelDataManager::DeleteInstance()
 {
@@ -57,7 +57,7 @@ void ModelDataManager::DeleteInstance()
 }
 
 /// <summary>
-/// ƒ‚ƒfƒ‹ƒf[ƒ^‚Ì“Ç‚İ‚İ
+/// ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 /// </summary>
 void ModelDataManager::ModelDataLoad()
 {
@@ -67,23 +67,23 @@ void ModelDataManager::ModelDataLoad()
 }
 
 /// <summary>
-/// ˆê‚Â‚µ‚©g—p‚µ‚È‚¢ƒ‚ƒfƒ‹ƒf[ƒ^‚ğæ“¾‚·‚é
+/// ä¸€ã¤ã—ã‹ä½¿ç”¨ã—ãªã„ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹
 /// </summary>
-/// <param name="type">ƒ‚ƒfƒ‹‚Ìí—Ş</param>
-/// <returns>ƒf[ƒ^ƒnƒ“ƒhƒ‹</returns>
+/// <param name="type">ãƒ¢ãƒ‡ãƒ«ã®ç¨®é¡</param>
+/// <returns>ãƒ‡ãƒ¼ã‚¿ãƒãƒ³ãƒ‰ãƒ«</returns>
 int ModelDataManager::GetOriginalModelHandle(ModelDataType type)
 {
-    // ƒIƒŠƒWƒiƒ‹ƒf[ƒ^‚ğ“n‚·
+    // ã‚ªãƒªã‚¸ãƒŠãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’æ¸¡ã™
     return modelDataList[type];
 }
 
 /// <summary>
-/// •¡»‚µg—p‚·‚éƒ‚ƒfƒ‹ƒf[ƒ^‚ğæ“¾‚·‚é
+/// è¤‡è£½ã—ä½¿ç”¨ã™ã‚‹ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹
 /// </summary>
-/// <param name="type">ƒf[ƒ^‚Ìí—Ş</param>
-/// <returns>ƒf[ƒ^ƒnƒ“ƒhƒ‹</returns>
+/// <param name="type">ãƒ‡ãƒ¼ã‚¿ã®ç¨®é¡</param>
+/// <returns>ãƒ‡ãƒ¼ã‚¿ãƒãƒ³ãƒ‰ãƒ«</returns>
 int ModelDataManager::GetDuplicatesModelHandle(ModelDataType type)
 {
-    // •¡»ƒf[ƒ^‚ğ“n‚·
+    // è¤‡è£½ãƒ‡ãƒ¼ã‚¿ã‚’æ¸¡ã™
     return MV1DuplicateModel(modelDataList[type]);
 }

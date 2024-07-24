@@ -1,21 +1,21 @@
-#include "GameSceneUI.h"
+ï»¿#include "GameSceneUI.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 GameSceneUI::GameSceneUI()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 GameSceneUI::~GameSceneUI()
 {
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void GameSceneUI::Update()
 {

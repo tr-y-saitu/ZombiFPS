@@ -1,7 +1,7 @@
-#include "ResultScene.h"
+ï»¿#include "ResultScene.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 ResultScene::ResultScene()
 {
@@ -9,14 +9,14 @@ ResultScene::ResultScene()
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 ResultScene::~ResultScene()
 {
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void ResultScene::Initialize()
 {
@@ -24,29 +24,29 @@ void ResultScene::Initialize()
 }
 
 /// <summary>
-/// ƒV[ƒ“‚ÌXV
+/// ã‚·ãƒ¼ãƒ³ã®æ›´æ–°
 /// </summary>
-/// <returns>Ÿ‚ÌƒV[ƒ“‚Ìƒ|ƒCƒ“ƒ^</returns>
+/// <returns>æ¬¡ã®ã‚·ãƒ¼ãƒ³ã®ãƒã‚¤ãƒ³ã‚¿</returns>
 SceneBase* ResultScene::UpdateScene()
 {
 
-    // ƒIƒuƒWƒFƒNƒgXV
-    resultSceneUI.Update();     // UI‚ÌXV
+    // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ›´æ–°
+    resultSceneUI.Update();     // UIã®æ›´æ–°
 
-    // Œ»ó‚ÌƒV[ƒ“‚ğ•Ô‚·
+    // ç¾çŠ¶ã®ã‚·ãƒ¼ãƒ³ã‚’è¿”ã™
     return this;
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void ResultScene::Draw()
 {
-    DrawUI();       // UI‚Ì•`‰æ
+    DrawUI();       // UIã®æç”»
 }
 
 /// <summary>
-/// UI‚Ì•`‰æ
+/// UIã®æç”»
 /// </summary>
 void ResultScene::DrawUI()
 {
@@ -54,7 +54,7 @@ void ResultScene::DrawUI()
 }
 
 /// <summary>
-/// ‰¹‚ÌXV
+/// éŸ³ã®æ›´æ–°
 /// </summary>
 void ResultScene::UpdateSound()
 {
@@ -62,7 +62,7 @@ void ResultScene::UpdateSound()
 }
 
 /// <summary>
-/// ƒGƒtƒFƒNƒg‚ÌXV
+/// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æ›´æ–°
 /// </summary>
 void ResultScene::UpdateEffect()
 {

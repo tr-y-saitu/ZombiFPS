@@ -1,22 +1,22 @@
-#include "Shutter.h"
+ï»¿#include "Shutter.h"
 
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 Shutter::Shutter()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 Shutter::~Shutter()
 {
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void Shutter::Initialize()
 {
@@ -24,7 +24,7 @@ void Shutter::Initialize()
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void Shutter::Update()
 {
@@ -32,7 +32,7 @@ void Shutter::Update()
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void Shutter::Draw()
 {

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 class Player;
@@ -7,106 +7,106 @@ class ModelDataManager;
 
 
 /// <summary>
-/// ƒXƒe[ƒW
+/// ã‚¹ãƒ†ãƒ¼ã‚¸
 /// </summary>
 class Stage
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     Stage();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~Stage();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize();
 
     /// <summary>
-    /// I—¹ˆ—
+    /// çµ‚äº†æ™‚å‡¦ç†
     /// </summary>
     void Finalize();
 
     /// <summary>
-    /// •`‰æ
+    /// æç”»
     /// </summary>
     void Draw();
 
     /// <summary>
-    /// “–‚½‚è”»’è
+    /// å½“ãŸã‚Šåˆ¤å®š
     /// </summary>
-    /// <param name="player">ƒvƒŒƒCƒ„[</param>
-    /// <param name="checkPosition">“–‚½‚è”»’è‚ğ‚µ‚½‚¢‘ÎÛ</param>
-    /// <param name="moveVector">ˆÚ“®•ûŒü</param>
+    /// <param name="player">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼</param>
+    /// <param name="checkPosition">å½“ãŸã‚Šåˆ¤å®šã‚’ã—ãŸã„å¯¾è±¡</param>
+    /// <param name="moveVector">ç§»å‹•æ–¹å‘</param>
     VECTOR IsHitCollision(Player& player, const VECTOR& checkPosition, const VECTOR& moveVector);
 
-    // ƒQƒbƒ^[
+    // ã‚²ãƒƒã‚¿ãƒ¼
     int GetModelHandle() const { return modelHandle; }
 
 private:
     /// <summary>
-    /// ”»’èˆ—‚·‚é•Ç‚Æ°‚Ìƒ|ƒŠƒSƒ“”‚ğŒŸo‚·‚é
+    /// åˆ¤å®šå‡¦ç†ã™ã‚‹å£ã¨åºŠã®ãƒãƒªã‚´ãƒ³æ•°ã‚’æ¤œå‡ºã™ã‚‹
     /// </summary>
-    /// <param name="CheckPosition">”»’è‚·‚éÀ•W</param>
+    /// <param name="CheckPosition">åˆ¤å®šã™ã‚‹åº§æ¨™</param>
     void AnalyzeWallAndFloor(const VECTOR& CheckPosition);
 
     /// <summary>
-    /// •Çƒ|ƒŠƒSƒ“‚Æ‚Ì“–‚½‚è”»’è‚ğƒ`ƒFƒbƒN‚µA‚»‚±‚©‚ç‚¸‚ç‚·—Ê‚ğ•Ô‚·
+    /// å£ãƒãƒªã‚´ãƒ³ã¨ã®å½“ãŸã‚Šåˆ¤å®šã‚’ãƒã‚§ãƒƒã‚¯ã—ã€ãã“ã‹ã‚‰ãšã‚‰ã™é‡ã‚’è¿”ã™
     /// </summary>
-    /// <param name="player">ƒvƒŒƒCƒ„[</param>
-    /// <param name="CheckPosition">“–‚½‚è”»’è‚·‚éÀ•W</param>
-    /// <returns>•â³‚·‚éˆÚ“®ƒxƒNƒgƒ‹</returns>
+    /// <param name="player">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼</param>
+    /// <param name="CheckPosition">å½“ãŸã‚Šåˆ¤å®šã™ã‚‹åº§æ¨™</param>
+    /// <returns>è£œæ­£ã™ã‚‹ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«</returns>
     VECTOR CheckHitWithWall(Player& player, const VECTOR& CheckPosition);
 
     /// <summary>
-    /// °ƒ|ƒŠƒSƒ“‚Æ‚Ì“–‚½‚è”»’è‚ğƒ`ƒFƒbƒN‚µA‚»‚±‚©‚ç‚¸‚ç‚·—Ê‚ğ•Ô‚·
+    /// åºŠãƒãƒªã‚´ãƒ³ã¨ã®å½“ãŸã‚Šåˆ¤å®šã‚’ãƒã‚§ãƒƒã‚¯ã—ã€ãã“ã‹ã‚‰ãšã‚‰ã™é‡ã‚’è¿”ã™
     /// </summary>
-    /// <param name="player">ƒvƒŒƒCƒ„[</param>
-    /// <param name="CheckPosition">“–‚½‚è”»’è‚·‚éÀ•W</param>
-    /// <returns>•â³‚·‚éˆÚ“®ƒxƒNƒgƒ‹</returns>
+    /// <param name="player">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼</param>
+    /// <param name="CheckPosition">å½“ãŸã‚Šåˆ¤å®šã™ã‚‹åº§æ¨™</param>
+    /// <returns>è£œæ­£ã™ã‚‹ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«</returns>
     VECTOR CheckHitWithFloor(Player& player, const VECTOR& CheckPosition);
     
     //---------------------------------------------------------------------------------//
-    //                                      ’è”                                       //
+    //                                      å®šæ•°                                       //
     //---------------------------------------------------------------------------------//
-    // “–‚½‚è”»’è
-    static const int        MaxHitColl                  = 2048;         // ˆ—‚·‚éƒRƒŠƒWƒ‡ƒ“ƒ|ƒŠƒSƒ“‚ÌÅ‘å”
-    static constexpr float  DefaultSize                 = 1.0f;         // üˆÍ‚Ìƒ|ƒŠƒSƒ“ŒŸo‚Ég—p‚·‚é‹…‚Ì‰ŠúƒTƒCƒY
-    static constexpr float  HitWidth                    = 2.0f;         // “–‚½‚è”»’èƒJƒvƒZƒ‹‚Ì”¼Œa
-    static constexpr float  HitHeight                   = 2.0f;         // “–‚½‚è”»’èƒJƒvƒZƒ‹‚Ì‚‚³
-    static constexpr int    HitTryNum                   = 16;           // •Ç‰Ÿ‚µo‚µˆ—‚ÌÅ‘ås‰ñ”
-    static constexpr float  HitSlideLength              = 1.0f;         // ˆê“x‚Ì•Ç‰Ÿ‚µo‚µˆ—‚ÅƒXƒ‰ƒCƒh‚³‚¹‚é‹——£
-    static constexpr int    SelectCollisionEntire       = -1;           // ƒ‚ƒfƒ‹‘S‘Ì‚ÉƒRƒŠƒWƒ‡ƒ“‚ğ“K—p‚³‚¹‚é
-    static constexpr float  NormalVecterMaximumValue    = 0.000001f;    // –@ü‚ÌY¬•ª‚ÌÅ‘å’l(‚’¼”»’è—p)
-    static constexpr float  NormalVecterMinimumValue    = -0.000001f;   // –@ü‚ÌY¬•ª‚ÌÅ‘å’l(‚’¼”»’è—p)
-    static constexpr float  CheckPositionOffset         = 0.1f;         // ƒ|ƒŠƒSƒ“‚Æ‚Ì“–‚½‚è”»’èˆ—‚Ì—]•ª—Ê
-    // ƒXƒe[ƒ^ƒX
-    static constexpr VECTOR StageModelScale     = { 0.1,0.1,0.1 };      // ƒXƒe[ƒWƒ‚ƒfƒ‹‚ÌƒXƒP[ƒ‹
+    // å½“ãŸã‚Šåˆ¤å®š
+    static const int        MaxHitColl                  = 2048;         // å‡¦ç†ã™ã‚‹ã‚³ãƒªã‚¸ãƒ§ãƒ³ãƒãƒªã‚´ãƒ³ã®æœ€å¤§æ•°
+    static constexpr float  DefaultSize                 = 1.0f;         // å‘¨å›²ã®ãƒãƒªã‚´ãƒ³æ¤œå‡ºã«ä½¿ç”¨ã™ã‚‹çƒã®åˆæœŸã‚µã‚¤ã‚º
+    static constexpr float  HitWidth                    = 2.0f;         // å½“ãŸã‚Šåˆ¤å®šã‚«ãƒ—ã‚»ãƒ«ã®åŠå¾„
+    static constexpr float  HitHeight                   = 2.0f;         // å½“ãŸã‚Šåˆ¤å®šã‚«ãƒ—ã‚»ãƒ«ã®é«˜ã•
+    static constexpr int    HitTryNum                   = 16;           // å£æŠ¼ã—å‡ºã—å‡¦ç†ã®æœ€å¤§è©¦è¡Œå›æ•°
+    static constexpr float  HitSlideLength              = 1.0f;         // ä¸€åº¦ã®å£æŠ¼ã—å‡ºã—å‡¦ç†ã§ã‚¹ãƒ©ã‚¤ãƒ‰ã•ã›ã‚‹è·é›¢
+    static constexpr int    SelectCollisionEntire       = -1;           // ãƒ¢ãƒ‡ãƒ«å…¨ä½“ã«ã‚³ãƒªã‚¸ãƒ§ãƒ³ã‚’é©ç”¨ã•ã›ã‚‹
+    static constexpr float  NormalVecterMaximumValue    = 0.000001f;    // æ³•ç·šã®Yæˆåˆ†ã®æœ€å¤§å€¤(å‚ç›´åˆ¤å®šç”¨)
+    static constexpr float  NormalVecterMinimumValue    = -0.000001f;   // æ³•ç·šã®Yæˆåˆ†ã®æœ€å¤§å€¤(å‚ç›´åˆ¤å®šç”¨)
+    static constexpr float  CheckPositionOffset         = 0.1f;         // ãƒãƒªã‚´ãƒ³ã¨ã®å½“ãŸã‚Šåˆ¤å®šå‡¦ç†ã®ä½™åˆ†é‡
+    // ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+    static constexpr VECTOR StageModelScale     = { 0.1,0.1,0.1 };      // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¢ãƒ‡ãƒ«ã®ã‚¹ã‚±ãƒ¼ãƒ«
 
 
     //---------------------------------------------------------------------------------//
-    //                                      •Ï”                                       //
+    //                                      å¤‰æ•°                                       //
     //---------------------------------------------------------------------------------//
-    ModelDataManager*           modelDataManager;   // ƒ‚ƒfƒ‹ƒf[ƒ^‚ğæ“¾‚·‚é‚½‚ß‚Ìƒ}ƒl[ƒWƒƒ[
+    ModelDataManager*           modelDataManager;   // ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹ãŸã‚ã®ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 
-    // ƒ‚ƒfƒ‹ŠÖŒW Dim ¨ Dimensions (ŸŒ³)
-    int                         modelHandle;        // ƒ‚ƒfƒ‹ƒnƒ“ƒhƒ‹
-    MV1_COLL_RESULT_POLY_DIM    hitDim;             // ƒvƒŒƒCƒ„[ü•Ó‚Ì“–‚½‚è‚Ìƒ|ƒŠƒSƒ“‚ÌÕ“ËŒ‹‰Ê
+    // ãƒ¢ãƒ‡ãƒ«é–¢ä¿‚ Dim â†’ Dimensions (æ¬¡å…ƒ)
+    int                         modelHandle;        // ãƒ¢ãƒ‡ãƒ«ãƒãƒ³ãƒ‰ãƒ«
+    MV1_COLL_RESULT_POLY_DIM    hitDim;             // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å‘¨è¾ºã®å½“ãŸã‚Šã®ãƒãƒªã‚´ãƒ³ã®è¡çªçµæœ
     bool                        isCreatedHitDim;
 
-    // ƒ|ƒŠƒSƒ“
-    int                         wallNum;            // •Çƒ|ƒŠƒSƒ“‚Ì”
-    int                         floorNum;           // °ƒ|ƒŠƒSƒ“‚Ì”
-    MV1_COLL_RESULT_POLY*       wall[MaxHitColl];   // •Çƒ|ƒŠƒSƒ“‚Æ‚ÌÚG‚µ‚½ƒ|ƒŠƒSƒ“‚ÌƒAƒhƒŒƒX‚ğ•Û‘¶‚·‚é\‘¢‘Ì
-    MV1_COLL_RESULT_POLY*       floor[MaxHitColl];  // °ƒ|ƒŠƒSƒ“‚Æ‚ÌÚG‚µ‚½ƒ|ƒŠƒSƒ“‚ÌƒAƒhƒŒƒX‚ğ•Û‘¶‚·‚é\‘¢‘Ì
+    // ãƒãƒªã‚´ãƒ³
+    int                         wallNum;            // å£ãƒãƒªã‚´ãƒ³ã®æ•°
+    int                         floorNum;           // åºŠãƒãƒªã‚´ãƒ³ã®æ•°
+    MV1_COLL_RESULT_POLY*       wall[MaxHitColl];   // å£ãƒãƒªã‚´ãƒ³ã¨ã®æ¥è§¦ã—ãŸãƒãƒªã‚´ãƒ³ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’ä¿å­˜ã™ã‚‹æ§‹é€ ä½“
+    MV1_COLL_RESULT_POLY*       floor[MaxHitColl];  // åºŠãƒãƒªã‚´ãƒ³ã¨ã®æ¥è§¦ã—ãŸãƒãƒªã‚´ãƒ³ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’ä¿å­˜ã™ã‚‹æ§‹é€ ä½“
 
-    // ƒVƒƒƒbƒ^[(ƒhƒA)
-    Shutter* shutter;                               // ƒVƒƒƒbƒ^[(ƒhƒA)
+    // ã‚·ãƒ£ãƒƒã‚¿ãƒ¼(ãƒ‰ã‚¢)
+    Shutter* shutter;                               // ã‚·ãƒ£ãƒƒã‚¿ãƒ¼(ãƒ‰ã‚¢)
 
 };
 

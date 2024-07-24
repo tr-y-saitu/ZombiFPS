@@ -1,22 +1,22 @@
-#include "EnemyGroupController.h"
+ï»¿#include "EnemyGroupController.h"
 
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 EnemyGroupController::EnemyGroupController()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 EnemyGroupController::~EnemyGroupController()
 {
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void EnemyGroupController::Initialize()
 {
@@ -24,7 +24,7 @@ void EnemyGroupController::Initialize()
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void EnemyGroupController::Update()
 {

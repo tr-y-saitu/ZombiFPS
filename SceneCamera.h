@@ -1,38 +1,38 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 /// <summary>
-/// ƒV[ƒ“—p‚ÌƒJƒƒ‰
+/// ã‚·ãƒ¼ãƒ³ç”¨ã®ã‚«ãƒ¡ãƒ©
 /// </summary>
 class SceneCamera
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     SceneCamera();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ~SceneCamera();
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
-    /// <param name="initializePosition">ƒJƒƒ‰‚ÌÀ•W</param>
-    /// <param name="targetPosition">ƒJƒƒ‰‚ÌŒ©‚Ä‚¢‚éÀ•W</param>
+    /// <param name="initializePosition">ã‚«ãƒ¡ãƒ©ã®åº§æ¨™</param>
+    /// <param name="targetPosition">ã‚«ãƒ¡ãƒ©ã®è¦‹ã¦ã„ã‚‹åº§æ¨™</param>
     void Initialize(VECTOR initializePosition, VECTOR targetPosition);
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update();
 
 private:
 
-    // •Ï”
-    VECTOR  position;           // ƒ|ƒWƒVƒ‡ƒ“
-    float   angle;              // Šp“x
+    // å¤‰æ•°
+    VECTOR  position;           // ãƒã‚¸ã‚·ãƒ§ãƒ³
+    float   angle;              // è§’åº¦
 
 };
 

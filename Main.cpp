@@ -1,96 +1,96 @@
-// •W€ƒ‰ƒCƒuƒ‰ƒŠ
+ï»¿// æ¨™æº–ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
 #include <stdio.h>
 #include <iostream>
 #include <vector>
 #include <stdio.h>
 #include "math.h"
-// ’Ç‰ÁŠO•”ƒ‰ƒCƒuƒ‰ƒŠ
+// è¿½åŠ å¤–éƒ¨ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
 #include "DxLib.h"
 #include "EffekseerForDXLib.h"
-// ©ìƒwƒbƒ_[
-// ƒVƒ“ƒOƒ‹ƒgƒ“
+// è‡ªä½œãƒ˜ãƒƒãƒ€ãƒ¼
+// ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
 #include "FrameRateManager.h"
 #include "ImageDataManager.h"
 #include "ModelDataManager.h"
 #include "EffectManager.h"
 #include "SoundManager.h"
 
-// Šeƒwƒbƒ_[
+// å„ãƒ˜ãƒƒãƒ€ãƒ¼
 #include "Common.h"
 #include "Game.h"
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-    // DXƒ‰ƒCƒuƒ‰ƒŠ‚Ì•\¦•û–@‚ğƒEƒBƒ“ƒhƒEƒ‚[ƒh‚É•ÏX‚·‚éB
+    // DXãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®è¡¨ç¤ºæ–¹æ³•ã‚’ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã«å¤‰æ›´ã™ã‚‹ã€‚
 #ifdef _DEBUG
-    ChangeWindowMode(true);     // ƒEƒBƒ“ƒhƒEƒ‚[ƒh
+    ChangeWindowMode(true);     // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰
 #else
-    ChangeWindowMode(false);    // ‘S‰æ–Êƒ‚[ƒh
+    ChangeWindowMode(false);    // å…¨ç”»é¢ãƒ¢ãƒ¼ãƒ‰
 #endif
 
-    ChangeWindowMode(false);     // ‘S‰æ–Êƒ‚[ƒh
+    ChangeWindowMode(false);     // å…¨ç”»é¢ãƒ¢ãƒ¼ãƒ‰
 
-    //•`‰ææ‚ğ— ‰æ–Ê‚É•ÏX‚·‚éB
+    //æç”»å…ˆã‚’è£ç”»é¢ã«å¤‰æ›´ã™ã‚‹ã€‚
     SetDrawScreen(DX_SCREEN_BACK);
 
-    // ƒtƒ‹ƒV[ƒ“ƒAƒ“ƒ`ƒGƒCƒŠƒAƒX‚ğİ’è‚·‚é
-    SetFullSceneAntiAliasingMode(4, 2);  // 4x ƒAƒ“ƒ`ƒGƒCƒŠƒAƒVƒ“ƒO‚ğİ’è
+    // ãƒ•ãƒ«ã‚·ãƒ¼ãƒ³ã‚¢ãƒ³ãƒã‚¨ã‚¤ãƒªã‚¢ã‚¹ã‚’è¨­å®šã™ã‚‹
+    SetFullSceneAntiAliasingMode(4, 2);  // 4x ã‚¢ãƒ³ãƒã‚¨ã‚¤ãƒªã‚¢ã‚·ãƒ³ã‚°ã‚’è¨­å®š
 
-    // ‚c‚wƒ‰ƒCƒuƒ‰ƒŠ‰Šú‰»ˆ—
+    // ï¼¤ï¼¸ãƒ©ã‚¤ãƒ–ãƒ©ãƒªåˆæœŸåŒ–å‡¦ç†
     if (DxLib_Init() == -1)
     {
-        DxLib_End();  // ƒGƒ‰[‚ª‹N‚«‚½‚ç’¼‚¿‚ÉI—¹
+        DxLib_End();  // ã‚¨ãƒ©ãƒ¼ãŒèµ·ããŸã‚‰ç›´ã¡ã«çµ‚äº†
     }
 
-    // ‰æ–Êƒ‚[ƒh‚ÌƒZƒbƒg
+    // ç”»é¢ãƒ¢ãƒ¼ãƒ‰ã®ã‚»ãƒƒãƒˆ
     SetGraphMode(ScreenWidth,ScreenHeight, ScreenColorBitNum);
 
-    // •`‰ææƒOƒ‰ƒtƒBƒbƒN—Ìˆæ‚Ìw’è
+    // æç”»å…ˆã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯é ˜åŸŸã®æŒ‡å®š
     SetDrawScreen(DX_SCREEN_BACK);
 
-    // ƒVƒ“ƒOƒ‹ƒgƒ“ƒNƒ‰ƒX‚ğƒCƒ“ƒXƒ^ƒ“ƒX‰»
-    FrameRateManager::CreateInstance();     // ƒtƒŒ[ƒ€ƒŒ[ƒg
-    ImageDataManager::CreateInstance();     // ‰æ‘œƒf[ƒ^
-    ModelDataManager::CreateInstance();     // ƒ‚ƒfƒ‹ƒf[ƒ^
-    EffectManager::CreateInstance();        // ƒGƒtƒFƒNƒgŠÇ—
-    SoundManager::CreateInstance();         // ƒTƒEƒ“ƒhŠÇ—
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚¯ãƒ©ã‚¹ã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
+    FrameRateManager::CreateInstance();     // ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ
+    ImageDataManager::CreateInstance();     // ç”»åƒãƒ‡ãƒ¼ã‚¿
+    ModelDataManager::CreateInstance();     // ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿
+    EffectManager::CreateInstance();        // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç®¡ç†
+    SoundManager::CreateInstance();         // ã‚µã‚¦ãƒ³ãƒ‰ç®¡ç†
 
-    // ƒQ[ƒ€‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğì¬
+    // ã‚²ãƒ¼ãƒ ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½œæˆ
     Game game;
 
-    // ƒGƒXƒP[ƒvƒL[‚ª‰Ÿ‚³‚ê‚é‚©ƒEƒCƒ“ƒhƒE‚ª•Â‚¶‚ç‚ê‚é‚Ü‚Åƒ‹[ƒv
+    // ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã‚‹ã‹ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãŒé–‰ã˜ã‚‰ã‚Œã‚‹ã¾ã§ãƒ«ãƒ¼ãƒ—
     while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
     {
-        // ƒQ[ƒ€‚ÌXV
+        // ã‚²ãƒ¼ãƒ ã®æ›´æ–°
         game.Update();
 
 
-        // Windows “Á—L‚Ì–Ê“|‚Èˆ—‚ğ‚c‚wƒ‰ƒCƒuƒ‰ƒŠ‚É‚â‚ç‚¹‚é
-        // ƒ}ƒCƒiƒX‚Ì’liƒGƒ‰[’lj‚ª•Ô‚Á‚Ä‚«‚½‚çƒ‹[ƒv‚ğ”²‚¯‚é
+        // Windows ç‰¹æœ‰ã®é¢å€’ãªå‡¦ç†ã‚’ï¼¤ï¼¸ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«ã‚„ã‚‰ã›ã‚‹
+        // ãƒã‚¤ãƒŠã‚¹ã®å€¤ï¼ˆã‚¨ãƒ©ãƒ¼å€¤ï¼‰ãŒè¿”ã£ã¦ããŸã‚‰ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹
         if (ProcessMessage() < 0)
         {
             break;
         }
-        // ‚à‚µ‚d‚r‚bƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚çƒ‹[ƒv‚©‚ç”²‚¯‚é
+        // ã‚‚ã—ï¼¥ï¼³ï¼£ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰ãƒ«ãƒ¼ãƒ—ã‹ã‚‰æŠœã‘ã‚‹
         else if (CheckHitKey(KEY_INPUT_ESCAPE))
         {
             break;
         }
     }
 
-    // ƒVƒ“ƒOƒ‹ƒgƒ“ƒNƒ‰ƒX‚ğ‰ğ•ú
-    FrameRateManager::DeleteInstance();     // ƒtƒŒ[ƒ€ƒŒ[ƒg
-    ImageDataManager::DeleteInstance();     // ‰æ‘œƒf[ƒ^
-    ModelDataManager::DeleteInstance();     // ƒ‚ƒfƒ‹ƒf[ƒ^
-    EffectManager::DeleteInstance();        // ƒGƒtƒFƒNƒgŠÇ—
-    SoundManager::DeleteInstance();         // ƒTƒEƒ“ƒhŠÇ—
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚¯ãƒ©ã‚¹ã‚’è§£æ”¾
+    FrameRateManager::DeleteInstance();     // ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ
+    ImageDataManager::DeleteInstance();     // ç”»åƒãƒ‡ãƒ¼ã‚¿
+    ModelDataManager::DeleteInstance();     // ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿
+    EffectManager::DeleteInstance();        // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç®¡ç†
+    SoundManager::DeleteInstance();         // ã‚µã‚¦ãƒ³ãƒ‰ç®¡ç†
 
-    // Effekseer‚ğI—¹‚·‚éB
+    // Effekseerã‚’çµ‚äº†ã™ã‚‹ã€‚
     Effkseer_End();
 
-    // ‚c‚wƒ‰ƒCƒuƒ‰ƒŠ‚ÌŒãn––
+    // ï¼¤ï¼¸ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®å¾Œå§‹æœ«
     DxLib_End();
 
-    // ƒ\ƒtƒg‚ÌI—¹
+    // ã‚½ãƒ•ãƒˆã®çµ‚äº†
     return 0;
 }

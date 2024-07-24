@@ -1,21 +1,21 @@
-#include "PlayerOnHitEnemyState.h"
+ï»¿#include "PlayerOnHitEnemyState.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 PlayerOnHitEnemyState::PlayerOnHitEnemyState()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 PlayerOnHitEnemyState::~PlayerOnHitEnemyState()
 {
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void PlayerOnHitEnemyState::Update()
 {

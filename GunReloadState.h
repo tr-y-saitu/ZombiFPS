@@ -1,25 +1,25 @@
-#pragma once
+ï»¿#pragma once
 #include "GunStateBase.h"
 
 
 /// <summary>
-/// e‚ğƒŠƒ[ƒh‚µ‚Ä‚¢‚éó‘Ô
+/// éŠƒã‚’ãƒªãƒ­ãƒ¼ãƒ‰ã—ã¦ã„ã‚‹çŠ¶æ…‹
 /// </summary>
 class GunReloadState : public GunStateBase
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     GunReloadState();
     
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~GunReloadState();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update() override;
 

@@ -1,22 +1,22 @@
-#include "EnemyGroup.h"
+ï»¿#include "EnemyGroup.h"
 
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 EnemyGroup::EnemyGroup()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 EnemyGroup::~EnemyGroup()
 {
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void EnemyGroup::Initialize()
 {
@@ -24,7 +24,7 @@ void EnemyGroup::Initialize()
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void EnemyGroup::Update()
 {

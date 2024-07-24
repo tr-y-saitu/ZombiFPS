@@ -1,25 +1,25 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 /// <summary>
-/// ƒGƒlƒ~[(ƒ]ƒ“ƒr)
+/// ã‚¨ãƒãƒŸãƒ¼(ã‚¾ãƒ³ãƒ“)
 /// </summary>
 class Enemy
 {
 public:
     /// <summary>
-    /// ƒGƒlƒ~[‚Ìó‘Ô
+    /// ã‚¨ãƒãƒŸãƒ¼ã®çŠ¶æ…‹
     /// </summary>
     enum EnemyState
     {
-        None,       // ’â~
-        Walk,       // •à‚«
-        Run,        // ‘–‚è
-        Attack,     // UŒ‚
+        None,       // åœæ­¢
+        Walk,       // æ­©ã
+        Run,        // èµ°ã‚Š
+        Attack,     // æ”»æ’ƒ
     };
 
     /// <summary>
-    /// ƒGƒlƒ~[‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒ^ƒCƒv
+    /// ã‚¨ãƒãƒŸãƒ¼ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¿ã‚¤ãƒ—
     /// </summary>
     enum AnimationType
     {
@@ -27,49 +27,49 @@ public:
     };
 
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     Enemy();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ~Enemy();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update();
 
     /// <summary>
-    /// •`‰æ
+    /// æç”»
     /// </summary>
     void Draw();
 
 private:
-    // ’è”
+    // å®šæ•°
     
 
-    // •Ï”
-    VECTOR      position;               // À•W
-    VECTOR      targetMoveDirection;    // ƒ‚ƒfƒ‹‚ªŒü‚­‚×‚«•ûŒü‚ÌƒxƒNƒgƒ‹
-    float       angle;                  // ƒ‚ƒfƒ‹‚ªŒü‚¢‚Ä‚¢‚é•ûŒü‚ÌŠp“x
-    float       currentJumpPower;       // ‚x²•ûŒü‚Ì‘¬“x
-    int         modelHandle;            // ƒ‚ƒfƒ‹ƒnƒ“ƒhƒ‹
-    int         shadowHandle;           // ‰e‰æ‘œƒnƒ“ƒhƒ‹
-    //State     State;                  // ó‘Ô
+    // å¤‰æ•°
+    VECTOR      position;               // åº§æ¨™
+    VECTOR      targetMoveDirection;    // ãƒ¢ãƒ‡ãƒ«ãŒå‘ãã¹ãæ–¹å‘ã®ãƒ™ã‚¯ãƒˆãƒ«
+    float       angle;                  // ãƒ¢ãƒ‡ãƒ«ãŒå‘ã„ã¦ã„ã‚‹æ–¹å‘ã®è§’åº¦
+    float       currentJumpPower;       // ï¼¹è»¸æ–¹å‘ã®é€Ÿåº¦
+    int         modelHandle;            // ãƒ¢ãƒ‡ãƒ«ãƒãƒ³ãƒ‰ãƒ«
+    int         shadowHandle;           // å½±ç”»åƒãƒãƒ³ãƒ‰ãƒ«
+    //State     State;                  // çŠ¶æ…‹
 
-    int         currentPlayAnimation;        // Ä¶‚µ‚Ä‚¢‚éƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒAƒ^ƒbƒ`”Ô†( -1:‰½‚àƒAƒjƒ[ƒVƒ‡ƒ“‚ªƒAƒ^ƒbƒ`‚³‚ê‚Ä‚¢‚È‚¢ )
-    float       currentAnimationCount;       // Ä¶‚µ‚Ä‚¢‚éƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶ŠÔ
-    int         previousPlayAnimation;           // ‘O‚ÌÄ¶ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒAƒ^ƒbƒ`”Ô†( -1:‰½‚àƒAƒjƒ[ƒVƒ‡ƒ“‚ªƒAƒ^ƒbƒ`‚³‚ê‚Ä‚¢‚È‚¢ )
-    float       previousAnimationCount;          // ‘O‚ÌÄ¶ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶ŠÔ
-    float       animationBlendRate;          // Œ»İ‚Æ‰ß‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒuƒŒƒ“ƒh—¦
-    bool        currentFrameMove;                 // ‚»‚ÌƒtƒŒ[ƒ€‚Å“®‚¢‚½‚©‚Ç‚¤‚©
+    int         currentPlayAnimation;        // å†ç”Ÿã—ã¦ã„ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¢ã‚¿ãƒƒãƒç•ªå·( -1:ä½•ã‚‚ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒã‚¢ã‚¿ãƒƒãƒã•ã‚Œã¦ã„ãªã„ )
+    float       currentAnimationCount;       // å†ç”Ÿã—ã¦ã„ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å†ç”Ÿæ™‚é–“
+    int         previousPlayAnimation;           // å‰ã®å†ç”Ÿã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¢ã‚¿ãƒƒãƒç•ªå·( -1:ä½•ã‚‚ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒã‚¢ã‚¿ãƒƒãƒã•ã‚Œã¦ã„ãªã„ )
+    float       previousAnimationCount;          // å‰ã®å†ç”Ÿã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å†ç”Ÿæ™‚é–“
+    float       animationBlendRate;          // ç¾åœ¨ã¨éå»ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ–ãƒ¬ãƒ³ãƒ‰ç‡
+    bool        currentFrameMove;                 // ãã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§å‹•ã„ãŸã‹ã©ã†ã‹
 
 };
 

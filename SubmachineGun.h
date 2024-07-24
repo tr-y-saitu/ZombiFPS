@@ -1,34 +1,34 @@
-#pragma once
+ï»¿#pragma once
 #include "GunBase.h"
 
 class GunStateBase;
 class Shot;
 
 /// <summary>
-/// ƒTƒuƒ}ƒVƒ“ƒKƒ“
+/// ã‚µãƒ–ãƒã‚·ãƒ³ã‚¬ãƒ³
 /// </summary>
 class SubmachineGun : public GunBase
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     SubmachineGun();
     
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~SubmachineGun();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update() override;
 
 private:
-    // •Ï”
-    VECTOR position;        // À•W
-    vector<Shot*> shot;     // e’e
-    GunStateBase* gunState; // e‚Ìó‘Ô
+    // å¤‰æ•°
+    VECTOR position;        // åº§æ¨™
+    vector<Shot*> shot;     // éŠƒå¼¾
+    GunStateBase* gunState; // éŠƒã®çŠ¶æ…‹
 };
 

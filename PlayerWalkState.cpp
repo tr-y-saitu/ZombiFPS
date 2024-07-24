@@ -1,21 +1,21 @@
-#include "PlayerWalkState.h"
+ï»¿#include "PlayerWalkState.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 PlayerWalkState::PlayerWalkState()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 PlayerWalkState::~PlayerWalkState()
 {
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void PlayerWalkState::Update()
 {

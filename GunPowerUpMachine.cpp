@@ -1,22 +1,22 @@
-#include "GunPowerUpMachine.h"
+ï»¿#include "GunPowerUpMachine.h"
 
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 GunPowerUpMachine::GunPowerUpMachine()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 GunPowerUpMachine::~GunPowerUpMachine()
 {
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void GunPowerUpMachine::Initialize()
 {
@@ -24,7 +24,7 @@ void GunPowerUpMachine::Initialize()
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void GunPowerUpMachine::Update()
 {
@@ -32,7 +32,7 @@ void GunPowerUpMachine::Update()
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void GunPowerUpMachine::Draw()
 {

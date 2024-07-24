@@ -1,29 +1,29 @@
-#pragma once
+ï»¿#pragma once
 #include "SceneUIBase.h"
 
 /// <summary>
-/// ƒQ[ƒ€ƒV[ƒ“‚ÌUI
+/// ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã®UI
 /// </summary>
 class GameSceneUI : public SceneUIBase
 {
 public:
 	/// <summary>
-	/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	/// </summary>
 	GameSceneUI();
 
 	/// <summary>
-	/// ƒfƒXƒgƒ‰ƒNƒ^
+	/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	/// </summary>
 	virtual ~GameSceneUI();
 
 	/// <summary>
-	/// XV
+	/// æ›´æ–°
 	/// </summary>
 	void Update() override;
 
 	/// <summary>
-	/// •`‰æ
+	/// æç”»
 	/// </summary>
 	void Draw();
 

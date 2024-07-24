@@ -1,52 +1,52 @@
-#pragma once
+ï»¿#pragma once
 
-#define USE_MOUSE       // ƒ}ƒEƒX‚ğg—p‚·‚é
+#define USE_MOUSE       // ãƒã‚¦ã‚¹ã‚’ä½¿ç”¨ã™ã‚‹
 
 /// <summary>
-/// “ü—ÍŠÇ—ƒNƒ‰ƒX
+/// å…¥åŠ›ç®¡ç†ã‚¯ãƒ©ã‚¹
 /// </summary>
 class Input
 {
 public:
     struct MousePosition
     {
-        int x;      // XÀ•W
-        int y;      // YÀ•W
+        int x;      // Xåº§æ¨™
+        int y;      // Yåº§æ¨™
     };
 
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     Input();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ~Input();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update();
 
     /// <summary>
-    /// ƒ}ƒEƒX‚Å‚ÌXVˆ—
+    /// ãƒã‚¦ã‚¹ã§ã®æ›´æ–°å‡¦ç†
     /// </summary>
     void UpdateMouse();
 
-    // ƒQƒbƒ^[
+    // ã‚²ãƒƒã‚¿ãƒ¼
     int GetCurrentFrameInput() const { return currentFrameInput; }
     int GetNowNewFrameInput() const { return nowFrameNewInput; }
     const MousePosition GetMousePosition() const { return mousePosition; }
 
-    // ’è”
-    static constexpr float MouseSensitivity = 0.005f;        // ƒ}ƒEƒXŠ´“x
+    // å®šæ•°
+    static constexpr float MouseSensitivity = 0.005f;        // ãƒã‚¦ã‚¹æ„Ÿåº¦
 
 private:
 
-    // •Ï”
-    int     currentFrameInput;      // Œ»İ‚ÌƒtƒŒ[ƒ€‚Å‰Ÿ‚³‚ê‚Ä‚¢ƒ{ƒ^ƒ“
-    int     nowFrameNewInput;       // Œ»İ‚ÌƒtƒŒ[ƒ€‚ÅV‚½‚É“ü—Í‚³‚ê‚½ƒ{ƒ^ƒ“
-    MousePosition mousePosition;    // ƒ}ƒEƒX‚ÌÀ•W
+    // å¤‰æ•°
+    int     currentFrameInput;      // ç¾åœ¨ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§æŠ¼ã•ã‚Œã¦ã„ãƒœã‚¿ãƒ³
+    int     nowFrameNewInput;       // ç¾åœ¨ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§æ–°ãŸã«å…¥åŠ›ã•ã‚ŒãŸãƒœã‚¿ãƒ³
+    MousePosition mousePosition;    // ãƒã‚¦ã‚¹ã®åº§æ¨™
 };
 

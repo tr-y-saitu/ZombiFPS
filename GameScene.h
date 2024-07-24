@@ -1,8 +1,8 @@
-#pragma once
+ï»¿#pragma once
 #include "SceneBase.h"
 
 // MEMO:
-// ƒJƒƒ‰XV‚ÍƒvƒŒƒCƒ„[ƒNƒ‰ƒX“à‚Ås‚Á‚Ä‚¢‚Ü‚·
+// ã‚«ãƒ¡ãƒ©æ›´æ–°ã¯ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¯ãƒ©ã‚¹å†…ã§è¡Œã£ã¦ã„ã¾ã™
 
 class Input;
 class ImageDataManager;
@@ -20,83 +20,83 @@ class IncomeDouble;
 class GameSceneUI;
 
 /// <summary>
-///  ƒQ[ƒ€ƒV[ƒ“
+///  ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³
 /// </summary>
 class GameScene : public SceneBase
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     GameScene();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~GameScene();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize() override;
 
     /// <summary>
-    /// ƒV[ƒ“‚ÌƒAƒbƒvƒf[ƒg
+    /// ã‚·ãƒ¼ãƒ³ã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
     /// </summary>
-    /// <returns>Ÿ‚ÌƒV[ƒ“‚Ìƒ|ƒCƒ“ƒ^</returns>
+    /// <returns>æ¬¡ã®ã‚·ãƒ¼ãƒ³ã®ãƒã‚¤ãƒ³ã‚¿</returns>
     SceneBase* UpdateScene() override;
 
     /// <summary>
-    /// •`‰æ
+    /// æç”»
     /// </summary>
     void Draw() override;
 
     /// <summary>
-    /// UI‚Ì•`‰æ
+    /// UIã®æç”»
     /// </summary>
     void DrawUI() override;
 
     /// <summary>
-    /// ƒTƒEƒ“ƒh‚ÌXV
+    /// ã‚µã‚¦ãƒ³ãƒ‰ã®æ›´æ–°
     /// </summary>
     void UpdateSound();
 
     /// <summary>
-    /// ƒGƒtƒFƒNƒg‚ÌXV
+    /// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æ›´æ–°
     /// </summary>
     void UpdateEffect();
 
 private:
-    // ’è”
+    // å®šæ•°
 
-    // •Ï”
-    // “ü—Íˆ—
-    Input*              input;              // “ü—Í”»’èˆ—
+    // å¤‰æ•°
+    // å…¥åŠ›å‡¦ç†
+    Input*              input;              // å…¥åŠ›åˆ¤å®šå‡¦ç†
 
-    // ƒf[ƒ^ŠÖ˜A
-    ImageDataManager*   imageDataManager;   // ‰æ‘œƒf[ƒ^
-    ModleDataManager*   modleDataManager;   // ƒ‚ƒfƒ‹ƒf[ƒ^
+    // ãƒ‡ãƒ¼ã‚¿é–¢é€£
+    ImageDataManager*   imageDataManager;   // ç”»åƒãƒ‡ãƒ¼ã‚¿
+    ModleDataManager*   modleDataManager;   // ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿
     
-    // ‰‰oŠÖ˜A
-    EffectManager*  effectManager;  // ƒGƒtƒFƒNƒgÄ¶—p
-    SoundManager*   soundManager;   // ƒTƒEƒ“ƒhÄ¶—p
+    // æ¼”å‡ºé–¢é€£
+    EffectManager*  effectManager;  // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆå†ç”Ÿç”¨
+    SoundManager*   soundManager;   // ã‚µã‚¦ãƒ³ãƒ‰å†ç”Ÿç”¨
 
-    // ƒIƒuƒWƒFƒNƒgŠÖ˜A
-    CollisionManager*   collisionManager;   // “–‚½‚è”»’è
-    Stage*              stage;              // ƒXƒe[ƒW
-    Player*             player;             // ƒvƒŒƒCƒ„[
+    // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé–¢é€£
+    CollisionManager*   collisionManager;   // å½“ãŸã‚Šåˆ¤å®š
+    Stage*              stage;              // ã‚¹ãƒ†ãƒ¼ã‚¸
+    Player*             player;             // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
     
-    // ƒGƒlƒ~[ŠÖ˜A
-    EnemyGroupController*   enemyGroupController;   // ƒGƒlƒ~[‚ÌŒQ‚ê
-    EnemyWaveController*    enemyWaveController;    // ƒGƒlƒ~[‚ÌƒEƒF[ƒuŠÇ—
-    EnemyObjectPools*       enemyObjectPools;       // ƒGƒlƒ~[‚ÌƒIƒuƒWƒFƒNƒgƒv[ƒ‹
+    // ã‚¨ãƒãƒŸãƒ¼é–¢é€£
+    EnemyGroupController*   enemyGroupController;   // ã‚¨ãƒãƒŸãƒ¼ã®ç¾¤ã‚Œ
+    EnemyWaveController*    enemyWaveController;    // ã‚¨ãƒãƒŸãƒ¼ã®ã‚¦ã‚§ãƒ¼ãƒ–ç®¡ç†
+    EnemyObjectPools*       enemyObjectPools;       // ã‚¨ãƒãƒŸãƒ¼ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«
 
-    // ƒAƒCƒeƒ€ŠÖ˜A
-    MaxAmmo*                maxAmmoItem;            // ’e–òƒ}ƒbƒNƒXƒAƒCƒeƒ€
-    IncomeDouble*           incomeDoubleItem;       // ƒ|ƒCƒ“ƒg‚Q”{ƒAƒCƒeƒ€
+    // ã‚¢ã‚¤ãƒ†ãƒ é–¢é€£
+    MaxAmmo*                maxAmmoItem;            // å¼¾è–¬ãƒãƒƒã‚¯ã‚¹ã‚¢ã‚¤ãƒ†ãƒ 
+    IncomeDouble*           incomeDoubleItem;       // ãƒã‚¤ãƒ³ãƒˆï¼’å€ã‚¢ã‚¤ãƒ†ãƒ 
 
-    // UIŠÖ˜A
-    GameSceneUI*        gameSceneUI;        // ƒQ[ƒ€ƒV[ƒ“—p‚ÌUI
+    // UIé–¢é€£
+    GameSceneUI*        gameSceneUI;        // ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ç”¨ã®UI
 
 };
 

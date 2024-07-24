@@ -1,25 +1,25 @@
-#pragma once
+ï»¿#pragma once
 #include "PlayerStateBase.h"
 
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚ª•à‚¢‚Ä‚¢‚éó‘Ô
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ­©ã„ã¦ã„ã‚‹çŠ¶æ…‹
 /// </summary>
 class PlayerWalkState : public PlayerStateBase
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     PlayerWalkState();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~PlayerWalkState();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update() override;
 

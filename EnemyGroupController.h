@@ -1,39 +1,39 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 class EnemyGroup;
 
 /// <summary>
-/// W‡‚µ‚½ƒGƒlƒ~[‚ğˆê‚Â‚É‚Ü‚Æ‚ß‚é
+/// é›†åˆã—ãŸã‚¨ãƒãƒŸãƒ¼ã‚’ä¸€ã¤ã«ã¾ã¨ã‚ã‚‹
 /// </summary>
 class EnemyGroupController
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     EnemyGroupController();
     
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~EnemyGroupController();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update();
 
 private:
-    // ’è”
+    // å®šæ•°
 
 
-    // •Ï”
+    // å¤‰æ•°
 };
 
 

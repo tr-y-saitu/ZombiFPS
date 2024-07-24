@@ -1,29 +1,29 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 /// <summary>
-/// W‡ŒvZˆ—ƒNƒ‰ƒX
+/// é›†åˆè¨ˆç®—å‡¦ç†ã‚¯ãƒ©ã‚¹
 /// </summary>
 class Boids
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     Boids();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~Boids();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update();
 

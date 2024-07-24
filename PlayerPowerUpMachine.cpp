@@ -1,22 +1,22 @@
-#include "PlayerPowerUpMachine.h"
+ï»¿#include "PlayerPowerUpMachine.h"
 
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 PlayerPowerUpMachine::PlayerPowerUpMachine()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 PlayerPowerUpMachine::~PlayerPowerUpMachine()
 {
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void PlayerPowerUpMachine::Initialize()
 {
@@ -24,7 +24,7 @@ void PlayerPowerUpMachine::Initialize()
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void PlayerPowerUpMachine::Update()
 {
@@ -32,7 +32,7 @@ void PlayerPowerUpMachine::Update()
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void PlayerPowerUpMachine::Draw()
 {

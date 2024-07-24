@@ -1,69 +1,69 @@
-#include "EffectManager.h"
+ï»¿#include "EffectManager.h"
 
-// ‰Šú‰»
+// åˆæœŸåŒ–
 EffectManager* EffectManager::effectManager = NULL;
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 EffectManager::EffectManager()
     : playingEffectHandle(0)
 {
-    // DirectX11‚ğg—p‚·‚é‚æ‚¤‚É‚·‚éB(DirectX9‚à‰ÂAˆê•”‹@”\•s‰Â)
-    // Effekseer‚ğg—p‚·‚é‚É‚Í•K‚¸İ’è‚·‚éB
-    //DirectX11‚Ìƒo[ƒWƒ‡ƒ“‚ğw’è
+    // DirectX11ã‚’ä½¿ç”¨ã™ã‚‹ã‚ˆã†ã«ã™ã‚‹ã€‚(DirectX9ã‚‚å¯ã€ä¸€éƒ¨æ©Ÿèƒ½ä¸å¯)
+    // Effekseerã‚’ä½¿ç”¨ã™ã‚‹ã«ã¯å¿…ãšè¨­å®šã™ã‚‹ã€‚
+    //DirectX11ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚’æŒ‡å®š
     SetUseDirect3DVersion(DX_DIRECT3D_11);
 
-    // ˆø”‚É‚Í‰æ–Ê‚É•\¦‚·‚éÅ‘åƒp[ƒeƒBƒNƒ‹”‚ğİ’è‚·‚éB
+    // å¼•æ•°ã«ã¯ç”»é¢ã«è¡¨ç¤ºã™ã‚‹æœ€å¤§ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«æ•°ã‚’è¨­å®šã™ã‚‹ã€‚
     if (Effkseer_Init(20000) == -1)
     {
         DxLib_End();
     }
 
-    // ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒEƒCƒ“ƒhƒE‚ÌØ‚è‘Ö‚¦‚ÅƒŠƒ\[ƒX‚ªÁ‚¦‚é‚Ì‚ğ–h‚®B
-    // Effekseer‚ğg—p‚·‚éê‡‚Í•K‚¸İ’è‚·‚éB
+    // ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®åˆ‡ã‚Šæ›¿ãˆã§ãƒªã‚½ãƒ¼ã‚¹ãŒæ¶ˆãˆã‚‹ã®ã‚’é˜²ãã€‚
+    // Effekseerã‚’ä½¿ç”¨ã™ã‚‹å ´åˆã¯å¿…ãšè¨­å®šã™ã‚‹ã€‚
     SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
 
-    // DXƒ‰ƒCƒuƒ‰ƒŠ‚ÌƒfƒoƒCƒXƒƒXƒg‚µ‚½‚ÌƒR[ƒ‹ƒoƒbƒN‚ğİ’è‚·‚éB
-    // ƒEƒCƒ“ƒhƒE‚Æƒtƒ‹ƒXƒNƒŠ[ƒ“‚ÌØ‚è‘Ö‚¦‚ª”­¶‚·‚éê‡‚Í•K‚¸Às‚·‚éB
-    // ‚½‚¾‚µADirectX11‚ğg—p‚·‚éê‡‚ÍÀs‚·‚é•K—v‚Í‚È‚¢B
+    // DXãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ãƒ‡ãƒã‚¤ã‚¹ãƒ­ã‚¹ãƒˆã—ãŸæ™‚ã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã‚’è¨­å®šã™ã‚‹ã€‚
+    // ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã¨ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã®åˆ‡ã‚Šæ›¿ãˆãŒç™ºç”Ÿã™ã‚‹å ´åˆã¯å¿…ãšå®Ÿè¡Œã™ã‚‹ã€‚
+    // ãŸã ã—ã€DirectX11ã‚’ä½¿ç”¨ã™ã‚‹å ´åˆã¯å®Ÿè¡Œã™ã‚‹å¿…è¦ã¯ãªã„ã€‚
     Effekseer_SetGraphicsDeviceLostCallbackFunctions();
 
-    // Zƒoƒbƒtƒ@‚ğ—LŒø‚É‚·‚éB
-    // Effekseer‚ğg—p‚·‚éê‡A2DƒQ[ƒ€‚Å‚àZƒoƒbƒtƒ@‚ğg—p‚·‚éB
+    // Zãƒãƒƒãƒ•ã‚¡ã‚’æœ‰åŠ¹ã«ã™ã‚‹ã€‚
+    // Effekseerã‚’ä½¿ç”¨ã™ã‚‹å ´åˆã€2Dã‚²ãƒ¼ãƒ ã§ã‚‚Zãƒãƒƒãƒ•ã‚¡ã‚’ä½¿ç”¨ã™ã‚‹ã€‚
     SetUseZBuffer3D(TRUE);
 
-    // Zƒoƒbƒtƒ@‚Ö‚Ì‘‚«‚İ‚ğ—LŒø‚É‚·‚éB
-    // Effekseer‚ğg—p‚·‚éê‡A2DƒQ[ƒ€‚Å‚àZƒoƒbƒtƒ@‚ğg—p‚·‚éB
+    // Zãƒãƒƒãƒ•ã‚¡ã¸ã®æ›¸ãè¾¼ã¿ã‚’æœ‰åŠ¹ã«ã™ã‚‹ã€‚
+    // Effekseerã‚’ä½¿ç”¨ã™ã‚‹å ´åˆã€2Dã‚²ãƒ¼ãƒ ã§ã‚‚Zãƒãƒƒãƒ•ã‚¡ã‚’ä½¿ç”¨ã™ã‚‹ã€‚
     SetWriteZBuffer3D(TRUE);
 
     //EffekseerSyncronizDxlib();
 
-    // g—pƒGƒtƒFƒNƒg‚ğ“Ç‚İ‚İ
+    // ä½¿ç”¨ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’èª­ã¿è¾¼ã¿
     LoadEffect();
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 EffectManager::~EffectManager()
 {
-    // ƒGƒtƒFƒNƒgƒŠƒ\[ƒX‚ğíœ‚·‚éB(EffekseerI—¹‚É”jŠü‚³‚ê‚é‚Ì‚Åíœ‚µ‚È‚­‚Ä‚à‚¢‚¢)
+    // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒªã‚½ãƒ¼ã‚¹ã‚’å‰Šé™¤ã™ã‚‹ã€‚(Effekseerçµ‚äº†æ™‚ã«ç ´æ£„ã•ã‚Œã‚‹ã®ã§å‰Šé™¤ã—ãªãã¦ã‚‚ã„ã„)
 }
 
 /// <summary>
-/// ƒGƒtƒFƒNƒg‚Ì“Ç‚İ‚İ
+/// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®èª­ã¿è¾¼ã¿
 /// </summary>
 void EffectManager::LoadEffect()
 {
-    // ƒGƒtƒFƒNƒg‚Ìƒ[ƒh
+    // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒ­ãƒ¼ãƒ‰
 
-    // ƒGƒtƒFƒNƒgƒŠƒXƒg‚É‘‚«‚İ
+    // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒªã‚¹ãƒˆã«æ›¸ãè¾¼ã¿
 
 }
 
 /// <summary>
-/// ƒCƒ“ƒXƒ^ƒ“ƒX‚ğì¬
+/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½œæˆ
 /// </summary>
 void EffectManager::CreateInstance()
 {
@@ -74,16 +74,16 @@ void EffectManager::CreateInstance()
 }
 
 /// <summary>
-/// ƒGƒtƒFƒNƒgƒ}ƒl[ƒWƒƒ[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ìƒ|ƒCƒ“ƒ^‚ğ“n‚·
+/// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ã‚’æ¸¡ã™
 /// </summary>
-/// <returns>EffectManager‚Ìƒ|ƒCƒ“ƒ^</returns>
+/// <returns>EffectManagerã®ãƒã‚¤ãƒ³ã‚¿</returns>
 EffectManager* EffectManager::GetInstance()
 {
     return effectManager;
 }
 
 /// <summary>
-/// ƒGƒtƒFƒNƒgƒ}ƒl[ƒWƒƒ[‚Ìíœ
+/// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®å‰Šé™¤
 /// </summary>
 void EffectManager::DeleteInstance()
 {
@@ -91,31 +91,31 @@ void EffectManager::DeleteInstance()
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void EffectManager::Initialize()
 {
-    //// Ä¶’†‚ÌƒGƒtƒFƒNƒg‚ğíœ‚·‚é
+    //// å†ç”Ÿä¸­ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’å‰Šé™¤ã™ã‚‹
     for (int i = playingList.size() - 1; i >= 0; i--)
     {
-        // Ä¶’†‚©’²‚×‚é
+        // å†ç”Ÿä¸­ã‹èª¿ã¹ã‚‹
         if (!IsEffekseer3DEffectPlaying(playingList[i]))
         {
-            StopEffekseer3DEffect(playingList[i]);      // ’â~
-            playingList.erase(playingList.begin() + i); // íœ
+            StopEffekseer3DEffect(playingList[i]);      // åœæ­¢
+            playingList.erase(playingList.begin() + i); // å‰Šé™¤
         }
     }
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void EffectManager::Update()
 {
-    // ƒGƒtƒFƒNƒg‚ªI—¹‚µ‚½‚çAÄ¶’†‚©‚çíœ‚·‚é
+    // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãŒçµ‚äº†ã—ãŸã‚‰ã€å†ç”Ÿä¸­ã‹ã‚‰å‰Šé™¤ã™ã‚‹
     for (int i = 0; i < playingList.size(); i++)
     {
-        // Ä¶’†‚©’²‚×‚é
+        // å†ç”Ÿä¸­ã‹èª¿ã¹ã‚‹
         if (IsEffekseer3DEffectPlaying(playingList[i]) == NoPlay)
         {
             playingList.erase(playingList.begin());
@@ -124,16 +124,16 @@ void EffectManager::Update()
 }
 
 /// <summary>
-/// Œ»İÄ¶’†‚ÌƒGƒtƒFƒNƒg‚ª‚ ‚é‚©‚Ç‚¤‚©
+/// ç¾åœ¨å†ç”Ÿä¸­ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãŒã‚ã‚‹ã‹ã©ã†ã‹
 /// </summary>
-/// <returns>‚ ‚é:true  ‚È‚¢:false</returns>
+/// <returns>ã‚ã‚‹:true  ãªã„:false</returns>
 bool EffectManager::IsAnyEffectPlaying()
 {
     bool isPlaying = false;
 
     for (int i = 0; i < playingList.size(); i++)
     {
-        // Ä¶’†‚©’²‚×‚é
+        // å†ç”Ÿä¸­ã‹èª¿ã¹ã‚‹
         if (IsEffekseer3DEffectPlaying(playingList[i]) == Play)
         {
             isPlaying = true;
@@ -144,28 +144,28 @@ bool EffectManager::IsAnyEffectPlaying()
 }
 
 /// <summary>
-/// “Ç‚İ‚ñ‚¾ƒGƒtƒFƒNƒgƒŠƒXƒg‚©‚çÄ¶
+/// èª­ã¿è¾¼ã‚“ã ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒªã‚¹ãƒˆã‹ã‚‰å†ç”Ÿ
 /// </summary>
-/// <param name="effectType">Ä¶‚·‚éƒGƒtƒFƒNƒg‚Ìí—Ş</param>
-/// <param name="playPosition">Ä¶‚·‚éÀ•W</param>
-/// <param name="scale">¦ƒGƒtƒFƒNƒg‚Ì•`‰æƒTƒCƒY</param>
-/// NOTE:‘æ3ˆø”‚Ìuscalev‚ÍƒfƒtƒHƒ‹ƒgˆø”@ƒfƒtƒHƒ‹ƒg’l{1.0f,1.0f,1.0f}
-///      1.0f‚ª“Ç‚İ‚İƒTƒCƒY
+/// <param name="effectType">å†ç”Ÿã™ã‚‹ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ç¨®é¡</param>
+/// <param name="playPosition">å†ç”Ÿã™ã‚‹åº§æ¨™</param>
+/// <param name="scale">â€»ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æç”»ã‚µã‚¤ã‚º</param>
+/// NOTE:ç¬¬3å¼•æ•°ã®ã€Œscaleã€ã¯ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå¼•æ•°ã€€ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤{1.0f,1.0f,1.0f}
+///      1.0fãŒèª­ã¿è¾¼ã¿æ™‚ã‚µã‚¤ã‚º
 void EffectManager::PlayEffectList(EffectType effectType, VECTOR playPosition, VECTOR scale)
 {
-    // Ä¶‚·‚éƒGƒtƒFƒNƒg‚ğİ’è
+    // å†ç”Ÿã™ã‚‹ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¨­å®š
     playingEffectHandle = effectList[effectType];
 
-    // Ä¶‚·‚éƒGƒtƒFƒNƒg‚ÌŠg‘å—¦‚ğİ’è
+    // å†ç”Ÿã™ã‚‹ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æ‹¡å¤§ç‡ã‚’è¨­å®š
     SetScalePlayingEffekseer3DEffect(playingEffectHandle, scale.x, scale.y, scale.z);
 
-    // ƒGƒtƒFƒNƒg‚ğÄ¶
+    // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’å†ç”Ÿ
     PlayEffekseer3DEffect(playingEffectHandle);
 
-    // Ä¶’†ƒŠƒXƒg‚É’Ç‰Á
+    // å†ç”Ÿä¸­ãƒªã‚¹ãƒˆã«è¿½åŠ 
     playingList.push_back(playingEffectHandle);
 
-    // ƒGƒtƒFƒNƒg‚Ì•`‰æÀ•W‚ğİ’è
+    // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æç”»åº§æ¨™ã‚’è¨­å®š
     SetPosPlayingEffekseer3DEffect(playingEffectHandle, playPosition.x, playPosition.y, playPosition.z);
 }
 

@@ -1,14 +1,14 @@
-#include "PlayerStateBase.h"
+ï»¿#include "PlayerStateBase.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 PlayerStateBase::PlayerStateBase()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 PlayerStateBase::~PlayerStateBase()
 {
