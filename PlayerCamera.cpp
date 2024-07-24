@@ -216,46 +216,46 @@ void PlayerCamera::FixCameraPosition(const Stage& stage)
     MV1CollResultPolyDimTerminate(hitResult);
     if (hitNum != 0)
     {
-        float NotHitLength;
-        float HitLength;
-        float TestLength;
-        VECTOR TestPosition;
+        float noHItLength;
+        float hitLength;
+        float testLength;
+        VECTOR testPosition;
 
         // あったら無い位置までプレイヤーに近づく
 
         // ポリゴンに当たらない距離をセット
-        NotHitLength = 0.0f;
+        noHItLength = 0.0f;
 
         // ポリゴンに当たる距離をセット
-        HitLength = cameraPlayerLength;
+        hitLength = cameraPlayerLength;
         do
         {
             // 当たるかどうかテストする距離をセット( 当たらない距離と当たる距離の中間 )
-            TestLength = NotHitLength + (HitLength - NotHitLength) / 2.0f;
+            testLength = noHItLength + (hitLength - noHItLength) / 2.0f;
 
             // テスト用のカメラ座標を算出
-            TestPosition = VAdd(VTransform(VTransform(VGet(-TestLength, 0.0f, 0.0f), rotateZ), rotateY), targetPosition);
+            testPosition = VAdd(VTransform(VTransform(VGet(-testLength, 0.0f, 0.0f), rotateZ), rotateY), targetPosition);
 
             // 新しい座標で壁に当たるかテスト
-            hitResult = MV1CollCheck_Capsule(stage.GetModelHandle(), -1, targetPosition, TestPosition, CollisionSize);
+            hitResult = MV1CollCheck_Capsule(stage.GetModelHandle(), -1, targetPosition, testPosition, CollisionSize);
             hitNum = hitResult.HitNum;
             MV1CollResultPolyDimTerminate(hitResult);
             if (hitNum != 0)
             {
-                // 当たったら当たる距離を TestLength に変更する
-                HitLength = TestLength;
+                // 当たったら当たる距離を testLength に変更する
+                hitLength = testLength;
             }
             else
             {
-                // 当たらなかったら当たらない距離を TestLength に変更する
-                NotHitLength = TestLength;
+                // 当たらなかったら当たらない距離を testLength に変更する
+                noHItLength = testLength;
             }
 
-            // HitLength と NoHitLength が十分に近づいていなかったらループ
-        } while (HitLength - NotHitLength > 0.1f);
+            // hitLength と NoHitLength が十分に近づいていなかったらループ
+        } while (hitLength - noHItLength > 0.1f);
 
         // カメラの座標をセット
-        cameraPosition = TestPosition;
+        cameraPosition = testPosition;
     }
 }
 
