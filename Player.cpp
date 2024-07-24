@@ -24,7 +24,6 @@ Player::Player()
     playerCamera            = new PlayerCamera();
     playerState             = new PlayerIdleState();
     Initialize();
-    MV1SetRotationXYZ(modelHandle, VGet(0, 0.0f * DX_PI_F / 180.0f, 0));
 }
 
 /// <summary>

@@ -52,7 +52,7 @@ void BattleRifle:: Update(VECTOR setPosition, VECTOR cameraVector, float cameraP
     UpdateAngle(cameraVector, cameraPitch);
 
     // 座標の設定
-    MV1SetPosition(modelHandle, setPosition);
+    MV1SetPosition(modelHandle, position);
 }
 
 /// <summary>

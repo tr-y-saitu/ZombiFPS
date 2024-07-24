@@ -12,6 +12,8 @@ GunBase::GunBase()
 /// </summary>
 GunBase::~GunBase()
 {
+    // モデルの削除
+    MV1DeleteModel(modelHandle);
 }
 
 /// <summary>
