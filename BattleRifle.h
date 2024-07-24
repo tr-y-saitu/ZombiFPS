@@ -3,6 +3,7 @@
 
 class GunStateBase;
 class Shot;
+class ModelDataManager;
 
 /// <summary>
 /// バトルライフル(単発式の高火力ライフル)
@@ -30,10 +31,26 @@ public:
     /// </summary>
     void Update() override;
 
+    /// <summary>
+    /// 描画
+    /// </summary>
+    void Draw() override;
+
 private:
-    VECTOR position;        // 座標
-    vector<Shot*> shot;     // 銃弾
-    GunStateBase* gunState; // 銃の状態
+    //---------------------------------------------------------------------------------//
+    //                                      定数                                       //
+    //---------------------------------------------------------------------------------//
+    static constexpr float  ShotDamagePower         = 1.0f;     // 弾丸の威力
+    static constexpr float  ShotPenetrationPower    = 1.0f;     // 弾丸の貫通力
+    static constexpr float  GunFireRate             = 1.0f;     // 銃の連射力
+    static constexpr float  GunRecoil               = 1.0f;     // 銃の反動
+    static constexpr float  GunAccuracy             = 1.0f;     // 銃の精度(拡散度合い)
+
+    //---------------------------------------------------------------------------------//
+    //                                      定数                                       //
+    //---------------------------------------------------------------------------------//
+    ModelDataManager* modelDataManager;       // モデルデータ読み込み用クラスのアドレス
+
 };
 
 
