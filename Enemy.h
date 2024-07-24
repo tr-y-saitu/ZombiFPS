@@ -69,7 +69,7 @@ private:
     int         prevPlayAnim;           // 前の再生アニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
     float       prevAnimCount;          // 前の再生アニメーションの再生時間
     float       animBlendRate;          // 現在と過去のアニメーションのブレンド率
-    bool        isMove;                 // そのフレームで動いたかどうか
+    bool        currentFrameMove;                 // そのフレームで動いたかどうか
 
 };
 

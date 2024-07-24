@@ -38,7 +38,7 @@ public:
     /// </summary>
     /// <param name="type">データの種類</param>
     /// <returns>データハンドル</returns>
-    static int GetImageHandle(ImageDataType type);
+    int GetImageHandle(ImageDataType type);
 
 private:
     /// <summary>
@@ -54,6 +54,6 @@ private:
 
     // 変数
     static ImageDataManager*        imageDataManager;   // 画像データ管理クラスのインスタンスのアドレス
-    static map<ImageDataType, int>  imageDataList;      // 使用する画像のデータリスト
+    map<ImageDataType, int>  imageDataList;      // 使用する画像のデータリスト
 };
 

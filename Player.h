@@ -84,7 +84,7 @@ public:
 
     // ゲッター、セッター
     const VECTOR& GetPosition() const { return position; }
-    bool GetIsMove() const { return isMove; }
+    bool GetIsMove() const { return currentFrameMove; }
     State GetState() const { return state; }
     float GetJumpPower() const { return currentJumpPower; }
 
@@ -95,16 +95,15 @@ private:
     void DisableRootFrameZMove();
 
     /// <summary>
-    /// 入力情報に応じた移動パラメータを設定する
+    /// 移動ベクトルの更新
     /// </summary>
     /// <param name="input">入力情報</param>
     /// <param name="playerCamera">プレイヤー専用カメラ</param>
-    /// <param name="UpMoveVec">上方向ベクトル</param>
-    /// <param name="LeftMoveVec">左方向ベクトル</param>
-    /// <param name="MoveVec">移動ベクトル</param>
-    /// <returns>移動しているかどうか</returns>
-    bool UpdateMoveParameterWithPad(const Input& input, const PlayerCamera& playerCamera,
-        VECTOR& UpMoveVec, VECTOR& LeftMoveVec, VECTOR& MoveVec);
+    /// <param name="upModveVector">上方向ベクトル</param>
+    /// <param name="leftMoveVector">左方向ベクトル</param>
+    /// <param name="currentFrameMoveVector">移動ベクトル</param>
+    void UpdateMoveVector(const Input& input, const PlayerCamera& playerCamera,
+        VECTOR& upModveVector, VECTOR& leftMoveVector, VECTOR& currentFrameMoveVector);
 
     /// <summary>
     /// 移動処理
@@ -130,13 +129,6 @@ private:
     /// </summary>
     void UpdateAnimation();
 
-    /// <summary>
-    /// 影を描画する
-    /// </summary>
-    /// <param name="stage">ステージ</param>
-    void DrawShadow(const Stage& stage);
-
-
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -152,6 +144,7 @@ private:
     static constexpr float  FallUpPower     = 20.0f;    // 足を踏み外した時のジャンプ力
     static constexpr float  MoveLimitY      = 5.0f;     // Y軸の移動制限
     static constexpr VECTOR PlayerScale     = { 0.05f,0.05f,0.05f };    // プレイヤーのスケール
+    static constexpr VECTOR ZeroVector      = { 0.0f,0.0f,0.0f };       // ゼロベクトル
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
@@ -169,7 +162,6 @@ private:
     float       angle;                  // モデルが向いている方向の角度
     float       currentJumpPower;       // Ｙ軸方向の速度
     int         modelHandle;            // モデルハンドル
-    int         shadowHandle;           // 影画像ハンドル
     State       state;                  // 状態
 
     // アニメーション関係
@@ -178,8 +170,8 @@ private:
     int         prevPlayAnim;           // 前の再生アニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
     float       prevAnimCount;          // 前の再生アニメーションの再生時間
     float       animBlendRate;          // 現在と過去のアニメーションのブレンド率
-    bool        isMove;                 // そのフレームで動いたかどうか
-
+    bool        currentFrameMove;       // そのフレームで動いたかどうか
+    bool        pressMoveButton;        // 移動用のボタンが入力されているか
 
 
 };

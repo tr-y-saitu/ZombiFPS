@@ -186,31 +186,31 @@ void PlayerCamera::UpdateCameraAngleMouse(const Input& input)
 /// <param name="stage">ステージ</param>
 void PlayerCamera::FixCameraPosition(const Stage& stage)
 {
-    MATRIX RotZ, RotY;
-    float CameraPlayerLength;
-    MV1_COLL_RESULT_POLY_DIM HitResult;
-    int HitNum;
+    MATRIX rotateZ, rotateY;
+    float cameraPlayerLength;
+    MV1_COLL_RESULT_POLY_DIM hitResult;
+    int hitNum;
 
     // 水平方向の回転はＹ軸回転
-    RotY = MGetRotY(angleHorizon);
+    rotateY = MGetRotY(angleHorizon);
 
     // 垂直方向の回転はＺ軸回転 )
-    RotZ = MGetRotZ(angleVertical);
+    rotateZ = MGetRotZ(angleVertical);
 
     // カメラからプレイヤーまでの初期距離をセット
-    CameraPlayerLength = ToPlayerLength;
+    cameraPlayerLength = ToPlayerLength;
 
     // カメラの座標を算出
     // Ｘ軸にカメラとプレイヤーとの距離分だけ伸びたベクトルを
     // 垂直方向回転( Ｚ軸回転 )させたあと水平方向回転( Ｙ軸回転 )して更に
     // 注視点の座標を足したものがカメラの座標
-    cameraPosition = VAdd(VTransform(VTransform(VGet(-CameraPlayerLength, 0.0f, 0.0f), RotZ), RotY), targetPosition);
+    cameraPosition = VAdd(VTransform(VTransform(VGet(-cameraPlayerLength, 0.0f, 0.0f), rotateZ), rotateY), targetPosition);
 
     // 注視点からカメラの座標までの間にステージのポリゴンがあるか調べる
-    HitResult = MV1CollCheck_Capsule(stage.GetModelHandle(), -1, targetPosition, cameraPosition, CollisionSize);
-    HitNum = HitResult.HitNum;
-    MV1CollResultPolyDimTerminate(HitResult);
-    if (HitNum != 0)
+    hitResult = MV1CollCheck_Capsule(stage.GetModelHandle(), -1, targetPosition, cameraPosition, CollisionSize);
+    hitNum = hitResult.HitNum;
+    MV1CollResultPolyDimTerminate(hitResult);
+    if (hitNum != 0)
     {
         float NotHitLength;
         float HitLength;
@@ -223,20 +223,20 @@ void PlayerCamera::FixCameraPosition(const Stage& stage)
         NotHitLength = 0.0f;
 
         // ポリゴンに当たる距離をセット
-        HitLength = CameraPlayerLength;
+        HitLength = cameraPlayerLength;
         do
         {
             // 当たるかどうかテストする距離をセット( 当たらない距離と当たる距離の中間 )
             TestLength = NotHitLength + (HitLength - NotHitLength) / 2.0f;
 
             // テスト用のカメラ座標を算出
-            TestPosition = VAdd(VTransform(VTransform(VGet(-TestLength, 0.0f, 0.0f), RotZ), RotY), targetPosition);
+            TestPosition = VAdd(VTransform(VTransform(VGet(-TestLength, 0.0f, 0.0f), rotateZ), rotateY), targetPosition);
 
             // 新しい座標で壁に当たるかテスト
-            HitResult = MV1CollCheck_Capsule(stage.GetModelHandle(), -1, targetPosition, TestPosition, CollisionSize);
-            HitNum = HitResult.HitNum;
-            MV1CollResultPolyDimTerminate(HitResult);
-            if (HitNum != 0)
+            hitResult = MV1CollCheck_Capsule(stage.GetModelHandle(), -1, targetPosition, TestPosition, CollisionSize);
+            hitNum = hitResult.HitNum;
+            MV1CollResultPolyDimTerminate(hitResult);
+            if (hitNum != 0)
             {
                 // 当たったら当たる距離を TestLength に変更する
                 HitLength = TestLength;

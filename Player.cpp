@@ -16,10 +16,11 @@
 /// コンストラクタ
 /// </summary>
 Player::Player()
-    : position      (VGet(0,0,0))
+    : position              (VGet(0,0,0))
+    , pressMoveButton       (false)
 {
-    modelDataManager    = ModelDataManager::GetInstance();
-    playerState         = new PlayerIdleState();
+    modelDataManager        = ModelDataManager::GetInstance();
+    playerState             = new PlayerIdleState();
     Initialize();
     MV1SetRotationXYZ(modelHandle, VGet(0, 0.0f * DX_PI_F / 180.0f, 0));
 }
@@ -31,7 +32,6 @@ Player::~Player()
 {
     delete(playerState);
     MV1DeleteModel(modelHandle);
-    DeleteGraph(shadowHandle);
 }
 
 /// <summary>
@@ -57,9 +57,6 @@ void Player::Initialize()
     // ジャンプ力は初期状態では０
     currentJumpPower = 0.0f;
     
-    // 影描画用の画像の読み込み
-    shadowHandle = LoadGraph("Shadow.tga");
-    
     // 初期状態でプレイヤーが向くべき方向はＸ軸方向
     targetMoveDirection = VGet(1.0f, 0.0f, 0.0f);
     
@@ -70,9 +67,8 @@ void Player::Initialize()
     currentPlayAnim = -1;
     prevPlayAnim = -1;
     
-    // ただ立っているアニメーションを再生
-    // TODO: マジックナンバーの4が何なのか解析して定数化
-    PlayAnim(AnimationType::None);           // HACK: 中ではアタッチとカウンタの初期化をしているだけ
+    // アニメーション設定
+    PlayAnim(AnimationType::None);
 }
 
 /// <summary>
@@ -86,19 +82,21 @@ void Player::Update(const Input& input, PlayerCamera& playerCamera, Stage& stage
     DisableRootFrameZMove();
 
     // パッド入力によって移動パラメータを設定する
-    VECTOR	UpMoveVec;		// 方向ボタン「↑」を入力をしたときのプレイヤーの移動方向ベクトル
-    VECTOR	LeftMoveVec;	// 方向ボタン「←」を入力をしたときのプレイヤーの移動方向ベクトル
-    VECTOR	MoveVec;		// このフレームの移動ベクトル
-    auto IsPressMoveButton = UpdateMoveParameterWithPad(input, playerCamera, UpMoveVec, LeftMoveVec, MoveVec);
+    VECTOR  upModveVector;          // 方向ボタン「↑」を入力をしたときのプレイヤーの移動方向ベクトル
+    VECTOR  leftMoveVector;         // 方向ボタン「←」を入力をしたときのプレイヤーの移動方向ベクトル
+    VECTOR  currentFrameMoveVector; // このフレームの移動ベクトル
+    
+    // 移動ベクトルの更新
+    UpdateMoveVector(input, playerCamera, upModveVector, leftMoveVector, currentFrameMoveVector);
 
     // 移動ボタンが押されたかどうかで処理を分岐
-    if (IsPressMoveButton)
+    if (pressMoveButton)
     {
         // 移動ベクトルを正規化したものをプレイヤーが向くべき方向として保存
-        targetMoveDirection = VNorm(MoveVec);
+        targetMoveDirection = VNorm(currentFrameMoveVector);
 
         // プレイヤーが向くべき方向ベクトルをプレイヤーのスピード倍したものを移動ベクトルとする
-        MoveVec = VScale(targetMoveDirection, MoveSpeed);
+        currentFrameMoveVector = VScale(targetMoveDirection, MoveSpeed);
 
         // もし今まで「立ち止まり」状態だったら
         if (state == State::None)
@@ -137,14 +135,14 @@ void Player::Update(const Input& input, PlayerCamera& playerCamera, Stage& stage
         }
 
         // 移動ベクトルのＹ成分をＹ軸方向の速度にする
-        MoveVec.y = currentJumpPower;
+        currentFrameMoveVector.y = currentJumpPower;
     }
 
     // プレイヤーモデルとプレイヤーカメラの回転率を同期させる
     UpdateAngle(playerCamera);
 
     // 移動ベクトルを元にコリジョンを考慮しつつプレイヤーを移動
-    Move(MoveVec, stage);
+    Move(currentFrameMoveVector, stage);
 
     // アニメーション処理
     UpdateAnimation();
@@ -156,7 +154,6 @@ void Player::Update(const Input& input, PlayerCamera& playerCamera, Stage& stage
 void Player::Draw(const Stage& stage)
 {
     MV1DrawModel(modelHandle);
-    DrawShadow(stage);
 
     // 座標描画
     DrawFormatString(100,0,GetColor(255,255,255),"X:%f Y:%f Z:%f",position.x,position.y,position.z);
@@ -183,7 +180,7 @@ void Player::OnHitFloor()
     if (state == State::Jump)
     {
         // 移動していたかどうかで着地後の状態と再生するアニメーションを分岐する
-        if (isMove)
+        if (currentFrameMove)
         {
             // 移動している場合は走り状態に
             PlayAnim(AnimationType::Run);
@@ -232,35 +229,34 @@ void Player::DisableRootFrameZMove()
 }
 
 /// <summary>
-/// 移動パラメータを設定する
+/// 移動ベクトルの更新
 /// </summary>
 /// <param name="input">入力情報</param>
 /// <param name="playerCamera">プレイヤー専用のカメラ</param>
-/// <param name="UpMoveVec">上方向ベクトル</param>
-/// <param name="LeftMoveVec">左方向ベクトル</param>
-/// <param name="MoveVec">移動ベクトル</param>
-/// <returns>移動しているかどうか</returns>
-bool Player::UpdateMoveParameterWithPad(const Input& input, const PlayerCamera& playerCamera,
-    VECTOR& UpMoveVec, VECTOR& LeftMoveVec, VECTOR& MoveVec)
+/// <param name="upModveVector">上方向ベクトル</param>
+/// <param name="leftMoveVector">左方向ベクトル</param>
+/// <param name="currentFrameMoveVector">移動ベクトル</param>
+void Player::UpdateMoveVector(const Input& input, const PlayerCamera& playerCamera,
+    VECTOR& upModveVector, VECTOR& leftMoveVector, VECTOR& currentFrameMoveVector)
 {
     // プレイヤーの移動方向のベクトルを算出
     // 方向ボタン「↑」を押したときのプレイヤーの移動ベクトルはカメラの視線方向からＹ成分を抜いたもの
-    UpMoveVec = VSub(playerCamera.GetTargetPosition(), playerCamera.GetCameraPosition());
-    UpMoveVec.y = 0.0f;
+    upModveVector = VSub(playerCamera.GetTargetPosition(), playerCamera.GetCameraPosition());
+    upModveVector.y = 0.0f;
     
     // 方向ボタン「←」を押したときのプレイヤーの移動ベクトルは上を押したときの方向ベクトルとＹ軸のプラス方向のベクトルに垂直な方向
-    LeftMoveVec = VCross(UpMoveVec, VGet(0.0f, 1.0f, 0.0f));
+    leftMoveVector = VCross(upModveVector, VGet(0.0f, 1.0f, 0.0f));
     
-    // 二つのベクトルを正規化( ベクトルの長さを１．０にすること )
-    UpMoveVec = VNorm(UpMoveVec);
-    LeftMoveVec = VNorm(LeftMoveVec);
+    // ベクトルの正規化
+    upModveVector = VNorm(upModveVector);
+    leftMoveVector = VNorm(leftMoveVector);
     
     // このフレームでの移動ベクトルを初期化
-    MoveVec = VGet(0.0f, 0.0f, 0.0f);
+    currentFrameMoveVector = ZeroVector;
     
-    // 移動したかどうかのフラグを初期状態では「移動していない」を表すFALSEにする
-    bool IsPressMoveButton = false;
-    
+    // 移動用のボタンが入力されたかどうか
+    pressMoveButton = false;
+
     // パッドの３ボタンと左シフトがどちらも押されていなかったらプレイヤーの移動処理
     if (CheckHitKey(KEY_INPUT_LSHIFT) == 0 && (input.GetCurrentFrameInput() & PAD_INPUT_C) == 0)
     {
@@ -268,10 +264,10 @@ bool Player::UpdateMoveParameterWithPad(const Input& input, const PlayerCamera& 
         if (input.GetCurrentFrameInput() & PAD_INPUT_LEFT || CheckHitKey(KEY_INPUT_A))
         {
             // 移動ベクトルに「←」が入力された時の移動ベクトルを加算する
-            MoveVec = VAdd(MoveVec, LeftMoveVec);
+            currentFrameMoveVector = VAdd(currentFrameMoveVector, leftMoveVector);
 
-            // 移動したかどうかのフラグを「移動した」にする
-            IsPressMoveButton = true;
+            // 移動用ボタンが押された
+            pressMoveButton = true;
         }
         else
         {
@@ -279,10 +275,10 @@ bool Player::UpdateMoveParameterWithPad(const Input& input, const PlayerCamera& 
             if (input.GetCurrentFrameInput() & PAD_INPUT_RIGHT || CheckHitKey(KEY_INPUT_D))
             {
                 // 移動ベクトルに「←」が入力された時の移動ベクトルを反転したものを加算する
-                MoveVec = VAdd(MoveVec, VScale(LeftMoveVec, -1.0f));
+                currentFrameMoveVector = VAdd(currentFrameMoveVector, VScale(leftMoveVector, -1.0f));
 
-                // 移動したかどうかのフラグを「移動した」にする
-                IsPressMoveButton = true;
+                // 移動用ボタンが押された
+                pressMoveButton = true;
             }
         }
 
@@ -290,10 +286,10 @@ bool Player::UpdateMoveParameterWithPad(const Input& input, const PlayerCamera& 
         if (input.GetCurrentFrameInput() & PAD_INPUT_UP || CheckHitKey(KEY_INPUT_W))
         {
             // 移動ベクトルに「↑」が入力された時の移動ベクトルを加算する
-            MoveVec = VAdd(MoveVec, UpMoveVec);
+            currentFrameMoveVector = VAdd(currentFrameMoveVector, upModveVector);
 
-            // 移動したかどうかのフラグを「移動した」にする
-            IsPressMoveButton = true;
+            // 移動用ボタンが押された
+            pressMoveButton = true;
         }
         else
         {
@@ -301,10 +297,10 @@ bool Player::UpdateMoveParameterWithPad(const Input& input, const PlayerCamera& 
             if (input.GetCurrentFrameInput() & PAD_INPUT_DOWN || CheckHitKey(KEY_INPUT_S))
             {
                 // 移動ベクトルに「↑」が入力された時の移動ベクトルを反転したものを加算する
-                MoveVec = VAdd(MoveVec, VScale(UpMoveVec, -1.0f));
+                currentFrameMoveVector = VAdd(currentFrameMoveVector, VScale(upModveVector, -1.0f));
 
-                // 移動したかどうかのフラグを「移動した」にする
-                IsPressMoveButton = true;
+                // 移動用ボタンが押された
+                pressMoveButton = true;
             }
         }
 
@@ -323,7 +319,6 @@ bool Player::UpdateMoveParameterWithPad(const Input& input, const PlayerCamera& 
         //    PlayAnim(AnimationType::Jump);
         //}
     }
-    return IsPressMoveButton;
 }
 
 /// <summary>
@@ -337,19 +332,19 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
     // x軸かy軸方向に 0.01f 以上移動した場合は「移動した」フラグを１にする
     if (fabs(MoveVector.x) > 0.01f || fabs(MoveVector.z) > 0.01f)
     {
-        isMove = true;
+        currentFrameMove = true;
     }
     else
     {
-        isMove = false;
+        currentFrameMove = false;
     }
 
     // 当たり判定をして、新しい座標を保存する
-    VECTOR OldPos = position;                           // 移動前の座標
-    VECTOR NextPos = VAdd(position, MoveVector);        // 移動後の座標
+    VECTOR oldPosition = position;                      // 移動前の座標
+    VECTOR nextPosition = VAdd(position, MoveVector);   // 移動後の座標
 
     // ステージとの当たり判定処理
-    position = stage.IsHitCollision(*this, NextPos, MoveVector);
+    position = stage.IsHitCollision(*this, nextPosition, MoveVector);
 
     // 床より少し高くする
     if (position.y <= MoveLimitY)
@@ -470,14 +465,6 @@ void Player::UpdateAnimation()
         // アニメーション２のモデルに対する反映率をセット
         MV1SetAttachAnimBlendRate(modelHandle, prevPlayAnim, 1.0f - animBlendRate);
     }
-}
-
-/// <summary>
-/// 影を描画
-/// </summary>
-/// <param name="stage"></param>
-void Player::DrawShadow(const Stage & stage)
-{
 }
 
 

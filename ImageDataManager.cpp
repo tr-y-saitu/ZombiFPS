@@ -3,7 +3,6 @@
 
 // 初期化
 ImageDataManager* ImageDataManager::imageDataManager = NULL;
-map<ImageDataManager::ImageDataType, int> ImageDataManager::imageDataList;
 
 /// <summary>
 /// コンストラクタ
