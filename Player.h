@@ -65,25 +65,21 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    void Update(const Input& input, PlayerCamera& playerCamera, Stage& stage);
+    /// <param name="input">入力情報</param>
+    /// <param name="stage">ステージ</param>
+    void Update(const Input& input, Stage& stage);
 
     /// <summary>
     /// 描画
     /// </summary>
     void Draw(const Stage& stage);
 
-    void UpdatePlayerCamera();
-
     /// <summary>
-    /// 更新
+    /// プレイヤーカメラの更新
     /// </summary>
     /// <param name="input">入力情報</param>
     /// <param name="stage">ステージ</param>
-    void Update(const Input& input, Stage& stage);
-    void UpdateMoveVector(const Input& input, VECTOR& upModveVector,
-        VECTOR& leftMoveVector, VECTOR& currentFrameMoveVector);
-    void UpdateAngle();
-
+    void UpdatePlayerCamera(const Input& input,Stage& stage);
 
     /// <summary>
     /// 天井に接触した時の処理
@@ -111,12 +107,11 @@ private:
     /// 移動ベクトルの更新
     /// </summary>
     /// <param name="input">入力情報</param>
-    /// <param name="playerCamera">プレイヤー専用カメラ</param>
     /// <param name="upModveVector">上方向ベクトル</param>
     /// <param name="leftMoveVector">左方向ベクトル</param>
     /// <param name="currentFrameMoveVector">移動ベクトル</param>
-    void UpdateMoveVector(const Input& input, const PlayerCamera& playerCamera,
-        VECTOR& upModveVector, VECTOR& leftMoveVector, VECTOR& currentFrameMoveVector);
+    void UpdateMoveVector(const Input& input, VECTOR& upModveVector,
+        VECTOR& leftMoveVector, VECTOR& currentFrameMoveVector);
 
     /// <summary>
     /// 移動処理
@@ -128,8 +123,7 @@ private:
     /// <summary>
     /// 回転制御
     /// </summary>
-    /// <param name="playerCamera">プレイヤーカメラ</param>
-    void UpdateAngle(const PlayerCamera& playerCamera);
+    void UpdateAngle();
 
     /// <summary>
     /// アニメーションを新しく再生する

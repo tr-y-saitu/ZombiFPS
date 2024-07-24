@@ -73,9 +73,9 @@ void Player::Initialize()
 /// <summary>
 /// 更新
 /// </summary>
-/// <param name="input">入力状態</param>
-/// <param name="playerCamera">プレイヤーのカメラ</param>
-void Player::Update(const Input& input, PlayerCamera& playerCamera, Stage& stage)
+/// <param name="input">入力情報</param>
+/// <param name="stage">ステージ</param>
+void Player::Update(const Input& input, Stage& stage)
 {
     // ルートフレームのＺ軸方向の移動パラメータを無効にする
     DisableRootFrameZMove();
@@ -84,9 +84,9 @@ void Player::Update(const Input& input, PlayerCamera& playerCamera, Stage& stage
     VECTOR  upModveVector;          // 方向ボタン「↑」を入力をしたときのプレイヤーの移動方向ベクトル
     VECTOR  leftMoveVector;         // 方向ボタン「←」を入力をしたときのプレイヤーの移動方向ベクトル
     VECTOR  currentFrameMoveVector; // このフレームの移動ベクトル
-    
+
     // 移動ベクトルの更新
-    UpdateMoveVector(input, playerCamera, upModveVector, leftMoveVector, currentFrameMoveVector);
+    UpdateMoveVector(input, upModveVector, leftMoveVector, currentFrameMoveVector);
 
     // 移動ボタンが押されたかどうかで処理を分岐
     if (pressMoveButton)
@@ -138,13 +138,16 @@ void Player::Update(const Input& input, PlayerCamera& playerCamera, Stage& stage
     }
 
     // プレイヤーモデルとプレイヤーカメラの回転率を同期させる
-    UpdateAngle(playerCamera);
+    UpdateAngle();
 
     // 移動ベクトルを元にコリジョンを考慮しつつプレイヤーを移動
     Move(currentFrameMoveVector, stage);
 
     // アニメーション処理
     UpdateAnimation();
+
+    // プレイヤーカメラの更新
+    UpdatePlayerCamera(input, stage);
 }
 
 /// <summary>
@@ -156,6 +159,16 @@ void Player::Draw(const Stage& stage)
 
     // 座標描画
     DrawFormatString(100,0,GetColor(255,255,255),"X:%f Y:%f Z:%f",position.x,position.y,position.z);
+}
+
+/// <summary>
+/// プレイヤーカメラの更新
+/// </summary>
+/// <param name="input">入力情報</param>
+/// <param name="stage">ステージ</param>
+void Player::UpdatePlayerCamera(const Input& input, Stage& stage)
+{
+    playerCamera->Update(input, position,stage);
 }
 
 /// <summary>
@@ -231,28 +244,27 @@ void Player::DisableRootFrameZMove()
 /// 移動ベクトルの更新
 /// </summary>
 /// <param name="input">入力情報</param>
-/// <param name="playerCamera">プレイヤー専用のカメラ</param>
 /// <param name="upModveVector">上方向ベクトル</param>
 /// <param name="leftMoveVector">左方向ベクトル</param>
 /// <param name="currentFrameMoveVector">移動ベクトル</param>
-void Player::UpdateMoveVector(const Input& input, const PlayerCamera& playerCamera,
-    VECTOR& upModveVector, VECTOR& leftMoveVector, VECTOR& currentFrameMoveVector)
+void Player::UpdateMoveVector(const Input& input, VECTOR& upModveVector,
+    VECTOR& leftMoveVector, VECTOR& currentFrameMoveVector)
 {
     // プレイヤーの移動方向のベクトルを算出
-    // 方向ボタン「↑」を押したときのプレイヤーの移動ベクトルはカメラの視線方向からＹ成分を抜いたもの
-    upModveVector = VSub(playerCamera.GetTargetPosition(), playerCamera.GetCameraPosition());
+// 方向ボタン「↑」を押したときのプレイヤーの移動ベクトルはカメラの視線方向からＹ成分を抜いたもの
+    upModveVector = VSub(playerCamera->GetTargetPosition(), playerCamera->GetCameraPosition());
     upModveVector.y = 0.0f;
-    
+
     // 方向ボタン「←」を押したときのプレイヤーの移動ベクトルは上を押したときの方向ベクトルとＹ軸のプラス方向のベクトルに垂直な方向
     leftMoveVector = VCross(upModveVector, VGet(0.0f, 1.0f, 0.0f));
-    
+
     // ベクトルの正規化
     upModveVector = VNorm(upModveVector);
     leftMoveVector = VNorm(leftMoveVector);
-    
+
     // このフレームでの移動ベクトルを初期化
     currentFrameMoveVector = ZeroVector;
-    
+
     // 移動用のボタンが入力されたかどうか
     pressMoveButton = false;
 
@@ -358,18 +370,17 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
 /// <summary>
 /// 回転制御
 /// </summary>
-/// <param name="playerCamera">プレイヤーカメラ</param>
-void Player::UpdateAngle(const PlayerCamera& playerCamera)
+void Player::UpdateAngle()
 {
     // プレイヤーモデルをプレイヤーカメラの回転率と同様に回転させる
 
     // プレイヤー専用カメラの方向を取得
-    VECTOR cameraForward = playerCamera.GetCameraForwardVector();
-    float cameraPitch = playerCamera.GetCameraPitch();
+    VECTOR cameraForward = playerCamera->GetCameraForwardVector();
+    float cameraPitch = playerCamera->GetCameraPitch();
 
     // モデルの水平方向回転値を計算
     float playerAngleY = atan2f(cameraForward.x, cameraForward.z);
-    
+
     // プレイヤーモデルを追加で180度回転
     playerAngleY += DX_PI_F;
 
@@ -464,201 +475,4 @@ void Player::UpdateAnimation()
         // アニメーション２のモデルに対する反映率をセット
         MV1SetAttachAnimBlendRate(modelHandle, prevPlayAnim, 1.0f - animBlendRate);
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-void Player::Update(const Input& input, Stage& stage)
-{
-
-    // ルートフレームのＺ軸方向の移動パラメータを無効にする
-    DisableRootFrameZMove();
-
-    // パッド入力によって移動パラメータを設定する
-    VECTOR  upModveVector;          // 方向ボタン「↑」を入力をしたときのプレイヤーの移動方向ベクトル
-    VECTOR  leftMoveVector;         // 方向ボタン「←」を入力をしたときのプレイヤーの移動方向ベクトル
-    VECTOR  currentFrameMoveVector; // このフレームの移動ベクトル
-
-    // 移動ベクトルの更新
-    UpdateMoveVector(input, upModveVector, leftMoveVector, currentFrameMoveVector);
-
-    // 移動ボタンが押されたかどうかで処理を分岐
-    if (pressMoveButton)
-    {
-        // 移動ベクトルを正規化したものをプレイヤーが向くべき方向として保存
-        targetMoveDirection = VNorm(currentFrameMoveVector);
-
-        // プレイヤーが向くべき方向ベクトルをプレイヤーのスピード倍したものを移動ベクトルとする
-        currentFrameMoveVector = VScale(targetMoveDirection, MoveSpeed);
-
-        // もし今まで「立ち止まり」状態だったら
-        if (state == State::None)
-        {
-            // 走りアニメーションを再生する
-            PlayAnim(AnimationType::Run);
-
-            // 状態を「走り」にする
-            state = State::Run;
-        }
-    }
-    else
-    {
-        // このフレームで移動していなくて、且つ状態が「走り」だったら
-        if (state == State::Run)
-        {
-            // 立ち止りアニメーションを再生する
-            PlayAnim(AnimationType::Stop);
-
-            // 状態を「立ち止り」にする
-            state = State::None;
-        }
-    }
-
-    // 状態が「ジャンプ」の場合は
-    if (state == State::Jump)
-    {
-        // Ｙ軸方向の速度を重力分減算する
-        currentJumpPower -= Gravity;
-
-        // もし落下していて且つ再生されているアニメーションが上昇中用のものだった場合は
-        if (currentJumpPower < 0.0f && MV1GetAttachAnim(modelHandle, currentPlayAnim) == 2)
-        {
-            // 落下中ようのアニメーションを再生する
-            PlayAnim(AnimationType::Jump);
-        }
-
-        // 移動ベクトルのＹ成分をＹ軸方向の速度にする
-        currentFrameMoveVector.y = currentJumpPower;
-    }
-
-    // プレイヤーモデルとプレイヤーカメラの回転率を同期させる
-    UpdateAngle();
-
-    // 移動ベクトルを元にコリジョンを考慮しつつプレイヤーを移動
-    Move(currentFrameMoveVector, stage);
-
-    // アニメーション処理
-    UpdateAnimation();
-
-    // プレイヤーカメラの更新
-    playerCamera->Update(input, position, stage);
-}
-
-
-void Player::UpdateMoveVector(const Input& input, VECTOR& upModveVector,
-    VECTOR& leftMoveVector, VECTOR& currentFrameMoveVector)
-{
-    // プレイヤーの移動方向のベクトルを算出
-// 方向ボタン「↑」を押したときのプレイヤーの移動ベクトルはカメラの視線方向からＹ成分を抜いたもの
-    upModveVector = VSub(playerCamera->GetTargetPosition(), playerCamera->GetCameraPosition());
-    upModveVector.y = 0.0f;
-
-    // 方向ボタン「←」を押したときのプレイヤーの移動ベクトルは上を押したときの方向ベクトルとＹ軸のプラス方向のベクトルに垂直な方向
-    leftMoveVector = VCross(upModveVector, VGet(0.0f, 1.0f, 0.0f));
-
-    // ベクトルの正規化
-    upModveVector = VNorm(upModveVector);
-    leftMoveVector = VNorm(leftMoveVector);
-
-    // このフレームでの移動ベクトルを初期化
-    currentFrameMoveVector = ZeroVector;
-
-    // 移動用のボタンが入力されたかどうか
-    pressMoveButton = false;
-
-    // パッドの３ボタンと左シフトがどちらも押されていなかったらプレイヤーの移動処理
-    if (CheckHitKey(KEY_INPUT_LSHIFT) == 0 && (input.GetCurrentFrameInput() & PAD_INPUT_C) == 0)
-    {
-        // 方向ボタン「←」が入力されたらカメラの見ている方向から見て左方向に移動する
-        if (input.GetCurrentFrameInput() & PAD_INPUT_LEFT || CheckHitKey(KEY_INPUT_A))
-        {
-            // 移動ベクトルに「←」が入力された時の移動ベクトルを加算する
-            currentFrameMoveVector = VAdd(currentFrameMoveVector, leftMoveVector);
-
-            // 移動用ボタンが押された
-            pressMoveButton = true;
-        }
-        else
-        {
-            // 方向ボタン「→」が入力されたらカメラの見ている方向から見て右方向に移動する
-            if (input.GetCurrentFrameInput() & PAD_INPUT_RIGHT || CheckHitKey(KEY_INPUT_D))
-            {
-                // 移動ベクトルに「←」が入力された時の移動ベクトルを反転したものを加算する
-                currentFrameMoveVector = VAdd(currentFrameMoveVector, VScale(leftMoveVector, -1.0f));
-
-                // 移動用ボタンが押された
-                pressMoveButton = true;
-            }
-        }
-
-        // 方向ボタン「↑」が入力されたらカメラの見ている方向に移動する
-        if (input.GetCurrentFrameInput() & PAD_INPUT_UP || CheckHitKey(KEY_INPUT_W))
-        {
-            // 移動ベクトルに「↑」が入力された時の移動ベクトルを加算する
-            currentFrameMoveVector = VAdd(currentFrameMoveVector, upModveVector);
-
-            // 移動用ボタンが押された
-            pressMoveButton = true;
-        }
-        else
-        {
-            // 方向ボタン「↓」が入力されたらカメラの方向に移動する
-            if (input.GetCurrentFrameInput() & PAD_INPUT_DOWN || CheckHitKey(KEY_INPUT_S))
-            {
-                // 移動ベクトルに「↑」が入力された時の移動ベクトルを反転したものを加算する
-                currentFrameMoveVector = VAdd(currentFrameMoveVector, VScale(upModveVector, -1.0f));
-
-                // 移動用ボタンが押された
-                pressMoveButton = true;
-            }
-        }
-
-        // MEMO:
-        // のちにジャンプを追加する可能性があるためコメントアウトしています
-        // プレイヤーの状態が「ジャンプ」ではなく、且つボタン１が押されていたらジャンプする
-        //if (state != State::Jump && (input.GetNowNewFrameInput() & PAD_INPUT_A))
-        //{
-        //    // 状態を「ジャンプ」にする
-        //    state = State::Jump;
-
-        //    // Ｙ軸方向の速度をセット
-        //    currentJumpPower = JumpPower;
-
-        //    // ジャンプアニメーションの再生
-        //    PlayAnim(AnimationType::Jump);
-        //}
-    }
-}
-
-void Player::UpdateAngle()
-{
-    // プレイヤーモデルをプレイヤーカメラの回転率と同様に回転させる
-
-    // プレイヤー専用カメラの方向を取得
-    VECTOR cameraForward = playerCamera->GetCameraForwardVector();
-    float cameraPitch = playerCamera->GetCameraPitch();
-
-    // モデルの水平方向回転値を計算
-    float playerAngleY = atan2f(cameraForward.x, cameraForward.z);
-
-    // プレイヤーモデルを追加で180度回転
-    playerAngleY += DX_PI_F;
-
-    // モデルの回転
-    MV1SetRotationXYZ(modelHandle, VGet(cameraPitch, playerAngleY, 0.0f));
 }
