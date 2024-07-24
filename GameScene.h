@@ -1,6 +1,9 @@
 #pragma once
 #include "SceneBase.h"
 
+// MEMO:
+// カメラ更新はプレイヤークラス内で行っています
+
 class Input;
 class ImageDataManager;
 class ModleDataManager;
@@ -9,7 +12,6 @@ class SoundManager;
 class CollisionManager;
 class Stage;
 class Player;
-class PlayerCamera;
 class EnemyGroupController;
 class EnemyWaveController;
 class EnemyObjectPools;
@@ -83,7 +85,6 @@ private:
     CollisionManager*   collisionManager;   // 当たり判定
     Stage*              stage;              // ステージ
     Player*             player;             // プレイヤー
-    PlayerCamera*       playerCamera;       // プレイヤー専用カメラ
     
     // エネミー関連
     EnemyGroupController*   enemyGroupController;   // エネミーの群れ

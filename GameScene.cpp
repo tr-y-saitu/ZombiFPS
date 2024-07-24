@@ -39,7 +39,6 @@ GameScene::GameScene()
     // オブジェクト関連
     stage                   = new Stage();
     player                  = new Player();
-    playerCamera            = new PlayerCamera();
     enemyGroupController    = new EnemyGroupController();
     enemyWaveController     = new EnemyWaveController();
     enemyObjectPools        = new EnemyObjectPools();
@@ -62,7 +61,6 @@ GameScene::~GameScene()
 {
     delete(stage);
     delete(player);
-    delete(playerCamera);
     delete(enemyGroupController);
     delete(enemyWaveController);
     delete(enemyObjectPools);
@@ -78,7 +76,6 @@ void GameScene::Initialize()
 {
     stage->Initialize();
     player->Initialize();
-    playerCamera->Initialize();
 }
 
 /// <summary>
