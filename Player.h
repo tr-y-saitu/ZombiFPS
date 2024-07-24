@@ -93,9 +93,9 @@ public:
 
     // ゲッター、セッター
     const VECTOR& GetPosition() const { return position; }
-    bool GetIsMove() const { return currentFrameMove; }
+    bool GetCurrentFrameMove() const { return currentFrameMove; }
     State GetState() const { return state; }
-    float GetJumpPower() const { return currentJumpPower; }
+    float GetCurrentJumpPower() const { return currentJumpPower; }
 
 private:
     /// <summary>
@@ -129,7 +129,7 @@ private:
     /// アニメーションを新しく再生する
     /// </summary>
     /// <param name="type">アニメーションの種類</param>
-    void PlayAnim(AnimationType type);
+    void PlayAnimation(AnimationType type);
 
     /// <summary>
     /// アニメーション処理
@@ -140,9 +140,9 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
-    static constexpr float  PlayAnimSpeed   = 0.5f;     // アニメーション速度
+    static constexpr float  PlayAnimationSpeed   = 0.5f;     // アニメーション速度
     static constexpr float  MoveSpeed       = 0.5f;     // 移動速度
-    static constexpr float  AnimBlendSpeed  = 0.1f;     // アニメーションのブレンド率変化速度
+    static constexpr float  AnimationBlendSpeed  = 0.1f;     // アニメーションのブレンド率変化速度
     static constexpr float  AngleSpeed      = 0.2f;     // 角度変化速度
     static constexpr float  JumpPower       = 100.0f;   // ジャンプ力
     static constexpr float  Gravity         = 3.0f;     // 重力
@@ -157,28 +157,28 @@ private:
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
     // ロード関係
-    ModelDataManager* modelDataManager; // モデルデータマネージャー
+    ModelDataManager*   modelDataManager; // モデルデータマネージャー
     
     // 基本情報
-    PlayerCamera*       playerCamera;   // プレイヤー専用のカメラ(FPS視点カメラ)
-    VECTOR              position;       // 座標
-    PlayerStateBase*    playerState;    // プレイヤーの状態
-    Gun*                gun;            // 銃
+    PlayerCamera*       playerCamera;       // プレイヤー専用のカメラ(FPS視点カメラ)
+    VECTOR              position;           // 座標
+    PlayerStateBase*    playerState;        // プレイヤーの状態
+    Gun*                gun;                // 銃
 
     // 移動状態
-    VECTOR      targetMoveDirection;    // モデルが向くべき方向のベクトル
-    float       currentJumpPower;       // Ｙ軸方向の速度
-    int         modelHandle;            // モデルハンドル
-    State       state;                  // 状態
+    VECTOR      targetMoveDirection;        // モデルが向くべき方向のベクトル
+    float       currentJumpPower;           // Ｙ軸方向の速度
+    int         modelHandle;                // モデルハンドル
+    State       state;                      // 状態
 
     // アニメーション関係
-    int         currentPlayAnim;        // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
-    float       currentAnimCount;       // 再生しているアニメーションの再生時間
-    int         prevPlayAnim;           // 前の再生アニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
-    float       prevAnimCount;          // 前の再生アニメーションの再生時間
-    float       animBlendRate;          // 現在と過去のアニメーションのブレンド率
-    bool        currentFrameMove;       // そのフレームで動いたかどうか
-    bool        pressMoveButton;        // 移動用のボタンが入力されているか
+    int         currentPlayAnimation;       // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
+    float       currentAnimationCount;      // 再生しているアニメーションの再生時間
+    int         previousPlayAnimation;      // 前の再生アニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
+    float       previousAnimationCount;     // 前の再生アニメーションの再生時間
+    float       animationBlendRate;         // 現在と過去のアニメーションのブレンド率
+    bool        currentFrameMove;           // そのフレームで動いたかどうか
+    bool        pressMoveButton;            // 移動用のボタンが入力されているか
 
 
 };

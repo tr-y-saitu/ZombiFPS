@@ -60,14 +60,14 @@ void Player::Initialize()
     targetMoveDirection = VGet(1.0f, 0.0f, 0.0f);
     
     // アニメーションのブレンド率を初期化
-    animBlendRate = 1.0f;
+    animationBlendRate = 1.0f;
     
     // 初期状態ではアニメーションはアタッチされていないにする
-    currentPlayAnim = -1;
-    prevPlayAnim = -1;
+    currentPlayAnimation = -1;
+    previousPlayAnimation = -1;
     
     // アニメーション設定
-    PlayAnim(AnimationType::None);
+    PlayAnimation(AnimationType::None);
 }
 
 /// <summary>
@@ -101,7 +101,7 @@ void Player::Update(const Input& input, Stage& stage)
         if (state == State::None)
         {
             // 走りアニメーションを再生する
-            PlayAnim(AnimationType::Run);
+            PlayAnimation(AnimationType::Run);
 
             // 状態を「走り」にする
             state = State::Run;
@@ -113,7 +113,7 @@ void Player::Update(const Input& input, Stage& stage)
         if (state == State::Run)
         {
             // 立ち止りアニメーションを再生する
-            PlayAnim(AnimationType::Stop);
+            PlayAnimation(AnimationType::Stop);
 
             // 状態を「立ち止り」にする
             state = State::None;
@@ -127,10 +127,10 @@ void Player::Update(const Input& input, Stage& stage)
         currentJumpPower -= Gravity;
 
         // もし落下していて且つ再生されているアニメーションが上昇中用のものだった場合は
-        if (currentJumpPower < 0.0f && MV1GetAttachAnim(modelHandle, currentPlayAnim) == 2)
+        if (currentJumpPower < 0.0f && MV1GetAttachAnim(modelHandle, currentPlayAnimation) == 2)
         {
             // 落下中ようのアニメーションを再生する
-            PlayAnim(AnimationType::Jump);
+            PlayAnimation(AnimationType::Jump);
         }
 
         // 移動ベクトルのＹ成分をＹ軸方向の速度にする
@@ -195,18 +195,18 @@ void Player::OnHitFloor()
         if (currentFrameMove)
         {
             // 移動している場合は走り状態に
-            PlayAnim(AnimationType::Run);
+            PlayAnimation(AnimationType::Run);
             state = State::Run;
         }
         else
         {
             // 移動していない場合は立ち止り状態に
-            PlayAnim(AnimationType::Stop);
+            PlayAnimation(AnimationType::Stop);
             state = State::None;
         }
 
         // 着地時はアニメーションのブレンドは行わない
-        animBlendRate = 1.0f;
+        animationBlendRate = 1.0f;
     }
 }
 
@@ -225,19 +225,19 @@ void Player::DisableRootFrameZMove()
     // 
     // HACK: 何のために？モデルの一番親フレーム（親階層）のZ軸方向の移動パラメータをゼロにしている
 
-    MATRIX LocalMatrix;
+    MATRIX localMatrix;
 
     // ユーザー行列を解除する
     MV1ResetFrameUserLocalMatrix(modelHandle, 2);
 
     // 現在のルートフレームの行列を取得する
-    LocalMatrix = MV1GetFrameLocalMatrix(modelHandle, 2);
+    localMatrix = MV1GetFrameLocalMatrix(modelHandle, 2);
 
     // Ｚ軸方向の平行移動成分を無効にする
-    LocalMatrix.m[3][2] = 0.0f;
+    localMatrix.m[3][2] = 0.0f;
 
     // ユーザー行列として平行移動成分を無効にした行列をルートフレームにセットする
-    MV1SetFrameUserLocalMatrix(modelHandle, 2, LocalMatrix);
+    MV1SetFrameUserLocalMatrix(modelHandle, 2, localMatrix);
 }
 
 /// <summary>
@@ -327,7 +327,7 @@ void Player::UpdateMoveVector(const Input& input, VECTOR& upModveVector,
         //    currentJumpPower = JumpPower;
 
         //    // ジャンプアニメーションの再生
-        //    PlayAnim(AnimationType::Jump);
+        //    PlayAnimation(AnimationType::Jump);
         //}
     }
 }
@@ -391,27 +391,27 @@ void Player::UpdateAngle()
 /// <summary>
 /// プレイヤーのアニメーションを新しく追加する
 /// </summary>
-/// <param name="PlayAnim">再生したいアニメーション番号</param>
-void Player::PlayAnim(AnimationType PlayAnim)
+/// <param name="PlayAnimation">再生したいアニメーション番号</param>
+void Player::PlayAnimation(AnimationType PlayAnimation)
 {
     // HACK: 指定した番号のアニメーションをアタッチし、直前に再生していたアニメーションの情報をprevに移行している
     // 入れ替えを行うので、１つ前のモーションがが有効だったらデタッチする
-    if (prevPlayAnim != -1)
+    if (previousPlayAnimation != -1)
     {
-        MV1DetachAnim(modelHandle, prevPlayAnim);
-        prevPlayAnim = -1;
+        MV1DetachAnim(modelHandle, previousPlayAnimation);
+        previousPlayAnimation = -1;
     }
 
     // 今まで再生中のモーションだったものの情報をPrevに移動する
-    prevPlayAnim = currentPlayAnim;
-    prevAnimCount = currentAnimCount;
+    previousPlayAnimation = currentPlayAnimation;
+    previousAnimationCount = currentAnimationCount;
 
     // 新たに指定のモーションをモデルにアタッチして、アタッチ番号を保存する
-    currentPlayAnim = MV1AttachAnim(modelHandle, static_cast<int>(PlayAnim));
-    currentAnimCount = 0.0f;
+    currentPlayAnimation = MV1AttachAnim(modelHandle, static_cast<int>(PlayAnimation));
+    currentAnimationCount = 0.0f;
 
     // ブレンド率はPrevが有効ではない場合は１．０ｆ( 現在モーションが１００％の状態 )にする
-    animBlendRate = prevPlayAnim == -1 ? 1.0f : 0.0f;
+    animationBlendRate = previousPlayAnimation == -1 ? 1.0f : 0.0f;
 }
 
 
@@ -420,59 +420,59 @@ void Player::PlayAnim(AnimationType PlayAnim)
 /// </summary>
 void Player::UpdateAnimation()
 {
-    float AnimTotalTime;		// 再生しているアニメーションの総時間
+    float animationTotalTime;       // 再生しているアニメーションの総時間
 
     // ブレンド率が１以下の場合は１に近づける
-    if (animBlendRate < 1.0f)
+    if (animationBlendRate < 1.0f)
     {
-        animBlendRate += AnimBlendSpeed;
-        if (animBlendRate > 1.0f)
+        animationBlendRate += AnimationBlendSpeed;
+        if (animationBlendRate > 1.0f)
         {
-            animBlendRate = 1.0f;
+            animationBlendRate = 1.0f;
         }
     }
 
     // 再生しているアニメーション１の処理
-    if (currentPlayAnim != -1)
+    if (currentPlayAnimation != -1)
     {
         // アニメーションの総時間を取得
-        AnimTotalTime = MV1GetAttachAnimTotalTime(modelHandle, currentPlayAnim);
+        animationTotalTime = MV1GetAttachAnimTotalTime(modelHandle, currentPlayAnimation);
 
         // 再生時間を進める
-        currentAnimCount += PlayAnimSpeed;
+        currentAnimationCount += PlayAnimationSpeed;
 
         // 再生時間が総時間に到達していたら再生時間をループさせる
-        if (currentAnimCount >= AnimTotalTime)
+        if (currentAnimationCount >= animationTotalTime)
         {
-            currentAnimCount = static_cast<float>(fmod(currentAnimCount, AnimTotalTime));
+            currentAnimationCount = static_cast<float>(fmod(currentAnimationCount, animationTotalTime));
         }
 
         // 変更した再生時間をモデルに反映させる
-        MV1SetAttachAnimTime(modelHandle, currentPlayAnim, currentAnimCount);
+        MV1SetAttachAnimTime(modelHandle, currentPlayAnimation, currentAnimationCount);
 
         // アニメーション１のモデルに対する反映率をセット
-        MV1SetAttachAnimBlendRate(modelHandle, currentPlayAnim, animBlendRate);
+        MV1SetAttachAnimBlendRate(modelHandle, currentPlayAnimation, animationBlendRate);
     }
 
     // 再生しているアニメーション２の処理
-    if (prevPlayAnim != -1)
+    if (previousPlayAnimation != -1)
     {
         // アニメーションの総時間を取得
-        AnimTotalTime = MV1GetAttachAnimTotalTime(modelHandle, prevPlayAnim);
+        animationTotalTime = MV1GetAttachAnimTotalTime(modelHandle, previousPlayAnimation);
 
         // 再生時間を進める
-        prevAnimCount += PlayAnimSpeed;
+        previousAnimationCount += PlayAnimationSpeed;
 
         // 再生時間が総時間に到達していたら再生時間をループさせる
-        if (prevAnimCount > AnimTotalTime)
+        if (previousAnimationCount > animationTotalTime)
         {
-            prevAnimCount = static_cast<float>(fmod(prevAnimCount, AnimTotalTime));
+            previousAnimationCount = static_cast<float>(fmod(previousAnimationCount, animationTotalTime));
         }
 
         // 変更した再生時間をモデルに反映させる
-        MV1SetAttachAnimTime(modelHandle, prevPlayAnim, prevAnimCount);
+        MV1SetAttachAnimTime(modelHandle, previousPlayAnimation, previousAnimationCount);
 
         // アニメーション２のモデルに対する反映率をセット
-        MV1SetAttachAnimBlendRate(modelHandle, prevPlayAnim, 1.0f - animBlendRate);
+        MV1SetAttachAnimBlendRate(modelHandle, previousPlayAnimation, 1.0f - animationBlendRate);
     }
 }
