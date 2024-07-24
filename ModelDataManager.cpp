@@ -61,7 +61,9 @@ void ModelDataManager::DeleteInstance()
 /// </summary>
 void ModelDataManager::ModelDataLoad()
 {
-    modelDataList[StageModelData] = MV1LoadModel("Data/Stage/BO2Map.mv1");
+    modelDataList[StageModelData] = MV1LoadModel("Data/Stage/BackroomsScaleMini.mv1");
+    //modelDataList[PlayerModelData] = MV1LoadModel("Data/Player/playerScaleMini.mv1");
+    modelDataList[PlayerModelData] = MV1LoadModel("Data/Player/playerAnimationFixed.mv1");
 }
 
 /// <summary>

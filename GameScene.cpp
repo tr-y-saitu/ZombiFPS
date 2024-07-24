@@ -1,4 +1,5 @@
 #include "Common.h"
+#include "Input.h"
 #include "ImageDataManager.h"
 #include "ModelDataManager.h"
 #include "CollisionManager.h"
@@ -22,6 +23,9 @@
 /// </summary>
 GameScene::GameScene()
 {
+    // 入力処理
+    input                   = new Input();
+
     // データ関連
     
 
@@ -30,22 +34,24 @@ GameScene::GameScene()
     soundManager = SoundManager::GetInstance();
 
     // 当たり判定
-    collisionManager = CollisionManager::GetInstance();
+    collisionManager        = CollisionManager::GetInstance();
 
     // オブジェクト関連
-    stage = new Stage();
-    player = new Player();
-    playerCamera = new PlayerCamera();
-    enemyGroupController = new EnemyGroupController();
-    enemyWaveController = new EnemyWaveController();
-    enemyObjectPools = new EnemyObjectPools();
+    stage                   = new Stage();
+    player                  = new Player();
+    enemyGroupController    = new EnemyGroupController();
+    enemyWaveController     = new EnemyWaveController();
+    enemyObjectPools        = new EnemyObjectPools();
 
     // アイテム関連
-    maxAmmoItem = new MaxAmmo();
-    incomeDoubleItem = new IncomeDouble();
+    maxAmmoItem             = new MaxAmmo();
+    incomeDoubleItem        = new IncomeDouble();
 
     // UI関連
-    gameSceneUI = new GameSceneUI();
+    gameSceneUI             = new GameSceneUI();
+
+    // 初期化
+    Initialize();
 }
 
 /// <summary>
@@ -55,7 +61,6 @@ GameScene::~GameScene()
 {
     delete(stage);
     delete(player);
-    delete(playerCamera);
     delete(enemyGroupController);
     delete(enemyWaveController);
     delete(enemyObjectPools);
@@ -70,6 +75,7 @@ GameScene::~GameScene()
 void GameScene::Initialize()
 {
     stage->Initialize();
+    player->Initialize();
 }
 
 /// <summary>
@@ -82,9 +88,9 @@ SceneBase* GameScene::UpdateScene()
     DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene", true);
 
     // オブジェクト更新
-    gameSceneUI->Update();       // UIの更新
-    
-
+    input->Update();                    // 入力処理
+    player->Update(*input,*stage);      // プレイヤー
+    gameSceneUI->Update();              // UIの更新
 
     // 現状のシーンを返す
     return this;
@@ -95,7 +101,9 @@ SceneBase* GameScene::UpdateScene()
 /// </summary>
 void GameScene::Draw()
 {
-    DrawUI();   // UIの描画
+    stage->Draw();          // ステージ
+    player->Draw(*stage);   // プレイヤー
+    DrawUI();               // UIの描画
 }
 
 /// <summary>

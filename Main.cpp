@@ -28,6 +28,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     ChangeWindowMode(false);    // 全画面モード
 #endif
 
+    ChangeWindowMode(false);     // 全画面モード
+
     //描画先を裏画面に変更する。
     SetDrawScreen(DX_SCREEN_BACK);
 
@@ -50,8 +52,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     FrameRateManager::CreateInstance();     // フレームレート
     ImageDataManager::CreateInstance();     // 画像データ
     ModelDataManager::CreateInstance();     // モデルデータ
-    EffectManager::CreateInstance();    // エフェクト再生
-    SoundManager::CreateInstance();     // 音再生
+    EffectManager::CreateInstance();        // エフェクト管理
+    SoundManager::CreateInstance();         // サウンド管理
 
     // ゲームのインスタンスを作成
     Game game;
@@ -75,6 +77,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
             break;
         }
     }
+
+    // シングルトンクラスを解放
+    FrameRateManager::DeleteInstance();     // フレームレート
+    ImageDataManager::DeleteInstance();     // 画像データ
+    ModelDataManager::DeleteInstance();     // モデルデータ
+    EffectManager::DeleteInstance();        // エフェクト管理
+    SoundManager::DeleteInstance();         // サウンド管理
 
     // Effekseerを終了する。
     Effkseer_End();

@@ -64,12 +64,12 @@ private:
     int         shadowHandle;           // 影画像ハンドル
     //State     State;                  // 状態
 
-    int         currentPlayAnim;        // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
-    float       currentAnimCount;       // 再生しているアニメーションの再生時間
-    int         prevPlayAnim;           // 前の再生アニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
-    float       prevAnimCount;          // 前の再生アニメーションの再生時間
-    float       animBlendRate;          // 現在と過去のアニメーションのブレンド率
-    bool        isMove;                 // そのフレームで動いたかどうか
+    int         currentPlayAnimation;        // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
+    float       currentAnimationCount;       // 再生しているアニメーションの再生時間
+    int         previousPlayAnimation;           // 前の再生アニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
+    float       previousAnimationCount;          // 前の再生アニメーションの再生時間
+    float       animationBlendRate;          // 現在と過去のアニメーションのブレンド率
+    bool        currentFrameMove;                 // そのフレームで動いたかどうか
 
 };
 
