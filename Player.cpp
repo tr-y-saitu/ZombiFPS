@@ -19,6 +19,7 @@ Player::Player()
     : position              (VGet(0,0,0))
     , pressMoveButton       (false)
 {
+    equippedGun             = new SubmachineGun();
     modelDataManager        = ModelDataManager::GetInstance();
     playerCamera            = new PlayerCamera();
     playerState             = new PlayerIdleState();
@@ -146,6 +147,9 @@ void Player::Update(const Input& input, Stage& stage)
     // アニメーション処理
     UpdateAnimation();
 
+    // 装備中の武器の更新
+    equippedGun->Update(position, playerCamera->GetCameraForwardVector(), playerCamera->GetCameraPitch());
+
     // プレイヤーカメラの更新
     UpdatePlayerCamera(input, stage);
 }
@@ -155,7 +159,11 @@ void Player::Update(const Input& input, Stage& stage)
 /// </summary>
 void Player::Draw(const Stage& stage)
 {
+    // モデルの描画
     MV1DrawModel(modelHandle);
+
+    // 武器の描画
+    equippedGun->Draw();
 
     // 座標描画
     DrawFormatString(100,0,GetColor(255,255,255),"X:%f Y:%f Z:%f",position.x,position.y,position.z);

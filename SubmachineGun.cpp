@@ -40,15 +40,24 @@ void SubmachineGun::Initialize()
     fireRate                = GunFireRate;
     recoil                  = GunRecoil;
     accuracy                = GunAccuracy;
+
+    // スケールを調整
+    MV1SetScale(modelHandle, InitializeScale);
 }
 
 /// <summary>
 /// 更新
 /// </summary>
-void SubmachineGun::Update()
+void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, float cameraPitch)
 {
+    // 座標を更新
+    position = setPosition;
+
+    // 角度を更新
+    UpdateAngle(cameraVector, cameraPitch);
+
     // 座標の設定
-    MV1SetPosition(modelHandle, position);
+    MV1SetPosition(modelHandle, setPosition);
 }
 
 /// <summary>

@@ -39,12 +39,18 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    virtual void Update() abstract;
+    virtual void Update(VECTOR setPosition, VECTOR cameraVector, float cameraPitch) abstract;
 
     /// <summary>
     /// 描画
     /// </summary>
     virtual void Draw() abstract;
+
+    /// <summary>
+    /// 回転の更新
+    /// </summary>
+    /// <param name="setPosition">設定する座標</param>
+    void UpdateAngle(VECTOR setPosition,float pitch);
 
 protected:
     //---------------------------------------------------------------------------------//

@@ -2,7 +2,7 @@
 #include "Common.h"
 
 class PlayerStateBase;
-class Gun;
+class GunBase;
 class Input;
 class PlayerCamera;
 class Stage;
@@ -163,7 +163,7 @@ private:
     PlayerCamera*       playerCamera;       // プレイヤー専用のカメラ(FPS視点カメラ)
     VECTOR              position;           // 座標
     PlayerStateBase*    playerState;        // プレイヤーの状態
-    Gun*                gun;                // 銃
+    GunBase*            equippedGun;        // 銃
 
     // 移動状態
     VECTOR      targetMoveDirection;        // モデルが向くべき方向のベクトル
