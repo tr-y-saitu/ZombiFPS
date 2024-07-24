@@ -91,10 +91,9 @@ SceneBase* GameScene::UpdateScene()
     DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene", true);
 
     // オブジェクト更新
-    input->Update();                                    // 入力処理
-    player->Update(*input,*playerCamera,*stage);        // プレイヤー
-    playerCamera->Update(*input, *player,*stage);       // プレイヤーカメラの更新
-    gameSceneUI->Update();                              // UIの更新
+    input->Update();                    // 入力処理
+    player->Update(*input,*stage);      // プレイヤー
+    gameSceneUI->Update();              // UIの更新
 
     // 現状のシーンを返す
     return this;

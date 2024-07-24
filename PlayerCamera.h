@@ -25,14 +25,14 @@ public:
     /// 初期化
     /// </summary>
     void Initialize();
-    
+
     /// <summary>
     /// 更新
     /// </summary>
-    /// <param name="input">入力更新情報</param>
-    /// <param name="player">プレイヤー</param>
+    /// <param name="input">入力情報</param>
+    /// <param name="setPostion">設定する座標</param>
     /// <param name="stage">ステージ</param>
-    void Update(const Input& input, const Player& player, const Stage& stage);
+    void Update(const Input& input, VECTOR setPostion, const Stage& stage);
 
     /// <summary>
     /// カメラの角度を更新する

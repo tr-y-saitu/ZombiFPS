@@ -39,7 +39,10 @@ void PlayerCamera::Initialize()
 /// <summary>
 /// 更新
 /// </summary>
-void PlayerCamera::Update(const Input& input, const Player& player, const Stage& stage)
+/// <param name="input">入力情報</param>
+/// <param name="setPostion">設定する座標</param>
+/// <param name="stage">ステージ</param>
+void PlayerCamera::Update(const Input& input, VECTOR setPostion, const Stage& stage)
 {
     // DXライブラリのカメラとEffekseerのカメラを同期する。
     Effekseer_Sync3DSetting();
@@ -54,7 +57,7 @@ void PlayerCamera::Update(const Input& input, const Player& player, const Stage&
 #endif
 
     // カメラの注視点をプレイヤーよりも上に設定
-    targetPosition = VAdd(player.GetPosition(), CameraPlayerTargetPosition);
+    targetPosition = VAdd(setPostion, CameraPlayerTargetPosition);
 
     // カメラの座標を補正する
     FixCameraPosition(stage);
@@ -67,6 +70,7 @@ void PlayerCamera::Update(const Input& input, const Player& player, const Stage&
 
     // カメラの更新
     SetCameraPositionAndTarget_UpVecY(cameraPosition, targetPosition);
+
 }
 
 /// <summary>

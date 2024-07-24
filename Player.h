@@ -72,6 +72,19 @@ public:
     /// </summary>
     void Draw(const Stage& stage);
 
+    void UpdatePlayerCamera();
+
+    /// <summary>
+    /// 更新
+    /// </summary>
+    /// <param name="input">入力情報</param>
+    /// <param name="stage">ステージ</param>
+    void Update(const Input& input, Stage& stage);
+    void UpdateMoveVector(const Input& input, VECTOR& upModveVector,
+        VECTOR& leftMoveVector, VECTOR& currentFrameMoveVector);
+    void UpdateAngle();
+
+
     /// <summary>
     /// 天井に接触した時の処理
     /// </summary>
@@ -153,13 +166,13 @@ private:
     ModelDataManager* modelDataManager; // モデルデータマネージャー
     
     // 基本情報
+    PlayerCamera*       playerCamera;   // プレイヤー専用のカメラ(FPS視点カメラ)
     VECTOR              position;       // 座標
     PlayerStateBase*    playerState;    // プレイヤーの状態
     Gun*                gun;            // 銃
 
     // 移動状態
     VECTOR      targetMoveDirection;    // モデルが向くべき方向のベクトル
-    float       angle;                  // モデルが向いている方向の角度
     float       currentJumpPower;       // Ｙ軸方向の速度
     int         modelHandle;            // モデルハンドル
     State       state;                  // 状態
