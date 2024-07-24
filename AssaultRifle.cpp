@@ -1,24 +1,24 @@
-#include "AssaultRifle.h"
+ï»¿#include "AssaultRifle.h"
 #include "Shot.h"
 #include "GunStateBase.h"
 
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 AssaultRifle::AssaultRifle()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 AssaultRifle::~AssaultRifle()
 {
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void AssaultRifle::Update()
 {

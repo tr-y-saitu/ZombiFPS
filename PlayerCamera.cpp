@@ -1,10 +1,10 @@
-#include "PlayerCamera.h"
+﻿#include "PlayerCamera.h"
 #include "Input.h"
 #include "Player.h"
 #include "Stage.h"
 
 /// <summary>
-/// �R���X�g���N�^
+/// コンストラクタ
 /// </summary>
 PlayerCamera::PlayerCamera()
     : angleHorizon          (DX_PI_F)
@@ -13,23 +13,23 @@ PlayerCamera::PlayerCamera()
     , targetPosition        (VGet(0,0,0))
     , cameraPosition        (VGet(0,0,0))
 {
-    // �`��͈͂̐ݒ�
+    // 描画範囲の設定
     SetCameraNearFar(CameraNearClip, CameraFarClip);
 
-    // �J������ݒ�
+    // カメラを設定
     SetCameraPositionAndTarget_UpVecY(cameraPosition, targetPosition);
 }
 
 /// <summary>
-/// �f�X�g���N�^
+/// デストラクタ
 /// </summary>
 PlayerCamera::~PlayerCamera()
 {
-    // �����Ȃ�
+    // 処理なし
 }
 
 /// <summary>
-/// ������
+/// 初期化
 /// </summary>
 void PlayerCamera::Initialize()
 {
@@ -37,93 +37,93 @@ void PlayerCamera::Initialize()
 }
 
 /// <summary>
-/// �X�V
+/// 更新
 /// </summary>
-/// <param name="input">���͏��</param>
-/// <param name="setPostion">�ݒ肷����W</param>
-/// <param name="stage">�X�e�[�W</param>
+/// <param name="input">入力情報</param>
+/// <param name="setPostion">設定する座標</param>
+/// <param name="stage">ステージ</param>
 void PlayerCamera::Update(const Input& input, VECTOR setPostion, const Stage& stage)
 {
-    // DX���C�u�����̃J������Effekseer�̃J�����𓯊�����B
+    // DXライブラリのカメラとEffekseerのカメラを同期する。
     Effekseer_Sync3DSetting();
 
 
 #ifdef USE_MOUSE
-    // �}�E�X���g���ăJ�����̊p�x���X�V
+    // マウスを使ってカメラの角度を更新
     UpdateCameraAngleMouse(input);
 #else
-    // �p�b�h�A�L�[�{�[�h���͂ŃJ�����̊p�x���X�V
+    // パッド、キーボード入力でカメラの角度を更新
     UpdateCameraAngle(input);
 #endif
 
-    // �J�����̒����_���v���C���[������ɐݒ�
+    // カメラの注視点をプレイヤーよりも上に設定
     targetPosition = VAdd(setPostion, CameraPlayerTargetPosition);
 
-    // �J�����̍��W��␳����
+    // カメラの座標を補正する
     FixCameraPosition(stage);
 
-    // �J�����̑O�����x�N�g���̍X�V
+    // カメラの前方向ベクトルの更新
     UpdateCameraForwardVector();
 
-    // �J�����̃s�b�`�p�x�v�Z
+    // カメラのピッチ角度計算
     UpdateCameraPitch();
 
-    // �J�����̍X�V
+    // カメラの更新
     SetCameraPositionAndTarget_UpVecY(cameraPosition, targetPosition);
 
 }
 
 /// <summary>
-/// �J�����̊p�x���X�V����
+/// カメラの角度を更新する
 /// </summary>
-/// <param name="input">���͏���</param>
+/// <param name="input">入力処理</param>
 void PlayerCamera::UpdateCameraAngle(const Input& input)
 {
-    // �p�b�h�̂R�{�^�����A�V�t�g�L�[��������Ă���ꍇ�̂݊p�x�ύX������s��
+    // パッドの３ボタンか、シフトキーが押されている場合のみ角度変更操作を行う
     if (CheckHitKey(KEY_INPUT_LSHIFT) || (input.GetCurrentFrameInput() & PAD_INPUT_C))
     {
-        // �u���v�{�^����������Ă����琅���p�x���}�C�i�X����
+        // 「←」ボタンが押されていたら水平角度をマイナスする
         if (input.GetCurrentFrameInput() & PAD_INPUT_LEFT)
         {
             angleHorizon -= AngleSpeed;
         
-            // �|�P�W�O�x�ȉ��ɂȂ�����p�x�l���傫���Ȃ肷���Ȃ��悤�ɂR�U�O�x�𑫂�
+            // －１８０度以下になったら角度値が大きくなりすぎないように３６０度を足す
             if (angleHorizon < -DX_PI_F)
             {
                 angleHorizon += DX_TWO_PI_F;
             }
         }
         
-        // �u���v�{�^����������Ă����琅���p�x���v���X����
+        // 「→」ボタンが押されていたら水平角度をプラスする
         if (input.GetCurrentFrameInput() & PAD_INPUT_RIGHT)
         {
             angleHorizon += AngleSpeed;
     
-            // �P�W�O�x�ȏ�ɂȂ�����p�x�l���傫���Ȃ肷���Ȃ��悤�ɂR�U�O�x������
+            // １８０度以上になったら角度値が大きくなりすぎないように３６０度を引く
             if (angleHorizon > DX_PI_F)
             {
                 angleHorizon -= DX_TWO_PI_F;
             }
         }
         
-        // �u���v�{�^����������Ă����琂���p�x���}�C�i�X����
+        // 「↑」ボタンが押されていたら垂直角度をマイナスする
         if (input.GetCurrentFrameInput() & PAD_INPUT_UP)
         {
             angleVertical -= AngleSpeed;
     
-            // ������p�x�ȉ��ɂ͂Ȃ�Ȃ��悤�ɂ���
+            // ある一定角度以下にはならないようにする
             if (angleVertical < -DX_PI_F / AngleVerticalOffset)
             {
                 angleVertical = -DX_PI_F / AngleVerticalOffset;
             }
         }
         
-        // �u���v�{�^����������Ă����琂���p�x���v���X����
+        // 「↓」ボタンが押されていたら垂直角度をプラスする
         if (input.GetCurrentFrameInput() & PAD_INPUT_DOWN)
         {
             angleVertical += AngleSpeed;
     
-            // ������p�x�ȏ�ɂ͂Ȃ�Ȃ��悤�ɂ���
+            // ある一定角度以上にはならないようにする
             if (angleVertical > DX_PI_F / 2.0f - 0.6f)
             {
                 angleVertical = DX_PI_F / 2.0f - 0.6f;
@@ -133,28 +133,28 @@ void PlayerCamera::UpdateCameraAngle(const Input& input)
 }
 
 /// <summary>
-/// �}�E�X�ł̃J�����p�x�X�V
+/// マウスでのカメラ角度更新
 /// </summary>
-/// <param name="input">���͍X�V���</param>
+/// <param name="input">入力更新情報</param>
 void PlayerCamera::UpdateCameraAngleMouse(const Input& input)
 {
-    // �}�E�X�J�[�\���ʒu�̎擾
+    // マウスカーソル位置の取得
     Input::MousePosition mousePosition = input.GetMousePosition();
 
-    // ��ʂ̒��S����ǂ̂��炢����Ă��邩
+    // 画面の中心からどのくらい離れているか
     int deltaX = mousePosition.x - ScreenWidthHalf;
     int deltaY = mousePosition.y - ScreenHeightHalf;
 
-    // �}�E�X���x��ݒ�
+    // マウス感度を設定
     float mouseSensitivity = input.MouseSensitivity;
 
-    // �����p�x���X�V
+    // 水平角度を更新
     if (fabs(deltaX) * mouseSensitivity >= MouseInputDeadZoneMin)
     {
         angleHorizon += deltaX * mouseSensitivity;
     }
 
-    // �P�W�O�x�ȏ�ɂȂ�����p�x�l���傫���Ȃ肷���Ȃ��悤�ɂR�U�O�x������
+    // １８０度以上になったら角度値が大きくなりすぎないように３６０度を引く
     if (angleHorizon > DX_PI_F)
     {
         angleHorizon -= DX_TWO_PI_F;
@@ -164,13 +164,13 @@ void PlayerCamera::UpdateCameraAngleMouse(const Input& input)
         angleHorizon += DX_TWO_PI_F;
     }
 
-    // �����p�x���X�V
+    // 垂直角度を更新
     if (fabs(deltaY) * mouseSensitivity >= MouseInputDeadZoneMin)
     {
         angleVertical -= deltaY * mouseSensitivity;
     }
 
-    // ������p�x�ȏ�/�ȉ��ɂ͂Ȃ�Ȃ��悤�ɂ���
+    // ある一定角度以上/以下にはならないようにする
     float maxVerticalAngle = DX_PI_F / 2.0f - 0.6;
     float minVerticalAngle = -DX_PI_F / AngleVerticalOffset;
 
@@ -185,9 +185,9 @@ void PlayerCamera::UpdateCameraAngleMouse(const Input& input)
 }
 
 /// <summary>
-/// �J�������W�̏C��
+/// カメラ座標の修正
 /// </summary>
-/// <param name="stage">�X�e�[�W</param>
+/// <param name="stage">ステージ</param>
 void PlayerCamera::FixCameraPosition(const Stage& stage)
 {
     MATRIX rotateZ, rotateY;
@@ -195,22 +195,22 @@ void PlayerCamera::FixCameraPosition(const Stage& stage)
     MV1_COLL_RESULT_POLY_DIM hitResult;
     int hitNum;
 
-    // ���������̉�]�͂x����]
+    // 水平方向の回転はＹ軸回転
     rotateY = MGetRotY(angleHorizon);
 
-    // ���������̉�]�͂y����] )
+    // 垂直方向の回転はＺ軸回転 )
     rotateZ = MGetRotZ(angleVertical);
 
-    // �J��������v���C���[�܂ł̏����������Z�b�g
+    // カメラからプレイヤーまでの初期距離をセット
     cameraPlayerLength = ToPlayerLength;
 
-    // �J�����̍��W���Z�o
-    // �w���ɃJ�����ƃv���C���[�Ƃ̋����������L�т��x�N�g����
-    // ����������]( �y����] )���������Ɛ���������]( �x����] )���čX��
-    // �����_�̍��W�𑫂������̂��J�����̍��W
+    // カメラの座標を算出
+    // Ｘ軸にカメラとプレイヤーとの距離分だけ伸びたベクトルを
+    // 垂直方向回転( Ｚ軸回転 )させたあと水平方向回転( Ｙ軸回転 )して更に
+    // 注視点の座標を足したものがカメラの座標
     cameraPosition = VAdd(VTransform(VTransform(VGet(-cameraPlayerLength, 0.0f, 0.0f), rotateZ), rotateY), targetPosition);
 
-    // �����_����J�����̍��W�܂ł̊ԂɃX�e�[�W�̃|���S�������邩���ׂ�
+    // 注視点からカメラの座標までの間にステージのポリゴンがあるか調べる
     hitResult = MV1CollCheck_Capsule(stage.GetModelHandle(), -1, targetPosition, cameraPosition, CollisionSize);
     hitNum = hitResult.HitNum;
     MV1CollResultPolyDimTerminate(hitResult);
@@ -221,79 +221,79 @@ void PlayerCamera::FixCameraPosition(const Stage& stage)
         float testLength;
         VECTOR testPosition;
 
-        // �������疳���ʒu�܂Ńv���C���[�ɋ߂Â�
+        // あったら無い位置までプレイヤーに近づく
 
-        // �|���S���ɓ�����Ȃ��������Z�b�g
+        // ポリゴンに当たらない距離をセット
         noHItLength = 0.0f;
 
-        // �|���S���ɓ����鋗�����Z�b�g
+        // ポリゴンに当たる距離をセット
         hitLength = cameraPlayerLength;
         do
         {
-            // �����邩�ǂ����e�X�g���鋗�����Z�b�g( ������Ȃ������Ɠ����鋗���̒��� )
+            // 当たるかどうかテストする距離をセット( 当たらない距離と当たる距離の中間 )
             testLength = noHItLength + (hitLength - noHItLength) / 2.0f;
 
-            // �e�X�g�p�̃J�������W���Z�o
+            // テスト用のカメラ座標を算出
             testPosition = VAdd(VTransform(VTransform(VGet(-testLength, 0.0f, 0.0f), rotateZ), rotateY), targetPosition);
 
-            // �V�������W�ŕǂɓ����邩�e�X�g
+            // 新しい座標で壁に当たるかテスト
             hitResult = MV1CollCheck_Capsule(stage.GetModelHandle(), -1, targetPosition, testPosition, CollisionSize);
             hitNum = hitResult.HitNum;
             MV1CollResultPolyDimTerminate(hitResult);
             if (hitNum != 0)
             {
-                // ���������瓖���鋗���� testLength �ɕύX����
+                // 当たったら当たる距離を testLength に変更する
                 hitLength = testLength;
             }
             else
             {
-                // ������Ȃ������瓖����Ȃ������� testLength �ɕύX����
+                // 当たらなかったら当たらない距離を testLength に変更する
                 noHItLength = testLength;
             }
 
-            // hitLength �� NoHitLength ���\���ɋ߂Â��Ă��Ȃ������烋�[�v
+            // hitLength と NoHitLength が十分に近づいていなかったらループ
         } while (hitLength - noHItLength > 0.1f);
 
-        // �J�����̍��W���Z�b�g
+        // カメラの座標をセット
         cameraPosition = testPosition;
     }
 }
 
 /// <summary>
-/// �J�����̑O�����x�N�g�����X�V����
+/// カメラの前方向ベクトルを更新する
 /// </summary>
 void PlayerCamera::UpdateCameraForwardVector()
 {
-    // �J�������王�_�����ւ̃x�N�g��
+    // カメラから視点方向へのベクトル
     cameraForwardVector = VSub(targetPosition, cameraPosition);
 
-    // ���K��
+    // 正規化
     cameraForwardVector = VNorm(cameraForwardVector);
 }
 
 /// <summary>
-/// �J�����̃s�b�`�p�x���X�V����
+/// カメラのピッチ角度を更新する
 /// </summary>
 /// HACK:
-/// �s�b�`�F�㉺�p�x
-/// �v���C���[���f���ƃv���C���[�J�����̊p�x�͓������Ă���̂ŁA
-/// �㉺�p�x�݂̂��̊֐��ōX�V
+/// ピッチ：上下角度
+/// プレイヤーモデルとプレイヤーカメラの角度は同期しているので、
+/// 上下角度のみこの関数で更新
 void PlayerCamera::UpdateCameraPitch()
 {
-    // �J�����̑O�����x�N�g���擾�i�J�������ǂ��������Ă���̂��j
+    // カメラの前方向ベクトル取得（カメラがどこを向いているのか）
     VECTOR forwardVector = cameraForwardVector;
 
-    //---- �J�������㉺�ɂǂ̂��炢�X���Ă��邩���v�Z ----//
+    //---- カメラが上下にどのくらい傾いているかを計算 ----//
     
-    // �O�����x�N�g���̒������v�Z
-    // MEMO�F
-    //  ���̎������]������
-    //  X����Z���Ƃō�������ʂ���ǂ̒��x�J�����̑O�����x�N�g�����L�тĂ��邩���v�Z�����
+    // 前方向ベクトルの長さを計算
+    // MEMO：
+    //  この軸から回転させる
+    //  X軸とZ軸とで作った平面からどの程度カメラの前方向ベクトルが伸びているかが計算される
     float horizonLength = sqrt(forwardVector.x * forwardVector.x + forwardVector.z * forwardVector.z);
     
-    // X����Z�������������ʂ̒�������ǂ̂��炢�X���Ă��邩�v�Z
+    // X軸とZ軸から作った平面の長さからどのくらい傾いているか計算
     // MEMO:
-    //  horizonLength���Q�������ʏ�̎��Ƃ��A
-    //  ��������forwardVector.y�܂łǂ̂��炢�̊p�x�����邩���v�Z����
+    //  horizonLengthを２次元平面上の軸とし、
+    //  そこからforwardVector.yまでどのくらいの角度があるかを計算する
     cameraPitch = atan2f(forwardVector.y, horizonLength);
 }

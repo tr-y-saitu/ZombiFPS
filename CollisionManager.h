@@ -1,63 +1,63 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 
 /// <summary>
-/// ’l‚è”»’èˆ—ƒNƒ‰ƒX
+/// å€¤ã‚Šåˆ¤å®šå‡¦ç†ã‚¯ãƒ©ã‚¹
 /// </summary>
 class CollisionManager  final
 {
 public:
     /// <summary>
-    /// ‹…Œ`“–‚½‚è”»’è—p\‘¢‘Ì
+    /// çƒå½¢å½“ãŸã‚Šåˆ¤å®šç”¨æ§‹é€ ä½“
     /// </summary>
     struct SphureCollider
     {
-        VECTOR  position;   // ©g‚ÌÀ•W
-        float   radius;     // ©g‹…Œ^“–‚½‚è”»’è‚Ì”¼Œa
+        VECTOR  position;   // è‡ªèº«ã®åº§æ¨™
+        float   radius;     // è‡ªèº«çƒå‹å½“ãŸã‚Šåˆ¤å®šã®åŠå¾„
     };
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~CollisionManager();
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒXì¬
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ã‚¹ä½œæˆ
     /// </summary>
     static void CreateInstance();
 
     /// <summary>
-    /// ƒGƒtƒFƒNƒgƒ}ƒl[ƒWƒƒ[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ìƒ|ƒCƒ“ƒ^‚ğ“n‚·
+    /// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ã‚’æ¸¡ã™
     /// </summary>
-    /// <returns>EffectPlayManager‚Ìƒ|ƒCƒ“ƒ^</returns>
+    /// <returns>EffectPlayManagerã®ãƒã‚¤ãƒ³ã‚¿</returns>
     static CollisionManager* GetInstance();
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìíœ
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å‰Šé™¤
     /// </summary>
     static void DeleteInstance();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize();
 
     /// <summary>
-    /// ‚·‚×‚Ä‚Ì“–‚½‚è”»’èˆ—
+    /// ã™ã¹ã¦ã®å½“ãŸã‚Šåˆ¤å®šå‡¦ç†
     /// </summary>
     void Update();
 
 private:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     CollisionManager();
 
-    // ŠÇ——p
-    static CollisionManager* collisionManager;      // ƒRƒŠƒWƒ‡ƒ“ƒ}ƒl[ƒWƒƒ[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+    // ç®¡ç†ç”¨
+    static CollisionManager* collisionManager;      // ã‚³ãƒªã‚¸ãƒ§ãƒ³ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 
-    // “–‚½‚è”»’è—pƒf[ƒ^
+    // å½“ãŸã‚Šåˆ¤å®šç”¨ãƒ‡ãƒ¼ã‚¿
 
 };
 

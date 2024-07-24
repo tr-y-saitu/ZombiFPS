@@ -1,23 +1,23 @@
-#include "SubmachineGun.h"
+ï»¿#include "SubmachineGun.h"
 #include "Shot.h"
 #include "GunStateBase.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 SubmachineGun::SubmachineGun()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 SubmachineGun::~SubmachineGun()
 {
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void SubmachineGun::Update()
 {

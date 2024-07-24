@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "SceneBase.h"
 #include "TitleScene.h"
 
@@ -8,62 +8,62 @@ class SoundManager;
 class Input;
 
 /// <summary>
-/// ƒQ[ƒ€‘S‘Ì‚ÌŠÇ—
+/// ã‚²ãƒ¼ãƒ å…¨ä½“ã®ç®¡ç†
 /// </summary>
 class Game final
 {
 public:
     enum SceneState
     {
-        SceneTitle,     // ƒ^ƒCƒgƒ‹
-        SceneGame,      // ƒQ[ƒ€
-        SceneResult     // ƒŠƒUƒ‹ƒg
+        SceneTitle,     // ã‚¿ã‚¤ãƒˆãƒ«
+        SceneGame,      // ã‚²ãƒ¼ãƒ 
+        SceneResult     // ãƒªã‚¶ãƒ«ãƒˆ
     };
     
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     Game();
     
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~Game();
 
     /// <summary>
-    /// ÀÛ‚ÌƒQ[ƒ€ƒ‹[ƒv
+    /// å®Ÿéš›ã®ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—
     /// </summary>
     void Update();
 
     /// <summary>
-    /// ƒV[ƒ“‚ÌØ‚è‘Ö‚¦
+    /// ã‚·ãƒ¼ãƒ³ã®åˆ‡ã‚Šæ›¿ãˆ
     /// </summary>
     void ChangeScene();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize();
 
     /// <summary>
-    /// “ü—Íˆ—
+    /// å…¥åŠ›å‡¦ç†
     /// </summary>
     void UpdateKeyState();
 
 private:
-    // Às—pƒV[ƒ“
-    SceneBase* nowScene;                    // Œ»İ‚ÌƒV[ƒ“
-    SceneBase* nextScene;                   // Ÿ‚ÌƒV[ƒ“
+    // å®Ÿè¡Œç”¨ã‚·ãƒ¼ãƒ³
+    SceneBase* nowScene;                    // ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³
+    SceneBase* nextScene;                   // æ¬¡ã®ã‚·ãƒ¼ãƒ³
 
-    // ŠÇ—ƒNƒ‰ƒX
-    FrameRateManager* frameRateManager;     // ƒtƒŒ[ƒ€ƒŒ[ƒg§Œä
-    EffectManager* effectManager;   // ƒGƒtƒFƒNƒgŠÇ—
-    SoundManager* soundManager;     // ƒTƒEƒ“ƒhŠÇ—
-    Input* input;                           // “ü—Íˆ—
+    // ç®¡ç†ã‚¯ãƒ©ã‚¹
+    FrameRateManager* frameRateManager;     // ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆåˆ¶å¾¡
+    EffectManager* effectManager;   // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç®¡ç†
+    SoundManager* soundManager;     // ã‚µã‚¦ãƒ³ãƒ‰ç®¡ç†
+    Input* input;                           // å…¥åŠ›å‡¦ç†
 
-    // ƒL[“ü—Í
-    bool    keyOn;                          // ƒL[“ü—Í‚³‚ê‚Ä‚¢‚é‚©
-    bool    keyRelease;                     // ƒL[“ü—Í‚ª—£‚ê‚½‚©
-    bool    prevKeyOn;                      // ‘OƒtƒŒ[ƒ€‚ÅƒL[“ü—Í‚ª‚ ‚Á‚½‚©
+    // ã‚­ãƒ¼å…¥åŠ›
+    bool    keyOn;                          // ã‚­ãƒ¼å…¥åŠ›ã•ã‚Œã¦ã„ã‚‹ã‹
+    bool    keyRelease;                     // ã‚­ãƒ¼å…¥åŠ›ãŒé›¢ã‚ŒãŸã‹
+    bool    prevKeyOn;                      // å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã‚­ãƒ¼å…¥åŠ›ãŒã‚ã£ãŸã‹
 };
 

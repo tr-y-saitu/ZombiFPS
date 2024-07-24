@@ -1,106 +1,106 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 /// <summary>
-/// ƒTƒEƒ“ƒhƒ}ƒl[ƒWƒƒ[
+/// ã‚µã‚¦ãƒ³ãƒ‰ãƒžãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 /// </summary>
-/// MEMO:ƒVƒ“ƒOƒ‹ƒgƒ“ƒNƒ‰ƒX
+/// MEMO:ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚¯ãƒ©ã‚¹
 class SoundManager  final
 {
 public:
     /// <summary>
-    /// Ä¶‚·‚éŒø‰Ê‰¹
+    /// å†ç”Ÿã™ã‚‹åŠ¹æžœéŸ³
     /// </summary>
     enum PlaySoundSE
     {
-        PUSH_SE,            // ƒ{ƒ^ƒ““ü—Í‰¹
+        PUSH_SE,            // ãƒœã‚¿ãƒ³å…¥åŠ›éŸ³
     };
 
     /// <summary>
-    /// Ä¶‚·‚éBGM
+    /// å†ç”Ÿã™ã‚‹BGM
     /// </summary>
     enum PlaySoundBGM
     {
-        TITLE_SCENE_BGM,    // ƒ^ƒCƒgƒ‹ƒV[ƒ“‚ÌBGM
-        GAME_SCENE_BGM,     // ƒQ[ƒ€ƒV[ƒ“‚ÌBGM
-        CLEAR_SCENE_BGM,    // ƒNƒŠƒAƒV[ƒ“‚ÌBGM
-        CLEAR_FINISH_BGM,   // I—¹‰¹
+        TITLE_SCENE_BGM,    // ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã®BGM
+        GAME_SCENE_BGM,     // ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã®BGM
+        CLEAR_SCENE_BGM,    // ã‚¯ãƒªã‚¢ã‚·ãƒ¼ãƒ³ã®BGM
+        CLEAR_FINISH_BGM,   // çµ‚äº†éŸ³
     };
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~SoundManager();
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒXì¬
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ä½œæˆ
     /// </summary>
     static void CreateInstance();
 
     /// <summary>
-    /// ƒTƒEƒ“ƒhƒ}ƒl[ƒWƒƒ[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ìƒ|ƒCƒ“ƒ^‚ð“n‚·
+    /// ã‚µã‚¦ãƒ³ãƒ‰ãƒžãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ã‚’æ¸¡ã™
     /// </summary>
-    /// <returns>SoundManager‚Ìƒ|ƒCƒ“ƒ^</returns>
+    /// <returns>SoundManagerã®ãƒã‚¤ãƒ³ã‚¿</returns>
     static SoundManager* GetInstance();
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìíœ
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å‰Šé™¤
     /// </summary>
     static void DeleteInstance();
 
     /// <summary>
-    /// ƒTƒEƒ“ƒhƒf[ƒ^‚Ì“Ç‚Ýž‚Ý
+    /// ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
     /// </summary>
     void LoadData();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update();
 
     /// <summary>
-    /// Ä¶’†‚Ì‰¹‚ð‚·‚×‚ÄŽ~‚ß‚é
+    /// å†ç”Ÿä¸­ã®éŸ³ã‚’ã™ã¹ã¦æ­¢ã‚ã‚‹
     /// </summary>
     void StopAllSounds();
 
     /// <summary>
-    /// “Ç‚Ýž‚ñ‚¾ƒTƒEƒ“ƒhƒŠƒXƒg‚©‚çŒø‰Ê‰¹Ä¶
+    /// èª­ã¿è¾¼ã‚“ã ã‚µã‚¦ãƒ³ãƒ‰ãƒªã‚¹ãƒˆã‹ã‚‰åŠ¹æžœéŸ³å†ç”Ÿ
     /// </summary>
-    /// <param name="soundType">Ä¶‚µ‚½‚¢Œø‰Ê‰¹‚ÌŽí—Þ</param>
+    /// <param name="soundType">å†ç”Ÿã—ãŸã„åŠ¹æžœéŸ³ã®ç¨®é¡ž</param>
     void PlaySoundListSE(PlaySoundSE soundType);
 
     /// <summary>
-    /// “Ç‚Ýž‚ñ‚¾ƒTƒEƒ“ƒhƒŠƒXƒg‚©‚çBGMÄ¶
+    /// èª­ã¿è¾¼ã‚“ã ã‚µã‚¦ãƒ³ãƒ‰ãƒªã‚¹ãƒˆã‹ã‚‰BGMå†ç”Ÿ
     /// </summary>
-    /// <param name="soundType">Ä¶‚µ‚½‚¢BGM‚ÌŽí—Þ</param>
+    /// <param name="soundType">å†ç”Ÿã—ãŸã„BGMã®ç¨®é¡ž</param>
     void PlaySoundListBGM(PlaySoundBGM soundType);
 
 private:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     SoundManager();
 
-    // ŠÇ——p
-    static SoundManager* soundManager;      // ƒTƒEƒ“ƒhƒ}ƒl[ƒWƒƒ[ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
-    int playingSoundHandle;                 // Œ»ÝÄ¶’†‚ÌƒTƒEƒ“ƒh
-    vector<int> playingList;                // Œ»ÝÄ¶’†‚ÌƒTƒEƒ“ƒhƒŠƒXƒg
-    map<PlaySoundSE, int> soundListSE;    // Ä¶‚·‚éŒø‰Ê‰¹‚ÌƒŠƒXƒg
-    map<PlaySoundBGM, int> soundListBGM;  // Ä¶‚·‚éBGM‚ÌƒŠƒXƒg
+    // ç®¡ç†ç”¨
+    static SoundManager* soundManager;      // ã‚µã‚¦ãƒ³ãƒ‰ãƒžãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+    int playingSoundHandle;                 // ç¾åœ¨å†ç”Ÿä¸­ã®ã‚µã‚¦ãƒ³ãƒ‰
+    vector<int> playingList;                // ç¾åœ¨å†ç”Ÿä¸­ã®ã‚µã‚¦ãƒ³ãƒ‰ãƒªã‚¹ãƒˆ
+    map<PlaySoundSE, int> soundListSE;    // å†ç”Ÿã™ã‚‹åŠ¹æžœéŸ³ã®ãƒªã‚¹ãƒˆ
+    map<PlaySoundBGM, int> soundListBGM;  // å†ç”Ÿã™ã‚‹BGMã®ãƒªã‚¹ãƒˆ
 
-    //                  ƒTƒEƒ“ƒhƒf[ƒ^                  //
-    // ‹¤’Ê
-    int     pushuSE;            // ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½‚Æ‚«‚Ì‰¹
+    //                  ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿                  //
+    // å…±é€š
+    int     pushuSE;            // ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã®éŸ³
 
-    // ƒ^ƒCƒgƒ‹ƒV[ƒ“
-    int     titleSceneBGM;      // ƒ^ƒCƒgƒ‹ƒV[ƒ“‚ÌBGM
+    // ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³
+    int     titleSceneBGM;      // ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã®BGM
 
-    // ƒQ[ƒ€ƒV[ƒ“
-    int     gameSceneBGM;       // ƒQ[ƒ€ƒV[ƒ“‚ÌBGM
+    // ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³
+    int     gameSceneBGM;       // ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã®BGM
 
-    // ƒNƒŠƒAƒV[ƒ“
-    int     clearSceneBGM;      // ƒNƒŠƒAƒV[ƒ“‚ÌBGM
-    int     clearFinishBGM;     // ƒNƒŠƒA‰‰o‰¹
+    // ã‚¯ãƒªã‚¢ã‚·ãƒ¼ãƒ³
+    int     clearSceneBGM;      // ã‚¯ãƒªã‚¢ã‚·ãƒ¼ãƒ³ã®BGM
+    int     clearFinishBGM;     // ã‚¯ãƒªã‚¢æ¼”å‡ºéŸ³
 };
 
 

@@ -1,4 +1,4 @@
-#include "Game.h"
+ï»¿#include "Game.h"
 #include "Common.h"
 #include "FrameRateManager.h"
 #include "EffectManager.h"
@@ -6,31 +6,31 @@
 #include "Input.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 Game::Game()
     : keyOn         (false)
     , keyRelease    (false)
     , prevKeyOn     (false)
 {
-    // ‰Šú‰»
+    // åˆæœŸåŒ–
     Initialize();
-    // Å‰‚ÌƒV[ƒ“‚Ìİ’è
+    // æœ€åˆã®ã‚·ãƒ¼ãƒ³ã®è¨­å®š
     nowScene = SceneBase::InitializeBase();
-    // Ÿ‚ÌƒV[ƒ“‚Ì‰Šú‰»
+    // æ¬¡ã®ã‚·ãƒ¼ãƒ³ã®åˆæœŸåŒ–
     nextScene = NULL;
 
-    // ƒVƒ“ƒOƒ‹ƒgƒ“ƒNƒ‰ƒX
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚¯ãƒ©ã‚¹
     frameRateManager = FrameRateManager::GetInstance();
     effectManager = EffectManager::GetInstance();
     soundManager = SoundManager::GetInstance();
 
-    // ŠÇ—ƒNƒ‰ƒX
+    // ç®¡ç†ã‚¯ãƒ©ã‚¹
     input = new Input();
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 Game::~Game()
 {
@@ -38,65 +38,65 @@ Game::~Game()
 }
 
 /// <summary>
-/// ÀÛ‚ÌƒQ[ƒ€ƒ‹[ƒv
+/// å®Ÿéš›ã®ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—
 /// </summary>
 void Game::Update()
 {
-    // ‰æ–Ê‚Ìíœ
+    // ç”»é¢ã®å‰Šé™¤
     ClearDrawScreen();
 
-    // ƒtƒŒ[ƒ€ƒŒ[ƒgŒv‘ªˆ—
+    // ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆè¨ˆæ¸¬å‡¦ç†
     frameRateManager->Update();
 
-    // Œ»İƒV[ƒ“‚ÌXVE•`‰æ
+    // ç¾åœ¨ã‚·ãƒ¼ãƒ³ã®æ›´æ–°ãƒ»æç”»
     nextScene = nowScene->UpdateScene();
     nowScene->Draw();
 
-    // ƒtƒŒ[ƒ€ƒŒ[ƒg‘Ò‹@ˆ—
+    // ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆå¾…æ©Ÿå‡¦ç†
     frameRateManager->SleepForFPS();
 
-    // •`‰æ‚ğ”½‰f
+    // æç”»ã‚’åæ˜ 
     ScreenFlip();
 
-    // Update“à‚Å return new Ÿ‚ÌScene();‚³‚ê‚½ê‡
+    // Updateå†…ã§ return new æ¬¡ã®Scene();ã•ã‚ŒãŸå ´åˆ
     if (nowScene != nextScene)
     {
-        // ƒV[ƒ“‚ğØ‚è‘Ö‚¦‚é
+        // ã‚·ãƒ¼ãƒ³ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
         ChangeScene();
     }
 }
 
 /// <summary>
-/// ƒV[ƒ“‚ÌØ‚è‘Ö‚¦
+/// ã‚·ãƒ¼ãƒ³ã®åˆ‡ã‚Šæ›¿ãˆ
 /// </summary>
 void Game::ChangeScene()
 {
-    // Œ»İ‚ÌƒV[ƒ“‚ğíœ
+    // ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã‚’å‰Šé™¤
     delete(nowScene);
 
-    // Œ»İ‚ÌƒV[ƒ“‚ğØ‚è‘Ö‚¦
+    // ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã‚’åˆ‡ã‚Šæ›¿ãˆ
     nowScene = nextScene;
 
-    // ‰ŠúŠÖ”‚ğŒÄ‚Ô
+    // åˆæœŸé–¢æ•°ã‚’å‘¼ã¶
     nowScene->Initialize();
 
-    // Ÿ‚ÌƒV[ƒ“‚ğ‰Šú‰»
+    // æ¬¡ã®ã‚·ãƒ¼ãƒ³ã‚’åˆæœŸåŒ–
     nextScene = NULL;
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void Game::Initialize()
 {
 }
 
 /// <summary>
-/// “ü—Íˆ—
+/// å…¥åŠ›å‡¦ç†
 /// </summary>
 void Game::UpdateKeyState()
 {
-    // ƒL[‚ğ—£‚µ‚½uŠÔ‚ğ‚Æ‚é
+    // ã‚­ãƒ¼ã‚’é›¢ã—ãŸç¬é–“ã‚’ã¨ã‚‹
     if (keyOn)
     {
         if (CheckHitKey(KEY_INPUT_SPACE) == 0)

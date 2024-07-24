@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Boids.h"
 #include "Enemy.h"
 #include "Pathfinding.h"
@@ -9,38 +9,38 @@ class Enemy;
 class Pathfinding;
 
 /// <summary>
-/// ƒGƒlƒ~[‚ÌW‡‘Ì
+/// ã‚¨ãƒãƒŸãƒ¼ã®é›†åˆä½“
 /// </summary>
 class EnemyGroup
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     EnemyGroup();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~EnemyGroup();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update();
 
 private:
-    // ’è”
+    // å®šæ•°
 
-    // •Ï”
-    vector<Enemy>   enemys;         // ƒGƒlƒ~[(ƒ]ƒ“ƒr)
-    Boids           boids;          // W‡ŒvZ—p
-    Pathfinding     pathfinding;    // üŒ`’Tõ—p
+    // å¤‰æ•°
+    vector<Enemy>   enemys;         // ã‚¨ãƒãƒŸãƒ¼(ã‚¾ãƒ³ãƒ“)
+    Boids           boids;          // é›†åˆè¨ˆç®—ç”¨
+    Pathfinding     pathfinding;    // ç·šå½¢æ¢ç´¢ç”¨
 
 };
 

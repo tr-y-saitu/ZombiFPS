@@ -1,10 +1,10 @@
-#include "Common.h"
+ï»¿#include "Common.h"
 #include "Input.h"
 
 
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 Input::Input()
     : currentFrameInput     (0)
@@ -14,49 +14,49 @@ Input::Input()
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 Input::~Input()
 {
-    // ˆ—‚È‚µ
+    // å‡¦ç†ãªã—
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void Input::Update()
 {
-    // ˆê‚Â‘O‚ÌƒtƒŒ[ƒ€‚Ì“ü—Í‚ğ•Û‘¶
+    // ä¸€ã¤å‰ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã®å…¥åŠ›ã‚’ä¿å­˜
     int oldFrameInput;
     oldFrameInput = currentFrameInput;
 
 #ifdef USE_MOUSE
-    // ƒ}ƒEƒX‚Å“ü—Íó‘Ô‚ğXV
+    // ãƒã‚¦ã‚¹ã§å…¥åŠ›çŠ¶æ…‹ã‚’æ›´æ–°
     UpdateMouse();
 #else
-    // ƒpƒbƒhAƒL[ƒ{[ƒhˆ—
+    // ãƒ‘ãƒƒãƒ‰ã€ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰å‡¦ç†
     currentFrameInput = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 #endif
 
-    // Œ»İ‚ÌƒtƒŒ[ƒ€‚ÅV‚½‚É“ü—Í‚³‚ê‚½ƒ{ƒ^ƒ“‚Ìƒrƒbƒg‚ª—§‚Á‚Ä‚¢‚é’l‚ğ
-    // nowFrameNewInput ‚É‘ã“ü‚·‚é
+    // ç¾åœ¨ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§æ–°ãŸã«å…¥åŠ›ã•ã‚ŒãŸãƒœã‚¿ãƒ³ã®ãƒ“ãƒƒãƒˆãŒç«‹ã£ã¦ã„ã‚‹å€¤ã‚’
+    // nowFrameNewInput ã«ä»£å…¥ã™ã‚‹
     nowFrameNewInput = currentFrameInput & ~oldFrameInput;
 }
 
 /// <summary>
-/// ƒ}ƒEƒX‚Å‚ÌXVˆ—
+/// ãƒã‚¦ã‚¹ã§ã®æ›´æ–°å‡¦ç†
 /// </summary>
-/// MEMOF
-/// ƒ}ƒEƒX‚ÍƒXƒNƒŠ[ƒ“’†‰›‚ÉŒÅ’è‚·‚é
+/// MEMOï¼š
+/// ãƒã‚¦ã‚¹ã¯ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ä¸­å¤®ã«å›ºå®šã™ã‚‹
 void Input::UpdateMouse()
 {
-    // “ü—ÍXV
-    //currentFrameInput = GetMouseInput();                  // ƒNƒŠƒbƒN
-    GetMousePoint(&mousePosition.x, &mousePosition.y);      // ƒJ[ƒ\ƒ‹
+    // å…¥åŠ›æ›´æ–°
+    //currentFrameInput = GetMouseInput();                  // ã‚¯ãƒªãƒƒã‚¯
+    GetMousePoint(&mousePosition.x, &mousePosition.y);      // ã‚«ãƒ¼ã‚½ãƒ«
 
-    // ˆÚ“®‚¾‚¯ƒL[“ü—Í
+    // ç§»å‹•ã ã‘ã‚­ãƒ¼å…¥åŠ›
     currentFrameInput = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
-    // ƒXƒNƒŠ[ƒ“’†‰›‚ÉŒÅ’è
+    // ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ä¸­å¤®ã«å›ºå®š
     SetMousePoint(ScreenWidthHalf, ScreenHeightHalf);
 }

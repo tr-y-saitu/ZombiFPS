@@ -1,31 +1,31 @@
-#include "SceneBase.h"
+ï»¿#include "SceneBase.h"
 #include "TitleScene.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 SceneBase::SceneBase()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 SceneBase::~SceneBase()
 {
 }
 
 /// <summary>
-/// ƒx[ƒX‚Ì‰Šú‰»
+/// ãƒ™ãƒ¼ã‚¹ã®åˆæœŸåŒ–
 /// </summary>
-/// <returns>Å‰‚Én‚ß‚éƒV[ƒ“‚Ìƒ|ƒCƒ“ƒ^</returns>
+/// <returns>æœ€åˆã«å§‹ã‚ã‚‹ã‚·ãƒ¼ãƒ³ã®ãƒã‚¤ãƒ³ã‚¿</returns>
 SceneBase* SceneBase::InitializeBase()
 {
     return new TitleScene();
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void SceneBase::Initialize()
 {

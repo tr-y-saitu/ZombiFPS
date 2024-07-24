@@ -1,24 +1,24 @@
-#include "CollisionManager.h"
+ï»¿#include "CollisionManager.h"
 
-// ‰Šú‰»
+// åˆæœŸåŒ–
 CollisionManager* CollisionManager::collisionManager = NULL;
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 CollisionManager::CollisionManager()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 CollisionManager::~CollisionManager()
 {
 }
 
 /// <summary>
-/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìì¬
+/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ä½œæˆ
 /// </summary>
 void CollisionManager::CreateInstance()
 {
@@ -29,7 +29,7 @@ void CollisionManager::CreateInstance()
 }
 
 /// <summary>
-/// ƒRƒŠƒWƒ‡ƒ“ƒ}ƒl[ƒWƒƒ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ìƒ|ƒCƒ“ƒ^‚ğ“n‚·
+/// ã‚³ãƒªã‚¸ãƒ§ãƒ³ãƒãƒãƒ¼ã‚¸ãƒ£ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ã‚’æ¸¡ã™
 /// </summary>
 /// <returns></returns>
 CollisionManager* CollisionManager::GetInstance()
@@ -38,7 +38,7 @@ CollisionManager* CollisionManager::GetInstance()
 }
 
 /// <summary>
-/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìíœ
+/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å‰Šé™¤
 /// </summary>
 void CollisionManager::DeleteInstance()
 {
@@ -46,7 +46,7 @@ void CollisionManager::DeleteInstance()
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void CollisionManager::Initialize()
 {
@@ -54,7 +54,7 @@ void CollisionManager::Initialize()
 }
 
 /// <summary>
-/// ‚·‚×‚Ä‚Ì“–‚½‚è”»’èˆ—
+/// ã™ã¹ã¦ã®å½“ãŸã‚Šåˆ¤å®šå‡¦ç†
 /// </summary>
 void CollisionManager::Update()
 {

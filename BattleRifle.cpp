@@ -1,23 +1,23 @@
-#include "BattleRifle.h"
+ï»¿#include "BattleRifle.h"
 #include "Shot.h"
 #include "GunStateBase.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 BattleRifle::BattleRifle()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 BattleRifle::~BattleRifle()
 {
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void BattleRifle::Update()
 {

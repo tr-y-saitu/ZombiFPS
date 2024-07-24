@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 class PlayerStateBase;
@@ -9,89 +9,89 @@ class Stage;
 class ModelDataManager;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 /// </summary>
 class Player
 {
 public:
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ìó‘Ô
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹
     /// </summary>
     enum class State : int
     {
-        None,   // ‰½‚à‚µ‚Ä‚¢‚È‚¢
-        Walk,   // •à‚«
-        Run,    // ‘–‚è
-        Jump,   // ƒWƒƒƒ“ƒv
+        None,   // ä½•ã‚‚ã—ã¦ã„ãªã„
+        Walk,   // æ­©ã
+        Run,    // èµ°ã‚Š
+        Jump,   // ã‚¸ãƒ£ãƒ³ãƒ—
     };
 
     /// <summary>
-    /// ƒAƒjƒ[ƒVƒ‡ƒ“ƒ^ƒCƒv
+    /// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¿ã‚¤ãƒ—
     /// </summary>
     enum class AnimationType : int
     {
-        None = 8,   // ‰½‚à‚µ‚Ä‚¢‚È‚¢
-        Wolk = 8,   // •à‚«
-        Stop = 8,   // ’â~
-        Run,        // ‘–‚è
-        Jump,       // ƒWƒƒƒ“ƒv
+        None = 8,   // ä½•ã‚‚ã—ã¦ã„ãªã„
+        Wolk = 8,   // æ­©ã
+        Stop = 8,   // åœæ­¢
+        Run,        // èµ°ã‚Š
+        Jump,       // ã‚¸ãƒ£ãƒ³ãƒ—
     };
 
     /// <summary>
-    /// Š‚µ‚Ä‚¢‚ée‚Ìí—Ş
+    /// æ‰€æŒã—ã¦ã„ã‚‹éŠƒã®ç¨®é¡
     /// </summary>
     enum  class GunType : int
     {
-        AssaultRifle,       // ƒAƒTƒ‹ƒgƒ‰ƒCƒtƒ‹
-        BattleRifle,        // ƒoƒgƒ‹ƒ‰ƒCƒtƒ‹
-        SubmachineGun,      // ƒTƒuƒ}ƒVƒ“ƒKƒ“
+        AssaultRifle,       // ã‚¢ã‚µãƒ«ãƒˆãƒ©ã‚¤ãƒ•ãƒ«
+        BattleRifle,        // ãƒãƒˆãƒ«ãƒ©ã‚¤ãƒ•ãƒ«
+        SubmachineGun,      // ã‚µãƒ–ãƒã‚·ãƒ³ã‚¬ãƒ³
     };
 
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     Player();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~Player();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
-    /// <param name="input">“ü—Íî•ñ</param>
-    /// <param name="stage">ƒXƒe[ƒW</param>
+    /// <param name="input">å…¥åŠ›æƒ…å ±</param>
+    /// <param name="stage">ã‚¹ãƒ†ãƒ¼ã‚¸</param>
     void Update(const Input& input, Stage& stage);
 
     /// <summary>
-    /// •`‰æ
+    /// æç”»
     /// </summary>
     void Draw(const Stage& stage);
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[ƒJƒƒ‰‚ÌXV
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚«ãƒ¡ãƒ©ã®æ›´æ–°
     /// </summary>
-    /// <param name="input">“ü—Íî•ñ</param>
-    /// <param name="stage">ƒXƒe[ƒW</param>
+    /// <param name="input">å…¥åŠ›æƒ…å ±</param>
+    /// <param name="stage">ã‚¹ãƒ†ãƒ¼ã‚¸</param>
     void UpdatePlayerCamera(const Input& input,Stage& stage);
 
     /// <summary>
-    /// “Vˆä‚ÉÚG‚µ‚½‚Ìˆ—
+    /// å¤©äº•ã«æ¥è§¦ã—ãŸæ™‚ã®å‡¦ç†
     /// </summary>
     void OnHitRoof();
 
     /// <summary>
-    /// °‚É“–‚½‚Á‚½‚Ìˆ—
+    /// åºŠã«å½“ãŸã£ãŸæ™‚ã®å‡¦ç†
     /// </summary>
     void OnHitFloor();
 
-    // ƒQƒbƒ^[AƒZƒbƒ^[
+    // ã‚²ãƒƒã‚¿ãƒ¼ã€ã‚»ãƒƒã‚¿ãƒ¼
     const VECTOR& GetPosition() const { return position; }
     bool GetCurrentFrameMove() const { return currentFrameMove; }
     State GetState() const { return state; }
@@ -99,86 +99,86 @@ public:
 
 private:
     /// <summary>
-    /// ƒ‹[ƒgƒtƒŒ[ƒ€‚ÌZ²•ûŒü‚ÌˆÚ“®ƒpƒ‰ƒ[ƒ^‚ğ–³Œø‚É‚·‚é
+    /// ãƒ«ãƒ¼ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã®Zè»¸æ–¹å‘ã®ç§»å‹•ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’ç„¡åŠ¹ã«ã™ã‚‹
     /// </summary>
     void DisableRootFrameZMove();
 
     /// <summary>
-    /// ˆÚ“®ƒxƒNƒgƒ‹‚ÌXV
+    /// ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«ã®æ›´æ–°
     /// </summary>
-    /// <param name="input">“ü—Íî•ñ</param>
-    /// <param name="upModveVector">ã•ûŒüƒxƒNƒgƒ‹</param>
-    /// <param name="leftMoveVector">¶•ûŒüƒxƒNƒgƒ‹</param>
-    /// <param name="currentFrameMoveVector">ˆÚ“®ƒxƒNƒgƒ‹</param>
+    /// <param name="input">å…¥åŠ›æƒ…å ±</param>
+    /// <param name="upModveVector">ä¸Šæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«</param>
+    /// <param name="leftMoveVector">å·¦æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«</param>
+    /// <param name="currentFrameMoveVector">ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«</param>
     void UpdateMoveVector(const Input& input, VECTOR& upModveVector,
         VECTOR& leftMoveVector, VECTOR& currentFrameMoveVector);
 
     /// <summary>
-    /// ˆÚ“®ˆ—
+    /// ç§»å‹•å‡¦ç†
     /// </summary>
-    /// <param name="MoveVector">ˆÚ“®ƒxƒNƒgƒ‹</param>
-    /// <param name="stage">ƒXƒe[ƒW</param>
+    /// <param name="MoveVector">ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«</param>
+    /// <param name="stage">ã‚¹ãƒ†ãƒ¼ã‚¸</param>
     void Move(const VECTOR& MoveVector, Stage& stage);
 
     /// <summary>
-    /// ‰ñ“]§Œä
+    /// å›è»¢åˆ¶å¾¡
     /// </summary>
     void UpdateAngle();
 
     /// <summary>
-    /// ƒAƒjƒ[ƒVƒ‡ƒ“‚ğV‚µ‚­Ä¶‚·‚é
+    /// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’æ–°ã—ãå†ç”Ÿã™ã‚‹
     /// </summary>
-    /// <param name="type">ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìí—Ş</param>
+    /// <param name="type">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ç¨®é¡</param>
     void PlayAnimation(AnimationType type);
 
     /// <summary>
-    /// ƒAƒjƒ[ƒVƒ‡ƒ“ˆ—
+    /// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å‡¦ç†
     /// </summary>
     void UpdateAnimation();
 
 
     //---------------------------------------------------------------------------------//
-    //                                      ’è”                                       //
+    //                                      å®šæ•°                                       //
     //---------------------------------------------------------------------------------//
-    static constexpr float  PlayAnimationSpeed   = 0.5f;     // ƒAƒjƒ[ƒVƒ‡ƒ“‘¬“x
-    static constexpr float  MoveSpeed       = 0.5f;     // ˆÚ“®‘¬“x
-    static constexpr float  AnimationBlendSpeed  = 0.1f;     // ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒuƒŒƒ“ƒh—¦•Ï‰»‘¬“x
-    static constexpr float  AngleSpeed      = 0.2f;     // Šp“x•Ï‰»‘¬“x
-    static constexpr float  JumpPower       = 100.0f;   // ƒWƒƒƒ“ƒv—Í
-    static constexpr float  Gravity         = 3.0f;     // d—Í
-    static constexpr float  ShadowSize      = 200.0f;   // ‰e‚Ì‘å‚«‚³
-    static constexpr float  ShadowHeight    = 700.0f;   // ‰e‚ª—‚¿‚é‚‚³
-    static constexpr float  FallUpPower     = 20.0f;    // ‘«‚ğ“¥‚İŠO‚µ‚½‚ÌƒWƒƒƒ“ƒv—Í
-    static constexpr float  MoveLimitY      = 5.0f;     // Y²‚ÌˆÚ“®§ŒÀ
-    static constexpr VECTOR PlayerScale     = { 0.05f,0.05f,0.05f };    // ƒvƒŒƒCƒ„[‚ÌƒXƒP[ƒ‹
-    static constexpr VECTOR ZeroVector      = { 0.0f,0.0f,0.0f };       // ƒ[ƒƒxƒNƒgƒ‹
+    static constexpr float  PlayAnimationSpeed   = 0.5f;     // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é€Ÿåº¦
+    static constexpr float  MoveSpeed       = 0.5f;     // ç§»å‹•é€Ÿåº¦
+    static constexpr float  AnimationBlendSpeed  = 0.1f;     // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ–ãƒ¬ãƒ³ãƒ‰ç‡å¤‰åŒ–é€Ÿåº¦
+    static constexpr float  AngleSpeed      = 0.2f;     // è§’åº¦å¤‰åŒ–é€Ÿåº¦
+    static constexpr float  JumpPower       = 100.0f;   // ã‚¸ãƒ£ãƒ³ãƒ—åŠ›
+    static constexpr float  Gravity         = 3.0f;     // é‡åŠ›
+    static constexpr float  ShadowSize      = 200.0f;   // å½±ã®å¤§ãã•
+    static constexpr float  ShadowHeight    = 700.0f;   // å½±ãŒè½ã¡ã‚‹é«˜ã•
+    static constexpr float  FallUpPower     = 20.0f;    // è¶³ã‚’è¸ã¿å¤–ã—ãŸæ™‚ã®ã‚¸ãƒ£ãƒ³ãƒ—åŠ›
+    static constexpr float  MoveLimitY      = 5.0f;     // Yè»¸ã®ç§»å‹•åˆ¶é™
+    static constexpr VECTOR PlayerScale     = { 0.05f,0.05f,0.05f };    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ã‚±ãƒ¼ãƒ«
+    static constexpr VECTOR ZeroVector      = { 0.0f,0.0f,0.0f };       // ã‚¼ãƒ­ãƒ™ã‚¯ãƒˆãƒ«
 
     //---------------------------------------------------------------------------------//
-    //                                      •Ï”                                       //
+    //                                      å¤‰æ•°                                       //
     //---------------------------------------------------------------------------------//
-    // ƒ[ƒhŠÖŒW
-    ModelDataManager*   modelDataManager; // ƒ‚ƒfƒ‹ƒf[ƒ^ƒ}ƒl[ƒWƒƒ[
+    // ãƒ­ãƒ¼ãƒ‰é–¢ä¿‚
+    ModelDataManager*   modelDataManager; // ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
     
-    // Šî–{î•ñ
-    PlayerCamera*       playerCamera;       // ƒvƒŒƒCƒ„[ê—p‚ÌƒJƒƒ‰(FPS‹“_ƒJƒƒ‰)
-    VECTOR              position;           // À•W
-    PlayerStateBase*    playerState;        // ƒvƒŒƒCƒ„[‚Ìó‘Ô
-    Gun*                gun;                // e
+    // åŸºæœ¬æƒ…å ±
+    PlayerCamera*       playerCamera;       // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å°‚ç”¨ã®ã‚«ãƒ¡ãƒ©(FPSè¦–ç‚¹ã‚«ãƒ¡ãƒ©)
+    VECTOR              position;           // åº§æ¨™
+    PlayerStateBase*    playerState;        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹
+    Gun*                gun;                // éŠƒ
 
-    // ˆÚ“®ó‘Ô
-    VECTOR      targetMoveDirection;        // ƒ‚ƒfƒ‹‚ªŒü‚­‚×‚«•ûŒü‚ÌƒxƒNƒgƒ‹
-    float       currentJumpPower;           // ‚x²•ûŒü‚Ì‘¬“x
-    int         modelHandle;                // ƒ‚ƒfƒ‹ƒnƒ“ƒhƒ‹
-    State       state;                      // ó‘Ô
+    // ç§»å‹•çŠ¶æ…‹
+    VECTOR      targetMoveDirection;        // ãƒ¢ãƒ‡ãƒ«ãŒå‘ãã¹ãæ–¹å‘ã®ãƒ™ã‚¯ãƒˆãƒ«
+    float       currentJumpPower;           // ï¼¹è»¸æ–¹å‘ã®é€Ÿåº¦
+    int         modelHandle;                // ãƒ¢ãƒ‡ãƒ«ãƒãƒ³ãƒ‰ãƒ«
+    State       state;                      // çŠ¶æ…‹
 
-    // ƒAƒjƒ[ƒVƒ‡ƒ“ŠÖŒW
-    int         currentPlayAnimation;       // Ä¶‚µ‚Ä‚¢‚éƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒAƒ^ƒbƒ`”Ô†( -1:‰½‚àƒAƒjƒ[ƒVƒ‡ƒ“‚ªƒAƒ^ƒbƒ`‚³‚ê‚Ä‚¢‚È‚¢ )
-    float       currentAnimationCount;      // Ä¶‚µ‚Ä‚¢‚éƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶ŠÔ
-    int         previousPlayAnimation;      // ‘O‚ÌÄ¶ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒAƒ^ƒbƒ`”Ô†( -1:‰½‚àƒAƒjƒ[ƒVƒ‡ƒ“‚ªƒAƒ^ƒbƒ`‚³‚ê‚Ä‚¢‚È‚¢ )
-    float       previousAnimationCount;     // ‘O‚ÌÄ¶ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶ŠÔ
-    float       animationBlendRate;         // Œ»İ‚Æ‰ß‹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒuƒŒƒ“ƒh—¦
-    bool        currentFrameMove;           // ‚»‚ÌƒtƒŒ[ƒ€‚Å“®‚¢‚½‚©‚Ç‚¤‚©
-    bool        pressMoveButton;            // ˆÚ“®—p‚Ìƒ{ƒ^ƒ“‚ª“ü—Í‚³‚ê‚Ä‚¢‚é‚©
+    // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é–¢ä¿‚
+    int         currentPlayAnimation;       // å†ç”Ÿã—ã¦ã„ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¢ã‚¿ãƒƒãƒç•ªå·( -1:ä½•ã‚‚ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒã‚¢ã‚¿ãƒƒãƒã•ã‚Œã¦ã„ãªã„ )
+    float       currentAnimationCount;      // å†ç”Ÿã—ã¦ã„ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å†ç”Ÿæ™‚é–“
+    int         previousPlayAnimation;      // å‰ã®å†ç”Ÿã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¢ã‚¿ãƒƒãƒç•ªå·( -1:ä½•ã‚‚ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒã‚¢ã‚¿ãƒƒãƒã•ã‚Œã¦ã„ãªã„ )
+    float       previousAnimationCount;     // å‰ã®å†ç”Ÿã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å†ç”Ÿæ™‚é–“
+    float       animationBlendRate;         // ç¾åœ¨ã¨éå»ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ–ãƒ¬ãƒ³ãƒ‰ç‡
+    bool        currentFrameMove;           // ãã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§å‹•ã„ãŸã‹ã©ã†ã‹
+    bool        pressMoveButton;            // ç§»å‹•ç”¨ã®ãƒœã‚¿ãƒ³ãŒå…¥åŠ›ã•ã‚Œã¦ã„ã‚‹ã‹
 
 
 };

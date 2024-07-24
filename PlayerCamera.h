@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 class Input;
@@ -6,67 +6,67 @@ class Player;
 class Stage;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[ê—p‚ÌƒJƒƒ‰
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å°‚ç”¨ã®ã‚«ãƒ¡ãƒ©
 /// </summary>
 class PlayerCamera
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     PlayerCamera();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ~PlayerCamera();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
-    /// <param name="input">“ü—Íî•ñ</param>
-    /// <param name="setPostion">İ’è‚·‚éÀ•W</param>
-    /// <param name="stage">ƒXƒe[ƒW</param>
+    /// <param name="input">å…¥åŠ›æƒ…å ±</param>
+    /// <param name="setPostion">è¨­å®šã™ã‚‹åº§æ¨™</param>
+    /// <param name="stage">ã‚¹ãƒ†ãƒ¼ã‚¸</param>
     void Update(const Input& input, VECTOR setPostion, const Stage& stage);
 
     /// <summary>
-    /// ƒJƒƒ‰‚ÌŠp“x‚ğXV‚·‚é
+    /// ã‚«ãƒ¡ãƒ©ã®è§’åº¦ã‚’æ›´æ–°ã™ã‚‹
     /// </summary>
-    /// <param name="input">“ü—ÍXVî•ñ</param>
+    /// <param name="input">å…¥åŠ›æ›´æ–°æƒ…å ±</param>
     void UpdateCameraAngle(const Input& input);
 
     /// <summary>
-    /// ƒ}ƒEƒX‚Å‚ÌƒJƒƒ‰‚ÌŠp“xXV
+    /// ãƒã‚¦ã‚¹ã§ã®ã‚«ãƒ¡ãƒ©ã®è§’åº¦æ›´æ–°
     /// </summary>
-    /// <param name="input">“ü—ÍXVî•ñ</param>
+    /// <param name="input">å…¥åŠ›æ›´æ–°æƒ…å ±</param>
     void UpdateCameraAngleMouse(const Input& input);
 
     /// <summary>
-    /// ƒJƒƒ‰À•W‚ÌC³
+    /// ã‚«ãƒ¡ãƒ©åº§æ¨™ã®ä¿®æ­£
     /// </summary>
-    /// <param name="stage">ƒXƒe[ƒW</param>
+    /// <param name="stage">ã‚¹ãƒ†ãƒ¼ã‚¸</param>
     void FixCameraPosition(const Stage& stage);
 
     /// <summary>
-    /// ƒJƒƒ‰‚Ì‘O•ûŒüƒxƒNƒgƒ‹‚ğXV‚·‚é
+    /// ã‚«ãƒ¡ãƒ©ã®å‰æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã‚’æ›´æ–°ã™ã‚‹
     /// </summary>
     void UpdateCameraForwardVector();
 
     /// <summary>
-    /// ƒJƒƒ‰‚Ìƒsƒbƒ`Šp“x‚ğXV‚·‚é
+    /// ã‚«ãƒ¡ãƒ©ã®ãƒ”ãƒƒãƒè§’åº¦ã‚’æ›´æ–°ã™ã‚‹
     /// </summary>
     /// HACK:
-    /// ƒsƒbƒ`Fã‰ºŠp“x
-    /// ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹‚ÆƒvƒŒƒCƒ„[ƒJƒƒ‰‚ÌŠp“x‚Í“¯Šú‚µ‚Ä‚¢‚é‚Ì‚ÅA
-    /// ã‰ºŠp“x‚Ì‚İ‚±‚ÌŠÖ”‚ÅXV
+    /// ãƒ”ãƒƒãƒï¼šä¸Šä¸‹è§’åº¦
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«ã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚«ãƒ¡ãƒ©ã®è§’åº¦ã¯åŒæœŸã—ã¦ã„ã‚‹ã®ã§ã€
+    /// ä¸Šä¸‹è§’åº¦ã®ã¿ã“ã®é–¢æ•°ã§æ›´æ–°
     void UpdateCameraPitch();
 
-    // ƒQƒbƒ^[
+    // ã‚²ãƒƒã‚¿ãƒ¼
     const VECTOR& GetCameraPosition() const { return cameraPosition; }
     const VECTOR& GetTargetPosition() const { return targetPosition; }
     const VECTOR& GetCameraForwardVector() const { return cameraForwardVector; }
@@ -76,27 +76,27 @@ public:
 
 private:
     //---------------------------------------------------------------------------------//
-    //                                      ’è”                                       //
+    //                                      å®šæ•°                                       //
     //---------------------------------------------------------------------------------//
-    static constexpr float  CameraNearClip              = 0.1f;     // ƒJƒƒ‰‚ÌƒjƒAƒNƒŠƒbƒv
-    static constexpr float  CameraFarClip               = 200.0f;   // ƒJƒƒ‰‚Ìƒtƒ@[ƒNƒŠƒbƒv
-    static constexpr float  AngleSpeed                  = 0.05f;    // ù‰ñ‘¬“x
-    static constexpr float  CameraPlayerTargetHeight    = 1.0f;     // ƒvƒŒƒCƒ„[À•W‚©‚ç‚Ç‚ê‚¾‚¯‚‚¢ˆÊ’u‚ğ’‹“_‚Æ‚·‚é‚©
-    static constexpr float  ToPlayerLength              = 3.0f;     // ƒvƒŒƒCƒ„[‚Æ‚Ì‹——£
-    static constexpr float  CollisionSize               = 1.0f;     // ƒJƒƒ‰‚Ì“–‚½‚è”»’èƒTƒCƒY
-    static constexpr float  AngleVerticalOffset         = 2.6f;     // ˆê’èŠp“xˆÈãã‚ğŒü‚©‚È‚¢‚æ‚¤‚É‚·‚é‚½‚ß‚Ìƒoƒt’l
-    static constexpr float  AngleVerticalDonwOffset     = 1.4f;     // ‰º“ü—Í‚Éˆê’èˆÈãŠp“x‚ª‰º‚É‚È‚ç‚È‚¢‚æ‚¤‚É‚·‚é‚½‚ß‚Ìƒoƒt’l
-    static constexpr VECTOR CameraPlayerTargetPosition  = { 0.0f,CameraPlayerTargetHeight,0.0f };    // ƒJƒƒ‰‚Ì’‹“_‚ÌÀ•W
-    static constexpr float  MouseInputDeadZoneMin       = 0.009f;   // ƒ}ƒEƒX‚Ì“ü—Í‚ğó‚¯•t‚¯‚éÅ¬’l
+    static constexpr float  CameraNearClip              = 0.1f;     // ã‚«ãƒ¡ãƒ©ã®ãƒ‹ã‚¢ã‚¯ãƒªãƒƒãƒ—
+    static constexpr float  CameraFarClip               = 200.0f;   // ã‚«ãƒ¡ãƒ©ã®ãƒ•ã‚¡ãƒ¼ã‚¯ãƒªãƒƒãƒ—
+    static constexpr float  AngleSpeed                  = 0.05f;    // æ—‹å›é€Ÿåº¦
+    static constexpr float  CameraPlayerTargetHeight    = 1.0f;     // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åº§æ¨™ã‹ã‚‰ã©ã‚Œã ã‘é«˜ã„ä½ç½®ã‚’æ³¨è¦–ç‚¹ã¨ã™ã‚‹ã‹
+    static constexpr float  ToPlayerLength              = 3.0f;     // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã®è·é›¢
+    static constexpr float  CollisionSize               = 1.0f;     // ã‚«ãƒ¡ãƒ©ã®å½“ãŸã‚Šåˆ¤å®šã‚µã‚¤ã‚º
+    static constexpr float  AngleVerticalOffset         = 2.6f;     // ä¸€å®šè§’åº¦ä»¥ä¸Šä¸Šã‚’å‘ã‹ãªã„ã‚ˆã†ã«ã™ã‚‹ãŸã‚ã®ãƒãƒ•å€¤
+    static constexpr float  AngleVerticalDonwOffset     = 1.4f;     // ä¸‹å…¥åŠ›æ™‚ã«ä¸€å®šä»¥ä¸Šè§’åº¦ãŒä¸‹ã«ãªã‚‰ãªã„ã‚ˆã†ã«ã™ã‚‹ãŸã‚ã®ãƒãƒ•å€¤
+    static constexpr VECTOR CameraPlayerTargetPosition  = { 0.0f,CameraPlayerTargetHeight,0.0f };    // ã‚«ãƒ¡ãƒ©ã®æ³¨è¦–ç‚¹ã®åº§æ¨™
+    static constexpr float  MouseInputDeadZoneMin       = 0.009f;   // ãƒã‚¦ã‚¹ã®å…¥åŠ›ã‚’å—ã‘ä»˜ã‘ã‚‹æœ€å°å€¤
 
     //---------------------------------------------------------------------------------//
-    //                                      •Ï”                                       //
+    //                                      å¤‰æ•°                                       //
     //---------------------------------------------------------------------------------//
-    float   angleHorizon;           // …•½Šp“x
-    float   angleVertical;          // ‚’¼Šp“x
-    float   cameraPitch;            // ã‰º‚ÌŠp“x—Ê
-    VECTOR  targetPosition;         // ƒJƒƒ‰‚ªŒ©‚é‹“_À•W
-    VECTOR  cameraPosition;         // ƒJƒƒ‰©g‚ÌÀ•W
-    VECTOR  cameraForwardVector;    // ƒJƒƒ‰‚Ì‘O•ûŒüƒxƒNƒgƒ‹
+    float   angleHorizon;           // æ°´å¹³è§’åº¦
+    float   angleVertical;          // å‚ç›´è§’åº¦
+    float   cameraPitch;            // ä¸Šä¸‹ã®è§’åº¦é‡
+    VECTOR  targetPosition;         // ã‚«ãƒ¡ãƒ©ãŒè¦‹ã‚‹è¦–ç‚¹åº§æ¨™
+    VECTOR  cameraPosition;         // ã‚«ãƒ¡ãƒ©è‡ªèº«ã®åº§æ¨™
+    VECTOR  cameraForwardVector;    // ã‚«ãƒ¡ãƒ©ã®å‰æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«
 };
 

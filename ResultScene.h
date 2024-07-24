@@ -1,59 +1,59 @@
-#pragma once
+ï»¿#pragma once
 #include "SceneBase.h"
 #include "ResultSceneUI.h"
 
 /// <summary>
-/// ƒŠƒUƒ‹ƒgƒV[ƒ“
+/// ãƒªã‚¶ãƒ«ãƒˆã‚·ãƒ¼ãƒ³
 /// </summary>
 class ResultScene : public SceneBase
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ResultScene();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~ResultScene();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize() override;
 
     /// <summary>
-    /// ƒV[ƒ“‚ÌƒAƒbƒvƒf[ƒg
+    /// ã‚·ãƒ¼ãƒ³ã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
     /// </summary>
-    /// <returns>Ÿ‚ÌƒV[ƒ“‚Ìƒ|ƒCƒ“ƒ^</returns>
+    /// <returns>æ¬¡ã®ã‚·ãƒ¼ãƒ³ã®ãƒã‚¤ãƒ³ã‚¿</returns>
     SceneBase* UpdateScene() override;
 
     /// <summary>
-    /// •`‰æ
+    /// æç”»
     /// </summary>
     void Draw() override;
 
     /// <summary>
-    /// UI‚Ì•`‰æ
+    /// UIã®æç”»
     /// </summary>
     void DrawUI() override;
 
     /// <summary>
-    /// ƒTƒEƒ“ƒh‚ÌXV
+    /// ã‚µã‚¦ãƒ³ãƒ‰ã®æ›´æ–°
     /// </summary>
     void UpdateSound();
 
     /// <summary>
-    /// ƒGƒtƒFƒNƒg‚ÌXV
+    /// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æ›´æ–°
     /// </summary>
     void UpdateEffect();
 
 private:
-    // ’è”
+    // å®šæ•°
 
-    // •Ï”
-    ResultSceneUI resultSceneUI;        // ƒŠƒUƒ‹ƒgƒV[ƒ“—p‚ÌUI
+    // å¤‰æ•°
+    ResultSceneUI resultSceneUI;        // ãƒªã‚¶ãƒ«ãƒˆã‚·ãƒ¼ãƒ³ç”¨ã®UI
 
 };
 

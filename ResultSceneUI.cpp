@@ -1,21 +1,21 @@
-#include "ResultSceneUI.h"
+ï»¿#include "ResultSceneUI.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 ResultSceneUI::ResultSceneUI()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 ResultSceneUI::~ResultSceneUI()
 {
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void ResultSceneUI::Update()
 {
@@ -23,7 +23,7 @@ void ResultSceneUI::Update()
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void ResultSceneUI::Draw()
 {

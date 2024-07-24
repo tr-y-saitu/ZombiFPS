@@ -1,38 +1,38 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 /// <summary>
-/// e‚Ì‹­‰»ƒ}ƒVƒ“
+/// éŠƒã®å¼·åŒ–ãƒã‚·ãƒ³
 /// </summary>
 class GunPowerUpMachine
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     GunPowerUpMachine();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ~GunPowerUpMachine();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update();
 
     /// <summary>
-    /// •`‰æ
+    /// æç”»
     /// </summary>
     void Draw();
 
 private:
-    VECTOR position;        // À•W
+    VECTOR position;        // åº§æ¨™
 };
 

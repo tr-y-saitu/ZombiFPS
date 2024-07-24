@@ -1,72 +1,72 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 /// <summary>
-/// ƒ‚ƒfƒ‹ƒf[ƒ^ŠÇ—ƒNƒ‰ƒX
+/// ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ç®¡ç†ã‚¯ãƒ©ã‚¹
 /// </summary>
 class ModelDataManager
 {
 public:
 
     /// <summary>
-    /// “Ç‚İ‚Şƒf[ƒ^‚Ìí—Ş
+    /// èª­ã¿è¾¼ã‚€ãƒ‡ãƒ¼ã‚¿ã®ç¨®é¡
     /// </summary>
     enum ModelDataType
     {
-        StageModelData,         // ƒXƒe[ƒWƒ‚ƒfƒ‹
-        PlayerModelData,        // ƒvƒŒƒCƒ„[ƒ‚ƒfƒ‹
-        EnemyModelData,         // ƒGƒlƒ~[ƒ‚ƒfƒ‹
+        StageModelData,         // ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ¢ãƒ‡ãƒ«
+        PlayerModelData,        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ¢ãƒ‡ãƒ«
+        EnemyModelData,         // ã‚¨ãƒãƒŸãƒ¼ãƒ¢ãƒ‡ãƒ«
     };
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ~ModelDataManager();
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒXì¬
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ã‚¹ä½œæˆ
     /// </summary>
     static void CreateInstance();
 
     /// <summary>
-    /// ƒGƒtƒFƒNƒgƒ}ƒl[ƒWƒƒ[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ìƒ|ƒCƒ“ƒ^‚ğ“n‚·
+    /// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ã‚’æ¸¡ã™
     /// </summary>
-    /// <returns>EffectManager‚Ìƒ|ƒCƒ“ƒ^</returns>
+    /// <returns>EffectManagerã®ãƒã‚¤ãƒ³ã‚¿</returns>
     static ModelDataManager* GetInstance();
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìíœ
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å‰Šé™¤
     /// </summary>
     static void DeleteInstance();
 
     /// <summary>
-    /// ˆê‚Â‚µ‚©g—p‚µ‚È‚¢ƒ‚ƒfƒ‹ƒf[ƒ^‚ğæ“¾‚·‚é
+    /// ä¸€ã¤ã—ã‹ä½¿ç”¨ã—ãªã„ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹
     /// </summary>
-    /// <param name="type">ƒ‚ƒfƒ‹‚Ìí—Ş</param>
-    /// <returns>ƒf[ƒ^ƒnƒ“ƒhƒ‹</returns>
+    /// <param name="type">ãƒ¢ãƒ‡ãƒ«ã®ç¨®é¡</param>
+    /// <returns>ãƒ‡ãƒ¼ã‚¿ãƒãƒ³ãƒ‰ãƒ«</returns>
     int GetOriginalModelHandle(ModelDataType type);
 
     /// <summary>
-    /// •¡»‚µg—p‚·‚éƒ‚ƒfƒ‹ƒf[ƒ^‚ğæ“¾‚·‚é
+    /// è¤‡è£½ã—ä½¿ç”¨ã™ã‚‹ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹
     /// </summary>
-    /// <param name="type">ƒf[ƒ^‚Ìí—Ş</param>
-    /// <returns>ƒf[ƒ^ƒnƒ“ƒhƒ‹</returns>
+    /// <param name="type">ãƒ‡ãƒ¼ã‚¿ã®ç¨®é¡</param>
+    /// <returns>ãƒ‡ãƒ¼ã‚¿ãƒãƒ³ãƒ‰ãƒ«</returns>
     int GetDuplicatesModelHandle(ModelDataType type);
 
 private:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ModelDataManager();
 
     /// <summary>
-    /// ƒ‚ƒfƒ‹ƒf[ƒ^‚Ì“Ç‚İ‚İ
+    /// ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
     /// </summary>
     void ModelDataLoad();
 
-    // •Ï”
-    static ModelDataManager*            modelDataManager;   // ƒ‚ƒfƒ‹ŠÇ—ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ÌƒAƒhƒŒƒX
-    map<ModelDataType, int>      modelDataList;      // g—p‚·‚éƒ‚ƒfƒ‹ƒf[ƒ^‚ÌƒŠƒXƒg
+    // å¤‰æ•°
+    static ModelDataManager*            modelDataManager;   // ãƒ¢ãƒ‡ãƒ«ç®¡ç†ã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã‚¢ãƒ‰ãƒ¬ã‚¹
+    map<ModelDataType, int>      modelDataList;      // ä½¿ç”¨ã™ã‚‹ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã®ãƒªã‚¹ãƒˆ
 
 };
 

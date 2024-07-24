@@ -1,38 +1,38 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 /// <summary>
-/// ŠŽ’e–ò‚ªÅ‘å‚Ü‚Å•â[‚³‚ê‚éƒAƒCƒeƒ€
+/// æ‰€æŒå¼¾è–¬ãŒæœ€å¤§ã¾ã§è£œå……ã•ã‚Œã‚‹ã‚¢ã‚¤ãƒ†ãƒ 
 /// </summary>
 class MaxAmmo
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     MaxAmmo();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ~MaxAmmo();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update();
 
     /// <summary>
-    /// •`‰æ
+    /// æç”»
     /// </summary>
     void Draw();
 
 private:
-    VECTOR position;            // À•W
+    VECTOR position;            // åº§æ¨™
 };
 

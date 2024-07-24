@@ -1,8 +1,8 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 /// <summary>
-/// ‰æ‘œƒf[ƒ^“Ç‚İ‚İƒNƒ‰ƒX
+/// ç”»åƒãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿ã‚¯ãƒ©ã‚¹
 /// </summary>
 class ImageDataManager
 {
@@ -13,47 +13,47 @@ public:
     };
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ~ImageDataManager();
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒXì¬
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ã‚¹ä½œæˆ
     /// </summary>
     static void CreateInstance();
 
     /// <summary>
-    /// ƒGƒtƒFƒNƒgƒ}ƒl[ƒWƒƒ[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ìƒ|ƒCƒ“ƒ^‚ğ“n‚·
+    /// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ã‚’æ¸¡ã™
     /// </summary>
-    /// <returns>EffectManager‚Ìƒ|ƒCƒ“ƒ^</returns>
+    /// <returns>EffectManagerã®ãƒã‚¤ãƒ³ã‚¿</returns>
     static ImageDataManager* GetInstance();
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìíœ
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å‰Šé™¤
     /// </summary>
     static void DeleteInstance();
 
     /// <summary>
-    /// g—p‚µ‚½‚¢‰æ‘œƒf[ƒ^‚ğæ“¾‚·‚é
+    /// ä½¿ç”¨ã—ãŸã„ç”»åƒãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹
     /// </summary>
-    /// <param name="type">ƒf[ƒ^‚Ìí—Ş</param>
-    /// <returns>ƒf[ƒ^ƒnƒ“ƒhƒ‹</returns>
+    /// <param name="type">ãƒ‡ãƒ¼ã‚¿ã®ç¨®é¡</param>
+    /// <returns>ãƒ‡ãƒ¼ã‚¿ãƒãƒ³ãƒ‰ãƒ«</returns>
     int GetImageHandle(ImageDataType type);
 
 private:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ImageDataManager();
 
     /// <summary>
-    /// ‰æ‘œƒf[ƒ^‚Ì“Ç‚İ‚İ
+    /// ç”»åƒãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
     /// </summary>
     void ImageDataLoad();
 
 
-    // •Ï”
-    static ImageDataManager*        imageDataManager;   // ‰æ‘œƒf[ƒ^ŠÇ—ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ÌƒAƒhƒŒƒX
-    map<ImageDataType, int>  imageDataList;      // g—p‚·‚é‰æ‘œ‚Ìƒf[ƒ^ƒŠƒXƒg
+    // å¤‰æ•°
+    static ImageDataManager*        imageDataManager;   // ç”»åƒãƒ‡ãƒ¼ã‚¿ç®¡ç†ã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã‚¢ãƒ‰ãƒ¬ã‚¹
+    map<ImageDataType, int>  imageDataList;      // ä½¿ç”¨ã™ã‚‹ç”»åƒã®ãƒ‡ãƒ¼ã‚¿ãƒªã‚¹ãƒˆ
 };
 

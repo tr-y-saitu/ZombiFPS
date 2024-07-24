@@ -1,23 +1,23 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 /// <summary>
-/// ƒGƒtƒFƒNƒgÄ¶ŠÇ—ƒNƒ‰ƒX
+/// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆå†ç”Ÿç®¡ç†ã‚¯ãƒ©ã‚¹
 /// </summary>
 class EffectManager     final
 {
 public:
     /// <summary>
-    /// Ä¶ó‘Ô
+    /// å†ç”ŸçŠ¶æ…‹
     /// </summary>
     enum EffectPlayState
     {
-        NoPlay = -1,    // Ä¶‚³‚ê‚Ä‚¢‚È‚¢
-        Play,           // Ä¶’†
+        NoPlay = -1,    // å†ç”Ÿã•ã‚Œã¦ã„ãªã„
+        Play,           // å†ç”Ÿä¸­
     };
 
     /// <summary>
-    /// ƒGƒtƒFƒNƒg‚Ìí—Ş
+    /// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ç¨®é¡
     /// </summary>
     enum EffectType
     {
@@ -25,70 +25,70 @@ public:
     };
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ~EffectManager();
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒXì¬
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ã‚¹ä½œæˆ
     /// </summary>
     static void CreateInstance();
 
     /// <summary>
-    /// ƒGƒtƒFƒNƒgƒ}ƒl[ƒWƒƒ[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ìƒ|ƒCƒ“ƒ^‚ğ“n‚·
+    /// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ã‚’æ¸¡ã™
     /// </summary>
-    /// <returns>EffectManager‚Ìƒ|ƒCƒ“ƒ^</returns>
+    /// <returns>EffectManagerã®ãƒã‚¤ãƒ³ã‚¿</returns>
     static EffectManager* GetInstance();
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìíœ
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å‰Šé™¤
     /// </summary>
     static void DeleteInstance();
 
     /// <summary>
-    /// ƒGƒtƒFƒNƒg‚Ì“Ç‚İ‚İ
+    /// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®èª­ã¿è¾¼ã¿
     /// </summary>
     void LoadEffect();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update();
 
     /// <summary>
-    /// Œ»İÄ¶’†‚ÌƒGƒtƒFƒNƒg‚ª‚ ‚é‚©‚Ç‚¤‚©
+    /// ç¾åœ¨å†ç”Ÿä¸­ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãŒã‚ã‚‹ã‹ã©ã†ã‹
     /// </summary>
     /// <returns></returns>
     bool IsAnyEffectPlaying();
 
     /// <summary>
-    /// “Ç‚İ‚ñ‚¾ƒGƒtƒFƒNƒgƒŠƒXƒg‚©‚çÄ¶
+    /// èª­ã¿è¾¼ã‚“ã ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒªã‚¹ãƒˆã‹ã‚‰å†ç”Ÿ
     /// </summary>
-    /// <param name="effectType">Ä¶‚·‚éƒGƒtƒFƒNƒg‚Ìí—Ş</param>
-    /// <param name="playPosition">Ä¶‚·‚éÀ•W</param>
-    /// <param name="scale">¦ƒGƒtƒFƒNƒg‚Ì•`‰æƒTƒCƒY</param>
-    /// NOTE:‘æ3ˆø”‚Ìuscalev‚ÍƒfƒtƒHƒ‹ƒgˆø”@ƒfƒtƒHƒ‹ƒg’l{1.0f,1.0f,1.0f}
-    ///      1.0f‚ª“Ç‚İ‚İƒTƒCƒY
+    /// <param name="effectType">å†ç”Ÿã™ã‚‹ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ç¨®é¡</param>
+    /// <param name="playPosition">å†ç”Ÿã™ã‚‹åº§æ¨™</param>
+    /// <param name="scale">â€»ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æç”»ã‚µã‚¤ã‚º</param>
+    /// NOTE:ç¬¬3å¼•æ•°ã®ã€Œscaleã€ã¯ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå¼•æ•°ã€€ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤{1.0f,1.0f,1.0f}
+    ///      1.0fãŒèª­ã¿è¾¼ã¿æ™‚ã‚µã‚¤ã‚º
     void PlayEffectList(EffectType effectType, VECTOR playPosition, VECTOR scale = { 1.0f,1.0f,1.0f });
 
 private:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     EffectManager();
 
-    // ŠÇ——p
-    static EffectManager* effectManager;    // ƒGƒtƒFƒNƒgƒ}ƒl[ƒWƒƒ[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
-    int playingEffectHandle;                        // Œ»İÄ¶’†‚ÌƒGƒtƒFƒNƒg‚Ìƒnƒ“ƒhƒ‹
-    vector<int> playingList;                        // Œ»İÄ¶’†‚ÌƒŠƒXƒg
-    map< EffectType, int> effectList;               // Ä¶‚·‚éƒGƒtƒFƒNƒg‚ÌƒŠƒXƒg
+    // ç®¡ç†ç”¨
+    static EffectManager* effectManager;    // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+    int playingEffectHandle;                        // ç¾åœ¨å†ç”Ÿä¸­ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒãƒ³ãƒ‰ãƒ«
+    vector<int> playingList;                        // ç¾åœ¨å†ç”Ÿä¸­ã®ãƒªã‚¹ãƒˆ
+    map< EffectType, int> effectList;               // å†ç”Ÿã™ã‚‹ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒªã‚¹ãƒˆ
 
-    // ƒnƒ“ƒhƒ‹
+    // ãƒãƒ³ãƒ‰ãƒ«
 
 };
 

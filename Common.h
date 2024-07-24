@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <iostream>
 #include <vector>
 #include <map>
@@ -8,11 +8,11 @@
 
 using namespace std;
 
-// ‹¤’Ê‚Ì’è”
-static const int ScreenWidth = 1980;                    // ‰æ–Ê‚Ì•
-static const int ScreenHeight = 1080;                   // ‰æ–Ê‚Ì‚‚³
-static const int ScreenColorBitNum = 32;                // ‰æ–Ê‚ÌƒJƒ‰[ƒrƒbƒg”
-static const int ScreenWidthHalf = ScreenWidth / 2;     // ‰æ–Ê‚Ì•‚Ì”¼•ª
-static const int ScreenHeightHalf = ScreenHeight / 2;   // ‰æ–Ê‚Ì‚‚³‚Ì”¼•ª
+// å…±é€šã®å®šæ•°
+static const int ScreenWidth = 1980;                    // ç”»é¢ã®å¹…
+static const int ScreenHeight = 1080;                   // ç”»é¢ã®é«˜ã•
+static const int ScreenColorBitNum = 32;                // ç”»é¢ã®ã‚«ãƒ©ãƒ¼ãƒ“ãƒƒãƒˆæ•°
+static const int ScreenWidthHalf = ScreenWidth / 2;     // ç”»é¢ã®å¹…ã®åŠåˆ†
+static const int ScreenHeightHalf = ScreenHeight / 2;   // ç”»é¢ã®é«˜ã•ã®åŠåˆ†
 
 

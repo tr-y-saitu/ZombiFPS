@@ -1,10 +1,10 @@
-#include "Common.h"
+ï»¿#include "Common.h"
 #include "FrameRateManager.h"
 
-// ‰Šú‰»
+// åˆæœŸåŒ–
 FrameRateManager* FrameRateManager::frameRateManager = NULL;
 
-// ƒRƒXƒgƒ‰ƒNƒ^
+// ã‚³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 FrameRateManager::FrameRateManager()
     : fpsCountStartTime     (0)
     , nowFpsCount           (0)
@@ -14,15 +14,15 @@ FrameRateManager::FrameRateManager()
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 FrameRateManager::~FrameRateManager()
 {
-    // ˆ—‚È‚µ
+    // å‡¦ç†ãªã—
 }
 
 /// <summary>
-/// ƒCƒ“ƒXƒ^ƒ“ƒX‚ğì¬
+/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½œæˆ
 /// </summary>
 void FrameRateManager::CreateInstance()
 {
@@ -33,16 +33,16 @@ void FrameRateManager::CreateInstance()
 }
 
 /// <summary>
-/// ƒtƒŒ[ƒ€ƒŒ[ƒgƒ}ƒl[ƒWƒƒ[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ìƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
+/// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
 /// </summary>
-/// <returns>ƒCƒ“ƒXƒ^ƒ“ƒX‚Ì‚ ‚éƒAƒhƒŒƒX</returns>
+/// <returns>ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã‚ã‚‹ã‚¢ãƒ‰ãƒ¬ã‚¹</returns>
 FrameRateManager* FrameRateManager::GetInstance()
 {
     return frameRateManager;
 }
 
 /// <summary>
-/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìíœ
+/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å‰Šé™¤
 /// </summary>
 void FrameRateManager::DeleteInstance()
 {
@@ -50,21 +50,21 @@ void FrameRateManager::DeleteInstance()
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void FrameRateManager::Update()
 {
-    // 1ƒtƒŒ[ƒ€–Ú‚È‚ç‚ğ‹L‰¯
+    // 1ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ãªã‚‰æ™‚åˆ»ã‚’è¨˜æ†¶
     if (nowFpsCount == 0)
     {
-        fpsCountStartTime = GetNowCount();	//Šî€‚Æ‚È‚éŠÔ‚ğŒˆ‚ß‚é
+        fpsCountStartTime = GetNowCount();	//åŸºæº–ã¨ãªã‚‹æ™‚é–“ã‚’æ±ºã‚ã‚‹
     }
-    // 60ƒtƒŒ[ƒ€–Ú‚È‚ç•½‹Ï‚ğŒvZ‚·‚é
+    // 60ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ãªã‚‰å¹³å‡ã‚’è¨ˆç®—ã™ã‚‹
     if (nowFpsCount == (float)SetFPS)
     {
-        int nowTime = GetNowCount();		//¡‚ÌŠÔ‚ğİ’è
-        deltaTime = 1000.f / ((nowTime - fpsCountStartTime) / (float)SetFPS);	//‚PƒtƒŒ[ƒ€‚É‚©‚©‚Á‚½ŠÔ‚ğŒvZ
-        nowFpsCount = 0;					//ƒtƒŒ[ƒ€‚ÌƒJƒEƒ“ƒg‚ğ‰Šú‰»
+        int nowTime = GetNowCount();		//ä»Šã®æ™‚é–“ã‚’è¨­å®š
+        deltaTime = 1000.f / ((nowTime - fpsCountStartTime) / (float)SetFPS);	//ï¼‘ãƒ•ãƒ¬ãƒ¼ãƒ ã«ã‹ã‹ã£ãŸæ™‚é–“ã‚’è¨ˆç®—
+        nowFpsCount = 0;					//ãƒ•ãƒ¬ãƒ¼ãƒ ã®ã‚«ã‚¦ãƒ³ãƒˆã‚’åˆæœŸåŒ–
     }
     else
     {
@@ -73,16 +73,16 @@ void FrameRateManager::Update()
 }
 
 /// <summary>
-/// ‘Ò‹@ˆ—
+/// å¾…æ©Ÿå‡¦ç†
 /// </summary>
 void FrameRateManager::SleepForFPS()
 {
-    //‚©‚©‚Á‚½ŠÔ
+    //ã‹ã‹ã£ãŸæ™‚é–“
     int _tookTime = GetNowCount() - fpsCountStartTime;
-    //‘Ò‚Â‚×‚«ŠÔ
+    //å¾…ã¤ã¹ãæ™‚é–“
     int _waitTime = nowFpsCount * 1000 / SetFPS - _tookTime;
 
-    //‘Ò‚Â‚×‚«ŠÔ‘Ò‹@‚·‚é
+    //å¾…ã¤ã¹ãæ™‚é–“å¾…æ©Ÿã™ã‚‹
     if (_waitTime > 0)
     {
         Sleep(_waitTime);

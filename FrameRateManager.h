@@ -1,58 +1,58 @@
-#pragma once
+ï»¿#pragma once
 
 
 /// <summary>
-/// ƒtƒŒ[ƒ€ƒŒ[ƒgŠÇ—ƒNƒ‰ƒX
+/// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆç®¡ç†ã‚¯ãƒ©ã‚¹
 /// </summary>
-/// MOME:ƒVƒ“ƒOƒ‹ƒgƒ“
+/// MOME:ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
 class FrameRateManager  final
 {
 public:
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ~FrameRateManager();
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒXì¬
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ã‚¹ä½œæˆ
     /// </summary>
     static void CreateInstance();
 
     /// <summary>
-    /// ƒGƒtƒFƒNƒgƒ}ƒl[ƒWƒƒ[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ìƒ|ƒCƒ“ƒ^‚ğ“n‚·
+    /// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ã‚’æ¸¡ã™
     /// </summary>
-    /// <returns>EffectManager‚Ìƒ|ƒCƒ“ƒ^</returns>
+    /// <returns>EffectManagerã®ãƒã‚¤ãƒ³ã‚¿</returns>
     static FrameRateManager* GetInstance();
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìíœ
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å‰Šé™¤
     /// </summary>
     static void DeleteInstance();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update();
 
     /// <summary>
-    /// ‘Ò‹@ˆ—
+    /// å¾…æ©Ÿå‡¦ç†
     /// </summary>
     void SleepForFPS();
 
 private:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     FrameRateManager();
 
-    // ’è”
-    static constexpr int SetFPS = 60;          // İ’è‚µ‚½FPS’l
+    // å®šæ•°
+    static constexpr int SetFPS = 60;          // è¨­å®šã—ãŸFPSå€¤
 
-    // •Ï”
-    static FrameRateManager* frameRateManager;  // ƒtƒŒ[ƒ€ƒŒ[ƒgƒ}ƒl[ƒWƒƒ[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
-    int     nowFpsCount;                        // Œ»İ‚ÌƒtƒŒ[ƒ€”
-    int     fpsCountStartTime;                  // ƒtƒŒ[ƒ€ƒJƒEƒ“ƒg‚ğn‚ß‚½ŠÔ
-    float   deltaTime;                          // ‚PƒtƒŒ[ƒ€‚É‚©‚©‚Á‚½ŠÔ
+    // å¤‰æ•°
+    static FrameRateManager* frameRateManager;  // ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+    int     nowFpsCount;                        // ç¾åœ¨ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+    int     fpsCountStartTime;                  // ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ãƒˆã‚’å§‹ã‚ãŸæ™‚é–“
+    float   deltaTime;                          // ï¼‘ãƒ•ãƒ¬ãƒ¼ãƒ ã«ã‹ã‹ã£ãŸæ™‚é–“
 
 };
 

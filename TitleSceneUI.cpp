@@ -1,21 +1,21 @@
-#include "TitleSceneUI.h"
+ï»¿#include "TitleSceneUI.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 TitleSceneUI::TitleSceneUI()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 TitleSceneUI::~TitleSceneUI()
 {
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void TitleSceneUI::Update()
 {
@@ -23,7 +23,7 @@ void TitleSceneUI::Update()
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void TitleSceneUI::Draw()
 {

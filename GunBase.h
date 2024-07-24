@@ -1,30 +1,30 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 /// <summary>
-/// e‚ÌŠî‘bƒNƒ‰ƒX
+/// éŠƒã®åŸºç¤ã‚¯ãƒ©ã‚¹
 /// </summary>
 class GunBase
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     GunBase();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~GunBase();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     virtual void Update() abstract;
 
 private:
-    // •Ï”
-    VECTOR position;        // À•W
+    // å¤‰æ•°
+    VECTOR position;        // åº§æ¨™
 };
 
 

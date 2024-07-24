@@ -1,22 +1,22 @@
-#include "MaxAmmo.h"
+ï»¿#include "MaxAmmo.h"
 
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 MaxAmmo::MaxAmmo()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 MaxAmmo::~MaxAmmo()
 {
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void MaxAmmo::Initialize()
 {
@@ -24,7 +24,7 @@ void MaxAmmo::Initialize()
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void MaxAmmo::Update()
 {
@@ -32,7 +32,7 @@ void MaxAmmo::Update()
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void MaxAmmo::Draw()
 {

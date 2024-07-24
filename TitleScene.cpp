@@ -1,9 +1,9 @@
-#include "Common.h"
+ï»¿#include "Common.h"
 #include "TitleScene.h"
 #include "GameScene.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 TitleScene::TitleScene()
     : isKeyOn           (false)
@@ -12,19 +12,19 @@ TitleScene::TitleScene()
 {
     titleSceneUI = TitleSceneUI();
 
-    // ‰Šú‰»
+    // åˆæœŸåŒ–
     Initialize();
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 TitleScene::~TitleScene()
 {
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void TitleScene::Initialize()
 {
@@ -32,36 +32,36 @@ void TitleScene::Initialize()
 }
 
 /// <summary>
-/// ƒV[ƒ“‚ÌXVˆ—
+/// ã‚·ãƒ¼ãƒ³ã®æ›´æ–°å‡¦ç†
 /// </summary>
-/// <returns>Ÿ‚ÌƒV[ƒ“‚Ìƒ|ƒCƒ“ƒ^</returns>
+/// <returns>æ¬¡ã®ã‚·ãƒ¼ãƒ³ã®ãƒã‚¤ãƒ³ã‚¿</returns>
 SceneBase* TitleScene::UpdateScene()
 {
-    // ƒeƒXƒg•`‰æ
+    // ãƒ†ã‚¹ãƒˆæç”»
     DrawString(0, 0, "Title", GetColor(255, 255, 255), true);
 
-    // ƒL[“ü—Í‚ÌXV
+    // ã‚­ãƒ¼å…¥åŠ›ã®æ›´æ–°
     UpdateKeyState();
 
-    // ƒIƒuƒWƒFƒNƒgXV
-    titleSceneUI.Update();      // UI‚ÌXV
+    // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ›´æ–°
+    titleSceneUI.Update();      // UIã®æ›´æ–°
 
-    // ƒXƒy[ƒXƒL[‚ª“ü—Í‚³‚ê‚½‚çƒV[ƒ“„ˆÚ
+    // ã‚¹ãƒšãƒ¼ã‚¹ã‚­ãƒ¼ãŒå…¥åŠ›ã•ã‚ŒãŸã‚‰ã‚·ãƒ¼ãƒ³æ¨ç§»
     if (isKeyRelease)
     {
-        // ƒL[‚Í—£‚ê‚Ä‚¢‚Ü‚¹‚ñ
+        // ã‚­ãƒ¼ã¯é›¢ã‚Œã¦ã„ã¾ã›ã‚“
         isKeyRelease = false;
 
-        // ƒQ[ƒ€ƒV[ƒ“‚É„ˆÚ
+        // ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã«æ¨ç§»
         return new GameScene();
     }
 
-    // Œ»ó‚ÌƒV[ƒ“
+    // ç¾çŠ¶ã®ã‚·ãƒ¼ãƒ³
     return this;
 }
 
 /// <summary>
-/// ‰¹‚ÌXV
+/// éŸ³ã®æ›´æ–°
 /// </summary>
 void TitleScene::UpdateSound()
 {
@@ -69,16 +69,16 @@ void TitleScene::UpdateSound()
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void TitleScene::Draw()
 {
-    // UI‚Ì•`‰æ
+    // UIã®æç”»
     DrawUI();
 }
 
 /// <summary>
-/// UI‚Ì•`‰æ
+/// UIã®æç”»
 /// </summary>
 void TitleScene::DrawUI()
 {
@@ -86,33 +86,33 @@ void TitleScene::DrawUI()
 }
 
 /// <summary>
-/// “ü—ÍXV
+/// å…¥åŠ›æ›´æ–°
 /// </summary>
 void TitleScene::UpdateKeyState()
 {
-    // ƒL[“ü—Í‚·‚Å‚É‚³‚ê‚Ä‚¢‚éê‡
+    // ã‚­ãƒ¼å…¥åŠ›ã™ã§ã«ã•ã‚Œã¦ã„ã‚‹å ´åˆ
     if (isKeyOn)
     {
         if (CheckHitKey(KEY_INPUT_SPACE) == 0)
         {
-            isKeyOn = false;          // ƒL[‚ª“ü—Í‚³‚ê‚Ä‚¢‚È‚¢
-            isKeyRelease = true;      // ƒL[‚ª—£‚ê‚½
+            isKeyOn = false;          // ã‚­ãƒ¼ãŒå…¥åŠ›ã•ã‚Œã¦ã„ãªã„
+            isKeyRelease = true;      // ã‚­ãƒ¼ãŒé›¢ã‚ŒãŸ
         }
     }
     else if (isPreviousKeyOn == false && CheckHitKey(KEY_INPUT_SPACE) == 1)
     {
-        // ƒL[‚Í’·‰Ÿ‚µ‚³‚ê‚Ä‚¢‚È‚¢ && ‘OƒtƒŒ[ƒ€‚Å“ü—Í‚È‚µ && ƒL[‚ª‰Ÿ‚³‚ê‚½
-        isKeyRelease = false;   // ƒL[‚Í—£‚ê‚Ä‚¢‚È‚¢
-        isKeyOn = true;         // ƒL[‚ª‰Ÿ‚³‚ê‚½
+        // ã‚­ãƒ¼ã¯é•·æŠ¼ã—ã•ã‚Œã¦ã„ãªã„ && å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã§å…¥åŠ›ãªã— && ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸ
+        isKeyRelease = false;   // ã‚­ãƒ¼ã¯é›¢ã‚Œã¦ã„ãªã„
+        isKeyOn = true;         // ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸ
     }
 
-    // ƒL[“ü—Í‚³‚ê‚½‚ç
+    // ã‚­ãƒ¼å…¥åŠ›ã•ã‚ŒãŸã‚‰
     if (CheckHitKey(KEY_INPUT_SPACE) == 1)
     {
-        isPreviousKeyOn = true;   // ‚±‚ÌƒtƒŒ[ƒ€‚Å‚ÍƒL[‚ª‰Ÿ‚³‚ê‚½
+        isPreviousKeyOn = true;   // ã“ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã¯ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸ
     }
     else
     {
-        isPreviousKeyOn = false;  // ‚±‚ÌƒtƒŒ[ƒ€‚ÅƒL[‚Í‰Ÿ‚³‚ê‚È‚©‚Á‚½
+        isPreviousKeyOn = false;  // ã“ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã‚­ãƒ¼ã¯æŠ¼ã•ã‚Œãªã‹ã£ãŸ
     }
 }

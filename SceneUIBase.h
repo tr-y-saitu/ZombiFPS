@@ -1,30 +1,30 @@
-#pragma once
+﻿#pragma once
 
 /// <summary>
-/// �V�[��UI�̊�b�N���X
+/// シーンUIの基礎クラス
 /// </summary>
 class SceneUIBase
 {
 public:
     /// <summary>
-    /// �R���X�g���N�^
+    /// コンストラクタ
     /// </summary>
     SceneUIBase();
     
     /// <summary>
-    /// �f�X�g���N�^
+    /// デストラクタ
     /// </summary>
     virtual~SceneUIBase();
 
     /// <summary>
-    /// �X�V
+    /// 更新
     /// </summary>
     virtual void Update();
 
     /// <summary>
-    /// �`��
+    /// 描画
     /// </summary>
-    /// MEMO:virtual�ɂ��Ă��Ȃ��̂͊e�V�[���ň������قȂ邽��
+    /// MEMO:virtualにしていないのは各シーンで引数が異なるため
     void Draw();
 
 protected:

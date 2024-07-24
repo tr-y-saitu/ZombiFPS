@@ -1,64 +1,64 @@
-#pragma once
+ï»¿#pragma once
 #include "SceneBase.h"
 #include "TitleSceneUI.h"
 
 /// <summary>
-/// ƒ^ƒCƒgƒ‹ƒV[ƒ“
+/// ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³
 /// </summary>
 class TitleScene : public SceneBase
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     TitleScene();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ~TitleScene();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize() override;
 
     /// <summary>
-    /// ƒV[ƒ“‚ÌXVˆ—
+    /// ã‚·ãƒ¼ãƒ³ã®æ›´æ–°å‡¦ç†
     /// </summary>
-    /// <returns>Ÿ‚ÌƒV[ƒ“‚Ìƒ|ƒCƒ“ƒ^</returns>
+    /// <returns>æ¬¡ã®ã‚·ãƒ¼ãƒ³ã®ãƒã‚¤ãƒ³ã‚¿</returns>
     SceneBase* UpdateScene() override;
 
     /// <summary>
-    /// ‰¹‚ÌXV
+    /// éŸ³ã®æ›´æ–°
     /// </summary>
     void UpdateSound() override;
 
     /// <summary>
-    /// •`‰æ
+    /// æç”»
     /// </summary>
     void Draw() override;
 
     /// <summary>
-    /// UI‚Ì•`‰æ
+    /// UIã®æç”»
     /// </summary>
     void DrawUI();
 
     /// <summary>
-    /// “ü—ÍXV
+    /// å…¥åŠ›æ›´æ–°
     /// </summary>
     void UpdateKeyState();
 
 private:
-    // ’è”
+    // å®šæ•°
 
-    // •Ï”
-    TitleSceneUI titleSceneUI;          // ƒ^ƒCƒgƒ‹ƒV[ƒ“—p‚ÌUI
+    // å¤‰æ•°
+    TitleSceneUI titleSceneUI;          // ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ç”¨ã®UI
 
 
-    // “ü—ÍŠÖŒW
-    bool    isKeyOn;                    // ƒL[“ü—Í‚³‚ê‚½‚©
-    bool    isKeyRelease;               // ƒL[“ü—Í‚ª—£‚ê‚½‚©
-    bool    isPreviousKeyOn;            // ‘OƒtƒŒ[ƒ€‚ÅƒL[“ü—Í‚ª‚ ‚Á‚½‚©
+    // å…¥åŠ›é–¢ä¿‚
+    bool    isKeyOn;                    // ã‚­ãƒ¼å…¥åŠ›ã•ã‚ŒãŸã‹
+    bool    isKeyRelease;               // ã‚­ãƒ¼å…¥åŠ›ãŒé›¢ã‚ŒãŸã‹
+    bool    isPreviousKeyOn;            // å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã‚­ãƒ¼å…¥åŠ›ãŒã‚ã£ãŸã‹
 };
 

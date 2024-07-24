@@ -1,22 +1,22 @@
-#include "Common.h"
+ï»¿#include "Common.h"
 #include "ImageDataManager.h"
 
-// ‰Šú‰»
+// åˆæœŸåŒ–
 ImageDataManager* ImageDataManager::imageDataManager = NULL;
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 ImageDataManager::ImageDataManager()
 {
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 ImageDataManager::~ImageDataManager()
 {
-    // ‰æ‘œƒf[ƒ^‚Ìíœ
+    // ç”»åƒãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤
     for (int i = 0; i < imageDataList.size(); i++)
     {
         if (imageDataList[(ImageDataType)i])
@@ -27,7 +27,7 @@ ImageDataManager::~ImageDataManager()
 }
 
 /// <summary>
-/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìì¬
+/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ä½œæˆ
 /// </summary>
 void ImageDataManager::CreateInstance()
 {
@@ -38,16 +38,16 @@ void ImageDataManager::CreateInstance()
 }
 
 /// <summary>
-/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìæ“¾
+/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å–å¾—
 /// </summary>
-/// <returns>‰æ‘œƒf[ƒ^ƒ}ƒl[ƒWƒƒ[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ÌƒAƒhƒŒƒX</returns>
+/// <returns>ç”»åƒãƒ‡ãƒ¼ã‚¿ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã‚¢ãƒ‰ãƒ¬ã‚¹</returns>
 ImageDataManager* ImageDataManager::GetInstance()
 {
     return imageDataManager;
 }
 
 /// <summary>
-/// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìíœ
+/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å‰Šé™¤
 /// </summary>
 void ImageDataManager::DeleteInstance()
 {
@@ -55,7 +55,7 @@ void ImageDataManager::DeleteInstance()
 }
 
 /// <summary>
-/// ‰æ‘œƒf[ƒ^‚Ì“Ç‚İ‚İ
+/// ç”»åƒãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 /// </summary>
 void ImageDataManager::ImageDataLoad()
 {
@@ -63,10 +63,10 @@ void ImageDataManager::ImageDataLoad()
 }
 
 /// <summary>
-/// g—p‚µ‚½‚¢‰æ‘œƒf[ƒ^‚ğæ“¾‚·‚é
+/// ä½¿ç”¨ã—ãŸã„ç”»åƒãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹
 /// </summary>
-/// <param name="type">ƒf[ƒ^‚Ìí—Ş</param>
-/// <returns>ƒf[ƒ^ƒnƒ“ƒhƒ‹</returns>
+/// <param name="type">ãƒ‡ãƒ¼ã‚¿ã®ç¨®é¡</param>
+/// <returns>ãƒ‡ãƒ¼ã‚¿ãƒãƒ³ãƒ‰ãƒ«</returns>
 int ImageDataManager::GetImageHandle(ImageDataType type)
 {
     return imageDataList[type];

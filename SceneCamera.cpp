@@ -1,46 +1,46 @@
-#include "SceneCamera.h"
+ï»¿#include "SceneCamera.h"
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 SceneCamera::SceneCamera()
     : angle         (0)
 {
-    // •`‰æ”ÍˆÍ‚Ìİ’è
+    // æç”»ç¯„å›²ã®è¨­å®š
     SetCameraNearFar(0.1f, 600.0f);
 
-    // ƒJƒƒ‰‚Ìƒ|ƒWƒVƒ‡ƒ“
+    // ã‚«ãƒ¡ãƒ©ã®ãƒã‚¸ã‚·ãƒ§ãƒ³
     position = VGet(0,0,0);
 
-    // ƒJƒƒ‰‚ğİ’è
+    // ã‚«ãƒ¡ãƒ©ã‚’è¨­å®š
     SetCameraPositionAndTarget_UpVecY(position, VGet(-7, 5, 20));
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 SceneCamera::~SceneCamera()
 {
-    // ˆ—‚È‚µ
+    // å‡¦ç†ãªã—
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
-/// <param name="initializePosition">ƒJƒƒ‰‚ÌÀ•W</param>
-/// <param name="targetPosition">ƒJƒƒ‰‚ÌŒ©‚Ä‚¢‚éÀ•W</param>
+/// <param name="initializePosition">ã‚«ãƒ¡ãƒ©ã®åº§æ¨™</param>
+/// <param name="targetPosition">ã‚«ãƒ¡ãƒ©ã®è¦‹ã¦ã„ã‚‹åº§æ¨™</param>
 void SceneCamera::Initialize(VECTOR initializePosition, VECTOR targetPosition)
 {
-    // ƒJƒƒ‰İ’è
-    // initializePosition‚©‚çtargetPosition‚ğŒ©‚é
+    // ã‚«ãƒ¡ãƒ©è¨­å®š
+    // initializePositionã‹ã‚‰targetPositionã‚’è¦‹ã‚‹
     SetCameraPositionAndTarget_UpVecY(initializePosition, targetPosition);
 }
 
 /// <summary>
-/// XV
+/// æ›´æ–°
 /// </summary>
 void SceneCamera::Update()
 {
-    // DXƒ‰ƒCƒuƒ‰ƒŠ‚ÌƒJƒƒ‰‚ÆEffekseer‚ÌƒJƒƒ‰‚ğ“¯Šú‚·‚éB
+    // DXãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ã‚«ãƒ¡ãƒ©ã¨Effekseerã®ã‚«ãƒ¡ãƒ©ã‚’åŒæœŸã™ã‚‹ã€‚
     Effekseer_Sync3DSetting();
 }

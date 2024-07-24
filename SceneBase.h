@@ -1,50 +1,50 @@
-#pragma once
+ï»¿#pragma once
 
 /// <summary>
-/// ƒV[ƒ“ƒNƒ‰ƒX‚Ìƒx[ƒX
+/// ã‚·ãƒ¼ãƒ³ã‚¯ãƒ©ã‚¹ã®ãƒ™ãƒ¼ã‚¹
 /// </summary>
 class SceneBase
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     SceneBase();
 
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~SceneBase();
 
     /// <summary>
-    /// Å‰‚ÌƒV[ƒ“‚Ì‰Šú‰»
+    /// æœ€åˆã®ã‚·ãƒ¼ãƒ³ã®åˆæœŸåŒ–
     /// </summary>
-    /// <returns>‰‚ß‚É“o˜^‚³‚¹‚éƒV[ƒ“‚Ìƒ|ƒCƒ“ƒ^</returns>
+    /// <returns>åˆã‚ã«ç™»éŒ²ã•ã›ã‚‹ã‚·ãƒ¼ãƒ³ã®ãƒã‚¤ãƒ³ã‚¿</returns>
     static SceneBase* InitializeBase();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     virtual void Initialize() abstract;
 
     /// <summary>
-    /// ƒV[ƒ““à‚ÌXV
+    /// ã‚·ãƒ¼ãƒ³å†…ã®æ›´æ–°
     /// </summary>
     /// <returns></returns>
     virtual SceneBase* UpdateScene() abstract;
 
     /// <summary>
-    /// ƒTƒEƒ“ƒh‚ÌXV
+    /// ã‚µã‚¦ãƒ³ãƒ‰ã®æ›´æ–°
     /// </summary>
     virtual void UpdateSound() abstract;
 
     /// <summary>
-    /// •`‰æ
+    /// æç”»
     /// </summary>
-    virtual void Draw() abstract;   // ƒˆ‰¼‘zŠÖ”
+    virtual void Draw() abstract;   // ç´”ç²‹ä»®æƒ³é–¢æ•°
 
     /// <summary>
-    /// UI‚Ì•`‰æ
+    /// UIã®æç”»
     /// </summary>
     virtual void DrawUI() abstract;
 

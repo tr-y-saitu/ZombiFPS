@@ -1,30 +1,30 @@
-#pragma once
+ï»¿#pragma once
 
 class EnemyObjectPools;
 
 /// <summary>
-/// ƒGƒlƒ~[‚ÌoŒ»ƒEƒF[ƒu‚ğŠÇ—‚·‚é
+/// ã‚¨ãƒãƒŸãƒ¼ã®å‡ºç¾ã‚¦ã‚§ãƒ¼ãƒ–ã‚’ç®¡ç†ã™ã‚‹
 /// </summary>
 class EnemyWaveController
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     EnemyWaveController();
     
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     ~EnemyWaveController();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize();
     
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update();
 

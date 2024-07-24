@@ -1,4 +1,4 @@
-#include "Common.h"
+ï»¿#include "Common.h"
 #include "Input.h"
 #include "ImageDataManager.h"
 #include "ModelDataManager.h"
@@ -19,43 +19,43 @@
 
 
 /// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 GameScene::GameScene()
 {
-    // “ü—Íˆ—
+    // å…¥åŠ›å‡¦ç†
     input                   = new Input();
 
-    // ƒf[ƒ^ŠÖ˜A
+    // ãƒ‡ãƒ¼ã‚¿é–¢é€£
     
 
-    // ‰‰oŠÖ˜A
+    // æ¼”å‡ºé–¢é€£
     effectManager = EffectManager::GetInstance();
     soundManager = SoundManager::GetInstance();
 
-    // “–‚½‚è”»’è
+    // å½“ãŸã‚Šåˆ¤å®š
     collisionManager        = CollisionManager::GetInstance();
 
-    // ƒIƒuƒWƒFƒNƒgŠÖ˜A
+    // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé–¢é€£
     stage                   = new Stage();
     player                  = new Player();
     enemyGroupController    = new EnemyGroupController();
     enemyWaveController     = new EnemyWaveController();
     enemyObjectPools        = new EnemyObjectPools();
 
-    // ƒAƒCƒeƒ€ŠÖ˜A
+    // ã‚¢ã‚¤ãƒ†ãƒ é–¢é€£
     maxAmmoItem             = new MaxAmmo();
     incomeDoubleItem        = new IncomeDouble();
 
-    // UIŠÖ˜A
+    // UIé–¢é€£
     gameSceneUI             = new GameSceneUI();
 
-    // ‰Šú‰»
+    // åˆæœŸåŒ–
     Initialize();
 }
 
 /// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
+/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 /// </summary>
 GameScene::~GameScene()
 {
@@ -70,7 +70,7 @@ GameScene::~GameScene()
 }
 
 /// <summary>
-/// ‰Šú‰»
+/// åˆæœŸåŒ–
 /// </summary>
 void GameScene::Initialize()
 {
@@ -79,35 +79,35 @@ void GameScene::Initialize()
 }
 
 /// <summary>
-/// ƒV[ƒ“‚ÌXV
+/// ã‚·ãƒ¼ãƒ³ã®æ›´æ–°
 /// </summary>
-/// <returns>Ÿ‚ÌƒV[ƒ“‚Ìƒ|ƒCƒ“ƒ^</returns>
+/// <returns>æ¬¡ã®ã‚·ãƒ¼ãƒ³ã®ãƒã‚¤ãƒ³ã‚¿</returns>
 SceneBase* GameScene::UpdateScene()
 {
-    // ƒeƒXƒg•`‰æ
+    // ãƒ†ã‚¹ãƒˆæç”»
     DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene", true);
 
-    // ƒIƒuƒWƒFƒNƒgXV
-    input->Update();                    // “ü—Íˆ—
-    player->Update(*input,*stage);      // ƒvƒŒƒCƒ„[
-    gameSceneUI->Update();              // UI‚ÌXV
+    // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ›´æ–°
+    input->Update();                    // å…¥åŠ›å‡¦ç†
+    player->Update(*input,*stage);      // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+    gameSceneUI->Update();              // UIã®æ›´æ–°
 
-    // Œ»ó‚ÌƒV[ƒ“‚ğ•Ô‚·
+    // ç¾çŠ¶ã®ã‚·ãƒ¼ãƒ³ã‚’è¿”ã™
     return this;
 }
 
 /// <summary>
-/// •`‰æ
+/// æç”»
 /// </summary>
 void GameScene::Draw()
 {
-    stage->Draw();          // ƒXƒe[ƒW
-    player->Draw(*stage);   // ƒvƒŒƒCƒ„[
-    DrawUI();               // UI‚Ì•`‰æ
+    stage->Draw();          // ã‚¹ãƒ†ãƒ¼ã‚¸
+    player->Draw(*stage);   // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+    DrawUI();               // UIã®æç”»
 }
 
 /// <summary>
-/// UI‚Ì•`‰æ
+/// UIã®æç”»
 /// </summary>
 void GameScene::DrawUI()
 {
@@ -115,7 +115,7 @@ void GameScene::DrawUI()
 }
 
 /// <summary>
-/// ‰¹‚ÌXV
+/// éŸ³ã®æ›´æ–°
 /// </summary>
 void GameScene::UpdateSound()
 {
@@ -123,7 +123,7 @@ void GameScene::UpdateSound()
 }
 
 /// <summary>
-/// ƒGƒtƒFƒNƒg‚ÌXV
+/// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æ›´æ–°
 /// </summary>
 void GameScene::UpdateEffect()
 {

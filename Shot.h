@@ -1,43 +1,43 @@
-#pragma once
+ï»¿#pragma once
 #include "Common.h"
 
 /// <summary>
-/// e’e
+/// éŠƒå¼¾
 /// </summary>
 class Shot
 {
 public:
     /// <summary>
-    /// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     Shot();
     
     /// <summary>
-    /// ƒfƒXƒgƒ‰ƒNƒ^
+    /// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
     virtual ~Shot();
 
     /// <summary>
-    /// ‰Šú‰»
+    /// åˆæœŸåŒ–
     /// </summary>
     void Initialize();
 
     /// <summary>
-    /// XV
+    /// æ›´æ–°
     /// </summary>
     void Update();
 
     /// <summary>
-    /// •`‰æ
+    /// æç”»
     /// </summary>
     void Draw();
 
 private:
-    VECTOR  position;           // À•W
-    VECTOR  direction;          // ˆÚ“®•ûŒü
-    int     power;              // ˆĞ—Í
-    float   speed;              // ‘¬“x
-    int     penetratingPower;   // ŠÑ’Ê—Í
+    VECTOR  position;           // åº§æ¨™
+    VECTOR  direction;          // ç§»å‹•æ–¹å‘
+    int     power;              // å¨åŠ›
+    float   speed;              // é€Ÿåº¦
+    int     penetratingPower;   // è²«é€šåŠ›
 };
 
 

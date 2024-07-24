@@ -1,56 +1,56 @@
-#include "Player.h"
+﻿#include "Player.h"
 #include "Shutter.h"
 #include "Stage.h"
 #include "ModelDataManager.h"
 
 /// <summary>
-/// �R���X�g���N�^
+/// コンストラクタ
 /// </summary>
 Stage::Stage()
 {
-    // �f�[�^�}�l�[�W���[�̃A�h���X������
+    // データマネージャーのアドレスを所持
     modelDataManager = ModelDataManager::GetInstance();
 
-    // ������
+    // 初期化
     Initialize();
 }
 
 /// <summary>
-/// �f�X�g���N�^
+/// デストラクタ
 /// </summary>
 Stage::~Stage()
 {
-    // �I������
+    // 終了処理
     Finalize();
 }
 
 /// <summary>
-/// ������
+/// 初期化
 /// </summary>
 void Stage::Initialize()
 {
-    // ���f���ǂݍ���
+    // モデル読み込み
     modelHandle = modelDataManager->GetOriginalModelHandle(ModelDataManager::ModelDataType::StageModelData);
 
-    // ���f���̃X�P�[���𒲐�
-    // �X�P�[������������������Ɠ����蔻��ł��Ȃ��Ȃ�
+    // モデルのスケールを調整
+    // スケールを小さくしすぎると当たり判定できなくなる
     MV1SetScale(modelHandle, VGet(0.1,0.1,0.1));
 
-    // �X�P�[���𒲐�
+    // スケールを調整
     MV1SetScale(modelHandle, StageModelScale);
     
-    // ���f���S�̂̃R���W�������̃Z�b�g�A�b�v
+    // モデル全体のコリジョン情報のセットアップ
     MV1SetupCollInfo(modelHandle, SelectCollisionEntire);
     
     isCreatedHitDim = false;
 }
 
 /// <summary>
-/// �I��������
+/// 終了時処理
 /// </summary>
 void Stage::Finalize()
 {
-    // �X�e�[�W���f���̌�n��
+    // ステージモデルの後始末
     MV1DeleteModel(modelHandle);
     if (isCreatedHitDim)
     {
@@ -60,7 +60,7 @@ void Stage::Finalize()
 }
 
 /// <summary>
-/// �`��
+/// 描画
 /// </summary>
 void Stage::Draw()
 {
@@ -68,14 +68,14 @@ void Stage::Draw()
 }
 
 /// <summary>
-/// �X�e�[�W�Ƃ̓����蔻��
+/// ステージとの当たり判定
 /// </summary>
-/// <param name="player">�v���C���[</param>
-/// <param name="checkPosition">�����蔻������������W</param>
+/// <param name="player">プレイヤー</param>
+/// <param name="checkPosition">当たり判定をしたい座標</param>
 /// <param name="moveVector"></param>
 VECTOR Stage::IsHitCollision(Player& player, const VECTOR& checkPosition, const VECTOR& moveVector)
 {
-    // ���o�����v���C���[�̎��͂̃|���S�������J������
+    // 検出したプレイヤーの周囲のポリゴン情報を開放する
     if (isCreatedHitDim)
     {
         MV1CollResultPolyDimTerminate(hitDim);
@@ -84,108 +84,108 @@ VECTOR Stage::IsHitCollision(Player& player, const VECTOR& checkPosition, const 
 
     VECTOR fixedPosition = checkPosition;
 
-    // �v���C���[�̎��͂ɂ���X�e�[�W�|���S�����擾����
-    // ( ���o����͈͈͂ړ��������l������ )
+    // プレイヤーの周囲にあるステージポリゴンを取得する
+    // ( 検出する範囲は移動距離も考慮する )
     hitDim = MV1CollCheck_Sphere(modelHandle, -1, checkPosition, DefaultSize + VSize(moveVector));
 
-    // ���o���ꂽ�|���S�����ǃ|���S��( �w�y���ʂɐ����ȃ|���S�� )�����|���S��( �w�y���ʂɐ����ł͂Ȃ��|���S�� )���𔻒f���A�ۑ�����
+    // 検出されたポリゴンが壁ポリゴン( ＸＺ平面に垂直なポリゴン )か床ポリゴン( ＸＺ平面に垂直ではないポリゴン )かを判断し、保存する
     AnalyzeWallAndFloor(checkPosition);
 
-    // �ǃ|���S���Ƃ̓����蔻�菈��
-    // �ǃ|���S���Ƃ̓�������`�F�b�N���A�ړ��x�N�g����␳����
+    // 壁ポリゴンとの当たり判定処理
+    // 壁ポリゴンとの当たりをチェックし、移動ベクトルを補正する
     fixedPosition = CheckHitWithWall(player, fixedPosition);
 
-    // ���|���S���Ƃ̓����蔻��
-    // ���|���S���Ƃ̓�������`�F�b�N���A�ړ��x�N�g����␳����
+    // 床ポリゴンとの当たり判定
+    // 床ポリゴンとの当たりをチェックし、移動ベクトルを補正する
     fixedPosition = CheckHitWithFloor(player, fixedPosition);
 
     return fixedPosition;
 }
 
-/// ���菈������ǂƏ��̃|���S���������o����
+/// 判定処理する壁と床のポリゴン数を検出する
 /// </summary>
-/// <param name="CheckPosition">���肷����W</param>
+/// <param name="CheckPosition">判定する座標</param>
 void Stage::AnalyzeWallAndFloor(const VECTOR& CheckPosition)
 {
-    // �ǃ|���S���Ə��|���S���̐�������������
+    // 壁ポリゴンと床ポリゴンの数を初期化する
     wallNum = 0;
     floorNum = 0;
 
-    // ���o���ꂽ�|���S���̐������J��Ԃ�
+    // 検出されたポリゴンの数だけ繰り返し
     for (int i = 0; i < hitDim.HitNum; i++)
     {
-        // �w�y���ʂɐ������ǂ����̓|���S���̖@���̂x�������O�Ɍ���Ȃ��߂����ǂ����Ŕ��f����
-        // �@���Ƃ͕\�ʂɐ����ȃx�N�g���̂���
+        // ＸＺ平面に垂直かどうかはポリゴンの法線のＹ成分が０に限りなく近いかどうかで判断する
+        // 法線とは表面に垂直なベクトルのこと
         if (hitDim.Dim[i].Normal.y < NormalVecterMaximumValue 
             && hitDim.Dim[i].Normal.y > NormalVecterMinimumValue)
         {
-            // �ǃ|���S���Ɣ��f���ꂽ�ꍇ�ł��A�v���C���[�̂x���W�{�P�D�O����荂���|���S���̂ݓ����蔻����s��
+            // 壁ポリゴンと判断された場合でも、プレイヤーのＹ座標＋１．０ｆより高いポリゴンのみ当たり判定を行う
             if (hitDim.Dim[i].Position[0].y > CheckPosition.y + CheckPositionOffset ||
                 hitDim.Dim[i].Position[1].y > CheckPosition.y + CheckPositionOffset ||
                 hitDim.Dim[i].Position[2].y > CheckPosition.y + CheckPositionOffset)
             {
-                // �|���S���̐����񋓂ł�����E���ɒB���Ă��Ȃ�������|���S����z��ɒǉ�
+                // ポリゴンの数が列挙できる限界数に達していなかったらポリゴンを配列に追加
                 if (wallNum < MaxHitColl)
                 {
-                    // �|���S���̍\���̂̃A�h���X��ǃ|���S���|�C���^�z��ɕۑ�����
+                    // ポリゴンの構造体のアドレスを壁ポリゴンポインタ配列に保存する
                     wall[wallNum] = &hitDim.Dim[i];
 
-                    // �ǃ|���S���̐������Z����
+                    // 壁ポリゴンの数を加算する
                     wallNum++;
                 }
             }
         }
         else
         {
-            // �|���S���̐����񋓂ł�����E���ɒB���Ă��Ȃ�������|���S����z��ɒǉ�
+            // ポリゴンの数が列挙できる限界数に達していなかったらポリゴンを配列に追加
             if (floorNum < MaxHitColl)
             {
-                // �|���S���̍\���̂̃A�h���X�����|���S���|�C���^�z��ɕۑ�����
+                // ポリゴンの構造体のアドレスを床ポリゴンポインタ配列に保存する
                 floor[floorNum] = &hitDim.Dim[i];
 
-                // ���|���S���̐������Z����
+                // 床ポリゴンの数を加算する
                 floorNum++;
             }
         }
     }
 }
 
-/// �ǃ|���S���Ƃ̓����蔻����`�F�b�N���A�������炸�炷�ʂ�Ԃ�
+/// 壁ポリゴンとの当たり判定をチェックし、そこからずらす量を返す
 /// </summary>
-/// <param name="player">�v���C���[</param>
-/// <param name="CheckPosition">�����蔻�肷����W</param>
-/// <returns>�␳����ړ��x�N�g��</returns>
+/// <param name="player">プレイヤー</param>
+/// <param name="CheckPosition">当たり判定する座標</param>
+/// <returns>補正する移動ベクトル</returns>
 VECTOR Stage::CheckHitWithWall(Player& player, const VECTOR& CheckPosition)
 {
     VECTOR fixedPosition = CheckPosition;
 
-    // �ǂ̐������������瑁�����^�[��
+    // 壁の数が無かったら早期リターン
     if (wallNum == 0)
     {
         return fixedPosition;
     }
 
-    // �ǂ���̉����o�����������݂�ő吔�����J��Ԃ�
+    // 壁からの押し出し処理を試みる最大数だけ繰り返し
     for (int k = 0; k < HitTryNum; k++)
     {
-        // ������\���̂���ǃ|���S����S�Č���
+        // 当たる可能性のある壁ポリゴンを全て見る
         bool isHitWall = false;
         for (int i = 0; i < wallNum; i++)
         {
-            // i�Ԗڂ̕ǃ|���S���̃A�h���X��ǃ|���S���|�C���^�z�񂩂�擾
+            // i番目の壁ポリゴンのアドレスを壁ポリゴンポインタ配列から取得
             auto floorPolygon = wall[i];
 
-            // �v���C���[�Ɠ������Ă���Ȃ�
+            // プレイヤーと当たっているなら
             if (HitCheck_Capsule_Triangle(fixedPosition, VAdd(fixedPosition, VGet(0.0f, HitHeight, 0.0f)), HitWidth, floorPolygon->Position[0], floorPolygon->Position[1], floorPolygon->Position[2]) == TRUE)
             {
-                // �������Ă�����K�苗�����v���C���[��ǂ̖@�������Ɉړ�������
-                // �ړ���̈ʒu���X�V�i�ړ���̏ꏊ��␳�j
+                // 当たっていたら規定距離分プレイヤーを壁の法線方向に移動させる
+                // 移動後の位置を更新（移動後の場所を補正）
                 fixedPosition = VAdd(fixedPosition, VScale(floorPolygon->Normal, HitSlideLength));
 
-                // �ړ������ǃ|���S���ƐڐG���Ă��邩�ǂ����𔻒�
+                // 移動した壁ポリゴンと接触しているかどうかを判定
                 for (int j = 0; j < wallNum; j++)
                 {
-                    // �������Ă����烋�[�v�𔲂���
+                    // 当たっていたらループを抜ける
                     floorPolygon = wall[j];
                     if (HitCheck_Capsule_Triangle(fixedPosition, VAdd(fixedPosition, VGet(0.0f, HitHeight, 0.0f)), HitWidth, floorPolygon->Position[0], floorPolygon->Position[1], floorPolygon->Position[2]) == TRUE)
                     {
@@ -194,7 +194,7 @@ VECTOR Stage::CheckHitWithWall(Player& player, const VECTOR& CheckPosition)
                     }
                 }
 
-                // �S�Ẵ|���S���Ɠ������Ă��Ȃ������炱���Ń��[�v�I��
+                // 全てのポリゴンと当たっていなかったらここでループ終了
                 if (isHitWall == false)
                 {
                     break;
@@ -202,8 +202,8 @@ VECTOR Stage::CheckHitWithWall(Player& player, const VECTOR& CheckPosition)
             }
         }
 
-        // �S���̃|���S���ŉ����o�������݂�O��
-        // �S�Ă̕ǃ|���S���ƐڐG���Ȃ��Ȃ����烋�[�v���甲����
+        // 全部のポリゴンで押し出しを試みる前に
+        // 全ての壁ポリゴンと接触しなくなったらループから抜ける
         if (isHitWall == false)
         {
             break;
@@ -213,113 +213,113 @@ VECTOR Stage::CheckHitWithWall(Player& player, const VECTOR& CheckPosition)
     return fixedPosition;
 }
 
-/// ���|���S���Ƃ̓����蔻����`�F�b�N���A�������炸�炷�ʂ�Ԃ�
+/// 床ポリゴンとの当たり判定をチェックし、そこからずらす量を返す
 /// </summary>
-/// <param name="player">�v���C���[</param>
-/// <param name="CheckPosition">�����蔻�肷����W</param>
-/// <returns>�␳����ړ��x�N�g��</returns>
+/// <param name="player">プレイヤー</param>
+/// <param name="CheckPosition">当たり判定する座標</param>
+/// <returns>補正する移動ベクトル</returns>
 VECTOR Stage::CheckHitWithFloor(Player& player, const VECTOR& CheckPosition)
 {
     VECTOR fixedPosition = CheckPosition;
 
-    // ���̐������������瑁�����^�[��
+    // 床の数が無かったら早期リターン
     if (floorNum == 0)
     {
         return fixedPosition;
     }
 
-    // �����������ǂ����̃t���O��������
+    // 当たったかどうかのフラグを初期化
     bool isHitFloor = false;
 
-    // �W�����v�����㏸���̏ꍇ�͏����𕪊�
+    // ジャンプ中且つ上昇中の場合は処理を分岐
     if (player.GetState() == Player::State::Jump
         && player.GetCurrentJumpPower() > 0.0f)
     {
-        // �V��ɓ����Ԃ��鏈�����s��
-        // ��ԒႢ�V��ɂԂ���ׂ̔���p�ϐ���������
+        // 天井に頭をぶつける処理を行う
+        // 一番低い天井にぶつける為の判定用変数を初期化
         float floorHeightMininum = 0.0f;
 
-        // ���|���S���̐������J��Ԃ�
+        // 床ポリゴンの数だけ繰り返し
         for (int i = 0; i < floorNum; i++)
         {
-            // i�Ԗڂ̏��|���S���̃A�h���X�����|���S���|�C���^�z�񂩂�擾
+            // i番目の床ポリゴンのアドレスを床ポリゴンポインタ配列から取得
             auto floorPolygon = floor[i];
 
-            // ���悩�瓪�̍����܂ł̊ԂŃ|���S���ƐڐG���Ă��邩�ǂ����𔻒�
-            HITRESULT_LINE lineHitResult;             // �����ƃ|���S���Ƃ̓����蔻��̌��ʂ�������\����
+            // 足先から頭の高さまでの間でポリゴンと接触しているかどうかを判定
+            HITRESULT_LINE lineHitResult;             // 線分とポリゴンとの当たり判定の結果を代入する構造体
             lineHitResult = HitCheck_Line_Triangle(fixedPosition, VAdd(fixedPosition, VGet(0.0f, HitHeight, 0.0f)), floorPolygon->Position[0], floorPolygon->Position[1], floorPolygon->Position[2]);
 
-            // �ڐG���Ă��Ȃ������牽�����Ȃ�
+            // 接触していなかったら何もしない
             if (lineHitResult.HitFlag == TRUE)
             {
-                // ���Ƀ|���S���ɓ������Ă��āA�����܂Ō��o�����V��|���S����荂���ꍇ�͉������Ȃ�
+                // 既にポリゴンに当たっていて、且つ今まで検出した天井ポリゴンより高い場合は何もしない
                 if (!(isHitFloor == true && floorHeightMininum < lineHitResult.Position.y))
                 {
-                    // �|���S���ɓ��������t���O�𗧂Ă�
+                    // ポリゴンに当たったフラグを立てる
                     isHitFloor = true;
 
-                    // �ڐG�����x���W��ۑ�����
+                    // 接触したＹ座標を保存する
                     floorHeightMininum = lineHitResult.Position.y;
                 }
             }
         }
 
-        // �ڐG�����|���S���������
+        // 接触したポリゴンがあれば
         if (isHitFloor == true)
         {
-            // �ڐG�����ꍇ�̓v���C���[�̂x���W��ڐG���W�����ɍX�V
+            // 接触した場合はプレイヤーのＹ座標を接触座標を元に更新
             fixedPosition.y = floorHeightMininum - HitHeight;
             player.OnHitRoof();
         }
     }
     else
     {
-        // ���~�����W�����v���ł͂Ȃ��ꍇ�̏���
-        // ��ԍ������|���S���ɂԂ���ׂ̔���p�ϐ���������
+        // 下降中かジャンプ中ではない場合の処理
+        // 一番高い床ポリゴンにぶつける為の判定用変数を初期化
         float floorHeightMaximum = 0.0f;
 
-        // ���|���S���̐������J��Ԃ�
+        // 床ポリゴンの数だけ繰り返し
         for (int i = 0; i < floorNum; i++)
         {
-            // i�Ԗڂ̏��|���S���̃A�h���X�����|���S���|�C���^�z�񂩂�擾
+            // i番目の床ポリゴンのアドレスを床ポリゴンポインタ配列から取得
             auto floorPolygon = floor[i];
 
-            // �W�����v�����ǂ����ŏ����𕪊�
-            HITRESULT_LINE lineHitResult;           // �����ƃ|���S���Ƃ̓����蔻��̌��ʂ�������\����
+            // ジャンプ中かどうかで処理を分岐
+            HITRESULT_LINE lineHitResult;           // 線分とポリゴンとの当たり判定の結果を代入する構造体
             if (player.GetState() == Player::State::Jump)
             {
-                // �W�����v���̏ꍇ�͓��̐悩�瑫���菭���Ⴂ�ʒu�̊Ԃœ������Ă��邩�𔻒�
+                // ジャンプ中の場合は頭の先から足先より少し低い位置の間で当たっているかを判定
                 lineHitResult = HitCheck_Line_Triangle(VAdd(fixedPosition, VGet(0.0f, HitHeight, 0.0f)), VAdd(fixedPosition, VGet(0.0f, -1.0f, 0.0f)), floorPolygon->Position[0], floorPolygon->Position[1], floorPolygon->Position[2]);
             }
             else
             {
-                // �����Ă���ꍇ�͓��̐悩�炻�������Ⴂ�ʒu�̊Ԃœ������Ă��邩�𔻒�( �X�΂ŗ�����ԂɈڍs���Ă��܂�Ȃ��� )
+                // 走っている場合は頭の先からそこそこ低い位置の間で当たっているかを判定( 傾斜で落下状態に移行してしまわない為 )
                 lineHitResult = HitCheck_Line_Triangle(VAdd(fixedPosition, VGet(0.0f, HitHeight, 0.0f)), VAdd(fixedPosition, VGet(0.0f, -40.0f, 0.0f)), floorPolygon->Position[0], floorPolygon->Position[1], floorPolygon->Position[2]);
             }
 
-            // �������Ă��Ȃ������牽�����Ȃ�
+            // 当たっていなかったら何もしない
             if (lineHitResult.HitFlag == TRUE)
             {
-                // ���ɓ��������|���S��������A�����܂Ō��o�������|���S�����Ⴂ�ꍇ�͉������Ȃ�
+                // 既に当たったポリゴンがあり、且つ今まで検出した床ポリゴンより低い場合は何もしない
                 if (!(isHitFloor == true && floorHeightMaximum > lineHitResult.Position.y))
                 {
-                    // �|���S���ɓ��������t���O�𗧂Ă�
+                    // ポリゴンに当たったフラグを立てる
                     isHitFloor = true;
 
-                    // �ڐG�����x���W��ۑ�����
+                    // 接触したＹ座標を保存する
                     floorHeightMaximum = lineHitResult.Position.y;
                 }
             }
         }
 
-        // ���|���S���ɓ����������ǂ����ŏ����𕪊�
+        // 床ポリゴンに当たったかどうかで処理を分岐
          if (isHitFloor == true)
         {
-            // ���������ꍇ
-            // �ڐG�����|���S���ň�ԍ����x���W���v���C���[�̂x���W�ɂ���
+            // 当たった場合
+            // 接触したポリゴンで一番高いＹ座標をプレイヤーのＹ座標にする
             fixedPosition.y = floorHeightMaximum;
 
-            // ���ɓ���������
+            // 床に当たった時
             player.OnHitFloor();
         }
     }
