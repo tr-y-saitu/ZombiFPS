@@ -18,13 +18,16 @@ public:
     virtual ~GunBase();
 
     /// <summary>
+    /// 初期化
+    /// </summary>
+    virtual void Initialize() abstract;
+
+    /// <summary>
     /// 更新
     /// </summary>
     virtual void Update() abstract;
 
 private:
-    // 変数
-    VECTOR position;        // 座標
 };
 
 

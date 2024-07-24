@@ -13,9 +13,17 @@ public:
     /// </summary>
     enum ModelDataType
     {
-        StageModelData,         // ステージモデル
-        PlayerModelData,        // プレイヤーモデル
-        EnemyModelData,         // エネミーモデル
+        // ステージ
+        StageModelData,             // ステージモデル
+
+        // キャラクター
+        PlayerModelData,            // プレイヤーモデル
+        EnemyModelData,             // エネミーモデル
+
+        // 銃
+        SubmachineGunModelData,     // サブマシンガン
+        BattleRifleModelData,       // バトルライフル(高火力単発銃)
+        AssaultRifleModelData,      // アサルトライフル
     };
 
     /// <summary>

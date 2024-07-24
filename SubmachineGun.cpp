@@ -17,6 +17,14 @@ SubmachineGun::~SubmachineGun()
 }
 
 /// <summary>
+/// 初期化
+/// </summary>
+void SubmachineGun::Initialize()
+{
+
+}
+
+/// <summary>
 /// 更新
 /// </summary>
 void SubmachineGun::Update()

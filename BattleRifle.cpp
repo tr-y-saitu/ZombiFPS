@@ -17,6 +17,14 @@ BattleRifle::~BattleRifle()
 }
 
 /// <summary>
+/// 初期化
+/// </summary>
+void BattleRifle::Initialize()
+{
+
+}
+
+/// <summary>
 /// 更新
 /// </summary>
 void BattleRifle::Update()
