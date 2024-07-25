@@ -12,6 +12,7 @@ PlayerCamera::PlayerCamera()
     , cameraPitch           (0.0f)
     , targetPosition        (VGet(0,0,0))
     , cameraPosition        (VGet(0,0,0))
+    , cameraRightVector     (VGet(0,0,0))
 {
     // 描画範囲の設定
     SetCameraNearFar(CameraNearClip, CameraFarClip);
@@ -42,7 +43,7 @@ void PlayerCamera::Initialize()
 /// <param name="input">入力情報</param>
 /// <param name="setPostion">設定する座標</param>
 /// <param name="stage">ステージ</param>
-void PlayerCamera::Update(const Input& input, VECTOR setPostion, const Stage& stage)
+void PlayerCamera::Update(const Input& input, VECTOR setPosition, const Stage& stage)
 {
     // DXライブラリのカメラとEffekseerのカメラを同期する。
     Effekseer_Sync3DSetting();
@@ -57,20 +58,25 @@ void PlayerCamera::Update(const Input& input, VECTOR setPostion, const Stage& st
 #endif
 
     // カメラの注視点をプレイヤーよりも上に設定
-    targetPosition = VAdd(setPostion, CameraPlayerTargetPosition);
+    targetPosition = VAdd(setPosition, CameraPlayerTargetPosition);
 
     // カメラの座標を補正する
-    FixCameraPosition(stage);
+    FixCameraPosition(stage,setPosition);
 
     // カメラの前方向ベクトルの更新
     UpdateCameraForwardVector();
 
-    // カメラのピッチ角度計算
-    UpdateCameraPitch();
+    // カメラの右方向ベクトルを更新
+    UpdateCameraRightVector();
+
+    // 腰だめの位置にカメラを移動させる
+    UpdateHipUpPosition(setPosition);
 
     // カメラの更新
     SetCameraPositionAndTarget_UpVecY(cameraPosition, targetPosition);
 
+    // カメラのピッチ角度計算
+    UpdateCameraPitch();
 }
 
 /// <summary>
@@ -188,7 +194,7 @@ void PlayerCamera::UpdateCameraAngleMouse(const Input& input)
 /// カメラ座標の修正
 /// </summary>
 /// <param name="stage">ステージ</param>
-void PlayerCamera::FixCameraPosition(const Stage& stage)
+void PlayerCamera::FixCameraPosition(const Stage& stage, VECTOR setPosition)
 {
     MATRIX rotateZ, rotateY;
     float cameraPlayerLength;
@@ -208,7 +214,8 @@ void PlayerCamera::FixCameraPosition(const Stage& stage)
     // Ｘ軸にカメラとプレイヤーとの距離分だけ伸びたベクトルを
     // 垂直方向回転( Ｚ軸回転 )させたあと水平方向回転( Ｙ軸回転 )して更に
     // 注視点の座標を足したものがカメラの座標
-    cameraPosition = VAdd(VTransform(VTransform(VGet(-cameraPlayerLength, 0.0f, 0.0f), rotateZ), rotateY), targetPosition);
+    VECTOR cameraOffest = VGet(-cameraPlayerLength, 0.0f, 0.0f);
+    cameraPosition = VAdd(VTransform(VTransform(cameraOffest, rotateZ), rotateY), targetPosition);
 
     // 注視点からカメラの座標までの間にステージのポリゴンがあるか調べる
     hitResult = MV1CollCheck_Capsule(stage.GetModelHandle(), -1, targetPosition, cameraPosition, CollisionSize);
@@ -272,6 +279,26 @@ void PlayerCamera::UpdateCameraForwardVector()
 }
 
 /// <summary>
+/// カメラの右方向ベクトルを更新する
+/// </summary>
+void PlayerCamera::UpdateCameraRightVector()
+{
+    // 前方向ベクトルと上方向ベクトルの外積で右方向ベクトルを求める
+    VECTOR cameraUpVector = VGet(0, 1, 0);
+    cameraRightVector = VNorm(VCross(cameraUpVector, cameraForwardVector));
+}
+
+/// <summary>
+/// カメラを腰だめの位置に調整する
+/// </summary>
+/// <param name="setPosition">基準となる座標</param>
+void PlayerCamera::UpdateHipUpPosition(VECTOR setPosition)
+{
+    VECTOR cameraOffset = VAdd(VScale(cameraRightVector, LeftOffset), VScale(cameraForwardVector, BackOffset));
+    cameraPosition = VAdd(setPosition, cameraOffset);
+}
+
+/// <summary>
 /// カメラのピッチ角度を更新する
 /// </summary>
 /// HACK:
@@ -279,7 +306,7 @@ void PlayerCamera::UpdateCameraForwardVector()
 /// プレイヤーモデルとプレイヤーカメラの角度は同期しているので、
 /// 上下角度のみこの関数で更新
 void PlayerCamera::UpdateCameraPitch()
-{
+{  
     // カメラの前方向ベクトル取得（カメラがどこを向いているのか）
     VECTOR forwardVector = cameraForwardVector;
 

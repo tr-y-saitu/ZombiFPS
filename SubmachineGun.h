@@ -46,9 +46,9 @@ private:
     static constexpr float  GunFireRate             = 1.0f;     // 銃の連射力
     static constexpr float  GunRecoil               = 1.0f;     // 銃の反動
     static constexpr float  GunAccuracy             = 1.0f;     // 銃の精度(拡散度合い)
-    static constexpr VECTOR InitializeScale         = { 0.1f,0.1f,0.1f };   // 初期化時のスケール
+    static constexpr VECTOR InitializeScale         = { 0.07f,0.07f,0.07f };   // 初期化時のスケール
     // ずらし量
-    static constexpr VECTOR GunOffset               = { 0.0f,0.5f,0.0f };   // 銃のプレイヤーの腕からのずらし量
+    static constexpr VECTOR GunOffset = { 0.0f,0.1f,0.0f };   // 銃のプレイヤーの腕からのずらし量
 
 
     //---------------------------------------------------------------------------------//

@@ -30,8 +30,12 @@ void GunBase::UpdateAngle(VECTOR setPosition, float pitch)
     float cameraPitch = pitch;
 
     // モデルの水平方向回転値を計算
-    float playerAngleY = atan2f(cameraForward.x, cameraForward.z);
+    float gunAngleY = atan2f(cameraForward.x, cameraForward.z);
+
+    // 腰だめの角度に修正
+    gunAngleY -= 3.0f * DX_PI_F / 180.f;
+    cameraPitch += 30.0f * DX_PI_F / 180.0f;
 
     // モデルの回転
-    MV1SetRotationXYZ(modelHandle, VGet(-cameraPitch, playerAngleY, 0.0f));
+    MV1SetRotationXYZ(modelHandle, VGet(-cameraPitch, gunAngleY, 0.0f));
 }

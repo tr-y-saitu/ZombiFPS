@@ -49,7 +49,7 @@ void Player::Initialize()
 
     // モデルサイズを再設定
     MV1SetScale(modelHandle, PlayerScale);
-    
+
     // 状態を初期化
     state = State::None;
     
@@ -389,7 +389,13 @@ void Player::UpdateAngle()
     float playerAngleY = atan2f(cameraForward.x, cameraForward.z);
 
     // プレイヤーモデルを追加で180度回転
-    playerAngleY += DX_PI_F;
+    // FIXME:
+    // ブレンダーでアニメーションを残したままモデルを回転し、
+    // 保存する方法が分からないためプログラム上で実装
+    playerAngleY += 150.0f * DX_PI_F / 180.0f;
+
+    // 腰だめ角度に調整
+    cameraPitch += 30.0f * DX_PI_F / 180.0f;
 
     // モデルの回転
     MV1SetRotationXYZ(modelHandle, VGet(cameraPitch, playerAngleY, 0.0f));

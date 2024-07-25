@@ -140,24 +140,25 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
-    static constexpr float  PlayAnimationSpeed   = 0.5f;     // アニメーション速度
-    static constexpr float  MoveSpeed       = 0.5f;     // 移動速度
-    static constexpr float  AnimationBlendSpeed  = 0.1f;     // アニメーションのブレンド率変化速度
-    static constexpr float  AngleSpeed      = 0.2f;     // 角度変化速度
-    static constexpr float  JumpPower       = 100.0f;   // ジャンプ力
-    static constexpr float  Gravity         = 3.0f;     // 重力
-    static constexpr float  ShadowSize      = 200.0f;   // 影の大きさ
-    static constexpr float  ShadowHeight    = 700.0f;   // 影が落ちる高さ
-    static constexpr float  FallUpPower     = 20.0f;    // 足を踏み外した時のジャンプ力
-    static constexpr float  MoveLimitY      = 5.0f;     // Y軸の移動制限
-    static constexpr VECTOR PlayerScale     = { 0.05f,0.05f,0.05f };    // プレイヤーのスケール
-    static constexpr VECTOR ZeroVector      = { 0.0f,0.0f,0.0f };       // ゼロベクトル
+    // ステータス
+    static constexpr float  MoveSpeed               = 0.5f;                     // 移動速度
+    static constexpr float  AngleSpeed              = 0.2f;                     // 角度変化速度
+    static constexpr float  JumpPower               = 100.0f;                   // ジャンプ力
+    static constexpr float  MoveLimitY              = 4.5f;                     // Y軸の移動制限
+    static constexpr VECTOR ZeroVector              = { 0.0f,0.0f,0.0f };       // ゼロベクトル
+    static constexpr VECTOR PlayerScale             = { 0.05f,0.05f,0.05f };    // プレイヤーのスケール
+    // 重力関係
+    static constexpr float  Gravity                 = 3.0f;                     // 重力
+    static constexpr float  FallUpPower             = 20.0f;                    // 足を踏み外した時のジャンプ力
+    // アニメーション
+    static constexpr float  PlayAnimationSpeed      = 0.5f;                     // アニメーション速度
+    static constexpr float  AnimationBlendSpeed     = 0.1f;                     // アニメーションのブレンド率変化速度
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
     // ロード関係
-    ModelDataManager*   modelDataManager; // モデルデータマネージャー
+    ModelDataManager*   modelDataManager;   // モデルデータマネージャー
     
     // 基本情報
     PlayerCamera*       playerCamera;       // プレイヤー専用のカメラ(FPS視点カメラ)
