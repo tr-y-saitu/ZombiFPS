@@ -30,6 +30,7 @@ public:
     /// 更新
     /// </summary>
     void Update(VECTOR setPosition, VECTOR cameraVector, float cameraPitch) override;
+
     /// <summary>
     /// 描画
     /// </summary>

@@ -154,7 +154,7 @@ private:
     static constexpr float  PlayAnimationSpeed      = 0.5f;                         // アニメーション速度
     static constexpr float  AnimationBlendSpeed     = 0.1f;                         // アニメーションのブレンド率変化速度
     // 腰だめ時
-    static constexpr float  HipUpPositionAngleY     = 150.0f * DX_PI_F / 180.0f;    // 水平回転用：腰だめの位置に調整するために回転させるY軸回転度(ラジアン)
+    static constexpr float  HipUpPositionAngleY     = 170.0f * DX_PI_F / 180.0f;    // 水平回転用：腰だめの位置に調整するために回転させるY軸回転度(ラジアン)
     static constexpr float  HipUpPositionANglePitch = 20.0f * DX_PI_F / 180.0f;     // 垂直回転用：腰だめの位置に調整するために回転させる水平方向からの角度(ラジアン)
 
     //---------------------------------------------------------------------------------//
