@@ -140,6 +140,9 @@
     <Filter Include="ZombiFPS\GameObject\Item\IncomeDouble">
       <UniqueIdentifier>{f39f5f61-1f09-40bf-bd11-266c8ee5071c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ZombiFPS\GameObject\Player\Gun\Shot\ShotObjectPools">
+      <UniqueIdentifier>{6cce4b7e-0999-4229-8afb-83e0eb06ca6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -286,6 +289,9 @@
     <ClCompile Include="IncomeDouble.cpp">
       <Filter>ZombiFPS\GameObject\Item\IncomeDouble</Filter>
     </ClCompile>
+    <ClCompile Include="ShotObjectPools.cpp">
+      <Filter>ZombiFPS\GameObject\Player\Gun\Shot\ShotObjectPools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -431,6 +437,9 @@
     </ClInclude>
     <ClInclude Include="IncomeDouble.h">
       <Filter>ZombiFPS\GameObject\Item\IncomeDouble</Filter>
+    </ClInclude>
+    <ClInclude Include="ShotObjectPools.h">
+      <Filter>ZombiFPS\GameObject\Player\Gun\Shot\ShotObjectPools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
