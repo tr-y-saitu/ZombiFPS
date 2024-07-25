@@ -7,9 +7,11 @@
 /// コンストラクタ
 /// </summary>
 Input::Input()
-    : currentFrameInput     (0)
-    , nowFrameNewInput      (0)
-    , mousePosition         ({0,0})
+    : currentFrameInput         (0)
+    , nowFrameNewInput          (0)
+    , mousePosition             ({0,0})
+    , mouseCurrentFrameInput    (0)
+    , mouseNowFrameInput        (0)
 {
 }
 
@@ -51,7 +53,7 @@ void Input::Update()
 void Input::UpdateMouse()
 {
     // 入力更新
-    //currentFrameInput = GetMouseInput();                  // クリック
+    mouseCurrentFrameInput = GetMouseInput();               // クリック
     GetMousePoint(&mousePosition.x, &mousePosition.y);      // カーソル
 
     // 移動だけキー入力

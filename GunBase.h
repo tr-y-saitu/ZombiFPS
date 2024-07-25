@@ -3,6 +3,7 @@
 
 class   GunStateBase;
 enum    GunState;
+class   Bullet;
 
 /// <summary>
 /// 銃の基礎クラス
@@ -52,6 +53,8 @@ public:
     /// <param name="setPosition">設定する座標</param>
     void UpdateAngle(VECTOR setPosition,float pitch);
 
+    list<Bullet*>& GetActiveBullet() { return activeBullet; }
+
 protected:
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
@@ -63,6 +66,7 @@ protected:
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
+    list<Bullet*>   activeBullet;           // 使用中の弾丸
     int             modelHandle;            // モデルハンドル
     VECTOR          position;               // 座標
     GunState        state;                  // 銃の状態

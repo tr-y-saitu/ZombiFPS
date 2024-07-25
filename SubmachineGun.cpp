@@ -63,6 +63,9 @@ void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, float camera
     // 角度を更新
     UpdateAngle(cameraVector, cameraPitch);
 
+    // 弾丸の更新
+    UpdateShooting();
+
     // 座標の設定
     MV1SetPosition(modelHandle, position);
 }
@@ -74,4 +77,14 @@ void SubmachineGun::Draw()
 {
     // モデルの描画
     MV1DrawModel(modelHandle);
+}
+
+// 射撃する
+void SubmachineGun::UpdateShooting()
+{
+    // 現在使用中の弾丸の更新
+    for (auto it = activeBullet.begin(); it != activeBullet.end(); ++it)
+    {
+        (*it)->Update();
+    }
 }

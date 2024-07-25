@@ -150,6 +150,9 @@ void Player::Update(const Input& input, Stage& stage)
     // アニメーション処理
     UpdateAnimation();
 
+    // 射撃更新
+    UpdateShootingEquippedWeapon(input);
+
     // 装備中の武器の更新
     equippedGun->Update(position, playerCamera->GetCameraForwardVector(), playerCamera->GetCameraPitch());
 
@@ -431,7 +434,6 @@ void Player::PlayAnimation(AnimationType PlayAnimation)
     animationBlendRate = previousPlayAnimation == -1 ? 1.0f : 0.0f;
 }
 
-
 /// <summary>
 /// アニメーション更新
 /// </summary>
@@ -491,5 +493,16 @@ void Player::UpdateAnimation()
 
         // アニメーション２のモデルに対する反映率をセット
         MV1SetAttachAnimBlendRate(modelHandle, previousPlayAnimation, 1.0f - animationBlendRate);
+    }
+}
+
+// 銃を撃つ
+void Player::UpdateShootingEquippedWeapon(const Input& input)
+{
+    // 左クリックされたら射撃する
+    if (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT)
+    {
+        // 未使用の弾丸を使用中に移動
+        bulletObjectPools->AcquireInactiveBulletInstance(equippedGun->GetActiveBullet());
     }
 }

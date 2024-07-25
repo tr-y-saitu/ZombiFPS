@@ -36,6 +36,7 @@ public:
         Stop    = 8,    // 停止
         Run     = 8,    // 走り
         Jump    = 8,    // ジャンプ
+        Shooting,       // 射撃中
     };
 
     /// <summary>
@@ -136,6 +137,9 @@ private:
     /// アニメーション処理
     /// </summary>
     void UpdateAnimation();
+
+    // 銃を撃つ
+    void UpdateShootingEquippedWeapon(const Input& input);
 
 
     //---------------------------------------------------------------------------------//
