@@ -294,8 +294,23 @@ void PlayerCamera::UpdateCameraRightVector()
 /// <param name="setPosition">基準となる座標</param>
 void PlayerCamera::UpdateHipUpPosition(VECTOR setPosition)
 {
+    // カメラのオフセット量を計算
+    // プレイヤーよりも少し左後ろに移動
     VECTOR cameraOffset = VAdd(VScale(cameraRightVector, LeftOffset), VScale(cameraForwardVector, BackOffset));
+
+    // カメラ自体の座標更新
     cameraPosition = VAdd(setPosition, cameraOffset);
+
+    // カメラの右方向ベクトルを取得
+    VECTOR rightVector = cameraRightVector;
+
+    // 腰だめの位置にカメラを調整する
+    // (プレイヤーよりも少し左を見つめる)
+    VECTOR leftOffset = VScale(rightVector, ViewTargetShiftLeftOffset);
+
+    // カメラの視点を更新
+    targetPosition = VAdd(targetPosition, leftOffset);
+
 }
 
 /// <summary>

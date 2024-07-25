@@ -103,6 +103,7 @@ private:
     // 腰だめ
     static constexpr float  LeftOffset                  = -0.5f;    // 腰だめの位置を再現するために左にずらす量
     static constexpr float  BackOffset                  = -2.0f;    // 腰だめの位置を再現するために後ろにずらす量
+    static constexpr float  ViewTargetShiftLeftOffset   = -0.5f;    // 腰だめの位置に調整するためのターゲットの視点ずらし量
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
