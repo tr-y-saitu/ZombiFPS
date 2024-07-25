@@ -34,7 +34,11 @@ void SubmachineGun::Initialize()
 
     // ステータスの初期化
     state                   = GunBase::GunState::IdleState;
+
+    // TODO:
+    // 状態クラスを未作成のため未実装
     //currentState            = new GunIdleState();
+
     shotDamagePower         = ShotDamagePower;
     shotPenetrationPower    = ShotPenetrationPower;
     fireRate                = GunFireRate;
