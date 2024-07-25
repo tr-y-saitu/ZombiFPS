@@ -20,12 +20,19 @@ public:
     ~BulletObjectPools();
 
     /// <summary>
+    /// 現在未使用の弾丸があるかどうか調べる
+    /// </summary>
+    /// <returns>未使用のものがある:true   未使用のものがない:false</returns>
+    bool hasInactiveBulletInstance();
+
+    /// <summary>
     /// 未使用の弾丸のインスタンスを渡す
     /// </summary>
-    void GetInactiveBulletInstance(Bullet& bullet);
+    /// <param name="bullet">渡したい使用中リストのアドレス</param>
+    void AcquireInactiveBulletInstance(list<Bullet*>& activeBullet);
 
     // 使い終わった弾丸のインスタンスを未使用に変換する
-
+    void ReturnActiveBulletInstance(list<Bullet*> activeBullet);
 
 private:
     //---------------------------------------------------------------------------------//
@@ -38,7 +45,6 @@ private:
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
     list<Bullet*>   inactiveBullet;     // 未使用の弾丸
-    list<Bullet*>   activeBullet;       // 使用中の弾丸
 
 };
 

@@ -4,6 +4,7 @@
 class GunStateBase;
 class Bullet;
 class ModelDataManager;
+class BulletObjectPools;
 
 /// <summary>
 /// サブマシンガン
@@ -36,6 +37,11 @@ public:
     /// </summary>
     void Draw() override;
 
+    /// <summary>
+    /// 銃を発砲する
+    /// </summary>
+    void Shot();
+
 private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -54,7 +60,8 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
-    ModelDataManager*       modelDataManager;       // モデルデータ読み込み用クラスのアドレス
+    ModelDataManager*       modelDataManager;   // モデルデータ読み込み用クラスのアドレス
+    list<Bullet*>           activeBullet;       // 使用中の弾丸
 
 };
 

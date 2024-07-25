@@ -7,7 +7,7 @@
 #include "GunRunState.h"
 #include "GunShotState.h"
 
-/// <summary>
+/// <summary>　　　　　　
 /// コンストラクタ
 /// </summary>
 SubmachineGun::SubmachineGun()
@@ -21,6 +21,8 @@ SubmachineGun::SubmachineGun()
 /// </summary>
 SubmachineGun::~SubmachineGun()
 {
+    // 要素の削除
+    activeBullet.clear();
 }
 
 /// <summary>
