@@ -7,6 +7,15 @@
 class Bullet
 {
 public:
+    struct BulletInitializeData
+    {
+        VECTOR  position;           // 座標
+        VECTOR  direction;          // 移動方向
+        int     power;              // 威力
+        float   speed;              // 速度
+        int     penetratingPower;   // 貫通力
+    };
+
     /// <summary>
     /// コンストラクタ
     /// </summary>
@@ -20,7 +29,7 @@ public:
     /// <summary>
     /// 初期化
     /// </summary>
-    void Initialize();
+    void Initialize(BulletInitializeData initializeData);
 
     /// <summary>
     /// 更新
