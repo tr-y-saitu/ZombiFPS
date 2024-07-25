@@ -8,17 +8,6 @@ class GunStateBase
 {
 public:
     /// <summary>
-    /// 銃の状態
-    /// </summary>
-    enum GunState
-    {
-        IdleState,      // 何もしていない状態
-        RunState,       // 走り状態
-        ShotState,      // 発砲状態
-        ReloadState,    // リロード状態
-    };
-
-    /// <summary>
     /// コンストラクタ
     /// </summary>
     GunStateBase();
@@ -33,7 +22,7 @@ public:
     /// </summary>
     virtual void Update() abstract;
 
-private:
+protected:
 
 };
 

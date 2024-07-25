@@ -19,11 +19,11 @@ Player::Player()
     : position              (VGet(0,0,0))
     , pressMoveButton       (false)
 {
+    equippedGun             = new SubmachineGun();
     modelDataManager        = ModelDataManager::GetInstance();
     playerCamera            = new PlayerCamera();
     playerState             = new PlayerIdleState();
     Initialize();
-    MV1SetRotationXYZ(modelHandle, VGet(0, 0.0f * DX_PI_F / 180.0f, 0));
 }
 
 /// <summary>
@@ -49,7 +49,7 @@ void Player::Initialize()
 
     // モデルサイズを再設定
     MV1SetScale(modelHandle, PlayerScale);
-    
+
     // 状態を初期化
     state = State::None;
     
@@ -146,6 +146,9 @@ void Player::Update(const Input& input, Stage& stage)
     // アニメーション処理
     UpdateAnimation();
 
+    // 装備中の武器の更新
+    equippedGun->Update(position, playerCamera->GetCameraForwardVector(), playerCamera->GetCameraPitch());
+
     // プレイヤーカメラの更新
     UpdatePlayerCamera(input, stage);
 }
@@ -155,7 +158,11 @@ void Player::Update(const Input& input, Stage& stage)
 /// </summary>
 void Player::Draw(const Stage& stage)
 {
+    // モデルの描画
     MV1DrawModel(modelHandle);
+
+    // 武器の描画
+    equippedGun->Draw();
 
     // 座標描画
     DrawFormatString(100,0,GetColor(255,255,255),"X:%f Y:%f Z:%f",position.x,position.y,position.z);
@@ -382,7 +389,13 @@ void Player::UpdateAngle()
     float playerAngleY = atan2f(cameraForward.x, cameraForward.z);
 
     // プレイヤーモデルを追加で180度回転
-    playerAngleY += DX_PI_F;
+    // FIXME:
+    // ブレンダーでアニメーションを残したままモデルを回転し、
+    // 保存する方法が分からないためプログラム上で実装
+    playerAngleY += HipUpPositionAngleY;
+
+    // 腰だめ角度に調整
+    cameraPitch += HipUpPositionANglePitch;
 
     // モデルの回転
     MV1SetRotationXYZ(modelHandle, VGet(cameraPitch, playerAngleY, 0.0f));

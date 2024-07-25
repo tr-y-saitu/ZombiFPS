@@ -61,9 +61,17 @@ void ModelDataManager::DeleteInstance()
 /// </summary>
 void ModelDataManager::ModelDataLoad()
 {
-    modelDataList[StageModelData] = MV1LoadModel("Data/Stage/BackroomsScaleMini.mv1");
-    //modelDataList[PlayerModelData] = MV1LoadModel("Data/Player/playerScaleMini.mv1");
-    modelDataList[PlayerModelData] = MV1LoadModel("Data/Player/playerAnimationFixed.mv1");
+    // ステージ
+    modelDataList[StageModelData]           = MV1LoadModel("Data/Stage/BackroomsScaleMini.mv1");
+
+    // キャラクター
+    modelDataList[PlayerModelData]          = MV1LoadModel("Data/Player/playerAnimationFixed.mv1");
+    modelDataList[EnemyModelData]           = MV1LoadModel("Data/Enemy/enemyZombi.mv1");
+
+    // 銃
+    modelDataList[SubmachineGunModelData]   = MV1LoadModel("Data/Gun/MP5/MP5.mv1");
+    modelDataList[BattleRifleModelData]     = MV1LoadModel("Data/Gun/M14/M14.mv1");
+    modelDataList[AssaultRifleModelData]    = MV1LoadModel("Data/Gun/AR15/AR15.mv1");
 }
 
 /// <summary>
