@@ -10,6 +10,7 @@
 #include "AssaultRifle.h"
 #include "BattleRifle.h"
 #include "SubmachineGun.h"
+#include "BulletObjectPools.h"
 
 
 /// <summary>
@@ -19,6 +20,7 @@ Player::Player()
     : position              (VGet(0,0,0))
     , pressMoveButton       (false)
 {
+    bulletObjectPools       = new BulletObjectPools();
     equippedGun             = new SubmachineGun();
     modelDataManager        = ModelDataManager::GetInstance();
     playerCamera            = new PlayerCamera();
@@ -31,6 +33,8 @@ Player::Player()
 /// </summary>
 Player::~Player()
 {
+    delete(bulletObjectPools);
+    delete(equippedGun);
     delete(playerState);
     delete(playerCamera);
     MV1DeleteModel(modelHandle);

@@ -1,5 +1,5 @@
 ﻿#include "SubmachineGun.h"
-#include "Shot.h"
+#include "Bullet.h"
 #include "GunStateBase.h"
 #include "ModelDataManager.h"
 #include "GunIdleState.h"

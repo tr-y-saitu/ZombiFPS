@@ -4,18 +4,18 @@
 /// <summary>
 /// 銃弾
 /// </summary>
-class Shot
+class Bullet
 {
 public:
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    Shot();
+    Bullet();
     
     /// <summary>
     /// デストラクタ
     /// </summary>
-    virtual ~Shot();
+    virtual ~Bullet();
 
     /// <summary>
     /// 初期化

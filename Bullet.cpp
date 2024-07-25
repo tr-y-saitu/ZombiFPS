@@ -1,23 +1,24 @@
-﻿#include "Shot.h"
+﻿#include "Bullet.h"
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
-Shot::Shot()
+Bullet::Bullet()
 {
 }
 
 /// <summary>
 /// デストラクタ
 /// </summary>
-Shot::~Shot()
+Bullet::~Bullet()
 {
+
 }
 
 /// <summary>
 /// 初期化
 /// </summary>
-void Shot::Initialize()
+void Bullet::Initialize()
 {
 
 }
@@ -25,7 +26,7 @@ void Shot::Initialize()
 /// <summary>
 /// 更新
 /// </summary>
-void Shot::Update()
+void Bullet::Update()
 {
 
 }
@@ -33,7 +34,7 @@ void Shot::Update()
 /// <summary>
 /// 描画
 /// </summary>
-void Shot::Draw()
+void Bullet::Draw()
 {
 
 }

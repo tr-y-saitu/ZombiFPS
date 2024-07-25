@@ -2,7 +2,7 @@
 #include "GunBase.h"
 
 class GunStateBase;
-class Shot;
+class Bullet;
 class ModelDataManager;
 
 /// <summary>

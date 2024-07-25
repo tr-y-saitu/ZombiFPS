@@ -1,5 +1,5 @@
 ﻿#include "BattleRifle.h"
-#include "Shot.h"
+#include "Bullet.h"
 #include "GunStateBase.h"
 #include "ModelDataManager.h"
 

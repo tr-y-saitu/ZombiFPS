@@ -38,7 +38,7 @@
     <ClCompile Include="IncomeDouble.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="MaxAmmo.cpp" />
-    <ClCompile Include="ShotObjectPools.cpp" />
+    <ClCompile Include="BulletObjectPools.cpp" />
     <ClCompile Include="Pathfinding.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCamera.cpp" />
@@ -61,7 +61,7 @@
     <ClCompile Include="ResultSceneUI.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="SceneUIBase.cpp" />
-    <ClCompile Include="Shot.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Shutter.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Stage.cpp" />
@@ -89,7 +89,7 @@
     <ClInclude Include="IncomeDouble.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MaxAmmo.h" />
-    <ClInclude Include="ShotObjectPools.h" />
+    <ClInclude Include="BulletObjectPools.h" />
     <ClInclude Include="Pathfinding.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCamera.h" />
@@ -112,7 +112,7 @@
     <ClInclude Include="ResultSceneUI.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneUIBase.h" />
-    <ClInclude Include="Shot.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Shutter.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Stage.h" />

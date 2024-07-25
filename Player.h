@@ -7,6 +7,7 @@ class Input;
 class PlayerCamera;
 class Stage;
 class ModelDataManager;
+class BulletObjectPools;
 
 /// <summary>
 /// プレイヤー
@@ -168,6 +169,8 @@ private:
     VECTOR              position;           // 座標
     PlayerStateBase*    playerState;        // プレイヤーの状態
     GunBase*            equippedGun;        // 銃
+    BulletObjectPools*  bulletObjectPools;  // 弾丸のオブジェクトプール
+    list<Bullet*>       activeBullet;       // 使用中の弾丸
 
     // 移動状態
     VECTOR      targetMoveDirection;        // モデルが向くべき方向のベクトル

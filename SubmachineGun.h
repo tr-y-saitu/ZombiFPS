@@ -2,7 +2,7 @@
 #include "GunBase.h"
 
 class GunStateBase;
-class Shot;
+class Bullet;
 class ModelDataManager;
 
 /// <summary>
@@ -52,7 +52,7 @@ private:
 
 
     //---------------------------------------------------------------------------------//
-    //                                      定数                                       //
+    //                                      変数                                       //
     //---------------------------------------------------------------------------------//
     ModelDataManager*       modelDataManager;       // モデルデータ読み込み用クラスのアドレス
 
