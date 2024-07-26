@@ -1,6 +1,9 @@
 ﻿#pragma once
 #include "Common.h"
 
+class ModelDataManager;
+class Stage;
+
 /// <summary>
 /// エネミー(ゾンビ)
 /// </summary>
@@ -10,7 +13,7 @@ public:
     /// <summary>
     /// エネミーの状態
     /// </summary>
-    enum EnemyState
+    enum class State : int
     {
         None,       // 停止
         Walk,       // 歩き
@@ -21,9 +24,20 @@ public:
     /// <summary>
     /// エネミーのアニメーションタイプ
     /// </summary>
-    enum AnimationType
+    enum class AnimationType : int
     {
-        
+        CrawlingBiteAttack1,    // はいずり噛みつき攻撃(1,2は同じ)
+        CrawlingBiteAttack2,    // はいずり噛みつき攻撃(1,2は同じ)
+        Intimidation,           // 威嚇
+        Crawling,               // はいずり移動
+        RecoilDeath,            // のけぞり死亡
+        NoAnimation,            // アニメーションなし
+        Attack,                 // 攻撃
+        BiteAttack,             // 噛みつき攻撃
+        Death,                  // 死亡
+        Idle,                   // 何もしていない
+        Run,                    // 走り
+        Wolk,                   // 歩き
     };
 
     /// <summary>
@@ -52,24 +66,82 @@ public:
     void Draw();
 
 private:
-    // 定数
-    
+    /// <summary>
+    /// ルートフレームのZ軸方向の移動パラメータを無効にする
+    /// </summary>
+    void DisableRootFrameZMove();
 
-    // 変数
-    VECTOR      position;               // 座標
-    VECTOR      targetMoveDirection;    // モデルが向くべき方向のベクトル
-    float       angle;                  // モデルが向いている方向の角度
-    float       currentJumpPower;       // Ｙ軸方向の速度
-    int         modelHandle;            // モデルハンドル
-    int         shadowHandle;           // 影画像ハンドル
-    //State     State;                  // 状態
+    /// <summary>
+    /// 移動ベクトルの更新
+    /// </summary>
+    /// <param name="upModveVector">上方向ベクトル</param>
+    /// <param name="leftMoveVector">左方向ベクトル</param>
+    /// <param name="currentFrameMoveVector">移動ベクトル</param>
+    void UpdateMoveVector(VECTOR& upModveVector,
+        VECTOR& leftMoveVector, VECTOR& currentFrameMoveVector);
 
-    int         currentPlayAnimation;        // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
-    float       currentAnimationCount;       // 再生しているアニメーションの再生時間
-    int         previousPlayAnimation;           // 前の再生アニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
-    float       previousAnimationCount;          // 前の再生アニメーションの再生時間
-    float       animationBlendRate;          // 現在と過去のアニメーションのブレンド率
-    bool        currentFrameMove;                 // そのフレームで動いたかどうか
+    /// <summary>
+    /// 移動処理
+    /// </summary>
+    /// <param name="MoveVector">移動ベクトル</param>
+    /// <param name="stage">ステージ</param>
+    void Move(const VECTOR& MoveVector, Stage& stage);
+
+    /// <summary>
+    /// 回転制御
+    /// </summary>
+    void UpdateAngle();
+
+    /// <summary>
+    /// アニメーションを新しく再生する
+    /// </summary>
+    /// <param name="type">アニメーションの種類</param>
+    void PlayAnimation(AnimationType type);
+
+    /// <summary>
+    /// アニメーション処理
+    /// </summary>
+    void UpdateAnimation();
+
+    //---------------------------------------------------------------------------------//
+    //                                      定数                                       //
+    //---------------------------------------------------------------------------------//
+    // ステータス
+    static constexpr float  MoveSpeed           = 0.5f;                         // 移動速度
+    static constexpr float  AngleSpeed          = 0.2f;                         // 角度変化速度
+    static constexpr float  JumpPower           = 100.0f;                       // ジャンプ力
+    static constexpr float  MoveLimitY          = 4.5f;                         // Y軸の移動制限
+    static constexpr VECTOR ZeroVector          = { 0.0f,0.0f,0.0f };           // ゼロベクトル
+    static constexpr VECTOR EnemyScale         = { 0.05f,0.05f,0.05f };        // プレイヤーのスケール
+    // 重力関係
+    static constexpr float  Gravity             = 3.0f;                         // 重力
+    static constexpr float  FallUpPower         = 20.0f;                        // 足を踏み外した時のジャンプ力
+    // アニメーション
+    static constexpr float  PlayAnimationSpeed  = 0.5f;                         // アニメーション速度
+    static constexpr float  AnimationBlendSpeed = 0.1f;                         // アニメーションのブレンド率変化速度
+
+    //---------------------------------------------------------------------------------//
+    //                                      変数                                       //
+    //---------------------------------------------------------------------------------//
+    // 管理クラス
+    ModelDataManager*   modelDataManager;
+
+    // ステータス
+    VECTOR      position;                   // 座標
+    VECTOR      targetMoveDirection;        // モデルが向くべき方向のベクトル
+    float       angle;                      // モデルが向いている方向の角度
+    float       currentJumpPower;           // Ｙ軸方向の速度
+    int         modelHandle;                // モデルハンドル
+    int         shadowHandle;               // 影画像ハンドル
+    State       state;                      // 状態
+
+    // アニメーション情報
+    int         currentPlayAnimation;       // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
+    float       currentAnimationCount;      // 再生しているアニメーションの再生時間
+    int         previousPlayAnimation;      // 前の再生アニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
+    float       previousAnimationCount;     // 前の再生アニメーションの再生時間
+    float       animationBlendRate;         // 現在と過去のアニメーションのブレンド率
+    bool        currentFrameMove;           // そのフレームで動いたかどうか
 
 };
 

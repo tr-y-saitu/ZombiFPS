@@ -32,8 +32,6 @@ private:
     static constexpr int EnemyTotalNum = 100;   // エネミーの総合数
 
     // 変数
-    Enemy   activeEnemy[EnemyTotalNum];         // 使用中エネミー
-    Enemy   nonActiveEenmy[EnemyTotalNum];      // 使用していないエネミー
 
 
 };
