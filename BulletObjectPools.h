@@ -32,7 +32,16 @@ public:
     /// <param name="bullet">渡したい使用中リストのアドレス</param>
     void AcquireInactiveBulletInstance(list<Bullet*>& activeBullet,Bullet::BulletInitializeData initializeData);
 
-    // 使い終わった弾丸のインスタンスを未使用に変換する
+    /// <summary>
+    /// 未使用の弾丸のインスタンスを渡す
+    /// </summary>
+    /// <returns>未使用弾丸があればそのアドレス   無ければnullptr</returns>
+    Bullet* GetInactiveBullet();
+
+    /// <summary>
+    /// 使用中リストから未使用リストにインスタンスを移動する
+    /// </summary>
+    /// <param name="activeBullet">移動したい使用中のリストのアドレス</param>
     void ReturnActiveBulletInstance(list<Bullet*>& activeBullet);
 
 private:

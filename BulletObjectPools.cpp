@@ -58,6 +58,29 @@ void BulletObjectPools::AcquireInactiveBulletInstance(list<Bullet*>& activeBulle
 }
 
 /// <summary>
+/// 未使用の弾丸のインスタンスを返す
+/// </summary>
+/// <returns>未使用弾丸があればそのアドレス   無ければnullptr</returns>
+Bullet* BulletObjectPools::GetInactiveBullet()
+{
+    // プールから未使用が存在するかチェック
+    if (HasInactiveBulletInstance())
+    {
+        // 未使用のプールの先頭から要素を取得
+        Bullet* bullet = inactiveBullet.front();
+
+        // 移動させるので先頭要素は削除
+        inactiveBullet.pop_front();
+
+        return bullet;
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
+/// <summary>
 /// 使用中リストから未使用リストにインスタンスを移動する
 /// </summary>
 /// <param name="activeBullet">移動したい使用中のリストのアドレス</param>
