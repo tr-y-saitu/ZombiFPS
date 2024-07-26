@@ -31,7 +31,7 @@ BulletObjectPools::~BulletObjectPools()
 /// 現在未使用の弾丸があるかどうか調べる
 /// </summary>
 /// <returns>未使用のものがある:true   未使用のものがない:false</returns>
-bool BulletObjectPools::hasInactiveBulletInstance()
+bool BulletObjectPools::HasInactiveBulletInstance()
 {
     // 未使用があればture
     return inactiveBullet.size();
@@ -44,7 +44,7 @@ bool BulletObjectPools::hasInactiveBulletInstance()
 void BulletObjectPools::AcquireInactiveBulletInstance(list<Bullet*>& activeBullet, Bullet::BulletInitializeData initializeData)
 {
     // 未使用のプールが存在するかチェック
-    if (hasInactiveBulletInstance())
+    if (HasInactiveBulletInstance())
     {
         // 未使用のプールの最初の要素を、使用中リストの最後にインスタンスを移動する
         activeBullet.splice(activeBullet.end(), inactiveBullet, inactiveBullet.begin());

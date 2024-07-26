@@ -24,7 +24,7 @@ public:
     /// 現在未使用の弾丸があるかどうか調べる
     /// </summary>
     /// <returns>未使用のものがある:true   未使用のものがない:false</returns>
-    bool hasInactiveBulletInstance();
+    bool HasInactiveBulletInstance();
 
     /// <summary>
     /// 未使用の弾丸のインスタンスを渡す
