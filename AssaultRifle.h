@@ -27,6 +27,11 @@ public:
     void Initialize() override;
 
     /// <summary>
+    /// 弾丸情報の初期化
+    /// </summary>
+    void InitializeBulletData() override;
+
+    /// <summary>
     /// 更新
     /// </summary>
     void Update(VECTOR setPosition, VECTOR cameraVector, float cameraPitch) override;
@@ -41,8 +46,8 @@ private:
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     // ステータス
-    static constexpr float  ShotDamagePower         = 1.0f;     // 弾丸の威力
-    static constexpr float  ShotPenetrationPower    = 1.0f;     // 弾丸の貫通力
+    static constexpr float  BulletDamagePower         = 1.0f;     // 弾丸の威力
+    static constexpr float  BulletPenetrationPower    = 1.0f;     // 弾丸の貫通力
     static constexpr float  GunFireRate             = 1.0f;     // 銃の連射力
     static constexpr float  GunRecoil               = 1.0f;     // 銃の反動
     static constexpr float  GunAccuracy             = 1.0f;     // 銃の精度(拡散度合い)

@@ -96,6 +96,7 @@ public:
     // ゲッター、セッター
     const VECTOR& GetPosition() const { return position; }
     bool GetCurrentFrameMove() const { return currentFrameMove; }
+    bool GetIsShooting()const { return isShooting; }
     State GetState() const { return state; }
     float GetCurrentJumpPower() const { return currentJumpPower; }
 
@@ -138,8 +139,16 @@ private:
     /// </summary>
     void UpdateAnimation();
 
-    // 銃を撃つ
+    /// <summary>
+    /// 銃を撃つ
+    /// </summary>
+    /// <param name="input">入力情報</param>
     void UpdateShootingEquippedWeapon(const Input& input);
+
+    /// <summary>
+    /// 使い終わった弾丸をオブジェクトプールに返す
+    /// </summary>
+    void DeactivateBulletReturn();
 
 
     //---------------------------------------------------------------------------------//
@@ -180,6 +189,7 @@ private:
     float       currentJumpPower;           // Ｙ軸方向の速度
     int         modelHandle;                // モデルハンドル
     State       state;                      // 状態
+    bool        isShooting;                 // 発砲状態か
 
     // アニメーション関係
     int         currentPlayAnimation;       // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )

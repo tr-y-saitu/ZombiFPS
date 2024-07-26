@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Common.h"
+#include "Bullet.h"
 
 class Bullet;
 
@@ -29,10 +30,10 @@ public:
     /// 未使用の弾丸のインスタンスを渡す
     /// </summary>
     /// <param name="bullet">渡したい使用中リストのアドレス</param>
-    void AcquireInactiveBulletInstance(list<Bullet*>& activeBullet);
+    void AcquireInactiveBulletInstance(list<Bullet*>& activeBullet,Bullet::BulletInitializeData initializeData);
 
     // 使い終わった弾丸のインスタンスを未使用に変換する
-    void ReturnActiveBulletInstance(list<Bullet*> activeBullet);
+    void ReturnActiveBulletInstance(list<Bullet*>& activeBullet);
 
 private:
     //---------------------------------------------------------------------------------//

@@ -7,6 +7,9 @@
 class Bullet
 {
 public:
+    /// <summary>
+    /// 弾丸の初期化用データ
+    /// </summary>
     struct BulletInitializeData
     {
         VECTOR  position;           // 座標
@@ -27,8 +30,9 @@ public:
     virtual ~Bullet();
 
     /// <summary>
-    /// 初期化
+    /// 弾丸情報の初期化
     /// </summary>
+    /// <param name="initializeData">初期化する弾丸のデータ</param>
     void Initialize(BulletInitializeData initializeData);
 
     /// <summary>
@@ -41,12 +45,15 @@ public:
     /// </summary>
     void Draw();
 
+    const bool GetIsActive()const { return isActive; }
+
 private:
     VECTOR  position;           // 座標
     VECTOR  direction;          // 移動方向
     int     power;              // 威力
     float   speed;              // 速度
     int     penetratingPower;   // 貫通力
+    bool    isActive;           // 使用中かどうか
 };
 
 

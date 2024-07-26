@@ -30,14 +30,22 @@ void AssaultRifle::Initialize()
 
     // ステータスの初期化
     state = GunBase::GunState::IdleState;
-    shotDamagePower = ShotDamagePower;
-    shotPenetrationPower = ShotPenetrationPower;
+    bulletDamagePower = BulletDamagePower;
+    bulletPenetrationPower = BulletPenetrationPower;
     fireRate = GunFireRate;
     recoil = GunRecoil;
     accuracy = GunAccuracy;
 
     // スケールを調整
     MV1SetScale(modelHandle, InitializeScale);
+}
+
+/// <summary>
+/// 弾丸情報の初期化
+/// </summary>
+void AssaultRifle::InitializeBulletData()
+{
+
 }
 
 /// <summary>

@@ -19,6 +19,7 @@
 Player::Player()
     : position              (VGet(0,0,0))
     , pressMoveButton       (false)
+    , isShooting            (false)
 {
     bulletObjectPools       = new BulletObjectPools();
     equippedGun             = new SubmachineGun();
@@ -496,13 +497,35 @@ void Player::UpdateAnimation()
     }
 }
 
-// 銃を撃つ
+/// <summary>
+/// 銃を撃つ
+/// </summary>
+/// <param name="input">入力情報</param>
 void Player::UpdateShootingEquippedWeapon(const Input& input)
 {
     // 左クリックされたら射撃する
     if (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT)
     {
+        // 発砲している
+        isShooting = true;
+
         // 未使用の弾丸を使用中に移動
-        bulletObjectPools->AcquireInactiveBulletInstance(equippedGun->GetActiveBullet());
+        bulletObjectPools->AcquireInactiveBulletInstance(equippedGun->GetActiveBullet(),equippedGun->GetBulletInitializeData());
     }
+
+    // 発砲していない
+    isShooting = false;
+
+    // 使い終わった弾丸があれば返却する
+    DeactivateBulletReturn();
+}
+
+/// <summary>
+/// 使い終わった弾丸をオブジェクトプールに返す
+/// </summary>
+void Player::DeactivateBulletReturn()
+{
+    // 使い終わったものを返す
+    bulletObjectPools->ReturnActiveBulletInstance(equippedGun->GetActiveBullet());
+
 }
