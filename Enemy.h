@@ -110,9 +110,10 @@ private:
     static constexpr float  MoveSpeed           = 0.5f;                         // 移動速度
     static constexpr float  AngleSpeed          = 0.2f;                         // 角度変化速度
     static constexpr float  JumpPower           = 100.0f;                       // ジャンプ力
-    static constexpr float  MoveLimitY          = 4.5f;                         // Y軸の移動制限
+    static constexpr float  MoveLimitY          = 1.0f;                         // Y軸の移動制限
+    static constexpr VECTOR InitializePosition  = { 0.0f,MoveLimitY,0.0f };     // 初期化座標
     static constexpr VECTOR ZeroVector          = { 0.0f,0.0f,0.0f };           // ゼロベクトル
-    static constexpr VECTOR EnemyScale         = { 0.05f,0.05f,0.05f };        // プレイヤーのスケール
+    static constexpr VECTOR EnemyScale          = { 0.03f,0.03f,0.03f };        // プレイヤーのスケール
     // 重力関係
     static constexpr float  Gravity             = 3.0f;                         // 重力
     static constexpr float  FallUpPower         = 20.0f;                        // 足を踏み外した時のジャンプ力
