@@ -413,7 +413,7 @@ void Player::UpdateAngle()
 /// プレイヤーのアニメーションを新しく追加する
 /// </summary>
 /// <param name="PlayAnimation">再生したいアニメーション番号</param>
-void Player::PlayAnimation(AnimationType PlayAnimation)
+void Player::PlayAnimation(AnimationType type)
 {
     // HACK: 指定した番号のアニメーションをアタッチし、直前に再生していたアニメーションの情報をprevに移行している
     // 入れ替えを行うので、１つ前のモーションがが有効だったらデタッチする
@@ -428,7 +428,7 @@ void Player::PlayAnimation(AnimationType PlayAnimation)
     previousAnimationCount = currentAnimationCount;
 
     // 新たに指定のモーションをモデルにアタッチして、アタッチ番号を保存する
-    currentPlayAnimation = MV1AttachAnim(modelHandle, static_cast<int>(PlayAnimation));
+    currentPlayAnimation = MV1AttachAnim(modelHandle, static_cast<int>(type));
     currentAnimationCount = 0.0f;
 
     // ブレンド率はPrevが有効ではない場合は１．０ｆ( 現在モーションが１００％の状態 )にする
