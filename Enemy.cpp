@@ -48,7 +48,7 @@ void Enemy::Initialize()
     previousPlayAnimation = -1;
 
     // アニメーション設定
-    PlayAnimation(AnimationType::Idle);
+    PlayAnimation(AnimationType::Run);
 }
 
 /// <summary>
@@ -56,6 +56,8 @@ void Enemy::Initialize()
 /// </summary>
 void Enemy::Update()
 {
+    DisableRootFrameZMove();
+
     // 移動
 
     // 回転制御
@@ -78,9 +80,40 @@ void Enemy::Draw()
 /// <summary>
 /// ルートフレームのZ軸方向の移動パラメータを無効にする
 /// </summary>
+/// MEMO:
+/// アニメーションによっては座標移動を含めたものもあるため
+/// その前方向の移動量(Z軸方向)の移動を無効化し、
+/// 自分のみが移動量を設定できるようにする
 void Enemy::DisableRootFrameZMove()
 {
+    // HACK:
+    // ・DXライブラリのモデルファイル内には、複数のメッシュ（ポリゴンの集合）やカメラ、ライトを入れることができる
+    // ・置いた複数のファイルは、親子関係をつけたり、Unityのヒエラルキーみたいに、階層構造が作れる
+    // ・この階層それぞれには名前が付けられる Root-Meshes-Model1
+    //                                                   |-Model2
+    // ・この名前の付いた階層のことをDXライブラリではフレームという
+    // ・一番親の階層を「ルートフレーム」と呼ぶ。ルートフレームは一つ
 
+    MATRIX localMatrix;
+
+    // ユーザー行列を解除する
+    // MEMO:
+    // コード記入者がmodelHandleにMATRIXで回転変換を行ったものを、デフォルトに戻す
+    MV1ResetFrameUserLocalMatrix(modelHandle, 2);
+
+    // 現在のルートフレームの行列を取得する
+    // MEMO:
+    // すでにMATRIXを使用して回転していた回転量を返す
+    localMatrix = MV1GetFrameLocalMatrix(modelHandle, 2);
+
+    // Ｚ軸方向の平行移動成分を無効にする
+    // m[0][3] はX軸方向の平行移動成分
+    // m[1][3] はY軸方向の平行移動成分
+    // m[2][3] はZ軸方向の平行移動成分
+    localMatrix.m[3][2] = 0.0f;
+
+    // ユーザー行列として平行移動成分を無効にした行列をルートフレームにセットする
+    MV1SetFrameUserLocalMatrix(modelHandle, 2, localMatrix);
 }
 
 /// <summary>

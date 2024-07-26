@@ -24,6 +24,8 @@ public:
     /// <summary>
     /// エネミーのアニメーションタイプ
     /// </summary>
+    /// TODO:
+    /// 不要なアニメーションデータの削除方法が分からないのでそのまま実装
     enum class AnimationType : int
     {
         CrawlingBiteAttack1,    // はいずり噛みつき攻撃(1,2は同じ)
@@ -31,13 +33,14 @@ public:
         Intimidation,           // 威嚇
         Crawling,               // はいずり移動
         RecoilDeath,            // のけぞり死亡
-        NoAnimation,            // アニメーションなし
+        NoAnimation1,           // アニメーションなし
         Attack,                 // 攻撃
         BiteAttack,             // 噛みつき攻撃
         Death,                  // 死亡
         Idle,                   // 何もしていない
-        Run,                    // 走り
+        NoAnimation2,           // 走り
         Wolk,                   // 歩き
+        Run,                    // 走り
     };
 
     /// <summary>

@@ -66,7 +66,7 @@ void ModelDataManager::ModelDataLoad()
 
     // キャラクター
     modelDataList[PlayerModelData]          = MV1LoadModel("Data/Player/playerAnimationFixed.mv1");
-    modelDataList[EnemyModelData]           = MV1LoadModel("Data/Enemy/enemyZombi.mv1");
+    modelDataList[EnemyModelData]           = MV1LoadModel("Data/Enemy/EenmyModelZombie.mv1");
 
     // 銃
     modelDataList[SubmachineGunModelData]   = MV1LoadModel("Data/Gun/MP5/MP5.mv1");
