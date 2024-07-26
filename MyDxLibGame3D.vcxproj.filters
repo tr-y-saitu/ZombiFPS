@@ -107,9 +107,6 @@
     <Filter Include="ZombiFPS\GameObject\Player\Gun\GunState\GunStateBase">
       <UniqueIdentifier>{6ee82564-092f-4f60-aafc-31333eb03247}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ZombiFPS\GameObject\Player\Gun\Shot">
-      <UniqueIdentifier>{d0a59a57-069a-4a40-83c1-d123b35a2cda}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ZombiFPS\GameObject\Stage">
       <UniqueIdentifier>{6d3bce42-d271-451b-a099-dc9d9ecbda28}</UniqueIdentifier>
     </Filter>
@@ -140,7 +137,10 @@
     <Filter Include="ZombiFPS\GameObject\Item\IncomeDouble">
       <UniqueIdentifier>{f39f5f61-1f09-40bf-bd11-266c8ee5071c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ZombiFPS\GameObject\Player\Gun\Shot\ShotObjectPools">
+    <Filter Include="ZombiFPS\GameObject\Player\Gun\Bullet">
+      <UniqueIdentifier>{d0a59a57-069a-4a40-83c1-d123b35a2cda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\GameObject\Player\Gun\Bullet\BulletObjectPools">
       <UniqueIdentifier>{6cce4b7e-0999-4229-8afb-83e0eb06ca6f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -244,9 +244,6 @@
     <ClCompile Include="GunReloadState.cpp">
       <Filter>ZombiFPS\GameObject\Player\Gun\GunState</Filter>
     </ClCompile>
-    <ClCompile Include="Shot.cpp">
-      <Filter>ZombiFPS\GameObject\Player\Gun\Shot</Filter>
-    </ClCompile>
     <ClCompile Include="Stage.cpp">
       <Filter>ZombiFPS\GameObject\Stage</Filter>
     </ClCompile>
@@ -289,8 +286,11 @@
     <ClCompile Include="IncomeDouble.cpp">
       <Filter>ZombiFPS\GameObject\Item\IncomeDouble</Filter>
     </ClCompile>
-    <ClCompile Include="ShotObjectPools.cpp">
-      <Filter>ZombiFPS\GameObject\Player\Gun\Shot\ShotObjectPools</Filter>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>ZombiFPS\GameObject\Player\Gun\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletObjectPools.cpp">
+      <Filter>ZombiFPS\GameObject\Player\Gun\Bullet\BulletObjectPools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -393,9 +393,6 @@
     <ClInclude Include="GunReloadState.h">
       <Filter>ZombiFPS\GameObject\Player\Gun\GunState</Filter>
     </ClInclude>
-    <ClInclude Include="Shot.h">
-      <Filter>ZombiFPS\GameObject\Player\Gun\Shot</Filter>
-    </ClInclude>
     <ClInclude Include="Stage.h">
       <Filter>ZombiFPS\GameObject\Stage</Filter>
     </ClInclude>
@@ -438,8 +435,11 @@
     <ClInclude Include="IncomeDouble.h">
       <Filter>ZombiFPS\GameObject\Item\IncomeDouble</Filter>
     </ClInclude>
-    <ClInclude Include="ShotObjectPools.h">
-      <Filter>ZombiFPS\GameObject\Player\Gun\Shot\ShotObjectPools</Filter>
+    <ClInclude Include="Bullet.h">
+      <Filter>ZombiFPS\GameObject\Player\Gun\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletObjectPools.h">
+      <Filter>ZombiFPS\GameObject\Player\Gun\Bullet\BulletObjectPools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
