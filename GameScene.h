@@ -19,6 +19,8 @@ class MaxAmmo;
 class IncomeDouble;
 class GameSceneUI;
 
+class Enemy;
+
 /// <summary>
 ///  ゲームシーン
 /// </summary>
@@ -98,6 +100,8 @@ private:
     // UI関連
     GameSceneUI*        gameSceneUI;        // ゲームシーン用のUI
 
+
+    Enemy* enemy;
 };
 
 

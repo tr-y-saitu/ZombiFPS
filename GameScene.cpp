@@ -50,6 +50,8 @@ GameScene::GameScene()
     // UI関連
     gameSceneUI             = new GameSceneUI();
 
+
+    enemy = new Enemy();
     // 初期化
     Initialize();
 }
@@ -67,6 +69,7 @@ GameScene::~GameScene()
     delete(maxAmmoItem);
     delete(incomeDoubleItem);
     delete(gameSceneUI);
+    delete(enemy);
 }
 
 /// <summary>
@@ -76,6 +79,7 @@ void GameScene::Initialize()
 {
     stage->Initialize();
     player->Initialize();
+    enemy->Initialize();
 }
 
 /// <summary>
@@ -91,6 +95,7 @@ SceneBase* GameScene::UpdateScene()
     input->Update();                    // 入力処理
     player->Update(*input,*stage);      // プレイヤー
     gameSceneUI->Update();              // UIの更新
+    enemy->Update();
 
     // 現状のシーンを返す
     return this;
@@ -103,6 +108,7 @@ void GameScene::Draw()
 {
     stage->Draw();          // ステージ
     player->Draw(*stage);   // プレイヤー
+    enemy->Draw();
     DrawUI();               // UIの描画
 }
 

@@ -6,9 +6,9 @@
 /// コンストラクタ
 /// </summary>
 Enemy::Enemy()
+    : position      (VGet(0,0,0))
 {
-    // 初期化
-    Initialize();
+    modelDataManager = ModelDataManager::GetInstance();
 }
 
 /// <summary>
@@ -24,11 +24,8 @@ Enemy::~Enemy()
 /// </summary>
 void Enemy::Initialize()
 {
-    // 座標設定
-    position = VGet(0.0f, 0.0f, 0.0f);
-
     // モデルハンドルを取得
-    modelHandle = modelDataManager->GetOriginalModelHandle(ModelDataManager::ModelDataType::PlayerModelData);
+    modelHandle = modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ModelDataType::EnemyModelData);
 
     // モデルサイズを再設定
     MV1SetScale(modelHandle, EnemyScale);
