@@ -54,11 +54,15 @@ void Enemy::Initialize()
 /// <summary>
 /// 更新
 /// </summary>
-void Enemy::Update()
+void Enemy::Update(VECTOR targetPosition,Stage& stage)
 {
+
+    // ルートフレームのＺ軸方向の移動パラメータを無効にする
     DisableRootFrameZMove();
 
     // 移動
+    UpdateMoveVector(targetPosition);
+    Move(ZeroVector, stage);
 
     // 回転制御
 
@@ -80,10 +84,6 @@ void Enemy::Draw()
 /// <summary>
 /// ルートフレームのZ軸方向の移動パラメータを無効にする
 /// </summary>
-/// MEMO:
-/// アニメーションによっては座標移動を含めたものもあるため
-/// その前方向の移動量(Z軸方向)の移動を無効化し、
-/// 自分のみが移動量を設定できるようにする
 void Enemy::DisableRootFrameZMove()
 {
     // HACK:
@@ -119,13 +119,32 @@ void Enemy::DisableRootFrameZMove()
 /// <summary>
 /// 移動ベクトルの更新
 /// </summary>
-/// <param name="upModveVector">上方向ベクトル</param>
-/// <param name="leftMoveVector">左方向ベクトル</param>
-/// <param name="currentFrameMoveVector">移動ベクトル</param>
-void Enemy::UpdateMoveVector(VECTOR& upModveVector,
-    VECTOR& leftMoveVector, VECTOR& currentFrameMoveVector)
+/// <param name="targetPosition">向かうべき座標</param>
+void Enemy::UpdateMoveVector(VECTOR targetPosition)
 {
+    VECTOR upMoveVector;            // ターゲット座標へ向かうベクトル
+    VECTOR leftMoveVector;          // 左方向の移動ベクトル
+    VECTOR currentFrameMoveVector;  // このフレームでの移動ベクトル
 
+    // ターゲットの位置からエネミーの位置への方向ベクトルを計算
+    upMoveVector = VSub(targetPosition, position);
+    upMoveVector.y = 0.0f;  // Y軸方向へは移動しないため初期化
+
+    // 方向ベクトルを正規化
+    upMoveVector = VNorm(upMoveVector);
+
+    // 左方向の移動ベクトル
+    leftMoveVector = VCross(upMoveVector, VGet(0.0f, 1.0f, 0.0f));
+    leftMoveVector = VNorm(leftMoveVector);
+
+    // このフレームでの移動ベクトルを初期化
+    currentFrameMoveVector = ZeroVector;
+
+    // ターゲットへ直接向かう移動ベクトルを加算
+    currentFrameMoveVector = VAdd(currentFrameMoveVector, upMoveVector);
+
+    // 座標を更新
+    position = VAdd(position, VScale(currentFrameMoveVector, MoveSpeed));
 }
 
 /// <summary>
@@ -135,7 +154,32 @@ void Enemy::UpdateMoveVector(VECTOR& upModveVector,
 /// <param name="stage">ステージ</param>
 void Enemy::Move(const VECTOR& MoveVector, Stage& stage)
 {
+    // HACK: 移動距離が0.01未満で微妙に移動していた場合はじんわり移動してバグる
+    // x軸かy軸方向に 0.01f 以上移動した場合は「移動した」フラグを１にする
+    if (fabs(MoveVector.x) > 0.01f || fabs(MoveVector.z) > 0.01f)
+    {
+        currentFrameMove = true;
+    }
+    else
+    {
+        currentFrameMove = false;
+    }
 
+    // 当たり判定をして、新しい座標を保存する
+    VECTOR oldPosition = position;                      // 移動前の座標
+    VECTOR nextPosition = VAdd(position, MoveVector);   // 移動後の座標
+
+    // ステージとの当たり判定処理
+    position = stage.IsHitCollisionEnemy(*this, nextPosition, MoveVector);
+
+    // 床より少し高くする
+    if (position.y <= MoveLimitY)
+    {
+        position.y = MoveLimitY;
+    }
+
+    // プレイヤーのモデルの座標を更新する
+    MV1SetPosition(modelHandle, position);
 }
 
 /// <summary>

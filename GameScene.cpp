@@ -95,7 +95,7 @@ SceneBase* GameScene::UpdateScene()
     input->Update();                    // 入力処理
     player->Update(*input,*stage);      // プレイヤー
     gameSceneUI->Update();              // UIの更新
-    enemy->Update();
+    enemy->Update(player->GetPosition(),*stage);
 
     // 現状のシーンを返す
     return this;

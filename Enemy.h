@@ -61,7 +61,7 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    void Update();
+    void Update(VECTOR targetPosition,Stage& stage);
 
     /// <summary>
     /// 描画
@@ -77,11 +77,8 @@ private:
     /// <summary>
     /// 移動ベクトルの更新
     /// </summary>
-    /// <param name="upModveVector">上方向ベクトル</param>
-    /// <param name="leftMoveVector">左方向ベクトル</param>
-    /// <param name="currentFrameMoveVector">移動ベクトル</param>
-    void UpdateMoveVector(VECTOR& upModveVector,
-        VECTOR& leftMoveVector, VECTOR& currentFrameMoveVector);
+    /// <param name="targetPosition">向かうべき座標</param>
+    void UpdateMoveVector(VECTOR targetPosition);
 
     /// <summary>
     /// 移動処理
@@ -110,7 +107,7 @@ private:
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     // ステータス
-    static constexpr float  MoveSpeed           = 0.5f;                         // 移動速度
+    static constexpr float  MoveSpeed           = 0.2f;                         // 移動速度
     static constexpr float  AngleSpeed          = 0.2f;                         // 角度変化速度
     static constexpr float  JumpPower           = 100.0f;                       // ジャンプ力
     static constexpr float  MoveLimitY          = 1.0f;                         // Y軸の移動制限

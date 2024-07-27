@@ -275,7 +275,7 @@ void Player::UpdateMoveVector(const Input& input, VECTOR& upModveVector,
     VECTOR& leftMoveVector, VECTOR& currentFrameMoveVector)
 {
     // プレイヤーの移動方向のベクトルを算出
-// 方向ボタン「↑」を押したときのプレイヤーの移動ベクトルはカメラの視線方向からＹ成分を抜いたもの
+    // 方向ボタン「↑」を押したときのプレイヤーの移動ベクトルはカメラの視線方向からＹ成分を抜いたもの
     upModveVector = VSub(playerCamera->GetTargetPosition(), playerCamera->GetCameraPosition());
     upModveVector.y = 0.0f;
 
