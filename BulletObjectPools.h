@@ -29,12 +29,6 @@ public:
     /// <summary>
     /// 未使用の弾丸のインスタンスを渡す
     /// </summary>
-    /// <param name="bullet">渡したい使用中リストのアドレス</param>
-    void AcquireInactiveBulletInstance(list<Bullet*>& activeBullet,Bullet::BulletInitializeData initializeData);
-
-    /// <summary>
-    /// 未使用の弾丸のインスタンスを渡す
-    /// </summary>
     /// <returns>未使用弾丸があればそのアドレス   無ければnullptr</returns>
     Bullet* GetInactiveBullet();
 
