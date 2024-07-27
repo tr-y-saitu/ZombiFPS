@@ -56,7 +56,6 @@ void Enemy::Initialize()
 /// </summary>
 void Enemy::Update(VECTOR targetPosition,Stage& stage)
 {
-
     // ルートフレームのＺ軸方向の移動パラメータを無効にする
     DisableRootFrameZMove();
 
@@ -65,6 +64,7 @@ void Enemy::Update(VECTOR targetPosition,Stage& stage)
     Move(ZeroVector, stage);
 
     // 回転制御
+    UpdateAngle();
 
     // アニメーション更新
     UpdateAnimation();
@@ -122,6 +122,9 @@ void Enemy::DisableRootFrameZMove()
 /// <param name="targetPosition">向かうべき座標</param>
 void Enemy::UpdateMoveVector(VECTOR targetPosition)
 {
+    // ターゲット座標から現在の位置への方向ベクトルを計算
+    targetMoveDirection = VSub(targetPosition, position);
+
     VECTOR upMoveVector;            // ターゲット座標へ向かうベクトル
     VECTOR leftMoveVector;          // 左方向の移動ベクトル
     VECTOR currentFrameMoveVector;  // このフレームでの移動ベクトル
@@ -187,7 +190,19 @@ void Enemy::Move(const VECTOR& MoveVector, Stage& stage)
 /// </summary>
 void Enemy::UpdateAngle()
 {
+    // ターゲットから現在の位置への方向を計算
+    targetMoveDirection.y = 0.0f;   // 上方向の回転は無視
 
+    // 方向ベクトルを正規化
+    targetMoveDirection = VNorm(targetMoveDirection);
+
+    // モデルの回転行列を作成
+    // TODO:
+    // targetMoveDirectionをマイナスしないとモデルが逆を向くのでどうにかしたい
+    MATRIX rotation = MGetRotY(atan2(-targetMoveDirection.x, -targetMoveDirection.z));
+
+    // モデルを回転
+    MV1SetFrameUserLocalMatrix(modelHandle, 0, rotation);
 }
 
 /// <summary>

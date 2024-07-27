@@ -134,6 +134,7 @@ private:
     float       currentJumpPower;           // Ｙ軸方向の速度
     int         modelHandle;                // モデルハンドル
     int         shadowHandle;               // 影画像ハンドル
+    bool        currentFrameMove;           // そのフレームで動いたかどうか
     State       state;                      // 状態
 
     // アニメーション情報
@@ -142,7 +143,6 @@ private:
     int         previousPlayAnimation;      // 前の再生アニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
     float       previousAnimationCount;     // 前の再生アニメーションの再生時間
     float       animationBlendRate;         // 現在と過去のアニメーションのブレンド率
-    bool        currentFrameMove;           // そのフレームで動いたかどうか
 
 };
 
