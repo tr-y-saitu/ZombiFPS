@@ -518,8 +518,17 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
         // 発砲している
         isShooting = true;
 
-        // 未使用の弾丸を使用中に移動
-        bulletObjectPools->AcquireInactiveBulletInstance(equippedGun->GetActiveBullet(),equippedGun->GetBulletInitializeData());
+        // 弾丸の初期化用データを取得
+        Bullet::BulletInitializeData initData = equippedGun->GetBulletInitializeData();
+
+        // 未使用の弾丸をオブジェクトプールから取得
+        Bullet* bullet = bulletObjectPools->GetInactiveBullet();
+
+        // 取得した弾丸があるなら使用中に追加
+        if (bullet != nullptr)
+        {
+            equippedGun->GetActiveBullet().push_back(bullet);
+        }
     }
 
     // 発砲していない

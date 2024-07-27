@@ -31,29 +31,32 @@ BulletObjectPools::~BulletObjectPools()
 /// 現在未使用の弾丸があるかどうか調べる
 /// </summary>
 /// <returns>未使用のものがある:true   未使用のものがない:false</returns>
-bool BulletObjectPools::hasInactiveBulletInstance()
+bool BulletObjectPools::HasInactiveBulletInstance()
 {
     // 未使用があればture
     return inactiveBullet.size();
 }
 
 /// <summary>
-/// 未使用の弾丸のインスタンスを渡す
+/// 未使用の弾丸のインスタンスを返す
 /// </summary>
-/// <param name="bullet">渡したい使用中リストのアドレス</param>
-void BulletObjectPools::AcquireInactiveBulletInstance(list<Bullet*>& activeBullet, Bullet::BulletInitializeData initializeData)
+/// <returns>未使用弾丸があればそのアドレス   無ければnullptr</returns>
+Bullet* BulletObjectPools::GetInactiveBullet()
 {
-    // 未使用のプールが存在するかチェック
-    if (hasInactiveBulletInstance())
+    // プールから未使用が存在するかチェック
+    if (HasInactiveBulletInstance())
     {
-        // 未使用のプールの最初の要素を、使用中リストの最後にインスタンスを移動する
-        activeBullet.splice(activeBullet.end(), inactiveBullet, inactiveBullet.begin());
+        // 未使用のプールの先頭から要素を取得
+        Bullet* bullet = inactiveBullet.front();
 
-        // 使用中の弾丸のイテレータを取得
-        auto activeIterator = prev(activeBullet.end());
+        // 移動させるので先頭要素は削除
+        inactiveBullet.pop_front();
 
-        // 使用中にした弾丸の初期化
-        (*activeIterator)->Initialize(initializeData);
+        return bullet;
+    }
+    else
+    {
+        return nullptr;
     }
 }
 
