@@ -130,6 +130,7 @@ private:
     static constexpr VECTOR ZeroVector              = { 0.0f,0.0f,0.0f };           // ゼロベクトル
     static constexpr VECTOR EnemyScale              = { 0.03f,0.03f,0.03f };        // プレイヤーのスケール
     static constexpr int    InitializeHitPoints     = 100;                          // 初期化時の体力
+    static constexpr VECTOR InitializeDirection     = { 1.0f, 0.0f, 0.0f };         // 初期化時の移動方向
     // 当たり判定
     static constexpr float  CollisionRadius         = 1.0f;                         // 当たり判定用半径
     static constexpr VECTOR CapsulePositionOffset   = { 0.0f,4.0f,0.0f };           // カプセルの始点を作るためのずらし量
@@ -161,7 +162,7 @@ private:
     // 当たり判定用
     SphereCollisionData     headCollisionData;      // 頭部の当たり判定
     CapsuleCollisionData    bodyCollisionData;      // 体の当たり判定
-    CollisionData*          collisionData;          // 当たり判定用情報
+    CollisionData           collisionData;          // 当たり判定用情報
 
     // アニメーション情報
     int         currentPlayAnimation;       // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )

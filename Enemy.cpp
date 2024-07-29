@@ -7,6 +7,14 @@
 /// コンストラクタ
 /// </summary>
 Enemy::Enemy()
+    : hitPoints         (InitializeHitPoints)
+    , currentPlayAnimation  (-1)
+    , previousPlayAnimation (-1)
+    , animationBlendRate    (1.0f)
+    , targetMoveDirection   (InitializeDirection)
+    , currentJumpPower      (0.0f)
+    , state                 (State::None)
+    , position              (InitializePosition)
 {
     modelDataManager = ModelDataManager::GetInstance();
     collisionManager = CollisionManager::GetInstance();
@@ -28,41 +36,23 @@ Enemy::~Enemy()
 /// </summary>
 void Enemy::Initialize()
 {
-    position = InitializePosition;
-
     // モデルハンドルを取得
     modelHandle = modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ModelDataType::EnemyModelData);
 
     // モデルサイズを再設定
     MV1SetScale(modelHandle, EnemyScale);
 
-    // 状態を初期化
-    state = State::None;
-
-    // ジャンプ力は初期状態では０
-    currentJumpPower = 0.0f;
-
     // 初期状態でプレイヤーが向くべき方向はＸ軸方向
     targetMoveDirection = VGet(1.0f, 0.0f, 0.0f);
 
-    // アニメーションのブレンド率を初期化
-    animationBlendRate = 1.0f;
-
     // 初期状態ではアニメーションはアタッチされていないにする
     currentPlayAnimation = -1;
-    previousPlayAnimation = -1;
 
     // アニメーション設定
     PlayAnimation(AnimationType::Run);
 
-    // 体力の初期化
-    hitPoints = InitializeHitPoints;
-
-    // 当たり判定情報をメモリ確保
-    collisionData = new CollisionData();
+    // 当たり判定用情報更新
     UpdateCollisionData();
-    
-
 }
 
 /// <summary>
@@ -99,8 +89,8 @@ void Enemy::Draw()
     MV1DrawModel(modelHandle);
 
     // カプセル型の当たり判定描画
-    DrawCapsule3D(collisionData->startPosition, collisionData->endPosition,
-        collisionData->radius, 8,GetColor(255, 255, 0), GetColor(255, 255, 0), false);
+    DrawCapsule3D(collisionData.startPosition, collisionData.endPosition,
+        collisionData.radius, 8,GetColor(255, 255, 0), GetColor(255, 255, 0), false);
 }
 
 /// <summary>
@@ -139,14 +129,22 @@ void Enemy::OnHit(CollisionData hitObjectData)
 // 当たり判定用のデータ更新
 void Enemy::UpdateCollisionData()
 {
+    // タグを設定
+    collisionData.tag = ObjectTag::EnemyBoby;
+
     // 座標をもとにカプセルを作成
-    collisionData->startPosition = VAdd(position, CapsulePositionOffset);
-    collisionData->endPosition = position;
+    collisionData.startPosition = VAdd(position, CapsulePositionOffset);
+    collisionData.endPosition = position;
+
     // カプセルの半径を登録
-    collisionData->radius = CollisionRadius;
+    collisionData.radius = CollisionRadius;
+
     // 自身のOnHit関数をもとに新しい引数を持った関数を作成
     // std::bind(&名前空間::関数名,その関数のある参照,引数の数だけプレースホルダーが増える)
-    collisionData->onHit = std::bind(&Enemy::OnHit, this, std::placeholders::_1);
+    collisionData.onHit = std::bind(&Enemy::OnHit, this, std::placeholders::_1);
+
+    // 当たり判定用情報をコリジョンマネージャーに渡す
+    collisionManager->CollisionDataRegister(collisionData);
 }
 
 /// <summary>

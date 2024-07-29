@@ -74,7 +74,7 @@ void CollisionManager::Initialize()
     
 }
 
-void CollisionManager::CollisionDataRegister(CollisionData& data)
+void CollisionManager::CollisionDataRegister(CollisionData data)
 {
 
 }
@@ -84,14 +84,8 @@ void CollisionManager::CollisionDataRegister(CollisionData& data)
 /// </summary>
 void CollisionManager::Update()
 {
-    // 球型の当たり判定
-    for (int i = 0; i < sphereCollisionData.size(); i++)
-    {
-        for (int j = i + 1; j < sphereCollisionData.size(); j++)
-        {
 
-        }
-    }
+
 }
 
 // 線と球との当たり判定

@@ -15,7 +15,7 @@ enum class ObjectTag : int
     Player,     // プレイヤー
     Enemy,      // エネミー
     EnemyHead,  // エネミーの頭
-    EnmeyBoby,  // エネミーの胴体
+    EnemyBoby,  // エネミーの胴体
     Bullet,     // 弾丸
 };
 

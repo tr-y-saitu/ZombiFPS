@@ -9,31 +9,6 @@ class CollisionManager  final
 {
 public:
     /// <summary>
-    /// オブジェクトの種別
-    /// </summary>
-    enum class ObjectTag : int
-    {
-        Player,     // プレイヤー
-        Enemy,      // エネミー
-        Bullet,     // 弾丸
-    };
-
-    /// <summary>
-    /// 当たり判定用情報
-    /// </summary>
-    struct CollisionData
-    {
-        ObjectTag   tag;                    // そのオブジェクトが何なのか(Player,Enemy,Bullet)
-        VECTOR      centerPosition;         // 中央座標
-        VECTOR      capsuleStartPosition;   // カプセル上の座標
-        VECTOR      capsuleEndPosition;     // カプセル下の座標
-        float       radius;                 // 当たり判定半径
-        VECTOR      lineStartPosition;      // 線の始点
-        VECTOR      lineEndPosition;        // 線の終点
-        std::function<void(CollisionManager::CollisionData, CollisionManager::ObjectTag)> onHit;    // 当たった後の処理の関数ポインタ
-    };
-
-    /// <summary>
     /// デストラクタ
     /// </summary>
     virtual ~CollisionManager();
@@ -60,7 +35,7 @@ public:
     void Initialize();
 
     // 当たり判定データの読み込み
-    static void CollisionDataRegister(CollisionData& data);
+    static void CollisionDataRegister(CollisionData data);
 
     /// <summary>
     /// すべての当たり判定処理
