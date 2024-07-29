@@ -60,6 +60,8 @@ void Enemy::Initialize()
 
     // 当たり判定情報をメモリ確保
     collisionData = new CollisionData();
+    UpdateCollisionData();
+    
 
 }
 
@@ -83,6 +85,9 @@ void Enemy::Update(VECTOR targetPosition,Stage& stage)
 
     // 座標設定
     MV1SetPosition(modelHandle, position);
+
+    // 当たり判定用情報更新
+    UpdateCollisionData();
 }
 
 /// <summary>
@@ -90,7 +95,12 @@ void Enemy::Update(VECTOR targetPosition,Stage& stage)
 /// </summary>
 void Enemy::Draw()
 {
+    // 自身のモデルを描画
     MV1DrawModel(modelHandle);
+
+    // カプセル型の当たり判定描画
+    DrawCapsule3D(collisionData->startPosition, collisionData->endPosition,
+        collisionData->radius, 8,GetColor(255, 255, 0), GetColor(255, 255, 0), false);
 }
 
 /// <summary>
@@ -131,7 +141,7 @@ void Enemy::UpdateCollisionData()
 {
     // 座標をもとにカプセルを作成
     collisionData->startPosition = VAdd(position, CapsulePositionOffset);
-    collisionData->endPosition = VSub(position, CapsulePositionOffset);
+    collisionData->endPosition = position;
     // カプセルの半径を登録
     collisionData->radius = CollisionRadius;
     // 自身のOnHit関数をもとに新しい引数を持った関数を作成

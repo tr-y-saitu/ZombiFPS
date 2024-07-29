@@ -131,8 +131,8 @@ private:
     static constexpr VECTOR EnemyScale              = { 0.03f,0.03f,0.03f };        // プレイヤーのスケール
     static constexpr int    InitializeHitPoints     = 100;                          // 初期化時の体力
     // 当たり判定
-    static constexpr float  CollisionRadius         = 1.0f;
-    static constexpr VECTOR CapsulePositionOffset   = { 0.0f,2.0f,0.0f };           // カプセルの始点を作るためのずらし量
+    static constexpr float  CollisionRadius         = 1.0f;                         // 当たり判定用半径
+    static constexpr VECTOR CapsulePositionOffset   = { 0.0f,4.0f,0.0f };           // カプセルの始点を作るためのずらし量
     // 重力関係
     static constexpr float  Gravity                 = 3.0f;                         // 重力
     static constexpr float  FallUpPower             = 20.0f;                        // 足を踏み外した時のジャンプ力
