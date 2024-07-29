@@ -519,6 +519,7 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
         if (bullet != nullptr)
         {
             equippedGun->GetActiveBullet().push_back(bullet);
+            bullet->Initialize(initData);
         }
     }
 
