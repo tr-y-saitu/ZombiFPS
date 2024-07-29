@@ -50,8 +50,6 @@ GameScene::GameScene()
     // UI関連
     gameSceneUI             = new GameSceneUI();
 
-
-    enemy = new Enemy();
     // 初期化
     Initialize();
 }
@@ -69,7 +67,6 @@ GameScene::~GameScene()
     delete(maxAmmoItem);
     delete(incomeDoubleItem);
     delete(gameSceneUI);
-    delete(enemy);
 }
 
 /// <summary>
@@ -79,7 +76,7 @@ void GameScene::Initialize()
 {
     stage->Initialize();
     player->Initialize();
-    enemy->Initialize();
+    enemyGroupController->Initialize();
 }
 
 /// <summary>
@@ -92,10 +89,10 @@ SceneBase* GameScene::UpdateScene()
     DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene", true);
 
     // オブジェクト更新
-    input->Update();                    // 入力処理
-    player->Update(*input,*stage);      // プレイヤー
-    gameSceneUI->Update();              // UIの更新
-    enemy->Update(player->GetPosition(),*stage);
+    input->Update();                                                // 入力処理
+    player->Update(*input,*stage);                                  // プレイヤー
+    enemyGroupController->Update(player->GetPosition(), *stage);    // エネミーの集合体
+    gameSceneUI->Update();                                          // UIの更新
 
     // 現状のシーンを返す
     return this;
@@ -106,10 +103,10 @@ SceneBase* GameScene::UpdateScene()
 /// </summary>
 void GameScene::Draw()
 {
-    stage->Draw();          // ステージ
-    player->Draw(*stage);   // プレイヤー
-    enemy->Draw();
-    DrawUI();               // UIの描画
+    stage->Draw();                      // ステージ
+    player->Draw(*stage);               // プレイヤー
+    enemyGroupController->Draw();       // エネミーの集合体
+    DrawUI();                           // UIの描画
 }
 
 /// <summary>

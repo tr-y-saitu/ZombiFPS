@@ -61,6 +61,8 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
+    /// <param name="targetPosition">進べき座標</param>
+    /// <param name="stage">ステージ</param>
     void Update(VECTOR targetPosition,Stage& stage);
 
     /// <summary>

@@ -7,6 +7,7 @@
 class Boids;
 class Enemy;
 class Pathfinding;
+class Stage;
 
 /// <summary>
 /// エネミーの集合体
@@ -32,7 +33,14 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    void Update();
+    /// <param name="targetPosition">進べき座標</param>
+    /// <param name="stage">ステージ</param>
+    void Update(VECTOR targetPosition, Stage& stage);
+
+    /// <summary>
+    /// 描画
+    /// </summary>
+    void Draw();
 
 private:
     // 定数
