@@ -9,12 +9,14 @@ class CollisionManager  final
 {
 public:
     /// <summary>
-    /// 球形当たり判定用構造体
+    /// 当たり判定用情報
     /// </summary>
-    struct SphureCollider
+    struct CollisionData
     {
-        VECTOR  position;   // 自身の座標
-        float   radius;     // 自身球型当たり判定の半径
+        VECTOR centerPosition;  // 中央座標
+        VECTOR topPosition;     // カプセル上の座標
+        VECTOR bottomPosition;  // カプセル下の座標
+        float radius;           // 当たり判定半径
     };
 
     /// <summary>
@@ -47,6 +49,24 @@ public:
     /// すべての当たり判定処理
     /// </summary>
     void Update();
+
+    /// <summary>
+    /// 球と線の当たり判定
+    /// </summary>
+    bool IsCollisionLineSphere(VECTOR sphereCenter, float radius,
+        VECTOR lineStart, VECTOR lineEnd);
+
+    /// <summary>
+    /// 球と球との当たり判定
+    /// </summary>
+    /// <param name="position1">対象１の座標</param>
+    /// <param name="radius1">対象１の当たり判定用半径</param>
+    /// <param name="position2">対象２の座標</param>
+    /// <param name="radius2">対象２の当たり判定用半径</param>
+    /// <returns>当たったかどうか</returns>
+    bool IsCollisionSphere(VECTOR position1, float radius1,
+        VECTOR position2, float radius2);
+
 
 private:
     /// <summary>
