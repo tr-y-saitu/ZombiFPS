@@ -1,4 +1,5 @@
-﻿#include "Enemy.h"
+﻿#include "CollisionManager.h"
+#include "Enemy.h"
 #include "ModelDataManager.h"
 #include "Stage.h"
 
@@ -8,6 +9,10 @@
 Enemy::Enemy()
 {
     modelDataManager = ModelDataManager::GetInstance();
+    collisionManager = CollisionManager::GetInstance();
+
+    // 初期化
+    Initialize();
 }
 
 /// <summary>
@@ -49,6 +54,9 @@ void Enemy::Initialize()
 
     // アニメーション設定
     PlayAnimation(AnimationType::Run);
+
+    // 関数ポインタを作成
+    onHit = &Enemy::OnHit;
 }
 
 /// <summary>
@@ -79,6 +87,16 @@ void Enemy::Update(VECTOR targetPosition,Stage& stage)
 void Enemy::Draw()
 {
     MV1DrawModel(modelHandle);
+}
+
+/// <summary>
+/// オブジェクトと接触した時の処理
+/// </summary>
+/// <param name="data"></param>
+/// <param name="tag"></param>
+void Enemy::OnHit(CollisionManager::CollisionData data, CollisionManager::ObjectTag tag)
+{
+
 }
 
 /// <summary>

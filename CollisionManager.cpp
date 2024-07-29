@@ -53,6 +53,11 @@ void CollisionManager::Initialize()
     
 }
 
+void CollisionManager::CollisionDataRegister(CollisionData data, ObjectTag tag)
+{
+
+}
+
 /// <summary>
 /// すべての当たり判定処理
 /// </summary>
@@ -64,6 +69,32 @@ void CollisionManager::Update()
 // 線と球との当たり判定
 bool CollisionManager::IsCollisionLineSphere(VECTOR sphereCenter, float radius,
     VECTOR lineStart, VECTOR lineEnd)
+{
+    return 1;
+}
+
+/// <summary>
+/// カプセルと線分の当たり判定
+/// </summary>
+/// <param name="capsuleTopPosition">カプセルを形成する開始座標</param>
+/// <param name="capuseleBottomPosition">カプセルを形成する終了座標</param>
+/// <param name="capuseleRadius">カプセルの半径</param>
+/// <param name="lineStartPosition">線の始まり</param>
+/// <param name="lineEndPosition">線の終わり</param>
+/// <returns>当たったかどうか</returns>
+bool CollisionManager::IsCollisionCapsuleLine(VECTOR capsuleStartPosition, VECTOR capuseleEndPosition, float capuseleRadius,
+    VECTOR lineStartPosition, VECTOR lineEndPosition)
+{
+    // 二つの線分の最短距離を計算
+    float distance = Segment_Segment_MinLength(capsuleStartPosition, capuseleEndPosition, lineStartPosition, lineEndPosition);
+
+    // 最短距離よりも半径の方が短ければ当たっている
+    return distance <= capuseleRadius;
+}
+
+// カプセルと線分の当たり判定
+bool CollisionManager::IsCollisionSphereCapsule(VECTOR sphereCenter, float sphereRadius,
+    VECTOR capsuleStart, VECTOR capsuleEnd, float capuleRadius)
 {
     return 1;
 }

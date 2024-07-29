@@ -1,8 +1,12 @@
 ﻿#pragma once
 #include "Common.h"
+#include "CollisionManager.h"
 
 class ModelDataManager;
 class Stage;
+class CollisionManager;
+struct CollisionData;
+enum ObjectTag;
 
 /// <summary>
 /// エネミー(ゾンビ)
@@ -68,6 +72,9 @@ public:
     /// </summary>
     void Draw();
 
+    // オブジェクトと接触した時の処理
+    static void OnHit(CollisionManager::CollisionData data, CollisionManager::ObjectTag tag);
+
 private:
     /// <summary>
     /// ルートフレームのZ軸方向の移動パラメータを無効にする
@@ -126,6 +133,7 @@ private:
     //---------------------------------------------------------------------------------//
     // 管理クラス
     ModelDataManager*   modelDataManager;
+    CollisionManager*   collisionManager;
 
     // ステータス
     VECTOR      position;                   // 座標
@@ -143,6 +151,9 @@ private:
     int         previousPlayAnimation;      // 前の再生アニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
     float       previousAnimationCount;     // 前の再生アニメーションの再生時間
     float       animationBlendRate;         // 現在と過去のアニメーションのブレンド率
+
+    // 当たり判定用
+    std::function<void(CollisionManager::CollisionData, CollisionManager::ObjectTag)> onHit;    // 当たった後の処理の関数ポインタ
 
 };
 
