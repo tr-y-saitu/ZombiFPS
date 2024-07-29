@@ -55,8 +55,6 @@ void Enemy::Initialize()
     // アニメーション設定
     PlayAnimation(AnimationType::Run);
 
-    // 関数ポインタを作成
-    onHit = &Enemy::OnHit;
 }
 
 /// <summary>
