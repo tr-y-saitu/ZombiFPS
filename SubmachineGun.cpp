@@ -1,5 +1,5 @@
 ﻿#include "SubmachineGun.h"
-#include "Shot.h"
+#include "Bullet.h"
 #include "GunStateBase.h"
 #include "ModelDataManager.h"
 #include "GunIdleState.h"
@@ -7,7 +7,7 @@
 #include "GunRunState.h"
 #include "GunShotState.h"
 
-/// <summary>
+/// <summary>　　　　　　
 /// コンストラクタ
 /// </summary>
 SubmachineGun::SubmachineGun()
@@ -21,6 +21,14 @@ SubmachineGun::SubmachineGun()
 /// </summary>
 SubmachineGun::~SubmachineGun()
 {
+    // 要素の削除
+    activeBullet.clear();
+
+    // メモリ解放
+    for (Bullet* bullet : activeBullet)
+    {
+        delete(bullet);
+    }
 }
 
 /// <summary>
@@ -39,8 +47,9 @@ void SubmachineGun::Initialize()
     // 状態クラスを未作成のため未実装
     //currentState            = new GunIdleState();
 
-    shotDamagePower         = ShotDamagePower;
-    shotPenetrationPower    = ShotPenetrationPower;
+    // 弾丸情報の初期化
+    bulletDamagePower       = BulletDamagePower;
+    bulletPenetrationPower  = BulletPenetrationPower;
     fireRate                = GunFireRate;
     recoil                  = GunRecoil;
     accuracy                = GunAccuracy;
@@ -55,14 +64,28 @@ void SubmachineGun::Initialize()
 void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, float cameraPitch)
 {
     // 座標を更新
-    //position = setPosition;
     position = VAdd(setPosition, GunOffset);
 
     // 角度を更新
     UpdateAngle(cameraVector, cameraPitch);
 
+    // 弾丸の更新
+    UpdateShooting();
+
     // 座標の設定
     MV1SetPosition(modelHandle, position);
+}
+
+/// <summary>
+/// 弾丸情報の初期化
+/// </summary>
+void SubmachineGun::InitializeBulletData()
+{
+    bulletData.position         = position;                 // 座標
+    bulletData.direction        = BulletDirection;          // 移動方向
+    bulletData.power            = BulletDamagePower;        // 威力
+    bulletData.speed            = BulletSpeed;              // 速度
+    bulletData.penetratingPower = BulletPenetrationPower;   // 貫通力
 }
 
 /// <summary>
@@ -73,3 +96,19 @@ void SubmachineGun::Draw()
     // モデルの描画
     MV1DrawModel(modelHandle);
 }
+
+/// <summary>
+/// 銃を発砲する
+/// </summary>
+void SubmachineGun::UpdateShooting()
+{
+    // 弾丸の初期化用データの更新
+    InitializeBulletData();
+
+    // 現在使用中の弾丸の更新
+    for (auto it = activeBullet.begin(); it != activeBullet.end(); ++it)
+    {
+        (*it)->Update();
+    }
+}
+

@@ -1,8 +1,10 @@
 ﻿#pragma once
 #include "Common.h"
+#include "Bullet.h"
 
 class   GunStateBase;
 enum    GunState;
+class   Bullet;
 
 /// <summary>
 /// 銃の基礎クラス
@@ -37,6 +39,11 @@ public:
     virtual void Initialize() abstract;
 
     /// <summary>
+    /// 弾丸情報の初期化
+    /// </summary>
+    virtual void InitializeBulletData() abstract;
+
+    /// <summary>
     /// 更新
     /// </summary>
     virtual void Update(VECTOR setPosition, VECTOR cameraVector, float cameraPitch) abstract;
@@ -52,6 +59,11 @@ public:
     /// <param name="setPosition">設定する座標</param>
     void UpdateAngle(VECTOR setPosition,float pitch);
 
+    // ゲッター
+    list<Bullet*>& GetActiveBullet() { return activeBullet; }
+    const  int GetActiveBulletSize() const { return activeBullet.size(); }
+    const Bullet::BulletInitializeData GetBulletInitializeData()const { return bulletData; }
+
 protected:
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
@@ -63,12 +75,14 @@ protected:
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
+    Bullet::BulletInitializeData bulletData;        // 弾丸のデータ
+    list<Bullet*>   activeBullet;           // 使用中の弾丸
     int             modelHandle;            // モデルハンドル
     VECTOR          position;               // 座標
     GunState        state;                  // 銃の状態
     GunStateBase*   currentState;           // 現在の銃の更新を行う状態
-    float           shotDamagePower;        // 弾丸の威力
-    float           shotPenetrationPower;   // 弾丸の貫通力
+    float           bulletDamagePower;      // 弾丸の威力
+    float           bulletPenetrationPower;   // 弾丸の貫通力
     float           fireRate;               // 銃の連射力
     float           recoil;                 // 銃の反動
     float           accuracy;               // 銃の精度(拡散度合い)

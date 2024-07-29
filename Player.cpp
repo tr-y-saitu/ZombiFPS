@@ -10,6 +10,7 @@
 #include "AssaultRifle.h"
 #include "BattleRifle.h"
 #include "SubmachineGun.h"
+#include "BulletObjectPools.h"
 
 
 /// <summary>
@@ -18,7 +19,9 @@
 Player::Player()
     : position              (VGet(0,0,0))
     , pressMoveButton       (false)
+    , isShooting            (false)
 {
+    bulletObjectPools       = new BulletObjectPools();
     equippedGun             = new SubmachineGun();
     modelDataManager        = ModelDataManager::GetInstance();
     playerCamera            = new PlayerCamera();
@@ -31,6 +34,8 @@ Player::Player()
 /// </summary>
 Player::~Player()
 {
+    delete(bulletObjectPools);
+    delete(equippedGun);
     delete(playerState);
     delete(playerCamera);
     MV1DeleteModel(modelHandle);
@@ -145,6 +150,9 @@ void Player::Update(const Input& input, Stage& stage)
 
     // アニメーション処理
     UpdateAnimation();
+
+    // 射撃更新
+    UpdateShootingEquippedWeapon(input);
 
     // 装備中の武器の更新
     equippedGun->Update(position, playerCamera->GetCameraForwardVector(), playerCamera->GetCameraPitch());
@@ -427,7 +435,6 @@ void Player::PlayAnimation(AnimationType PlayAnimation)
     animationBlendRate = previousPlayAnimation == -1 ? 1.0f : 0.0f;
 }
 
-
 /// <summary>
 /// アニメーション更新
 /// </summary>
@@ -488,4 +495,47 @@ void Player::UpdateAnimation()
         // アニメーション２のモデルに対する反映率をセット
         MV1SetAttachAnimBlendRate(modelHandle, previousPlayAnimation, 1.0f - animationBlendRate);
     }
+}
+
+/// <summary>
+/// 銃を撃つ
+/// </summary>
+/// <param name="input">入力情報</param>
+void Player::UpdateShootingEquippedWeapon(const Input& input)
+{
+    // 左クリックされたら射撃する
+    if (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT)
+    {
+        // 発砲している
+        isShooting = true;
+
+        // 弾丸の初期化用データを取得
+        Bullet::BulletInitializeData initData = equippedGun->GetBulletInitializeData();
+
+        // 未使用の弾丸をオブジェクトプールから取得
+        Bullet* bullet = bulletObjectPools->GetInactiveBullet();
+
+        // 取得した弾丸があるなら使用中に追加
+        if (bullet != nullptr)
+        {
+            equippedGun->GetActiveBullet().push_back(bullet);
+            bullet->Initialize(initData);
+        }
+    }
+
+    // 発砲していない
+    isShooting = false;
+
+    // 使い終わった弾丸があれば返却する
+    DeactivateBulletReturn();
+}
+
+/// <summary>
+/// 使い終わった弾丸をオブジェクトプールに返す
+/// </summary>
+void Player::DeactivateBulletReturn()
+{
+    // 使い終わったものを返す
+    bulletObjectPools->ReturnActiveBulletInstance(equippedGun->GetActiveBullet());
+
 }

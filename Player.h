@@ -7,6 +7,7 @@ class Input;
 class PlayerCamera;
 class Stage;
 class ModelDataManager;
+class BulletObjectPools;
 
 /// <summary>
 /// プレイヤー
@@ -35,6 +36,7 @@ public:
         Stop    = 8,    // 停止
         Run     = 8,    // 走り
         Jump    = 8,    // ジャンプ
+        Shooting,       // 射撃中
     };
 
     /// <summary>
@@ -94,6 +96,7 @@ public:
     // ゲッター、セッター
     const VECTOR& GetPosition() const { return position; }
     bool GetCurrentFrameMove() const { return currentFrameMove; }
+    bool GetIsShooting()const { return isShooting; }
     State GetState() const { return state; }
     float GetCurrentJumpPower() const { return currentJumpPower; }
 
@@ -136,6 +139,17 @@ private:
     /// </summary>
     void UpdateAnimation();
 
+    /// <summary>
+    /// 銃を撃つ
+    /// </summary>
+    /// <param name="input">入力情報</param>
+    void UpdateShootingEquippedWeapon(const Input& input);
+
+    /// <summary>
+    /// 使い終わった弾丸をオブジェクトプールに返す
+    /// </summary>
+    void DeactivateBulletReturn();
+
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -168,12 +182,14 @@ private:
     VECTOR              position;           // 座標
     PlayerStateBase*    playerState;        // プレイヤーの状態
     GunBase*            equippedGun;        // 銃
+    BulletObjectPools*  bulletObjectPools;  // 弾丸のオブジェクトプール
 
     // 移動状態
     VECTOR      targetMoveDirection;        // モデルが向くべき方向のベクトル
     float       currentJumpPower;           // Ｙ軸方向の速度
     int         modelHandle;                // モデルハンドル
     State       state;                      // 状態
+    bool        isShooting;                 // 発砲状態か
 
     // アニメーション関係
     int         currentPlayAnimation;       // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
