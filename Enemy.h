@@ -1,12 +1,11 @@
 ﻿#pragma once
 #include "Common.h"
-#include "CollisionManager.h"
+#include "CollisionData.h"
+
 
 class ModelDataManager;
 class Stage;
 class CollisionManager;
-struct CollisionData;
-enum ObjectTag;
 
 /// <summary>
 /// エネミー(ゾンビ)
@@ -72,8 +71,17 @@ public:
     /// </summary>
     void Draw();
 
-    // オブジェクトと接触した時の処理
-    static void OnHit(CollisionManager::CollisionData data, CollisionManager::ObjectTag tag);
+    // 弾丸と接触した時の処理
+    void OnHitBullet(LineCollisionData bulletData);
+
+    // 別のキャラクターと接触した時の処理(Player,Enemy)
+    void OnHitCharacter(CapsuleCollisionData capsuleData);
+
+    // 当たった後の処理
+    void OnHit(CollisionData hitObjectData);
+
+    // 当たり判定に必要なデータを更新する
+    void UpdateCollisionData();
 
 private:
     /// <summary>
@@ -114,19 +122,23 @@ private:
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     // ステータス
-    static constexpr float  MoveSpeed           = 0.2f;                         // 移動速度
-    static constexpr float  AngleSpeed          = 0.2f;                         // 角度変化速度
-    static constexpr float  JumpPower           = 100.0f;                       // ジャンプ力
-    static constexpr float  MoveLimitY          = 1.0f;                         // Y軸の移動制限
-    static constexpr VECTOR InitializePosition  = { 0.0f,MoveLimitY,0.0f };     // 初期化座標
-    static constexpr VECTOR ZeroVector          = { 0.0f,0.0f,0.0f };           // ゼロベクトル
-    static constexpr VECTOR EnemyScale          = { 0.03f,0.03f,0.03f };        // プレイヤーのスケール
+    static constexpr float  MoveSpeed               = 0.2f;                         // 移動速度
+    static constexpr float  AngleSpeed              = 0.2f;                         // 角度変化速度
+    static constexpr float  JumpPower               = 100.0f;                       // ジャンプ力
+    static constexpr float  MoveLimitY              = 1.0f;                         // Y軸の移動制限
+    static constexpr VECTOR InitializePosition      = { 0.0f,MoveLimitY,0.0f };     // 初期化座標
+    static constexpr VECTOR ZeroVector              = { 0.0f,0.0f,0.0f };           // ゼロベクトル
+    static constexpr VECTOR EnemyScale              = { 0.03f,0.03f,0.03f };        // プレイヤーのスケール
+    static constexpr int    InitializeHitPoints     = 100;                          // 初期化時の体力
+    // 当たり判定
+    static constexpr float  CollisionRadius         = 1.0f;
+    static constexpr VECTOR CapsulePositionOffset   = { 0.0f,2.0f,0.0f };           // カプセルの始点を作るためのずらし量
     // 重力関係
-    static constexpr float  Gravity             = 3.0f;                         // 重力
-    static constexpr float  FallUpPower         = 20.0f;                        // 足を踏み外した時のジャンプ力
+    static constexpr float  Gravity                 = 3.0f;                         // 重力
+    static constexpr float  FallUpPower             = 20.0f;                        // 足を踏み外した時のジャンプ力
     // アニメーション
-    static constexpr float  PlayAnimationSpeed  = 0.5f;                         // アニメーション速度
-    static constexpr float  AnimationBlendSpeed = 0.1f;                         // アニメーションのブレンド率変化速度
+    static constexpr float  PlayAnimationSpeed      = 0.5f;                         // アニメーション速度
+    static constexpr float  AnimationBlendSpeed     = 0.1f;                         // アニメーションのブレンド率変化速度
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
@@ -144,6 +156,12 @@ private:
     int         shadowHandle;               // 影画像ハンドル
     bool        currentFrameMove;           // そのフレームで動いたかどうか
     State       state;                      // 状態
+    int         hitPoints;                  // 体力
+
+    // 当たり判定用
+    SphereCollisionData     headCollisionData;      // 頭部の当たり判定
+    CapsuleCollisionData    bodyCollisionData;      // 体の当たり判定
+    CollisionData*          collisionData;          // 当たり判定用情報
 
     // アニメーション情報
     int         currentPlayAnimation;       // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
@@ -151,9 +169,6 @@ private:
     int         previousPlayAnimation;      // 前の再生アニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
     float       previousAnimationCount;     // 前の再生アニメーションの再生時間
     float       animationBlendRate;         // 現在と過去のアニメーションのブレンド率
-
-    // 当たり判定用
-    std::function<void(CollisionManager::CollisionData, CollisionManager::ObjectTag)> onHit;    // 当たった後の処理の関数ポインタ
 
 };
 

@@ -1,5 +1,6 @@
 ﻿#include "CollisionManager.h"
 
+
 // 初期化
 CollisionManager* CollisionManager::collisionManager = NULL;
 
@@ -15,6 +16,26 @@ CollisionManager::CollisionManager()
 /// </summary>
 CollisionManager::~CollisionManager()
 {
+    // メモリ解放 //
+
+    // 球型の当たり判定
+    for (int i = 0; i < sphereCollisionData.size(); i++)
+    {
+        delete(sphereCollisionData[i]);
+    }
+
+    // カプセル型の当たり判定
+    for (int i = 0; i < capsuleCollisionData.size(); i++)
+    {
+        delete(capsuleCollisionData[i]);
+    }
+
+    // 線分型の当たり判定
+    for (int i = 0; i < lineCollisionData.size(); i++)
+    {
+        delete(lineCollisionData[i]);
+    }
+
 }
 
 /// <summary>
@@ -53,7 +74,7 @@ void CollisionManager::Initialize()
     
 }
 
-void CollisionManager::CollisionDataRegister(CollisionData data, ObjectTag tag)
+void CollisionManager::CollisionDataRegister(CollisionData& data)
 {
 
 }
@@ -63,7 +84,14 @@ void CollisionManager::CollisionDataRegister(CollisionData data, ObjectTag tag)
 /// </summary>
 void CollisionManager::Update()
 {
+    // 球型の当たり判定
+    for (int i = 0; i < sphereCollisionData.size(); i++)
+    {
+        for (int j = i + 1; j < sphereCollisionData.size(); j++)
+        {
 
+        }
+    }
 }
 
 // 線と球との当たり判定

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Common.h"
+#include "CollisionData.h"
 
 /// <summary>
 /// 値り判定処理クラス
@@ -59,7 +60,7 @@ public:
     void Initialize();
 
     // 当たり判定データの読み込み
-    static void CollisionDataRegister(CollisionData data,ObjectTag tag);
+    static void CollisionDataRegister(CollisionData& data);
 
     /// <summary>
     /// すべての当たり判定処理
@@ -115,10 +116,13 @@ private:
     CollisionManager();
 
     // 管理用
-    static CollisionManager* collisionManager;      // コリジョンマネージャーのインスタンス
+    static CollisionManager*        collisionManager;           // コリジョンマネージャーのインスタンス
 
     // 当たり判定用データ
-    map<int, CollisionData> dataList;               // 当たり判定を行うリスト
+    vector<SphereCollisionData*>    sphereCollisionData;        // 球型の当たり判定を行うリスト
+    vector<CapsuleCollisionData*>   capsuleCollisionData;       // カプセル型の当たり判定を行うリスト
+    vector<LineCollisionData*>      lineCollisionData;          // 線分の当たり判定を行うリスト
 
+    vector<CollisionData*>          collisionDataList;          // 当たり判定情報リスト
 };
 

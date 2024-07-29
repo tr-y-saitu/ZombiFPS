@@ -55,6 +55,12 @@ void Enemy::Initialize()
     // アニメーション設定
     PlayAnimation(AnimationType::Run);
 
+    // 体力の初期化
+    hitPoints = InitializeHitPoints;
+
+    // 当たり判定情報をメモリ確保
+    collisionData = new CollisionData();
+
 }
 
 /// <summary>
@@ -88,13 +94,49 @@ void Enemy::Draw()
 }
 
 /// <summary>
-/// オブジェクトと接触した時の処理
+/// 弾丸と接触した時の処理
 /// </summary>
-/// <param name="data"></param>
-/// <param name="tag"></param>
-void Enemy::OnHit(CollisionManager::CollisionData data, CollisionManager::ObjectTag tag)
+/// <param name="bulletData">弾丸のデータ</param>
+void Enemy::OnHitBullet(LineCollisionData bulletData)
+{
+    // 弾丸が当たったらHPを減らす
+    hitPoints -= bulletData.bulletPower;
+}
+
+// 別のキャラクターと接触した時の処理(Player,Enemy)
+void Enemy::OnHitCharacter(CapsuleCollisionData capsuleData)
 {
 
+}
+
+// 当たった後の処理
+void Enemy::OnHit(CollisionData hitObjectData)
+{
+    switch (hitObjectData.tag)
+    {
+    case ObjectTag::Bullet:
+
+        // HPを減少
+        hitPoints -= hitObjectData.bulletPower;
+
+        break;
+
+    default:
+        break;
+    }
+}
+
+// 当たり判定用のデータ更新
+void Enemy::UpdateCollisionData()
+{
+    // 座標をもとにカプセルを作成
+    collisionData->startPosition = VAdd(position, CapsulePositionOffset);
+    collisionData->endPosition = VSub(position, CapsulePositionOffset);
+    // カプセルの半径を登録
+    collisionData->radius = CollisionRadius;
+    // 自身のOnHit関数をもとに新しい引数を持った関数を作成
+    // std::bind(&名前空間::関数名,その関数のある参照,引数の数だけプレースホルダーが増える)
+    collisionData->onHit = std::bind(&Enemy::OnHit, this, std::placeholders::_1);
 }
 
 /// <summary>

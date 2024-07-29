@@ -26,12 +26,9 @@ GameScene::GameScene()
     // 入力処理
     input                   = new Input();
 
-    // データ関連
-    
-
     // 演出関連
-    effectManager = EffectManager::GetInstance();
-    soundManager = SoundManager::GetInstance();
+    effectManager           = EffectManager::GetInstance();
+    soundManager            = SoundManager::GetInstance();
 
     // 当たり判定
     collisionManager        = CollisionManager::GetInstance();

@@ -73,6 +73,7 @@
     <ClInclude Include="AssaultRifle.h" />
     <ClInclude Include="BattleRifle.h" />
     <ClInclude Include="Boids.h" />
+    <ClInclude Include="CollisionData.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyGroup.h" />
