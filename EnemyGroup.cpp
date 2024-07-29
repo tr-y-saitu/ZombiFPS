@@ -6,6 +6,7 @@
 /// </summary>
 EnemyGroup::EnemyGroup()
 {
+    enemys.push_back(new Enemy());
 }
 
 /// <summary>
@@ -13,6 +14,11 @@ EnemyGroup::EnemyGroup()
 /// </summary>
 EnemyGroup::~EnemyGroup()
 {
+    // メモリ解放
+    for (int i = 0; i < enemys.size(); i++)
+    {
+        delete(enemys[i]);
+    }
 }
 
 /// <summary>

@@ -38,7 +38,7 @@ private:
     // 定数
 
     // 変数
-    vector<Enemy>   enemys;         // エネミー(ゾンビ)
+    vector<Enemy*>  enemys;         // エネミー(ゾンビ)
     Boids           boids;          // 集合計算用
     Pathfinding     pathfinding;    // 線形探索用
 
