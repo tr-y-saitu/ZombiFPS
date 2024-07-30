@@ -98,6 +98,6 @@ private:
     vector<CapsuleCollisionData*>   capsuleCollisionData;       // カプセル型の当たり判定を行うリスト
     vector<LineCollisionData*>      lineCollisionData;          // 線分の当たり判定を行うリスト
 
-    vector<CollisionData*>          collisionDataList;          // 当たり判定情報リスト
+    vector<CollisionData>           collisionDataList;          // 当たり判定情報リスト
 };
 

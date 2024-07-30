@@ -71,9 +71,10 @@ void CollisionManager::DeleteInstance()
 /// </summary>
 void CollisionManager::Initialize()
 {
-    
+
 }
 
+// 当たり判定データの読み込み
 void CollisionManager::CollisionDataRegister(CollisionData data)
 {
 
