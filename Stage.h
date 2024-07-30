@@ -2,6 +2,7 @@
 #include "Common.h"
 
 class Player;
+class Enemy;
 class Shutter;
 class ModelDataManager;
 
@@ -45,6 +46,14 @@ public:
     /// <param name="moveVector">移動方向</param>
     VECTOR IsHitCollision(Player& player, const VECTOR& checkPosition, const VECTOR& moveVector);
 
+    /// <summary>
+    /// エネミーとステージの当たり判定
+    /// </summary>
+    /// <param name="player">エネミー</param>
+    /// <param name="checkPosition">当たり判定をしたい対象</param>
+    /// <param name="moveVector">移動方向</param>
+    VECTOR IsHitCollisionEnemy(Enemy& enemy, const VECTOR& checkPosition, const VECTOR& moveVector);
+
     // ゲッター
     int GetModelHandle() const { return modelHandle; }
 
@@ -70,7 +79,11 @@ private:
     /// <param name="CheckPosition">当たり判定する座標</param>
     /// <returns>補正する移動ベクトル</returns>
     VECTOR CheckHitWithFloor(Player& player, const VECTOR& CheckPosition);
-    
+
+    VECTOR CheckHitWithWallEnemy(Enemy& enemy, const VECTOR& CheckPosition);
+
+    VECTOR CheckHitWithFloorEnemy(Enemy& enemy, const VECTOR& CheckPosition);
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//

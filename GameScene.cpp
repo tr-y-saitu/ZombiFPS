@@ -76,6 +76,7 @@ void GameScene::Initialize()
 {
     stage->Initialize();
     player->Initialize();
+    enemyGroupController->Initialize();
 }
 
 /// <summary>
@@ -88,9 +89,10 @@ SceneBase* GameScene::UpdateScene()
     DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene", true);
 
     // オブジェクト更新
-    input->Update();                    // 入力処理
-    player->Update(*input,*stage);      // プレイヤー
-    gameSceneUI->Update();              // UIの更新
+    input->Update();                                                // 入力処理
+    player->Update(*input,*stage);                                  // プレイヤー
+    enemyGroupController->Update(player->GetPosition(), *stage);    // エネミーの集合体
+    gameSceneUI->Update();                                          // UIの更新
 
     // 現状のシーンを返す
     return this;
@@ -101,9 +103,10 @@ SceneBase* GameScene::UpdateScene()
 /// </summary>
 void GameScene::Draw()
 {
-    stage->Draw();          // ステージ
-    player->Draw(*stage);   // プレイヤー
-    DrawUI();               // UIの描画
+    stage->Draw();                      // ステージ
+    player->Draw(*stage);               // プレイヤー
+    enemyGroupController->Draw();       // エネミーの集合体
+    DrawUI();                           // UIの描画
 }
 
 /// <summary>

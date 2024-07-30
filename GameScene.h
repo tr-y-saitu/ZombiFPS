@@ -19,6 +19,8 @@ class MaxAmmo;
 class IncomeDouble;
 class GameSceneUI;
 
+class Enemy;
+
 /// <summary>
 ///  ゲームシーン
 /// </summary>
@@ -82,9 +84,9 @@ private:
     SoundManager*   soundManager;   // サウンド再生用
 
     // オブジェクト関連
-    CollisionManager*   collisionManager;   // 当たり判定
-    Stage*              stage;              // ステージ
-    Player*             player;             // プレイヤー
+    CollisionManager*       collisionManager;       // 当たり判定
+    Stage*                  stage;                  // ステージ
+    Player*                 player;                 // プレイヤー
     
     // エネミー関連
     EnemyGroupController*   enemyGroupController;   // エネミーの群れ
@@ -97,7 +99,6 @@ private:
 
     // UI関連
     GameSceneUI*        gameSceneUI;        // ゲームシーン用のUI
-
 };
 
 
