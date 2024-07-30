@@ -3,6 +3,7 @@
 
 // 初期化
 CollisionManager* CollisionManager::collisionManager = NULL;
+std::vector<CollisionData> CollisionManager::collisionDataList;
 
 /// <summary>
 /// コンストラクタ
@@ -34,6 +35,12 @@ CollisionManager::~CollisionManager()
     for (int i = 0; i < lineCollisionData.size(); i++)
     {
         delete(lineCollisionData[i]);
+    }
+
+    // 当たり判定情報リスト
+    for (int i = 0; i < collisionDataList.size(); i++)
+    {
+        delete(&collisionDataList[i]);
     }
 
 }
@@ -77,7 +84,8 @@ void CollisionManager::Initialize()
 // 当たり判定データの読み込み
 void CollisionManager::CollisionDataRegister(CollisionData data)
 {
-
+    // 当たり判定用情報追加
+    collisionDataList.push_back(data);
 }
 
 /// <summary>
@@ -85,7 +93,6 @@ void CollisionManager::CollisionDataRegister(CollisionData data)
 /// </summary>
 void CollisionManager::Update()
 {
-
 
 }
 

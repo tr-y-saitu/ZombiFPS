@@ -86,6 +86,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     ModelDataManager::DeleteInstance();     // モデルデータ
     EffectManager::DeleteInstance();        // エフェクト管理
     SoundManager::DeleteInstance();         // サウンド管理
+    CollisionManager::DeleteInstance();     // 当たり判定管理
 
     // Effekseerを終了する。
     Effkseer_End();
