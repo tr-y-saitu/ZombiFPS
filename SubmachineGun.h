@@ -61,7 +61,7 @@ private:
     static constexpr float  BulletSpeed             = 1.0f;         // 弾丸の速度
     static constexpr VECTOR BulletDirection         = { 0,0,1 };    // 弾丸の移動方向
     // 銃
-    static constexpr float  GunFireRate             = 1.0f;         // 銃の連射力
+    static constexpr int    GunFireRate             = 5;          // 銃の連射力(このフレームに１回発射する)
     static constexpr float  GunRecoil               = 1.0f;         // 銃の反動
     static constexpr float  GunAccuracy             = 1.0f;         // 銃の精度(拡散度合い)
     static constexpr VECTOR InitializeScale         = { 0.07f,0.07f,0.07f };   // 初期化時のスケール

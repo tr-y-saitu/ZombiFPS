@@ -105,8 +105,7 @@ void CollisionManager::Update()
                                             data2.lineStartPosition,data2.endPosition))
                 {
                     // 当たった時の関数を呼び出す
-                    data1.onHit(data2);
-                    
+                   data1.onHit(data2);
                 }
             }
 
@@ -115,6 +114,8 @@ void CollisionManager::Update()
 
             // カプセルとライン
 
+
+            // 存在しない場合
 
         }
     }

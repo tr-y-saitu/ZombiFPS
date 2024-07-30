@@ -7,14 +7,14 @@
 /// コンストラクタ
 /// </summary>
 Enemy::Enemy()
-    : hitPoints         (InitializeHitPoints)
-    , currentPlayAnimation  (-1)
-    , previousPlayAnimation (-1)
-    , animationBlendRate    (1.0f)
-    , targetMoveDirection   (InitializeDirection)
-    , currentJumpPower      (0.0f)
-    , state                 (State::None)
-    , position              (InitializePosition)
+    : hitPoints                 (InitializeHitPoints)
+    , currentPlayAnimation      (-1)
+    , previousPlayAnimation     (-1)
+    , animationBlendRate        (1.0f)
+    , targetMoveDirection       (InitializeDirection)
+    , currentJumpPower          (0.0f)
+    , state                     (State::None)
+    , position                  (InitializePosition)
 {
     modelDataManager = ModelDataManager::GetInstance();
     collisionManager = CollisionManager::GetInstance();

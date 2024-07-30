@@ -60,6 +60,7 @@ public:
     void UpdateAngle(VECTOR setPosition,float pitch);
 
     // ゲッター
+    const int GetFireRate()const { return fireRate; }
     list<Bullet*>& GetActiveBullet() { return activeBullet; }
     const  int GetActiveBulletSize() const { return activeBullet.size(); }
     const Bullet::BulletInitializeData GetBulletInitializeData()const { return bulletData; }
@@ -83,7 +84,7 @@ protected:
     GunStateBase*   currentState;               // 現在の銃の更新を行う状態
     float           bulletDamagePower;          // 弾丸の威力
     float           bulletPenetrationPower;     // 弾丸の貫通力
-    float           fireRate;                   // 銃の連射力
+    int             fireRate;                   // 銃の連射力
     float           recoil;                     // 銃の反動
     float           accuracy;                   // 銃の精度(拡散度合い)
 };

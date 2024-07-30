@@ -20,6 +20,7 @@ Player::Player()
     : position              (VGet(0,0,0))
     , pressMoveButton       (false)
     , isShooting            (false)
+    , shootFireRateCount    (0)
 {
     bulletObjectPools       = new BulletObjectPools();
     equippedGun             = new SubmachineGun();
@@ -516,25 +517,41 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
     // 左クリックされたら射撃する
     if (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT)
     {
-        // 発砲している
-        isShooting = true;
+        // 連射力カウントを進める
+        shootFireRateCount++;
 
-        // 弾丸の初期化用データを取得
-        Bullet::BulletInitializeData initData = equippedGun->GetBulletInitializeData();
-
-        // 未使用の弾丸をオブジェクトプールから取得
-        Bullet* bullet = bulletObjectPools->GetInactiveBullet();
-
-        // 取得した弾丸があるなら使用中に追加
-        if (bullet != nullptr)
+        // 連射間隔に達した場合、発射
+        if (shootFireRateCount >= equippedGun->GetFireRate())
         {
-            bullet->Initialize(initData);                       // 弾丸の初期化
-            equippedGun->GetActiveBullet().push_back(bullet);   // 弾丸の追加
+            // 発砲している
+            isShooting = true;
+
+            // 弾丸の初期化用データを取得
+            Bullet::BulletInitializeData initData = equippedGun->GetBulletInitializeData();
+
+            // 未使用の弾丸をオブジェクトプールから取得
+            Bullet* bullet = bulletObjectPools->GetInactiveBullet();
+
+            // 取得した弾丸があるなら使用中に追加
+            if (bullet != nullptr)
+            {
+                bullet->Initialize(initData);                       // 弾丸の初期化
+                equippedGun->GetActiveBullet().push_back(bullet);   // 弾丸の追加
+            }
+
+            // 連射力カウントをリセット
+            shootFireRateCount = 0;
         }
     }
+    else
+    {
+        // 発砲していない
+        isShooting = false;
 
-    // 発砲していない
-    isShooting = false;
+        // 連射力カウントをリセット
+        shootFireRateCount = 0;
+    }
+
 
     // 使い終わった弾丸があれば返却する
     DeactivateBulletReturn();

@@ -30,6 +30,8 @@ Bullet::~Bullet()
 /// <param name="initializeData">初期化する弾丸のデータ</param>
 void Bullet::Initialize(BulletInitializeData initializeData)
 {
+    // 弾丸は初期化する時点で使用中になるのでtrue
+    isActive            = true;
     lineStartPosition   = initializeData.lineStartPosition;
     lineEndPosition     = initializeData.lineEndPosiion;
     position            = initializeData.position;
@@ -47,6 +49,9 @@ void Bullet::Initialize(BulletInitializeData initializeData)
 /// </summary>
 void Bullet::Update()
 {
+    // 方向を設定
+
+
     // 移動量を計算
     VECTOR velocity = VScale(direction, speed);
 
@@ -56,9 +61,9 @@ void Bullet::Update()
     // 当たっていたら
     // TODO:当たっていたらの処理をコリジョンマネージャー経由で追加する
     // 一旦未使用に戻したいので規定値になったら非アクティブ化させる
-    if (position.x <= 100)
+    if (position.z <= 100)
     {
-        isActive = false;   // 非アクティブ化
+        //isActive = false;   // 非アクティブ化
     }
 
     // 当たり判定に必要なデータを更新する
@@ -72,7 +77,7 @@ void Bullet::Update()
 void Bullet::Draw()
 {
     // カプセル型のラインを描画
-    DrawCapsule3D(lineStartPosition, lineStartPosition, HitBoxRadius,
+    DrawCapsule3D(lineStartPosition, lineEndPosition, HitBoxRadius,
         PolygonDetail, GetColor(255, 255, 0), GetColor(255, 255, 0), false);
 }
 
@@ -84,4 +89,5 @@ void Bullet::UpdataCollisionData()
     collisionData.tag                   = ObjectTag::Bullet;
     collisionData.lineStartPosition     = lineStartPosition;
     collisionData.lineEndPosition       = lineEndPosition;
+    collisionData.bulletPower           = power;
 }

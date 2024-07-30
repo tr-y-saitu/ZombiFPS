@@ -55,6 +55,7 @@ public:
     /// </summary>
     void UpdataCollisionData();
 
+    // ゲッター、セッター
     const bool GetIsActive()const { return isActive; }
 
 private:
