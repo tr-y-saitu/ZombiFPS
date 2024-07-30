@@ -61,7 +61,7 @@ void SubmachineGun::Initialize()
 /// <summary>
 /// 更新
 /// </summary>
-void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, float cameraPitch)
+void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR cameraTargetVector, float cameraPitch)
 {
     // 座標を更新
     position = VAdd(setPosition, GunOffset);
@@ -70,7 +70,7 @@ void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, float camera
     UpdateAngle(cameraVector, cameraPitch);
 
     // 弾丸の更新
-    UpdateShooting();
+    UpdateShooting(cameraTargetVector);
 
     // 座標の設定
     MV1SetPosition(modelHandle, position);
@@ -81,7 +81,8 @@ void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, float camera
 /// </summary>
 void SubmachineGun::InitializeBulletData(VECTOR targetVector)
 {
-    bulletData.lineStartPosition    = position;
+    bulletData.lineStartPosition    = position;                 // 弾丸の発射位置
+    bulletData.lineEndPosiion       = targetVector;             // 弾丸の最終到着座標
     bulletData.position             = position;                 // 座標
     bulletData.direction            = BulletDirection;          // 移動方向
     bulletData.power                = BulletDamagePower;        // 威力
@@ -96,15 +97,21 @@ void SubmachineGun::Draw()
 {
     // モデルの描画
     MV1DrawModel(modelHandle);
+
+    // 現在使用中の弾丸を描画
+    for (auto it = activeBullet.begin(); it != activeBullet.end(); ++it)
+    {
+        (*it)->Draw();
+    }
 }
 
 /// <summary>
 /// 銃を発砲する
 /// </summary>
-void SubmachineGun::UpdateShooting()
+void SubmachineGun::UpdateShooting(VECTOR targetVector)
 {
     // 弾丸の初期化用データの更新
-    InitializeBulletData();
+    InitializeBulletData(targetVector);
 
     // 現在使用中の弾丸の更新
     for (auto it = activeBullet.begin(); it != activeBullet.end(); ++it)

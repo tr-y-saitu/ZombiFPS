@@ -61,9 +61,8 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
-    static constexpr float CollisionRadius      = 1.0f;     // 当たり判定の半径
-
-
+    static constexpr float HitBoxRadius         = 1.0f;             // デバッグ時の当たり判定を描画するための半径
+    static constexpr float  PolygonDetail       = 8.0f;             // 描画するポリゴンの数
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
@@ -75,6 +74,8 @@ private:
     CollisionData       collisionData;      // 当たり判定情報
     VECTOR              position;           // 座標
     VECTOR              direction;          // 移動方向
+    VECTOR              lineStartPosition;  // 線の始まり
+    VECTOR              lineEndPosition;    // 線の終わり
     int                 power;              // 威力
     float               speed;              // 速度
     int                 penetratingPower;   // 貫通力

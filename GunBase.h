@@ -46,7 +46,7 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    virtual void Update(VECTOR setPosition, VECTOR cameraVector, float cameraPitch) abstract;
+    virtual void Update(VECTOR setPosition, VECTOR cameraVector,VECTOR cameraTargetVector, float cameraPitch) abstract;
 
     /// <summary>
     /// 描画

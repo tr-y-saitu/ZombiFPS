@@ -3,7 +3,7 @@
 
 // 初期化
 CollisionManager* CollisionManager::collisionManager = NULL;
-std::vector<CollisionData> CollisionManager::collisionDataList;
+std::vector<CollisionData*> CollisionManager::collisionDataList;
 
 /// <summary>
 /// コンストラクタ
@@ -79,7 +79,7 @@ void CollisionManager::Initialize()
 }
 
 // 当たり判定データの読み込み
-void CollisionManager::CollisionDataRegister(CollisionData data)
+void CollisionManager::CollisionDataRegister(CollisionData* data)
 {
     // 当たり判定用情報追加
     collisionDataList.push_back(data);
@@ -95,11 +95,11 @@ void CollisionManager::Update()
         for (int j = i + 1; j < collisionDataList.size(); j++)
         {
             // どのタイプの当たり判定を行うか調べる
-            CollisionData data1 = collisionDataList[i];
-            CollisionData data2 = collisionDataList[j];
+            CollisionData data1 = *collisionDataList[i];
+            CollisionData data2 = *collisionDataList[j];
 
             // 球体とライン
-            if (data1.tag == ObjectTag::Enemy && data2.tag == ObjectTag::Bullet)
+            if (data1.tag == ObjectTag::EnemyBoby && data2.tag == ObjectTag::Bullet)
             {
                 if (IsCollisionCapsuleLine(data1.startPosition,data1.endPosition,data1.radius,
                                             data2.lineStartPosition,data2.endPosition))

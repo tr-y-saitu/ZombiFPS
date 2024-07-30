@@ -12,6 +12,7 @@ Bullet::Bullet()
     , penetratingPower  (0)
     , isActive          (true)
 {
+    // 当たり判定管理クラス
     collisionManager = CollisionManager::GetInstance();
 }
 
@@ -29,14 +30,16 @@ Bullet::~Bullet()
 /// <param name="initializeData">初期化する弾丸のデータ</param>
 void Bullet::Initialize(BulletInitializeData initializeData)
 {
+    lineStartPosition   = initializeData.lineStartPosition;
+    lineEndPosition     = initializeData.lineEndPosiion;
     position            = initializeData.position;
     direction           = initializeData.direction;
     power               = initializeData.power;
     speed               = initializeData.speed;
     penetratingPower    = initializeData.penetratingPower;
 
-    // 当たり判定に必要なデータを更新する
-    UpdataCollisionData();
+    // 当たり判定に必要なデータを渡す
+    collisionManager->CollisionDataRegister(&collisionData);
 }
 
 /// <summary>
@@ -58,6 +61,9 @@ void Bullet::Update()
         isActive = false;   // 非アクティブ化
     }
 
+    // 当たり判定に必要なデータを更新する
+    UpdataCollisionData();
+
 }
 
 /// <summary>
@@ -65,7 +71,9 @@ void Bullet::Update()
 /// </summary>
 void Bullet::Draw()
 {
-
+    // カプセル型のラインを描画
+    DrawCapsule3D(lineStartPosition, lineStartPosition, HitBoxRadius,
+        PolygonDetail, GetColor(255, 255, 0), GetColor(255, 255, 0), false);
 }
 
 /// <summary>
@@ -73,5 +81,7 @@ void Bullet::Draw()
 /// </summary>
 void Bullet::UpdataCollisionData()
 {
-    
+    collisionData.tag                   = ObjectTag::Bullet;
+    collisionData.lineStartPosition     = lineStartPosition;
+    collisionData.lineEndPosition       = lineEndPosition;
 }

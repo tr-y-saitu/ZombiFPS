@@ -21,6 +21,9 @@ Enemy::Enemy()
 
     // 初期化
     Initialize();
+
+    // 当たり判定に必要なデータを渡す
+    collisionManager->CollisionDataRegister(&collisionData);
 }
 
 /// <summary>
@@ -90,7 +93,7 @@ void Enemy::Draw()
 
     // カプセル型の当たり判定描画
     DrawCapsule3D(collisionData.startPosition, collisionData.endPosition,
-        collisionData.radius, 8,GetColor(255, 255, 0), GetColor(255, 255, 0), false);
+        collisionData.radius, PolygonDetail,GetColor(255, 255, 0), GetColor(255, 255, 0), false);
 }
 
 /// <summary>
@@ -143,8 +146,6 @@ void Enemy::UpdateCollisionData()
     // std::bind(&名前空間::関数名,その関数のある参照,引数の数だけプレースホルダーが増える)
     collisionData.onHit = std::bind(&Enemy::OnHit, this, std::placeholders::_1);
 
-    // 当たり判定用情報をコリジョンマネージャーに渡す
-    collisionManager->CollisionDataRegister(collisionData);
 }
 
 /// <summary>

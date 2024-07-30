@@ -38,7 +38,7 @@ public:
     /// <param name="setPosition">設定座標</param>
     /// <param name="cameraVector">カメラの前ベクトル</param>
     /// <param name="cameraPitch">カメラの水平からの角度</param>
-    void Update(VECTOR setPosition,VECTOR cameraVector,float cameraPitch);
+    void Update(VECTOR setPosition,VECTOR cameraVector, VECTOR cameraTargetVector, float cameraPitch);
 
     /// <summary>
     /// 描画
@@ -48,7 +48,7 @@ public:
     /// <summary>
     /// 銃を発砲する
     /// </summary>
-    void UpdateShooting();
+    void UpdateShooting(VECTOR targetVector);
 
 private:
     //---------------------------------------------------------------------------------//

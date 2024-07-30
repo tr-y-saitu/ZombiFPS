@@ -155,7 +155,8 @@ void Player::Update(const Input& input, Stage& stage)
     UpdateShootingEquippedWeapon(input);
 
     // 装備中の武器の更新
-    equippedGun->Update(position, playerCamera->GetCameraForwardVector(), playerCamera->GetCameraPitch());
+    equippedGun->Update(position, playerCamera->GetCameraForwardVector(),
+        playerCamera->GetTargetPosition(), playerCamera->GetCameraPitch());
 
     // プレイヤーカメラの更新
     UpdatePlayerCamera(input, stage);
@@ -527,8 +528,8 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
         // 取得した弾丸があるなら使用中に追加
         if (bullet != nullptr)
         {
-            equippedGun->GetActiveBullet().push_back(bullet);
-            bullet->Initialize(initData);
+            bullet->Initialize(initData);                       // 弾丸の初期化
+            equippedGun->GetActiveBullet().push_back(bullet);   // 弾丸の追加
         }
     }
 
