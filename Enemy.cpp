@@ -37,7 +37,7 @@ void Enemy::Initialize()
     // ジャンプ力は初期状態では０
     currentJumpPower = 0.0f;
 
-    // 初期状態でプレイヤーが向くべき方向はＸ軸方向
+    // 初期状態でエネミーが向くべき方向はＸ軸方向
     targetMoveDirection = VGet(1.0f, 0.0f, 0.0f);
 
     // アニメーションのブレンド率を初期化
