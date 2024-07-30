@@ -89,6 +89,7 @@ SceneBase* GameScene::UpdateScene()
     input->Update();                                                // 入力処理
     player->Update(*input,*stage);                                  // プレイヤー
     enemyGroupController->Update(player->GetPosition(), *stage);    // エネミーの集合体
+    collisionManager->Update();                                     // 当たり判定処理
     gameSceneUI->Update();                                          // UIの更新
 
     // 現状のシーンを返す

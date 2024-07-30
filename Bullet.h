@@ -1,5 +1,8 @@
 ﻿#pragma once
 #include "Common.h"
+#include "CollisionData.h"
+
+class CollisionManager;
 
 /// <summary>
 /// 銃弾
@@ -12,6 +15,8 @@ public:
     /// </summary>
     struct BulletInitializeData
     {
+        VECTOR lineStartPosition;   // 線の始まり
+        VECTOR lineEndPosiion;      // 線の終わり
         VECTOR  position;           // 座標
         VECTOR  direction;          // 移動方向
         int     power;              // 威力
@@ -45,15 +50,35 @@ public:
     /// </summary>
     void Draw();
 
+    /// <summary>
+    /// 当たり判定に必要なデータを更新する
+    /// </summary>
+    void UpdataCollisionData();
+
     const bool GetIsActive()const { return isActive; }
 
 private:
-    VECTOR  position;           // 座標
-    VECTOR  direction;          // 移動方向
-    int     power;              // 威力
-    float   speed;              // 速度
-    int     penetratingPower;   // 貫通力
-    bool    isActive;           // 使用中かどうか
+    //---------------------------------------------------------------------------------//
+    //                                      定数                                       //
+    //---------------------------------------------------------------------------------//
+    static constexpr float CollisionRadius      = 1.0f;     // 当たり判定の半径
+
+
+
+    //---------------------------------------------------------------------------------//
+    //                                      変数                                       //
+    //---------------------------------------------------------------------------------//
+    // 管理
+    CollisionManager*   collisionManager;   // 当たり判定管理
+
+    // ステータス
+    CollisionData       collisionData;      // 当たり判定情報
+    VECTOR              position;           // 座標
+    VECTOR              direction;          // 移動方向
+    int                 power;              // 威力
+    float               speed;              // 速度
+    int                 penetratingPower;   // 貫通力
+    bool                isActive;           // 使用中かどうか
 };
 
 

@@ -29,7 +29,7 @@ public:
     /// <summary>
     /// 弾丸情報の初期化
     /// </summary>
-    void InitializeBulletData() override;
+    void InitializeBulletData(VECTOR targetVector) override;
 
     /// <summary>
     /// 更新

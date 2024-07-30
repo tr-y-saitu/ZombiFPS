@@ -43,7 +43,7 @@ void BattleRifle::Initialize()
 /// <summary>
 /// 弾丸情報の初期化
 /// </summary>
-void BattleRifle::InitializeBulletData()
+void BattleRifle::InitializeBulletData(VECTOR targetVector)
 {
 
 }

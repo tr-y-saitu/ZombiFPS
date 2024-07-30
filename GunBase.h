@@ -41,7 +41,7 @@ public:
     /// <summary>
     /// 弾丸情報の初期化
     /// </summary>
-    virtual void InitializeBulletData() abstract;
+    virtual void InitializeBulletData(VECTOR targetVector) abstract;
 
     /// <summary>
     /// 更新
@@ -75,17 +75,17 @@ protected:
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
-    Bullet::BulletInitializeData bulletData;        // 弾丸のデータ
-    list<Bullet*>   activeBullet;           // 使用中の弾丸
-    int             modelHandle;            // モデルハンドル
-    VECTOR          position;               // 座標
-    GunState        state;                  // 銃の状態
-    GunStateBase*   currentState;           // 現在の銃の更新を行う状態
-    float           bulletDamagePower;      // 弾丸の威力
-    float           bulletPenetrationPower;   // 弾丸の貫通力
-    float           fireRate;               // 銃の連射力
-    float           recoil;                 // 銃の反動
-    float           accuracy;               // 銃の精度(拡散度合い)
+    Bullet::BulletInitializeData bulletData;    // 弾丸のデータ
+    list<Bullet*>   activeBullet;               // 使用中の弾丸
+    int             modelHandle;                // モデルハンドル
+    VECTOR          position;                   // 座標
+    GunState        state;                      // 銃の状態
+    GunStateBase*   currentState;               // 現在の銃の更新を行う状態
+    float           bulletDamagePower;          // 弾丸の威力
+    float           bulletPenetrationPower;     // 弾丸の貫通力
+    float           fireRate;                   // 銃の連射力
+    float           recoil;                     // 銃の反動
+    float           accuracy;                   // 銃の精度(拡散度合い)
 };
 
 

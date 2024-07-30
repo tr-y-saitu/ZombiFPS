@@ -79,13 +79,14 @@ void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, float camera
 /// <summary>
 /// 弾丸情報の初期化
 /// </summary>
-void SubmachineGun::InitializeBulletData()
+void SubmachineGun::InitializeBulletData(VECTOR targetVector)
 {
-    bulletData.position         = position;                 // 座標
-    bulletData.direction        = BulletDirection;          // 移動方向
-    bulletData.power            = BulletDamagePower;        // 威力
-    bulletData.speed            = BulletSpeed;              // 速度
-    bulletData.penetratingPower = BulletPenetrationPower;   // 貫通力
+    bulletData.lineStartPosition    = position;
+    bulletData.position             = position;                 // 座標
+    bulletData.direction            = BulletDirection;          // 移動方向
+    bulletData.power                = BulletDamagePower;        // 威力
+    bulletData.speed                = BulletSpeed;              // 速度
+    bulletData.penetratingPower     = BulletPenetrationPower;   // 貫通力
 }
 
 /// <summary>

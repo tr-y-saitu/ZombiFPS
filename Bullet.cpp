@@ -1,4 +1,5 @@
-﻿#include "Bullet.h"
+﻿#include "CollisionManager.h"
+#include "Bullet.h"
 
 /// <summary>
 /// コンストラクタ
@@ -11,6 +12,7 @@ Bullet::Bullet()
     , penetratingPower  (0)
     , isActive          (true)
 {
+    collisionManager = CollisionManager::GetInstance();
 }
 
 /// <summary>
@@ -32,6 +34,9 @@ void Bullet::Initialize(BulletInitializeData initializeData)
     power               = initializeData.power;
     speed               = initializeData.speed;
     penetratingPower    = initializeData.penetratingPower;
+
+    // 当たり判定に必要なデータを更新する
+    UpdataCollisionData();
 }
 
 /// <summary>
@@ -61,4 +66,12 @@ void Bullet::Update()
 void Bullet::Draw()
 {
 
+}
+
+/// <summary>
+/// 当たり判定に必要なデータを更新する
+/// </summary>
+void Bullet::UpdataCollisionData()
+{
+    
 }

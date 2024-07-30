@@ -38,10 +38,7 @@ CollisionManager::~CollisionManager()
     }
 
     // 当たり判定情報リスト
-    for (int i = 0; i < collisionDataList.size(); i++)
-    {
-        delete(&collisionDataList[i]);
-    }
+    collisionDataList.clear();
 
 }
 
@@ -93,7 +90,34 @@ void CollisionManager::CollisionDataRegister(CollisionData data)
 /// </summary>
 void CollisionManager::Update()
 {
+    for (int i = 0; i < collisionDataList.size(); i++)
+    {
+        for (int j = i + 1; j < collisionDataList.size(); j++)
+        {
+            // どのタイプの当たり判定を行うか調べる
+            CollisionData data1 = collisionDataList[i];
+            CollisionData data2 = collisionDataList[j];
 
+            // 球体とライン
+            if (data1.tag == ObjectTag::Enemy && data2.tag == ObjectTag::Bullet)
+            {
+                if (IsCollisionCapsuleLine(data1.startPosition,data1.endPosition,data1.radius,
+                                            data2.lineStartPosition,data2.endPosition))
+                {
+                    // 当たった時の関数を呼び出す
+                    data1.onHit(data2);
+                    
+                }
+            }
+
+            // 球体とカプセル
+
+
+            // カプセルとライン
+
+
+        }
+    }
 }
 
 // 線と球との当たり判定
