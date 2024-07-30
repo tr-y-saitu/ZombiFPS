@@ -181,7 +181,7 @@ void Enemy::Move(const VECTOR& MoveVector, Stage& stage)
         position.y = MoveLimitY;
     }
 
-    // プレイヤーのモデルの座標を更新する
+    // 座標の更新
     MV1SetPosition(modelHandle, position);
 }
 

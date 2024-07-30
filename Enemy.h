@@ -115,7 +115,7 @@ private:
     static constexpr float  MoveLimitY          = 1.0f;                         // Y軸の移動制限
     static constexpr VECTOR InitializePosition  = { 0.0f,MoveLimitY,0.0f };     // 初期化座標
     static constexpr VECTOR ZeroVector          = { 0.0f,0.0f,0.0f };           // ゼロベクトル
-    static constexpr VECTOR EnemyScale          = { 0.03f,0.03f,0.03f };        // プレイヤーのスケール
+    static constexpr VECTOR EnemyScale          = { 0.03f,0.03f,0.03f };        // エネミーのスケール
     // 重力関係
     static constexpr float  Gravity             = 3.0f;                         // 重力
     static constexpr float  FallUpPower         = 20.0f;                        // 足を踏み外した時のジャンプ力
