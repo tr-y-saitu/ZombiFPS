@@ -2,6 +2,7 @@
 #include "Common.h"
 
 class EnemyGroup;
+class Stage;
 
 /// <summary>
 /// 集合したエネミーを一つにまとめる
@@ -27,14 +28,23 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    void Update();
+    /// <param name="targetPosition">進むべき座標</param>
+    /// <param name="stage">ステージ</param>
+    void Update(VECTOR targetPosition, Stage& stage);
+
+    /// <summary>
+    /// 描画
+    /// </summary>
+    void Draw();
 
 private:
     // 定数
-
+    // TODO: エネミーウェーブコントローラーで生成数を管理する
+    //       オブジェクトプールでの管理ものちに行う
+    static constexpr int TestEnmeyGroupNumber = 3;  // 仮のエネミーの生成数
 
     // 変数
-
+    vector<EnemyGroup*> enemyGroup;     // エネミーの集合体
 };
 
 

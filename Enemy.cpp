@@ -42,7 +42,7 @@ void Enemy::Initialize()
     // モデルサイズを再設定
     MV1SetScale(modelHandle, EnemyScale);
 
-    // 初期状態でプレイヤーが向くべき方向はＸ軸方向
+    // 初期状態でエネミーが向くべき方向はＸ軸方向
     targetMoveDirection = VGet(1.0f, 0.0f, 0.0f);
 
     // 初期状態ではアニメーションはアタッチされていないにする
@@ -247,7 +247,7 @@ void Enemy::Move(const VECTOR& MoveVector, Stage& stage)
         position.y = MoveLimitY;
     }
 
-    // プレイヤーのモデルの座標を更新する
+    // 座標の更新
     MV1SetPosition(modelHandle, position);
 }
 

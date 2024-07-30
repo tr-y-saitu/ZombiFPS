@@ -7,6 +7,7 @@
 class Boids;
 class Enemy;
 class Pathfinding;
+class Stage;
 
 /// <summary>
 /// エネミーの集合体
@@ -32,13 +33,20 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    void Update();
+    /// <param name="targetPosition">進べき座標</param>
+    /// <param name="stage">ステージ</param>
+    void Update(VECTOR targetPosition, Stage& stage);
+
+    /// <summary>
+    /// 描画
+    /// </summary>
+    void Draw();
 
 private:
     // 定数
 
     // 変数
-    vector<Enemy>   enemys;         // エネミー(ゾンビ)
+    vector<Enemy*>  enemys;         // エネミー(ゾンビ)
     Boids           boids;          // 集合計算用
     Pathfinding     pathfinding;    // 線形探索用
 
