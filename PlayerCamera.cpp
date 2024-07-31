@@ -72,11 +72,11 @@ void PlayerCamera::Update(const Input& input, VECTOR setPosition, const Stage& s
     // 腰だめの位置にカメラを移動させる
     UpdateHipUpPosition(setPosition);
 
-    // カメラの更新
-    SetCameraPositionAndTarget_UpVecY(cameraPosition, targetPosition);
-
     // カメラのピッチ角度計算
     UpdateCameraPitch();
+
+    // カメラの更新
+    SetCameraPositionAndTarget_UpVecY(cameraPosition, targetPosition);
 }
 
 /// <summary>

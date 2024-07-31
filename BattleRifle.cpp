@@ -43,7 +43,7 @@ void BattleRifle::Initialize()
 /// <summary>
 /// 弾丸情報の初期化
 /// </summary>
-void BattleRifle::InitializeBulletData(VECTOR targetVector)
+void BattleRifle::InitializeBulletData(VECTOR cameraPosition, VECTOR targetPosition)
 {
 
 }
@@ -51,7 +51,8 @@ void BattleRifle::InitializeBulletData(VECTOR targetVector)
 /// <summary>
 /// 更新
 /// </summary>
-void BattleRifle:: Update(VECTOR setPosition, VECTOR cameraVector, VECTOR cameraTargetVector, float cameraPitch)
+void BattleRifle:: Update(VECTOR setPosition, VECTOR cameraVector, VECTOR cameraTargetVector,
+    VECTOR cameraPosition, float cameraPitch)
 {
     // 座標を更新
     position = setPosition;

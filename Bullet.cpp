@@ -77,7 +77,7 @@ void Bullet::Update()
 void Bullet::Draw()
 {
     // カプセル型のラインを描画
-    DrawCapsule3D(lineStartPosition, lineEndPosition, HitBoxRadius,
+    DrawCapsule3D(lineStartPosition, position, HitBoxRadius,
         PolygonDetail, GetColor(255, 255, 0), GetColor(255, 255, 0), false);
 }
 

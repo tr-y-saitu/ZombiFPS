@@ -156,8 +156,9 @@ void Player::Update(const Input& input, Stage& stage)
     UpdateShootingEquippedWeapon(input);
 
     // 装備中の武器の更新
+    VECTOR pos = playerCamera->GetCameraForwardVector();
     equippedGun->Update(position, playerCamera->GetCameraForwardVector(),
-        playerCamera->GetTargetPosition(), playerCamera->GetCameraPitch());
+        playerCamera->GetTargetPosition(),playerCamera->GetCameraPosition(), playerCamera->GetCameraPitch());
 
     // プレイヤーカメラの更新
     UpdatePlayerCamera(input, stage);

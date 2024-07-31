@@ -41,12 +41,13 @@ public:
     /// <summary>
     /// 弾丸情報の初期化
     /// </summary>
-    virtual void InitializeBulletData(VECTOR targetVector) abstract;
+    virtual void InitializeBulletData(VECTOR cameraPosition, VECTOR targetPosition) abstract;
 
     /// <summary>
     /// 更新
     /// </summary>
-    virtual void Update(VECTOR setPosition, VECTOR cameraVector,VECTOR cameraTargetVector, float cameraPitch) abstract;
+    virtual void Update(VECTOR setPosition, VECTOR cameraVector,VECTOR cameraTargetVector,
+        VECTOR cameraPosition, float cameraPitch) abstract;
 
     /// <summary>
     /// 描画
