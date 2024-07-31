@@ -92,7 +92,7 @@ void CollisionManager::Update()
 {
     for (int i = 0; i < collisionDataList.size(); i++)
     {
-        for (int j = i + 1; j < collisionDataList.size(); j++)
+        for (int j = 0; j < collisionDataList.size(); j++)
         {
             // どのタイプの当たり判定を行うか調べる
             CollisionData data1 = *collisionDataList[i];
@@ -102,7 +102,7 @@ void CollisionManager::Update()
             if (data1.tag == ObjectTag::EnemyBoby && data2.tag == ObjectTag::Bullet)
             {
                 if (IsCollisionCapsuleLine(data1.startPosition,data1.endPosition,data1.radius,
-                                            data2.lineStartPosition,data2.endPosition))
+                                            data2.lineStartPosition,data2.lineEndPosition))
                 {
                     // 当たった時の関数を呼び出す
                    data1.onHit(data2);
@@ -115,8 +115,11 @@ void CollisionManager::Update()
             // カプセルとライン
 
 
-            // 存在しない場合
-
+            // 当たり判定を消してほしい場合
+            if (!collisionDataList[i]->isCollisionActive)
+            {
+                collisionDataList.erase(collisionDataList.begin() + i);
+            }
         }
     }
 }
@@ -140,11 +143,18 @@ bool CollisionManager::IsCollisionLineSphere(VECTOR sphereCenter, float radius,
 bool CollisionManager::IsCollisionCapsuleLine(VECTOR capsuleStartPosition, VECTOR capuseleEndPosition, float capuseleRadius,
     VECTOR lineStartPosition, VECTOR lineEndPosition)
 {
+    bool isHit = false;
+
     // 二つの線分の最短距離を計算
     float distance = Segment_Segment_MinLength(capsuleStartPosition, capuseleEndPosition, lineStartPosition, lineEndPosition);
 
     // 最短距離よりも半径の方が短ければ当たっている
-    return distance <= capuseleRadius;
+    if (distance <= capuseleRadius)
+    {
+        isHit = true;
+    }
+
+    return isHit;
 }
 
 // カプセルと線分の当たり判定

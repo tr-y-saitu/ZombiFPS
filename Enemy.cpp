@@ -94,6 +94,9 @@ void Enemy::Draw()
     // カプセル型の当たり判定描画
     DrawCapsule3D(collisionData.startPosition, collisionData.endPosition,
         collisionData.radius, PolygonDetail,GetColor(255, 255, 0), GetColor(255, 255, 0), false);
+
+    // 自身のHPを描画
+    DrawFormatString(0, 100, GetColor(255, 0, 0), "HP:%d", hitPoints);
 }
 
 /// <summary>
@@ -132,6 +135,9 @@ void Enemy::OnHit(CollisionData hitObjectData)
 // 当たり判定用のデータ更新
 void Enemy::UpdateCollisionData()
 {
+    // 当たり判定を行う
+    collisionData.isCollisionActive = true;
+
     // タグを設定
     collisionData.tag = ObjectTag::EnemyBoby;
 

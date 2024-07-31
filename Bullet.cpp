@@ -12,6 +12,9 @@ Bullet::Bullet()
     , penetratingPower  (0)
     , isActive          (true)
 {
+    // 当たり判定をするかどうか
+    collisionData.isCollisionActive = true;
+
     // 当たり判定管理クラス
     collisionManager = CollisionManager::GetInstance();
 }
@@ -39,9 +42,6 @@ void Bullet::Initialize(BulletInitializeData initializeData)
     power               = initializeData.power;
     speed               = initializeData.speed;
     penetratingPower    = initializeData.penetratingPower;
-
-    // 当たり判定に必要なデータを渡す
-    collisionManager->CollisionDataRegister(&collisionData);
 }
 
 /// <summary>
@@ -49,26 +49,18 @@ void Bullet::Initialize(BulletInitializeData initializeData)
 /// </summary>
 void Bullet::Update()
 {
-    // 方向を設定
-
-
     // 移動量を計算
     VECTOR velocity = VScale(direction, speed);
 
     // 移動
     position = VAdd(position, velocity);
 
-    // 当たっていたら
-    // TODO:当たっていたらの処理をコリジョンマネージャー経由で追加する
-    // 一旦未使用に戻したいので規定値になったら非アクティブ化させる
-    if (position.z <= 100)
-    {
-        //isActive = false;   // 非アクティブ化
-    }
-
     // 当たり判定に必要なデータを更新する
     UpdataCollisionData();
 
+    // 弾丸は１フレームのみ存在する
+    isActive = false;                           // 未使用のプールに戻す
+    collisionData.isCollisionActive = false;    // 当たり判定をなくす
 }
 
 /// <summary>
@@ -88,6 +80,9 @@ void Bullet::UpdataCollisionData()
 {
     collisionData.tag                   = ObjectTag::Bullet;
     collisionData.lineStartPosition     = lineStartPosition;
-    collisionData.lineEndPosition       = lineEndPosition;
+    collisionData.lineEndPosition       = position;
     collisionData.bulletPower           = power;
+
+    // 当たり判定に必要なデータを渡す
+    collisionManager->CollisionDataRegister(&collisionData);
 }

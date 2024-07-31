@@ -23,6 +23,9 @@
 /// </summary>
 GameScene::GameScene()
 {
+    // フォントサイズ設定
+    SetFontSize(GameSceneFontSize);
+
     // 入力処理
     input                   = new Input();
 

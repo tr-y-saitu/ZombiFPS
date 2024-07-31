@@ -66,7 +66,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
         // ゲームの更新
         game.Update();
 
-
         // Windows 特有の面倒な処理をＤＸライブラリにやらせる
         // マイナスの値（エラー値）が返ってきたらループを抜ける
         if (ProcessMessage() < 0)

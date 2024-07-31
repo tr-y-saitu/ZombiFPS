@@ -41,7 +41,7 @@ private:
     // 定数
     // TODO: エネミーウェーブコントローラーで生成数を管理する
     //       オブジェクトプールでの管理ものちに行う
-    static constexpr int TestEnmeyGroupNumber = 3;  // 仮のエネミーの生成数
+    static constexpr int TestEnmeyGroupNumber = 1;  // 仮のエネミーの生成数
 
     // 変数
     vector<EnemyGroup*> enemyGroup;     // エネミーの集合体
