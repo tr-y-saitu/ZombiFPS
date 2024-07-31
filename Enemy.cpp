@@ -93,26 +93,11 @@ void Enemy::Draw()
 
     // カプセル型の当たり判定描画
     DrawCapsule3D(collisionData.startPosition, collisionData.endPosition,
-        collisionData.radius, PolygonDetail,GetColor(255, 255, 0), GetColor(255, 255, 0), false);
+        collisionData.radius, PolygonDetail, DebugPolygonColor, DebugPolygonColor, false);
 
     // 自身のHPを描画
-    DrawFormatString(0, 100, GetColor(255, 0, 0), "HP:%d", hitPoints);
-}
-
-/// <summary>
-/// 弾丸と接触した時の処理
-/// </summary>
-/// <param name="bulletData">弾丸のデータ</param>
-void Enemy::OnHitBullet(LineCollisionData bulletData)
-{
-    // 弾丸が当たったらHPを減らす
-    hitPoints -= bulletData.bulletPower;
-}
-
-// 別のキャラクターと接触した時の処理(Player,Enemy)
-void Enemy::OnHitCharacter(CapsuleCollisionData capsuleData)
-{
-
+    DrawFormatString(DebugHitPointDrawX, DebugHitPointDrawY,
+        DebugFontColor, "HP:%d", hitPoints);
 }
 
 // 当たった後の処理

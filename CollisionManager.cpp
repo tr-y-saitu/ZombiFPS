@@ -98,7 +98,7 @@ void CollisionManager::Update()
             CollisionData data1 = *collisionDataList[i];
             CollisionData data2 = *collisionDataList[j];
 
-            // 球体とライン
+            // エネミーと弾丸の当たり判定(カプセル対線分の当たり判定)
             if (data1.tag == ObjectTag::EnemyBoby && data2.tag == ObjectTag::Bullet)
             {
                 if (IsCollisionCapsuleLine(data1.startPosition,data1.endPosition,data1.radius,

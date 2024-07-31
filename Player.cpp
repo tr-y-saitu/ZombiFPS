@@ -176,7 +176,8 @@ void Player::Draw(const Stage& stage)
     equippedGun->Draw();
 
     // 座標描画
-    DrawFormatString(100,0,GetColor(255,255,255),"X:%f Y:%f Z:%f",position.x,position.y,position.z);
+    DrawFormatString(DebugPositionDrawX, DebugPositionDrawY,
+        DebugFontColor,"X:%f Y:%f Z:%f",position.x,position.y,position.z);
 }
 
 /// <summary>

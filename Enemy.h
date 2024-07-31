@@ -143,6 +143,9 @@ private:
     // アニメーション
     static constexpr float  PlayAnimationSpeed      = 0.5f;                         // アニメーション速度
     static constexpr float  AnimationBlendSpeed     = 0.1f;                         // アニメーションのブレンド率変化速度
+    // デバッグ
+    static constexpr int DebugHitPointDrawX = 0;        // デバッグ時のHP表示X座標
+    static constexpr int DebugHitPointDrawY = 100;      // デバッグ時のHP表示Y座標
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
@@ -163,8 +166,6 @@ private:
     int         hitPoints;                  // 体力
 
     // 当たり判定用
-    SphereCollisionData     headCollisionData;      // 頭部の当たり判定
-    CapsuleCollisionData    bodyCollisionData;      // 体の当たり判定
     CollisionData           collisionData;          // 当たり判定用情報
 
     // アニメーション情報
