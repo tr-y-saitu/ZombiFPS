@@ -57,8 +57,11 @@ public:
     /// <summary>
     /// 回転の更新
     /// </summary>
-    /// <param name="setPosition">設定する座標</param>
-    void UpdateAngle(VECTOR setPosition,float pitch);
+    /// <param name="cameraForwardVector">カメラの前ベクトル</param>
+    /// <param name="pitch">上下角度</param>
+    void UpdateAngle(VECTOR cameraForwardVector,float pitch);
+
+    void FixedGunPosition(VECTOR cameraForwardVector);
 
     // ゲッター
     const int GetFireRate()const { return fireRate; }

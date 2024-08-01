@@ -121,3 +121,4 @@ void SubmachineGun::UpdateShooting(VECTOR cameraPosition, VECTOR targetPosition)
     }
 }
 
+
