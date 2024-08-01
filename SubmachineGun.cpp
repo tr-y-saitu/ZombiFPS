@@ -53,6 +53,7 @@ void SubmachineGun::Initialize()
     fireRate                = GunFireRate;
     recoil                  = GunRecoil;
     accuracy                = GunAccuracy;
+    positionOffsetAmount = VGet(0, 0.5, -1);
 
     // スケールを調整
     MV1SetScale(modelHandle, InitializeScale);
@@ -72,6 +73,8 @@ void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR camer
 
     // 弾丸の更新
     UpdateShooting(cameraPosition,cameraTargetVector);
+
+    FixedGunPosition(setPosition, cameraVector);
 
     // 座標の設定
     MV1SetPosition(modelHandle, position);

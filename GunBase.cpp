@@ -36,7 +36,7 @@ void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch)
     gunAngleY -= HipUpPositionAngleY;           // 水平方向回転度
     cameraPitch += HipUpPositionANglePitch;     // 垂直方向回転度
 
-    // モデルの回転\/\/
+    // モデルの回転
     MV1SetRotationXYZ(modelHandle, VGet(-cameraPitch, gunAngleY, 0.0f));
 }
 
@@ -44,7 +44,12 @@ void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch)
 /// 銃の位置調整
 /// </summary>
 /// <param name="cameraForwardVector"></param>
-void GunBase::FixedGunPosition(VECTOR cameraForwardVector)
+void GunBase::FixedGunPosition(VECTOR setPosition, VECTOR cameraForwardVector)
 {
+    VECTOR velocity = VNorm(cameraForwardVector);
 
+    VECTOR offset = VScale(velocity, -1.0f);
+    position = VAdd(setPosition, offset);
+
+    MV1SetPosition(modelHandle, position);
 }

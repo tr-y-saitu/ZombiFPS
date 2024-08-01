@@ -61,7 +61,8 @@ public:
     /// <param name="pitch">上下角度</param>
     void UpdateAngle(VECTOR cameraForwardVector,float pitch);
 
-    void FixedGunPosition(VECTOR cameraForwardVector);
+    // 銃の位置調整
+    void FixedGunPosition(VECTOR setPosition,VECTOR cameraForwardVector);
 
     // ゲッター
     const int GetFireRate()const { return fireRate; }
@@ -84,6 +85,7 @@ protected:
     list<Bullet*>   activeBullet;               // 使用中の弾丸
     int             modelHandle;                // モデルハンドル
     VECTOR          position;                   // 座標
+    VECTOR          positionOffsetAmount;       // 座標をずらす量
     GunState        state;                      // 銃の状態
     GunStateBase*   currentState;               // 現在の銃の更新を行う状態
     float           bulletDamagePower;          // 弾丸の威力
