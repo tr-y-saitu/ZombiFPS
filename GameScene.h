@@ -70,6 +70,7 @@ public:
 
 private:
     // 定数
+    static constexpr int GameSceneFontSize = 50;        // ゲームシーンのフォントサイズ
 
     // 変数
     // 入力処理

@@ -42,6 +42,7 @@ void Input::Update()
 
     // 現在のフレームで新たに入力されたボタンのビットが立っている値を
     // nowFrameNewInput に代入する
+    // 連続入力を防ぐために行う
     nowFrameNewInput = currentFrameInput & ~oldFrameInput;
 }
 

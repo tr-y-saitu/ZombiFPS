@@ -170,6 +170,9 @@ private:
     // 腰だめ時
     static constexpr float  HipUpPositionAngleY     = 170.0f * DX_PI_F / 180.0f;    // 水平回転用：腰だめの位置に調整するために回転させるY軸回転度(ラジアン)
     static constexpr float  HipUpPositionANglePitch = 20.0f * DX_PI_F / 180.0f;     // 垂直回転用：腰だめの位置に調整するために回転させる水平方向からの角度(ラジアン)
+    // デバッグ
+    static constexpr int    DebugPositionDrawX      = 100;                          // 座標情報を描画するX位置
+    static constexpr int    DebugPositionDrawY      = 0;                            // 座標情報を描画するY位置
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
@@ -183,6 +186,7 @@ private:
     PlayerStateBase*    playerState;        // プレイヤーの状態
     GunBase*            equippedGun;        // 銃
     BulletObjectPools*  bulletObjectPools;  // 弾丸のオブジェクトプール
+    int                 shootFireRateCount; // 銃の連射力をカウント
 
     // 移動状態
     VECTOR      targetMoveDirection;        // モデルが向くべき方向のベクトル

@@ -1,4 +1,5 @@
-﻿#include "Bullet.h"
+﻿#include "CollisionManager.h"
+#include "Bullet.h"
 
 /// <summary>
 /// コンストラクタ
@@ -11,6 +12,11 @@ Bullet::Bullet()
     , penetratingPower  (0)
     , isActive          (true)
 {
+    // 当たり判定をするかどうか
+    collisionData.isCollisionActive = true;
+
+    // 当たり判定管理クラス
+    collisionManager = CollisionManager::GetInstance();
 }
 
 /// <summary>
@@ -27,6 +33,10 @@ Bullet::~Bullet()
 /// <param name="initializeData">初期化する弾丸のデータ</param>
 void Bullet::Initialize(BulletInitializeData initializeData)
 {
+    // 弾丸は初期化する時点で使用中になるのでtrue
+    isActive            = true;
+    lineStartPosition   = initializeData.lineStartPosition;
+    lineEndPosition     = initializeData.lineEndPosiion;
     position            = initializeData.position;
     direction           = initializeData.direction;
     power               = initializeData.power;
@@ -45,14 +55,16 @@ void Bullet::Update()
     // 移動
     position = VAdd(position, velocity);
 
-    // 当たっていたら
-    // TODO:当たっていたらの処理をコリジョンマネージャー経由で追加する
-    // 一旦未使用に戻したいので規定値になったら非アクティブ化させる
-    if (position.x <= 100)
-    {
-        isActive = false;   // 非アクティブ化
-    }
+    // 自身のOnHit関数をもとに新しい関数を作成
+    // コリジョンマネージャーに渡し、接触時に呼び出してもらう
+    collisionData.onHit = std::bind(&Bullet::OnHit, this, std::placeholders::_1);
 
+    // 当たり判定に必要なデータを更新する
+    UpdataCollisionData();
+
+    // 弾丸は１フレームのみ存在する
+    isActive = false;                           // 未使用のプールに戻す
+    collisionData.isCollisionActive = false;    // 当たり判定をなくす
 }
 
 /// <summary>
@@ -60,5 +72,31 @@ void Bullet::Update()
 /// </summary>
 void Bullet::Draw()
 {
+    // デバッグ描画
+    // カプセル型のラインを描画
+    DrawCapsule3D(lineStartPosition, position, HitBoxRadius,
+        PolygonDetail, DebugPolygonColorRed, DebugPolygonColorRed, false);
+}
 
+/// <summary>
+/// 当たり判定に必要なデータを更新する
+/// </summary>
+void Bullet::UpdataCollisionData()
+{
+    collisionData.tag                   = ObjectTag::Bullet;
+    collisionData.lineStartPosition     = lineStartPosition;
+    collisionData.lineEndPosition       = position;
+    collisionData.bulletPower           = power;
+
+    // 当たり判定に必要なデータを渡す
+    collisionManager->RegisterCollisionData(&collisionData);
+}
+
+/// <summary>
+/// オブジェクトと接触した時の処理
+/// </summary>
+/// <param name="hitObjectData">オブジェクトのデータ</param>
+void Bullet::OnHit(CollisionData hitObjectData)
+{
+    // 処理なし
 }

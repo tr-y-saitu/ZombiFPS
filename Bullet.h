@@ -1,5 +1,8 @@
 ﻿#pragma once
 #include "Common.h"
+#include "CollisionData.h"
+
+class CollisionManager;
 
 /// <summary>
 /// 銃弾
@@ -12,6 +15,8 @@ public:
     /// </summary>
     struct BulletInitializeData
     {
+        VECTOR lineStartPosition;   // 線の始まり
+        VECTOR lineEndPosiion;      // 線の終わり
         VECTOR  position;           // 座標
         VECTOR  direction;          // 移動方向
         int     power;              // 威力
@@ -45,15 +50,45 @@ public:
     /// </summary>
     void Draw();
 
+    /// <summary>
+    /// 当たり判定に必要なデータを更新する
+    /// </summary>
+    void UpdataCollisionData();
+
+    /// <summary>
+    /// オブジェクトと接触した時の処理
+    /// </summary>
+    /// <param name="hitObjectData">オブジェクトのデータ</param>
+    void OnHit(CollisionData hitObjectData);
+
+    // ゲッター、セッター
     const bool GetIsActive()const { return isActive; }
 
 private:
-    VECTOR  position;           // 座標
-    VECTOR  direction;          // 移動方向
-    int     power;              // 威力
-    float   speed;              // 速度
-    int     penetratingPower;   // 貫通力
-    bool    isActive;           // 使用中かどうか
+    //---------------------------------------------------------------------------------//
+    //                                      定数                                       //
+    //---------------------------------------------------------------------------------//
+    // デバッグ処理
+    static constexpr float  HitBoxRadius            = 0.05f;                // デバッグ時の当たり判定を描画するための半径
+    static constexpr float  PolygonDetail           = 8.0f;                 // 描画するポリゴンの数
+    const int               DebugPolygonColorRed    = GetColor(255, 0, 0);  // デバッグ時の当たり判定ポリゴンの色
+
+    //---------------------------------------------------------------------------------//
+    //                                      変数                                       //
+    //---------------------------------------------------------------------------------//
+    // 管理
+    CollisionManager*   collisionManager;   // 当たり判定管理
+
+    // ステータス
+    CollisionData       collisionData;      // 当たり判定情報
+    VECTOR              position;           // 座標
+    VECTOR              direction;          // 移動方向
+    VECTOR              lineStartPosition;  // 線の始まり
+    VECTOR              lineEndPosition;    // 線の終わり
+    int                 power;              // 威力
+    float               speed;              // 速度
+    int                 penetratingPower;   // 貫通力
+    bool                isActive;           // 使用中かどうか
 };
 
 

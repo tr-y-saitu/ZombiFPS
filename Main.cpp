@@ -14,6 +14,7 @@
 #include "ModelDataManager.h"
 #include "EffectManager.h"
 #include "SoundManager.h"
+#include "CollisionManager.h"
 
 // 各ヘッダー
 #include "Common.h"
@@ -28,7 +29,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     ChangeWindowMode(false);    // 全画面モード
 #endif
 
-    //ChangeWindowMode(false);     // 全画面モード
+    ChangeWindowMode(false);     // 全画面モード
 
     //描画先を裏画面に変更する。
     SetDrawScreen(DX_SCREEN_BACK);
@@ -54,6 +55,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     ModelDataManager::CreateInstance();     // モデルデータ
     EffectManager::CreateInstance();        // エフェクト管理
     SoundManager::CreateInstance();         // サウンド管理
+    CollisionManager::CreateInstance();     // 当たり判定管理
 
     // ゲームのインスタンスを作成
     Game game;
@@ -63,7 +65,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     {
         // ゲームの更新
         game.Update();
-
 
         // Windows 特有の面倒な処理をＤＸライブラリにやらせる
         // マイナスの値（エラー値）が返ってきたらループを抜ける
@@ -84,6 +85,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     ModelDataManager::DeleteInstance();     // モデルデータ
     EffectManager::DeleteInstance();        // エフェクト管理
     SoundManager::DeleteInstance();         // サウンド管理
+    CollisionManager::DeleteInstance();     // 当たり判定管理
 
     // Effekseerを終了する。
     Effkseer_End();

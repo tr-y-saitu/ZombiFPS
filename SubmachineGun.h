@@ -30,7 +30,7 @@ public:
     /// <summary>
     /// 弾丸情報の初期化
     /// </summary>
-    void InitializeBulletData() override;
+    void InitializeBulletData(VECTOR cameraPosition, VECTOR targetPosition) override;
 
     /// <summary>
     /// 銃の更新
@@ -38,7 +38,8 @@ public:
     /// <param name="setPosition">設定座標</param>
     /// <param name="cameraVector">カメラの前ベクトル</param>
     /// <param name="cameraPitch">カメラの水平からの角度</param>
-    void Update(VECTOR setPosition,VECTOR cameraVector,float cameraPitch);
+    void Update(VECTOR setPosition,VECTOR cameraVector, VECTOR cameraTargetVector,
+        VECTOR cameraPosition,float cameraPitch);
 
     /// <summary>
     /// 描画
@@ -48,7 +49,7 @@ public:
     /// <summary>
     /// 銃を発砲する
     /// </summary>
-    void UpdateShooting();
+    void UpdateShooting(VECTOR cameraPosition,VECTOR targetPosition);
 
 private:
     //---------------------------------------------------------------------------------//
@@ -58,10 +59,10 @@ private:
     // 弾丸
     static constexpr float  BulletDamagePower       = 1.0f;         // 弾丸の威力
     static constexpr float  BulletPenetrationPower  = 1.0f;         // 弾丸の貫通力
-    static constexpr float  BulletSpeed             = 1.0f;         // 弾丸の速度
+    static constexpr float  BulletSpeed             = 100.0f;       // 弾丸の速度
     static constexpr VECTOR BulletDirection         = { 0,0,1 };    // 弾丸の移動方向
     // 銃
-    static constexpr float  GunFireRate             = 1.0f;         // 銃の連射力
+    static constexpr int    GunFireRate             = 5;            // 銃の連射力(このフレームに１回発射する)
     static constexpr float  GunRecoil               = 1.0f;         // 銃の反動
     static constexpr float  GunAccuracy             = 1.0f;         // 銃の精度(拡散度合い)
     static constexpr VECTOR InitializeScale         = { 0.07f,0.07f,0.07f };   // 初期化時のスケール

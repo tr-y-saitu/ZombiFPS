@@ -43,7 +43,7 @@ void AssaultRifle::Initialize()
 /// <summary>
 /// 弾丸情報の初期化
 /// </summary>
-void AssaultRifle::InitializeBulletData()
+void AssaultRifle::InitializeBulletData(VECTOR cameraPosition, VECTOR targetPosition)
 {
 
 }
@@ -51,7 +51,8 @@ void AssaultRifle::InitializeBulletData()
 /// <summary>
 /// 更新
 /// </summary>
-void AssaultRifle::Update(VECTOR setPosition, VECTOR cameraVector, float cameraPitch)
+void AssaultRifle::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR cameraTargetVector,
+    VECTOR cameraPosition, float cameraPitch)
 {
     // 座標を更新
     position = setPosition;

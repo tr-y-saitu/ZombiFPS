@@ -29,12 +29,13 @@ public:
     /// <summary>
     /// 弾丸情報の初期化
     /// </summary>
-    void InitializeBulletData() override;
+    void InitializeBulletData(VECTOR cameraPosition, VECTOR targetPosition) override;
 
     /// <summary>
     /// 更新
     /// </summary>
-    void Update(VECTOR setPosition, VECTOR cameraVector, float cameraPitch) override;
+    void Update(VECTOR setPosition, VECTOR cameraVector, VECTOR cameraTargetVector,
+        VECTOR cameraPosition, float cameraPitch) override;
 
     /// <summary>
     /// 描画

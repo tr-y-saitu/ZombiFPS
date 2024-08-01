@@ -83,5 +83,4 @@ void BulletObjectPools::ReturnActiveBulletInstance(list<Bullet*>& activeBullet)
             ++it;
         }
     }
-
 }

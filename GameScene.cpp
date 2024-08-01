@@ -23,15 +23,15 @@
 /// </summary>
 GameScene::GameScene()
 {
+    // フォントサイズ設定
+    SetFontSize(GameSceneFontSize);
+
     // 入力処理
     input                   = new Input();
 
-    // データ関連
-    
-
     // 演出関連
-    effectManager = EffectManager::GetInstance();
-    soundManager = SoundManager::GetInstance();
+    effectManager           = EffectManager::GetInstance();
+    soundManager            = SoundManager::GetInstance();
 
     // 当たり判定
     collisionManager        = CollisionManager::GetInstance();
@@ -92,6 +92,7 @@ SceneBase* GameScene::UpdateScene()
     input->Update();                                                // 入力処理
     player->Update(*input,*stage);                                  // プレイヤー
     enemyGroupController->Update(player->GetPosition(), *stage);    // エネミーの集合体
+    collisionManager->Update();                                     // 当たり判定処理
     gameSceneUI->Update();                                          // UIの更新
 
     // 現状のシーンを返す

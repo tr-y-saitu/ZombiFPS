@@ -1,8 +1,11 @@
 ﻿#pragma once
 #include "Common.h"
+#include "CollisionData.h"
+
 
 class ModelDataManager;
 class Stage;
+class CollisionManager;
 
 /// <summary>
 /// エネミー(ゾンビ)
@@ -70,6 +73,11 @@ public:
     /// </summary>
     void Draw();
 
+    /// <summary>
+    /// 当たり判定に必要なデータの更新
+    /// </summary>
+    void UpdateCollisionData();
+
 private:
     /// <summary>
     /// ルートフレームのZ軸方向の移動パラメータを無効にする
@@ -105,29 +113,57 @@ private:
     /// </summary>
     void UpdateAnimation();
 
+    /// <summary>
+    /// 弾丸と接触した時の処理
+    /// </summary>
+    /// <param name="bulletData">弾丸のデータ</param>
+    void OnHitBullet(LineCollisionData bulletData);
+
+    /// <summary>
+    /// 自分と違うキャラクターと接触した時の処理(Player or Enemy)
+    /// </summary>
+    /// <param name="capsuleData">キャラクターのデータ</param>
+    void OnHitCharacter(CapsuleCollisionData capsuleData);
+
+    /// <summary>
+    /// オブジェクトと接触した時の処理
+    /// </summary>
+    /// <param name="hitObjectData">オブジェクトのデータ</param>
+    void OnHit(CollisionData hitObjectData);
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     // ステータス
-    static constexpr float  MoveSpeed           = 0.2f;                         // 移動速度
-    static constexpr float  AngleSpeed          = 0.2f;                         // 角度変化速度
-    static constexpr float  JumpPower           = 100.0f;                       // ジャンプ力
-    static constexpr float  MoveLimitY          = 1.0f;                         // Y軸の移動制限
-    static constexpr VECTOR InitializePosition  = { 0.0f,MoveLimitY,0.0f };     // 初期化座標
-    static constexpr VECTOR ZeroVector          = { 0.0f,0.0f,0.0f };           // ゼロベクトル
-    static constexpr VECTOR EnemyScale          = { 0.03f,0.03f,0.03f };        // エネミーのスケール
+    static constexpr float  MoveSpeed               = 0.2f;                         // 移動速度
+    static constexpr float  AngleSpeed              = 0.2f;                         // 角度変化速度
+    static constexpr float  JumpPower               = 100.0f;                       // ジャンプ力
+    static constexpr float  MoveLimitY              = 1.0f;                         // Y軸の移動制限
+    static constexpr VECTOR InitializePosition      = { 0.0f,MoveLimitY,0.0f };     // 初期化座標
+    static constexpr VECTOR ZeroVector              = { 0.0f,0.0f,0.0f };           // ゼロベクトル
+    static constexpr VECTOR EnemyScale              = { 0.03f,0.03f,0.03f };        // プレイヤーのスケール
+    static constexpr int    InitializeHitPoints     = 100;                          // 初期化時の体力
+    static constexpr VECTOR InitializeDirection     = { 1.0f, 0.0f, 0.0f };         // 初期化時の移動方向
+    // 当たり判定
+    static constexpr float  CollisionRadius         = 1.0f;                         // 当たり判定用半径
+    static constexpr VECTOR CapsulePositionOffset   = { 0.0f,4.0f,0.0f };           // カプセルの始点を作るためのずらし量
+    static constexpr float  PolygonDetail           = 8.0f;                         // 描画するポリゴンの数
     // 重力関係
-    static constexpr float  Gravity             = 3.0f;                         // 重力
-    static constexpr float  FallUpPower         = 20.0f;                        // 足を踏み外した時のジャンプ力
+    static constexpr float  Gravity                 = 3.0f;                         // 重力
+    static constexpr float  FallUpPower             = 20.0f;                        // 足を踏み外した時のジャンプ力
     // アニメーション
-    static constexpr float  PlayAnimationSpeed  = 0.5f;                         // アニメーション速度
-    static constexpr float  AnimationBlendSpeed = 0.1f;                         // アニメーションのブレンド率変化速度
+    static constexpr float  PlayAnimationSpeed      = 0.5f;                         // アニメーション速度
+    static constexpr float  AnimationBlendSpeed     = 0.1f;                         // アニメーションのブレンド率変化速度
+    // デバッグ
+    static constexpr int DebugHitPointDrawX = 0;        // デバッグ時のHP表示X座標
+    static constexpr int DebugHitPointDrawY = 100;      // デバッグ時のHP表示Y座標
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
     // 管理クラス
     ModelDataManager*   modelDataManager;
+    CollisionManager*   collisionManager;
 
     // ステータス
     VECTOR      position;                   // 座標
@@ -138,6 +174,10 @@ private:
     int         shadowHandle;               // 影画像ハンドル
     bool        currentFrameMove;           // そのフレームで動いたかどうか
     State       state;                      // 状態
+    int         hitPoints;                  // 体力
+
+    // 当たり判定用
+    CollisionData           collisionData;          // 当たり判定用情報
 
     // アニメーション情報
     int         currentPlayAnimation;       // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
