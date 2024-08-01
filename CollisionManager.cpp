@@ -106,6 +106,7 @@ void CollisionManager::Update()
                 {
                     // 当たった時の関数を呼び出す
                    data1.onHit(data2);
+                   data2.onHit(data1);
                 }
             }
 
