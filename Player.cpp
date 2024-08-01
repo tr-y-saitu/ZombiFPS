@@ -21,13 +21,14 @@ Player::Player()
     , pressMoveButton       (false)
     , isShooting            (false)
     , shootFireRateCount    (0)
+    , isHitEnemyAttack      (false)
 {
+    modelDataManager        = ModelDataManager::GetInstance();
+    Initialize();
     bulletObjectPools       = new BulletObjectPools();
     equippedGun             = new SubmachineGun();
-    modelDataManager        = ModelDataManager::GetInstance();
     playerCamera            = new PlayerCamera();
-    playerState             = new PlayerIdleState();
-    Initialize();
+    currentState            = new PlayerIdleState(modelHandle, animationData);
 }
 
 /// <summary>
@@ -37,7 +38,7 @@ Player::~Player()
 {
     delete(bulletObjectPools);
     delete(equippedGun);
-    delete(playerState);
+    delete(currentState);
     delete(playerCamera);
     MV1DeleteModel(modelHandle);
 }
@@ -57,7 +58,7 @@ void Player::Initialize()
     MV1SetScale(modelHandle, PlayerScale);
 
     // 状態を初期化
-    state = State::None;
+    state = State::Idle;
     
     // ジャンプ力は初期状態では０
     currentJumpPower = 0.0f;
@@ -73,7 +74,11 @@ void Player::Initialize()
     previousPlayAnimation = -1;
     
     // アニメーション設定
-    PlayAnimation(AnimationType::None);
+    PlayAnimation(AnimationType::Idle);
+    animationData.currentAnimationCount     = currentAnimationCount;
+    animationData.currentAnimationCount     = currentAnimationCount;
+    animationData.previousAnimationCount    = previousAnimationCount;
+    animationData.previousPlayAnimation     = previousPlayAnimation;
 }
 
 /// <summary>
@@ -94,7 +99,6 @@ void Player::Update(const Input& input, Stage& stage)
     // 移動ベクトルの更新
     UpdateMoveVector(input, upModveVector, leftMoveVector, currentFrameMoveVector);
 
-    // 移動ボタンが押されたかどうかで処理を分岐
     if (pressMoveButton)
     {
         // 移動ベクトルを正規化したものをプレイヤーが向くべき方向として保存
@@ -102,45 +106,6 @@ void Player::Update(const Input& input, Stage& stage)
 
         // プレイヤーが向くべき方向ベクトルをプレイヤーのスピード倍したものを移動ベクトルとする
         currentFrameMoveVector = VScale(targetMoveDirection, MoveSpeed);
-
-        // もし今まで「立ち止まり」状態だったら
-        if (state == State::None)
-        {
-            // 走りアニメーションを再生する
-            PlayAnimation(AnimationType::Run);
-
-            // 状態を「走り」にする
-            state = State::Run;
-        }
-    }
-    else
-    {
-        // このフレームで移動していなくて、且つ状態が「走り」だったら
-        if (state == State::Run)
-        {
-            // 立ち止りアニメーションを再生する
-            PlayAnimation(AnimationType::Stop);
-
-            // 状態を「立ち止り」にする
-            state = State::None;
-        }
-    }
-
-    // 状態が「ジャンプ」の場合は
-    if (state == State::Jump)
-    {
-        // Ｙ軸方向の速度を重力分減算する
-        currentJumpPower -= Gravity;
-
-        // もし落下していて且つ再生されているアニメーションが上昇中用のものだった場合は
-        if (currentJumpPower < 0.0f && MV1GetAttachAnim(modelHandle, currentPlayAnimation) == 2)
-        {
-            // 落下中ようのアニメーションを再生する
-            PlayAnimation(AnimationType::Jump);
-        }
-
-        // 移動ベクトルのＹ成分をＹ軸方向の速度にする
-        currentFrameMoveVector.y = currentJumpPower;
     }
 
     // プレイヤーモデルとプレイヤーカメラの回転率を同期させる
@@ -149,8 +114,13 @@ void Player::Update(const Input& input, Stage& stage)
     // 移動ベクトルを元にコリジョンを考慮しつつプレイヤーを移動
     Move(currentFrameMoveVector, stage);
 
+    // 現在のステートの更新
+    TransitionInputState(input);
+    ChangeState(state);
+    currentState->Update();
+
     // アニメーション処理
-    UpdateAnimation();
+    //UpdateAnimation();
 
     // 射撃更新
     UpdateShootingEquippedWeapon(input);
@@ -175,9 +145,33 @@ void Player::Draw(const Stage& stage)
     // 武器の描画
     equippedGun->Draw();
 
+
+    // デバッグ
     // 座標描画
     DrawFormatString(DebugPositionDrawX, DebugPositionDrawY,
         DebugFontColor,"X:%f Y:%f Z:%f",position.x,position.y,position.z);
+    // 現在ステートの描画
+    switch (state)
+    {
+    case Player::State::Idle:
+        DrawString(100, 200, "Idle", DebugFontColor, true);
+        break;
+    case Player::State::Walk:
+        DrawString(100, 200, "Walk", DebugFontColor, true);
+        break;
+    case Player::State::Run:
+        DrawString(100, 200, "Run", DebugFontColor, true);
+        break;
+    case Player::State::Jump:
+        DrawString(100, 200, "Jump", DebugFontColor, true);
+        break;
+    case Player::State::OnHitEnemy:
+        DrawString(100, 200, "OnHitEnemy", DebugFontColor, true);
+        break;
+    default:
+        break;
+    }
+
 }
 
 /// <summary>
@@ -221,7 +215,7 @@ void Player::OnHitFloor()
         {
             // 移動していない場合は立ち止り状態に
             PlayAnimation(AnimationType::Stop);
-            state = State::None;
+            state = State::Idle;
         }
 
         // 着地時はアニメーションのブレンドは行わない
@@ -451,6 +445,8 @@ void Player::PlayAnimation(AnimationType type)
 /// <summary>
 /// アニメーション更新
 /// </summary>
+/// MEMO:
+/// Blend→前のアニメーションからの動きをもとに今のアニメーションの位置に自然に動かすこと
 void Player::UpdateAnimation()
 {
     float animationTotalTime;       // 再生しているアニメーションの総時間
@@ -477,6 +473,7 @@ void Player::UpdateAnimation()
         // 再生時間が総時間に到達していたら再生時間をループさせる
         if (currentAnimationCount >= animationTotalTime)
         {
+            // fmod→float版の「 % 」計算
             currentAnimationCount = static_cast<float>(fmod(currentAnimationCount, animationTotalTime));
         }
 
@@ -566,5 +563,88 @@ void Player::DeactivateBulletReturn()
 {
     // 使い終わったものを返す
     bulletObjectPools->ReturnActiveBulletInstance(equippedGun->GetActiveBullet());
+
+}
+
+/// <summary>
+/// 入力に応じたステートの切り替えを行う
+/// </summary>
+/// <param name="input">入力情報</param>
+void Player::TransitionInputState(const Input& input)
+{
+    // 何もしない状態
+    if (!pressMoveButton)
+    {
+        ChangeState(State::Idle);
+    }
+
+    // 歩き
+    if (state == State::Idle || state == State::Run)
+    {
+        if (pressMoveButton)
+        {
+            ChangeState(State::Walk);
+        }
+    }
+
+    // 走り
+    if (state == State::Idle || state == State::Walk)
+    {
+        if (pressMoveButton && input.GetCurrentFrameInput() & CheckHitKey(KEY_INPUT_LSHIFT))
+        {
+            ChangeState(State::Run);
+        }
+    }
+
+    // 攻撃を受けた場合
+    if (state == State::Idle || state == State::Walk || state == State::Run)
+    {
+        if (isHitEnemyAttack)
+        {
+            ChangeState(State::OnHitEnemy);
+        }
+    }
+}
+
+/// <summary>
+/// ステートの切り替え
+/// </summary>
+/// <param name="newState">新しいステート</param>
+void Player::ChangeState(State newState)
+{
+    // 同じステートの場合は変更しない
+    if (state == newState)return;
+
+    PlayerStateBase::AnimationData previousData = currentState->GetStateAnimationData();
+
+    // 前のステートを削除する
+    delete(currentState);
+    currentState = nullptr;
+
+    switch (newState)
+    {
+    case Player::State::Idle:
+        state = State::Idle;
+        currentState = new PlayerIdleState(modelHandle,previousData);
+
+        break;
+    case Player::State::Walk:
+        state = State::Walk;
+        currentState = new PlayerWalkState(modelHandle, previousData);
+
+        break;
+    case Player::State::Run:
+        state = State::Run;
+        currentState = new PlayerRunState();
+
+        break;
+    case Player::State::OnHitEnemy:
+        state = State::OnHitEnemy;
+        currentState = new PlayerOnHitEnemyState();
+
+        break;
+    default:
+        break;
+    }
 
 }

@@ -13,7 +13,7 @@ Enemy::Enemy()
     , animationBlendRate        (1.0f)
     , targetMoveDirection       (InitializeDirection)
     , currentJumpPower          (0.0f)
-    , state                     (State::None)
+    , state                     (State::Idle)
     , position                  (InitializePosition)
 {
     modelDataManager = ModelDataManager::GetInstance();

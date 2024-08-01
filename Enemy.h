@@ -18,7 +18,7 @@ public:
     /// </summary>
     enum class State : int
     {
-        None,       // 停止
+        Idle,       // 停止
         Walk,       // 歩き
         Run,        // 走り
         Attack,     // 攻撃
@@ -42,7 +42,7 @@ public:
         Death,                  // 死亡
         Idle,                   // 何もしていない
         NoAnimation2,           // 走り
-        Wolk,                   // 歩き
+        Walk,                   // 歩き
         Run,                    // 走り
     };
 

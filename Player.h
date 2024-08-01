@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Common.h"
+#include "PlayerStateBase.h"
 
 class PlayerStateBase;
 class GunBase;
@@ -8,6 +9,7 @@ class PlayerCamera;
 class Stage;
 class ModelDataManager;
 class BulletObjectPools;
+struct AnimationData;
 
 /// <summary>
 /// プレイヤー
@@ -20,10 +22,11 @@ public:
     /// </summary>
     enum class State : int
     {
-        None,   // 何もしていない
-        Walk,   // 歩き
-        Run,    // 走り
-        Jump,   // ジャンプ
+        Idle,           // 何もしていない
+        Walk,           // 歩き
+        Run,            // 走り
+        Jump,           // ジャンプ
+        OnHitEnemy,     // エネミーに当たった状態
     };
 
     /// <summary>
@@ -31,12 +34,12 @@ public:
     /// </summary>
     enum class AnimationType : int
     {
-        None    = 8,    // 何もしていない
-        Wolk    = 8,    // 歩き
-        Stop    = 8,    // 停止
-        Run     = 8,    // 走り
-        Jump    = 8,    // ジャンプ
-        Shooting,       // 射撃中
+        Idle        = 8,        // 何もしていない
+        Walk        = 9,        // 歩き
+        Stop        = 10,       // 停止
+        Run         = 11,       // 走り
+        Jump        = 12,       // ジャンプ
+        Shooting    = 13,       // 射撃中
     };
 
     /// <summary>
@@ -150,6 +153,18 @@ private:
     /// </summary>
     void DeactivateBulletReturn();
 
+    /// <summary>
+    /// 入力に応じたステートの切り替えを行う
+    /// </summary>
+    /// <param name="input">入力情報</param>
+    void TransitionInputState(const Input& input);
+
+    /// <summary>
+    /// ステートの切り替え
+    /// </summary>
+    /// <param name="newState">新しいステート</param>
+    void ChangeState(State newState);
+
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -183,10 +198,11 @@ private:
     // 基本情報
     PlayerCamera*       playerCamera;       // プレイヤー専用のカメラ(FPS視点カメラ)
     VECTOR              position;           // 座標
-    PlayerStateBase*    playerState;        // プレイヤーの状態
+    PlayerStateBase*    currentState;       // 現在のステート
     GunBase*            equippedGun;        // 銃
     BulletObjectPools*  bulletObjectPools;  // 弾丸のオブジェクトプール
     int                 shootFireRateCount; // 銃の連射力をカウント
+    bool                isHitEnemyAttack;   // エネミーの攻撃を受けている
 
     // 移動状態
     VECTOR      targetMoveDirection;        // モデルが向くべき方向のベクトル
@@ -203,7 +219,7 @@ private:
     float       animationBlendRate;         // 現在と過去のアニメーションのブレンド率
     bool        currentFrameMove;           // そのフレームで動いたかどうか
     bool        pressMoveButton;            // 移動用のボタンが入力されているか
-
+    PlayerStateBase::AnimationData animationData;       // アニメーション再生に必要なデータ
 
 };
 
