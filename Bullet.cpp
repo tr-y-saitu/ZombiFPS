@@ -85,5 +85,5 @@ void Bullet::UpdataCollisionData()
     collisionData.bulletPower           = power;
 
     // 当たり判定に必要なデータを渡す
-    collisionManager->CollisionDataRegister(&collisionData);
+    collisionManager->RegisterCollisionData(&collisionData);
 }

@@ -79,7 +79,7 @@ void CollisionManager::Initialize()
 }
 
 // 当たり判定データの読み込み
-void CollisionManager::CollisionDataRegister(CollisionData* data)
+void CollisionManager::RegisterCollisionData(CollisionData* data)
 {
     // 当たり判定用情報追加
     collisionDataList.push_back(data);
