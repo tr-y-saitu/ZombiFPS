@@ -14,16 +14,16 @@ PlayerIdleState::PlayerIdleState(int& playerModelHandle,AnimationData previousSt
     animationBlendSpeed = AnimationBlendSpeed;
     animationBlendRate = -1.0f;
 
-    nowStateData.currentAnimationCount = 0;
-    nowStateData.currentPlayAnimation = 0;
+    nowStateData.currentAnimationCount  = 0;
+    nowStateData.currentPlayAnimation   = 0;
     nowStateData.previousAnimationCount = 0;
-    nowStateData.previousPlayAnimation = 0;
+    nowStateData.previousPlayAnimation  = 0;
 
     // 前のステートの情報を書き込み
-    currentAnimationCount = previousStateData.currentAnimationCount;
-    currentPlayAnimation = previousStateData.currentPlayAnimation;
-    previousAnimationCount = previousStateData.previousAnimationCount;
-    previousPlayAnimation = previousStateData.previousPlayAnimation;
+    currentAnimationCount   = previousStateData.currentAnimationCount;
+    currentPlayAnimation    = previousStateData.currentPlayAnimation;
+    previousAnimationCount  = previousStateData.previousAnimationCount;
+    previousPlayAnimation   = previousStateData.previousPlayAnimation;
 
     // 新しいアニメーションを再生する
     PlayNewAnimation(AnimationStateType::Idle);

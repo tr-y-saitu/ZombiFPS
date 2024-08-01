@@ -1,4 +1,4 @@
-﻿#include "GunBase.h"
+﻿#include "GunBase.h"\\\//////////////////////////////////////////////////////////////////////////////////\
 
 /// <summary>
 /// コンストラクタ
@@ -36,6 +36,6 @@ void GunBase::UpdateAngle(VECTOR setPosition, float pitch)
     gunAngleY -= HipUpPositionAngleY;           // 水平方向回転度
     cameraPitch += HipUpPositionANglePitch;     // 垂直方向回転度
 
-    // モデルの回転
+    // モデルの回転\/\/
     MV1SetRotationXYZ(modelHandle, VGet(-cameraPitch, gunAngleY, 0.0f));
 }
