@@ -55,6 +55,10 @@ void Bullet::Update()
     // 移動
     position = VAdd(position, velocity);
 
+    // 自身のOnHit関数をもとに新しい関数を作成
+    // コリジョンマネージャーに渡し、接触時に呼び出してもらう
+    collisionData.onHit = std::bind(&Bullet::OnHit, this, std::placeholders::_1);
+
     // 当たり判定に必要なデータを更新する
     UpdataCollisionData();
 
@@ -85,5 +89,14 @@ void Bullet::UpdataCollisionData()
     collisionData.bulletPower           = power;
 
     // 当たり判定に必要なデータを渡す
-    collisionManager->CollisionDataRegister(&collisionData);
+    collisionManager->RegisterCollisionData(&collisionData);
+}
+
+/// <summary>
+/// オブジェクトと接触した時の処理
+/// </summary>
+/// <param name="hitObjectData">オブジェクトのデータ</param>
+void Bullet::OnHit(CollisionData hitObjectData)
+{
+    // 処理なし
 }

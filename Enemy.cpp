@@ -22,8 +22,12 @@ Enemy::Enemy()
     // 初期化
     Initialize();
 
+    // 自身のOnHit関数をもとに新しい引数を持った関数を作成
+    // std::bind(&名前空間::関数名,その関数のある参照,引数の数だけプレースホルダーが増える)
+    collisionData.onHit = std::bind(&Enemy::OnHit, this, std::placeholders::_1);
+
     // 当たり判定に必要なデータを渡す
-    collisionManager->CollisionDataRegister(&collisionData);
+    collisionManager->RegisterCollisionData(&collisionData);
 }
 
 /// <summary>
@@ -100,7 +104,10 @@ void Enemy::Draw()
         DebugFontColor, "HP:%d", hitPoints);
 }
 
-// 当たった後の処理
+/// <summary>
+/// オブジェクトと接触した時の処理
+/// </summary>
+/// <param name="hitObjectData">オブジェクトのデータ</param>
 void Enemy::OnHit(CollisionData hitObjectData)
 {
     switch (hitObjectData.tag)
@@ -117,7 +124,8 @@ void Enemy::OnHit(CollisionData hitObjectData)
     }
 }
 
-// 当たり判定用のデータ更新
+/// 当たり判定に必要なデータの更新
+/// </summary>
 void Enemy::UpdateCollisionData()
 {
     // 当たり判定を行う
@@ -132,11 +140,6 @@ void Enemy::UpdateCollisionData()
 
     // カプセルの半径を登録
     collisionData.radius = CollisionRadius;
-
-    // 自身のOnHit関数をもとに新しい引数を持った関数を作成
-    // std::bind(&名前空間::関数名,その関数のある参照,引数の数だけプレースホルダーが増える)
-    collisionData.onHit = std::bind(&Enemy::OnHit, this, std::placeholders::_1);
-
 }
 
 /// <summary>
@@ -350,3 +353,4 @@ void Enemy::UpdateAnimation()
         MV1SetAttachAnimBlendRate(modelHandle, previousPlayAnimation, 1.0f - animationBlendRate);
     }
 }
+

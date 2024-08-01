@@ -73,16 +73,9 @@ public:
     /// </summary>
     void Draw();
 
-    // 弾丸と接触した時の処理
-    void OnHitBullet(LineCollisionData bulletData);
-
-    // 別のキャラクターと接触した時の処理(Player,Enemy)
-    void OnHitCharacter(CapsuleCollisionData capsuleData);
-
-    // 当たった後の処理
-    void OnHit(CollisionData hitObjectData);
-
-    // 当たり判定に必要なデータを更新する
+    /// <summary>
+    /// 当たり判定に必要なデータの更新
+    /// </summary>
     void UpdateCollisionData();
 
 private:
@@ -119,6 +112,24 @@ private:
     /// アニメーション処理
     /// </summary>
     void UpdateAnimation();
+
+    /// <summary>
+    /// 弾丸と接触した時の処理
+    /// </summary>
+    /// <param name="bulletData">弾丸のデータ</param>
+    void OnHitBullet(LineCollisionData bulletData);
+
+    /// <summary>
+    /// 自分と違うキャラクターと接触した時の処理(Player or Enemy)
+    /// </summary>
+    /// <param name="capsuleData">キャラクターのデータ</param>
+    void OnHitCharacter(CapsuleCollisionData capsuleData);
+
+    /// <summary>
+    /// オブジェクトと接触した時の処理
+    /// </summary>
+    /// <param name="hitObjectData">オブジェクトのデータ</param>
+    void OnHit(CollisionData hitObjectData);
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //

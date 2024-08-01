@@ -55,6 +55,12 @@ public:
     /// </summary>
     void UpdataCollisionData();
 
+    /// <summary>
+    /// オブジェクトと接触した時の処理
+    /// </summary>
+    /// <param name="hitObjectData">オブジェクトのデータ</param>
+    void OnHit(CollisionData hitObjectData);
+
     // ゲッター、セッター
     const bool GetIsActive()const { return isActive; }
 

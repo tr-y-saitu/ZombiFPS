@@ -35,12 +35,18 @@ public:
     void Initialize();
 
     // 当たり判定データの読み込み
-    static void CollisionDataRegister(CollisionData* data);
+    static void RegisterCollisionData(CollisionData* data);
 
     /// <summary>
     /// すべての当たり判定処理
     /// </summary>
     void Update();
+
+private:
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    CollisionManager();
 
     /// <summary>
     /// 球と線の当たり判定
@@ -83,13 +89,6 @@ public:
     bool IsCollisionSphere(VECTOR position1, float radius1,
         VECTOR position2, float radius2);
 
-
-private:
-    /// <summary>
-    /// コンストラクタ
-    /// </summary>
-    CollisionManager();
-
     // 管理用
     static CollisionManager*        collisionManager;           // コリジョンマネージャーのインスタンス
 
@@ -98,6 +97,6 @@ private:
     vector<CapsuleCollisionData*>   capsuleCollisionData;       // カプセル型の当たり判定を行うリスト
     vector<LineCollisionData*>      lineCollisionData;          // 線分の当たり判定を行うリスト
 
-    static vector<CollisionData*>    collisionDataList;          // 当たり判定情報リスト
+    static vector<CollisionData*>   collisionDataList;          // 当たり判定情報リスト
 };
 
