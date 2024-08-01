@@ -19,10 +19,6 @@ PlayerWalkState::PlayerWalkState(int& playerModelHandle, AnimationData previousS
     playAnimationSpeed = PlayAnimationSpeed;
     animationBlendSpeed = AnimationBlendSpeed;
     animationBlendRate = -1.0f;
-    currentPlayAnimation = -1;
-    currentAnimationCount = 0;
-    previousPlayAnimation = -1;
-    previousAnimationCount = 0;
 
     nowStateData.currentAnimationCount = 0;
     nowStateData.currentPlayAnimation = 0;
