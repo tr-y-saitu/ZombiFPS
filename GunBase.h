@@ -54,6 +54,13 @@ public:
     /// </summary>
     virtual void Draw() abstract;
 
+    // ゲッター
+    const int GetFireRate()const { return fireRate; }
+    list<Bullet*>& GetActiveBullet() { return activeBullet; }
+    const  int GetActiveBulletSize() const { return activeBullet.size(); }
+    const Bullet::BulletInitializeData GetBulletInitializeData()const { return bulletData; }
+
+protected:
     /// <summary>
     /// 回転の更新
     /// </summary>
@@ -64,13 +71,7 @@ public:
     // 銃の位置調整
     void FixedGunPosition(VECTOR setPosition,VECTOR cameraForwardVector);
 
-    // ゲッター
-    const int GetFireRate()const { return fireRate; }
-    list<Bullet*>& GetActiveBullet() { return activeBullet; }
-    const  int GetActiveBulletSize() const { return activeBullet.size(); }
-    const Bullet::BulletInitializeData GetBulletInitializeData()const { return bulletData; }
 
-protected:
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//

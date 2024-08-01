@@ -46,12 +46,12 @@ public:
     /// </summary>
     void Draw() override;
 
+private:
     /// <summary>
     /// 銃を発砲する
     /// </summary>
     void UpdateShooting(VECTOR cameraPosition,VECTOR targetPosition);
 
-private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//

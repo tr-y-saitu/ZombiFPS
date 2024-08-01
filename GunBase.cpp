@@ -46,10 +46,12 @@ void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch)
 /// <param name="cameraForwardVector"></param>
 void GunBase::FixedGunPosition(VECTOR setPosition, VECTOR cameraForwardVector)
 {
-    VECTOR velocity = VNorm(cameraForwardVector);
+    VECTOR horizonDirection = VGet(cameraForwardVector.x, 0.0f, cameraForwardVector.z);
 
-    VECTOR offset = VScale(velocity, -1.0f);
-    position = VAdd(setPosition, offset);
+    VECTOR velocity = VNorm(horizonDirection);
+
+    VECTOR offset = VScale(velocity, -0.7f);
+    position = VAdd(position, offset);
 
     MV1SetPosition(modelHandle, position);
 }
