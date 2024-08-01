@@ -10,14 +10,22 @@ public:
     /// <summary>
     /// アニメーションタイプ
     /// </summary>
+    /// TODO：アニメーションの消し方が分からないため使用する箇所のみ名前付け
     enum class AnimationStateType : int
     {
-        Idle = 8,    // 何もしていない
-        Walk = 9,    // 歩き
-        Stop = 8,    // 停止
-        Run = 8,    // 走り
-        Jump = 8,    // ジャンプ
-        Shooting,       // 射撃中
+        NoAnimation0,           // アニメーションなし
+        NoAnimation1,           // アニメーションなし
+        NoAnimation2,           // アニメーションなし
+        NoAnimation3,           // アニメーションなし
+        NoAnimation4,           // アニメーションなし
+        NoAnimation5,           // アニメーションなし
+        NoAnimation6,           // アニメーションなし
+        NoAnimation7,           // アニメーションなし
+        Idle,                   // 何もしていない
+        Reloading,              // リロード
+        ReloadingCocking,       // リロード＋コッキング
+        Shot,                   // 発砲
+        NoAnimation8,           // アニメーションなし
     };
 
     /// <summary>
@@ -37,6 +45,13 @@ public:
     PlayerStateBase();
 
     /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    /// <param name="playerModelHandle">プレイヤーモデルハンドル</param>
+    /// <param name="previousStateData">前のステートの情報</param>
+    PlayerStateBase(int& playerModelHandle, AnimationData previousStateData);
+
+    /// <summary>
     /// デストラクタ
     /// </summary>
     virtual ~PlayerStateBase();
@@ -54,12 +69,12 @@ protected:
     /// 新しくアニメーションを再生する
     /// </summary>
     /// <param name="type">再生したいアニメーション番号</param>
-    virtual void PlayNewAnimation(AnimationStateType type);
+    void PlayNewAnimation(AnimationStateType type);
 
     /// <summary>
     /// アニメーション更新処理
     /// </summary>
-    virtual void UpdateAnimation();
+    void UpdateAnimation();
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //

@@ -24,7 +24,6 @@ GunBase::~GunBase()
 void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch)
 {
     // 銃モデルをプレイヤーカメラの回転率と同様に回転させる
-
     // プレイヤー専用カメラの方向を取得
     VECTOR cameraForward = cameraForwardVector;
     float cameraPitch = pitch;

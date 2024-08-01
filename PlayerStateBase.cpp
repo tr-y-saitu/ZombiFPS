@@ -5,6 +5,26 @@
 /// </summary>
 PlayerStateBase::PlayerStateBase()
 {
+    // 処理なし
+}
+
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="playerModelHandle">プレイヤーモデルハンドル</param>
+/// <param name="previousStateData">前のステートの情報</param>
+PlayerStateBase::PlayerStateBase(int& playerModelHandle, AnimationData previousStateData)
+    : modelHandle                           (playerModelHandle)
+    , animationBlendRate                    (-1)
+    , currentAnimationCount                 (previousStateData.currentAnimationCount)
+    , currentPlayAnimation                  (previousStateData.currentPlayAnimation)
+    , previousAnimationCount                (previousStateData.previousAnimationCount)
+    , previousPlayAnimation                 (previousStateData.previousPlayAnimation)
+{
+    nowStateData.currentAnimationCount  = 0;
+    nowStateData.currentPlayAnimation   = 0;
+    nowStateData.previousAnimationCount = 0;
+    nowStateData.previousPlayAnimation  = 0;
 }
 
 /// <summary>
@@ -12,6 +32,7 @@ PlayerStateBase::PlayerStateBase()
 /// </summary>
 PlayerStateBase::~PlayerStateBase()
 {
+    // 処理なし
 }
 
 /// <summary>
@@ -24,8 +45,12 @@ void PlayerStateBase::PlayNewAnimation(AnimationStateType type)
     // 入れ替えを行うので、１つ前のモーションがが有効だったらデタッチする
     if (previousPlayAnimation != NoAnimationAttached)
     {
-        MV1DetachAnim(modelHandle, previousPlayAnimation);
-        previousPlayAnimation = NoAnimationAttached;
+        // 前のアニメーションと同じの場合はデタッチしない
+         if (previousPlayAnimation != currentPlayAnimation)
+         {
+             MV1DetachAnim(modelHandle, previousPlayAnimation);
+             previousPlayAnimation = NoAnimationAttached;
+         }
     }
 
     // 今まで再生中のモーションだったものの情報をPrevに移動する

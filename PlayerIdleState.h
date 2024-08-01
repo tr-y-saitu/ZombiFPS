@@ -13,6 +13,11 @@ public:
     /// </summary>
     PlayerIdleState();
 
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    /// <param name="playerModelHandle">プレイヤーのモデルハンドル</param>
+    /// <param name="previousStateData">前のステートの情報</param>
     PlayerIdleState(int& playerModelHandle, AnimationData previousStateData);
 
     /// <summary>
@@ -27,9 +32,8 @@ public:
 
 
 private:
-    void PlayNewAnimation(AnimationStateType type) override;
-
-    void UpdateAnimation() override;
+    //void PlayNewAnimation(AnimationStateType type) override;
+    //void UpdateAnimation() override;
 
     /// <summary>
     /// アニメーションデータの更新

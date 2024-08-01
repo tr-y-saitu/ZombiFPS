@@ -291,7 +291,7 @@ void Player::UpdateMoveVector(const Input& input, VECTOR& upModveVector,
     pressMoveButton = false;
 
     // パッドの３ボタンと左シフトがどちらも押されていなかったらプレイヤーの移動処理
-    if (CheckHitKey(KEY_INPUT_LSHIFT) == 0 && (input.GetCurrentFrameInput() & PAD_INPUT_C) == 0)
+    if ((input.GetCurrentFrameInput() & PAD_INPUT_C) == 0)
     {
         // 方向ボタン「←」が入力されたらカメラの見ている方向から見て左方向に移動する
         if (input.GetCurrentFrameInput() & PAD_INPUT_LEFT || CheckHitKey(KEY_INPUT_A))
@@ -336,21 +336,6 @@ void Player::UpdateMoveVector(const Input& input, VECTOR& upModveVector,
                 pressMoveButton = true;
             }
         }
-
-        // MEMO:
-        // のちにジャンプを追加する可能性があるためコメントアウトしています
-        // プレイヤーの状態が「ジャンプ」ではなく、且つボタン１が押されていたらジャンプする
-        //if (state != State::Jump && (input.GetNowNewFrameInput() & PAD_INPUT_A))
-        //{
-        //    // 状態を「ジャンプ」にする
-        //    state = State::Jump;
-
-        //    // Ｙ軸方向の速度をセット
-        //    currentJumpPower = JumpPower;
-
-        //    // ジャンプアニメーションの再生
-        //    PlayAnimation(AnimationType::Jump);
-        //}
     }
 }
 
@@ -590,7 +575,7 @@ void Player::TransitionInputState(const Input& input)
     // 走り
     if (state == State::Idle || state == State::Walk)
     {
-        if (pressMoveButton && input.GetCurrentFrameInput() & CheckHitKey(KEY_INPUT_LSHIFT))
+        if (pressMoveButton && CheckHitKey(KEY_INPUT_LSHIFT))
         {
             ChangeState(State::Run);
         }
@@ -621,24 +606,29 @@ void Player::ChangeState(State newState)
     delete(currentState);
     currentState = nullptr;
 
+    // ステートの切り替え
     switch (newState)
     {
     case Player::State::Idle:
+        // 何もしていない状態へ推移
         state = State::Idle;
         currentState = new PlayerIdleState(modelHandle,previousData);
 
         break;
     case Player::State::Walk:
+        // 歩き状態に推移
         state = State::Walk;
         currentState = new PlayerWalkState(modelHandle, previousData);
 
         break;
     case Player::State::Run:
+        // 走り状態に推移
         state = State::Run;
-        currentState = new PlayerRunState();
+        currentState = new PlayerRunState(modelHandle, previousData);
 
         break;
     case Player::State::OnHitEnemy:
+        // エネミーに攻撃されている状態へ推移
         state = State::OnHitEnemy;
         currentState = new PlayerOnHitEnemyState();
 

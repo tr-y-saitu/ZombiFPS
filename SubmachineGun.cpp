@@ -69,7 +69,7 @@ void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR camer
     position = VAdd(setPosition, GunOffset);
 
     // 座標を少しずらす
-    FixedGunPosition(setPosition, cameraVector);
+    //FixedGunPosition(setPosition, cameraVector);
 
     // 角度を更新
     UpdateAngle(cameraVector, cameraPitch);
