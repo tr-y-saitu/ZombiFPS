@@ -86,7 +86,7 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
-    ModelDataManager*       modelDataManager;   // モデルデータ読み込み用クラスのアドレス
-    float                   runAnimationLerpFactor;
+    ModelDataManager*       modelDataManager;           // モデルデータ読み込み用クラスのアドレス
+    float                   runAnimationLerpFactor;     // 走りアニメーション再生時の適応率
 };
 

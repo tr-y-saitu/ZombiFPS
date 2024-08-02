@@ -76,9 +76,12 @@ protected:
     /// <param name="pitch">上下角度</param>
     void UpdateAngle(VECTOR cameraForwardVector, float pitch, Player::State playerState);
 
-    // 銃の位置調整
+    /// <summary>
+    /// 銃の位置調整
+    /// </summary>
+    /// <param name="setPosition">設定したい座標</param>
+    /// <param name="cameraForwardVector">カメラの前方向ベクトル</param>
     void FixedGunPosition(VECTOR setPosition,VECTOR cameraForwardVector);
-
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
