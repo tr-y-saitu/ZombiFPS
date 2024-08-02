@@ -105,6 +105,7 @@ public:
     static constexpr VECTOR RunAnimationOffset      = { 0.0f,-0.5f,0.0f };  // 走りアニメーション再生時のずらし量
     static constexpr float  RunAnimationLimitAngle  = 0.3f;                 // 走りアニメーション中に回転させる最大角度
     static constexpr float  RunAnimationFrameCycle  = 60.0f;                // 走りアニメーションを再生する周期
+    static constexpr float  RunAnimationFactorSpeed = 0.1f;                 // 走りアニメーションの適応速度
 
 private:
     /// <summary>
@@ -160,6 +161,11 @@ private:
     /// </summary>
     /// <param name="type">アニメーションの種類</param>
     void PlayAnimation(AnimationType type);
+
+    /// <summary>
+    /// 走りステート時の座標の調整
+    /// </summary>
+    void FixedRunPosition();
 
     /// <summary>
     /// 銃を撃つ
@@ -242,5 +248,6 @@ private:
     float       animationBlendRate;                 // 現在と過去のアニメーションのブレンド率
     PlayerStateBase::AnimationData animationData;   // アニメーション再生に必要なデータ
     int         runAnimationCount;                  // 走りアニメーションを再生するカウント
+    float       runAnimationLerpFactor;
 };
 

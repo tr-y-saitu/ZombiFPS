@@ -59,6 +59,12 @@ private:
     /// </summary>
     void UpdateShooting(VECTOR cameraPosition,VECTOR targetPosition);
 
+    /// <summary>
+    /// 走りのアニメーション再生
+    /// </summary>
+    /// <param name="playerState">プレイヤーのステート</param>
+    void PlayRunAnimation(Player::State playerState);
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
@@ -81,5 +87,6 @@ private:
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
     ModelDataManager*       modelDataManager;   // モデルデータ読み込み用クラスのアドレス
+    float                   runAnimationLerpFactor;
 };
 

@@ -11,6 +11,7 @@
 /// コンストラクタ
 /// </summary>
 SubmachineGun::SubmachineGun()
+    : runAnimationLerpFactor        (0.0f)
 {
     modelDataManager = ModelDataManager::GetInstance();
     Initialize();
@@ -77,6 +78,9 @@ void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR camer
     // 弾丸の更新
     UpdateShooting(cameraPosition,cameraTargetVector);
 
+    // プレイヤーが走っているときアニメーション再生
+    PlayRunAnimation(playerState);
+
     // 移動更新
     UpdateMove(setPosition, playerState);
 }
@@ -90,13 +94,40 @@ void SubmachineGun::UpdateMove(VECTOR setPosition, Player::State playerState)
 {
     // Runステート用の座標
     VECTOR movePosition = position;
-    if (playerState == Player::State::Run)
-    {
-        movePosition = VAdd(movePosition, Player::RunAnimationOffset);
-    }
+
+    // 現在の適用率に基づいてオフセットを計算
+    VECTOR offset = VScale(Player::RunAnimationOffset, runAnimationLerpFactor);
+    movePosition = VAdd(position, offset);
 
     // 座標の設定
     MV1SetPosition(modelHandle, movePosition);
+}
+
+/// <summary>
+/// 走りのアンメーション再生
+/// </summary>
+/// <param name="playerState">プレイヤーのステート</param>
+void SubmachineGun::PlayRunAnimation(Player::State playerState)
+{
+    // 走りアニメーション時の処理
+    if (playerState == Player::State::Run)
+    {
+        // アニメーションの適用率を増加させる
+        runAnimationLerpFactor += Player::RunAnimationFactorSpeed;
+        if (runAnimationLerpFactor > 1.0f)
+        {
+            runAnimationLerpFactor = 1.0f;
+        }
+    }
+    else
+    {
+        // 他の状態に移行した場合、適用率を減少させる
+        runAnimationLerpFactor -= Player::RunAnimationFactorSpeed;
+        if (runAnimationLerpFactor < 0.0f)
+        {
+            runAnimationLerpFactor = 0.0f;
+        }
+    }
 }
 
 /// <summary>

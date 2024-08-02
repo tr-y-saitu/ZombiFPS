@@ -52,19 +52,29 @@ void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch,Player::State 
     MATRIX rotationY = MGetRotY(gunAngleY);
     MATRIX rotationZ = MGetRotZ(0.0f);
 
+    // 回転行列を合成
     rotationMatrix = MMult(rotationX, rotationY);
 
     // 走るアニメーションを再生
     if (playerState == Player::State::Run)
     {
+        // アニメーションカウントを進める
         runAnimationCount++;
 
-        float angle = Player::RunAnimationLimitAngle *
-            sin(DX_TWO_PI_F * runAnimationCount / Player::RunAnimationFrameCycle);
+        // 回転角度を設定
+        // sin関数で[1]～[-1]を出してもらう
+        // (アニメーションカウントを再生周期で割ることで現在どのくらい進んでいるかが分かる)
+        float animationProgress = sin(DX_TWO_PI_F * runAnimationCount / Player::RunAnimationFrameCycle);
+        // 最大アングル * [１～ -１] = 角度
+        // sinを使うことでマイナスの条件式を省く
+        float angle = Player::RunAnimationLimitAngle * animationProgress;
 
+        // 回転行列を取得
         MATRIX runMatrixY = MGetRotY(angle);
         MATRIX runMatrixX = MGetRotX(0.2f);
         MATRIX runFinalMatrix = MMult(runMatrixX, runMatrixY);
+
+        // 回転行列を合成
         rotationMatrix = MMult(runFinalMatrix, rotationMatrix);
     }
 

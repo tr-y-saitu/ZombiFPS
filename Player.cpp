@@ -17,13 +17,14 @@
 /// コンストラクタ
 /// </summary>
 Player::Player()
-    : position              (VGet(0,0,0))
-    , rotationMatrix        (MGetIdent())
-    , pressMoveButton       (false)
-    , isShooting            (false)
-    , shootFireRateCount    (0)
-    , isHitEnemyAttack      (false)
-    , runAnimationCount     (0)
+    : position                      (VGet(0,0,0))
+    , rotationMatrix                (MGetIdent())
+    , pressMoveButton               (false)
+    , isShooting                    (false)
+    , shootFireRateCount            (0)
+    , isHitEnemyAttack              (false)
+    , runAnimationCount             (0)
+    , runAnimationLerpFactor        (0.0f)
 {
     modelDataManager        = ModelDataManager::GetInstance();
     Initialize();
@@ -420,10 +421,12 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
     // MEMO:走りアニメーション再生時にY座標のみ下にしたいため別のVECTORを用意
     VECTOR movePosition = position;
 
-    if (state == State::Run)
-    {
-        movePosition = VAdd(movePosition, RunAnimationOffset);
-    }
+    // 走りステート時に座標修正
+    FixedRunPosition();
+
+    // 現在の適用率に基づいてオフセットを計算
+    VECTOR offset = VScale(RunAnimationOffset, runAnimationLerpFactor);
+    movePosition = VAdd(position, offset);
 
     // プレイヤーのモデルの座標を更新する
     MV1SetPosition(modelHandle, movePosition);
@@ -453,9 +456,11 @@ void Player::UpdateAngle()
     cameraPitch += HipUpPositionANglePitch;
 
     // 回転を行列に変換
-    MATRIX matrixX = MGetRotX(cameraPitch);
-    MATRIX matrixY = MGetRotY(playerAngleY);
-    MATRIX matrixZ = MGetRotZ(0.0f);
+    MATRIX matrixX = MGetRotX(cameraPitch);             // X軸回転
+    MATRIX matrixY = MGetRotY(playerAngleY);            // Y軸回転
+    MATRIX matrixZ = MGetRotZ(0.0f);                    // Z軸回転
+
+    // 回転行列を合成
     rotationMatrix = MMult(matrixX, matrixY);           // X軸回転した後Y軸回転
     rotationMatrix = MMult(rotationMatrix, matrixZ);    // Z軸回転
 
@@ -463,19 +468,53 @@ void Player::UpdateAngle()
     // 走るアニメーションを再生
     if (state == State::Run)
     {
-        // アニメーションを再生する
+        // アニメーションカウントを進める
         runAnimationCount++;
 
-        // 回転してほしい限度角度を
-        float angle = RunAnimationLimitAngle * sin(DX_TWO_PI_F * runAnimationCount / RunAnimationFrameCycle);
+        // 回転角度を設定
+        // sin関数で[1]～[-1]を出してもらう
+        // (アニメーションカウントを再生周期で割ることで現在どのくらい進んでいるかが分かる)
+        float animationProgress = sin(DX_TWO_PI_F * runAnimationCount / RunAnimationFrameCycle);
+        // 最大アングル * [１～ -１] = 角度
+        // sinを使うことでマイナスの条件式を省く
+        float angle = RunAnimationLimitAngle * animationProgress;
 
+        // 回転行列を取得
         MATRIX runMatrix = MGetRotY(angle);
+
+        // 回転行列を合成
         rotationMatrix = MMult(rotationMatrix, runMatrix);
     }
 
     // モデルに回転行列を適用
     MV1SetRotationMatrix(modelHandle, rotationMatrix);
 
+}
+
+/// <summary>
+/// 走りステート時の座標の調整
+/// </summary>
+void Player::FixedRunPosition()
+{
+    // 走りアニメーション時の処理
+    if (state == State::Run)
+    {
+        // アニメーションの適用率を増加
+        runAnimationLerpFactor += RunAnimationFactorSpeed;
+        if (runAnimationLerpFactor > 1.0f)
+        {
+            runAnimationLerpFactor = 1.0f;
+        }
+    }
+    else
+    {
+        // 他の状態に移行した場合、適用率を減少
+        runAnimationLerpFactor -= RunAnimationFactorSpeed;
+        if (runAnimationLerpFactor < 0.0f)
+        {
+            runAnimationLerpFactor = 0.0f;
+        }
+    }
 }
   
 /// <summary>
