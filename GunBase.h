@@ -61,6 +61,15 @@ public:
     const Bullet::BulletInitializeData GetBulletInitializeData()const { return bulletData; }
 
 protected:
+
+    /// <summary>
+    /// 銃の座標更新
+    /// </summary>
+    /// <param name="setPosition">設定する座標</param>
+    /// <param name="cameraForwardVector">カメラの前方向ベクトル</param>
+    /// <param name="cameraPitch">設定する上下角度</param>
+    void UpdateGunPosition(VECTOR setPosition,VECTOR cameraForwardVector,float cameraPitch);
+
     /// <summary>
     /// 回転の更新
     /// </summary>
@@ -68,9 +77,11 @@ protected:
     /// <param name="pitch">上下角度</param>
     void UpdateAngle(VECTOR cameraForwardVector,float pitch);
 
-    // 銃の位置調整
+    /// <summary>
+    /// 銃の位置調整
+    /// </summary>
+    /// <param name="cameraForwardVector">カメラの前方向ベクトル</param>
     void FixedGunPosition(VECTOR setPosition,VECTOR cameraForwardVector);
-
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
