@@ -32,9 +32,6 @@ public:
 
 
 private:
-    //void PlayNewAnimation(AnimationStateType type) override;
-    //void UpdateAnimation() override;
-
     /// <summary>
     /// アニメーションデータの更新
     /// </summary>

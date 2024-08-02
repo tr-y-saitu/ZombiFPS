@@ -15,7 +15,7 @@ PlayerIdleState::PlayerIdleState()
 PlayerIdleState::PlayerIdleState(int& playerModelHandle, AnimationData previousStateData)
     : PlayerStateBase(playerModelHandle, previousStateData)
 {
-    playAnimationSpeed = PlayAnimationSpeed;
+    playAnimationSpeed  = PlayAnimationSpeed;
     animationBlendSpeed = AnimationBlendSpeed;
 
     // 新しいアニメーションを再生する

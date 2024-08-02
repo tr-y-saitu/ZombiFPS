@@ -42,7 +42,7 @@ public:
     int GetMouseNowFrameInput()const { return mouseNowFrameInput; }
 
     // 定数
-    static constexpr float MouseSensitivity = 0.005f;        // マウス感度
+    static constexpr float MouseSensitivity = 0.003f;        // マウス感度
 
 private:
 
