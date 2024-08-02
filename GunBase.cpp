@@ -1,4 +1,4 @@
-﻿#include "GunBase.h"\\\//////////////////////////////////////////////////////////////////////////////////\
+﻿#include "GunBase.h"
 
 /// <summary>
 /// コンストラクタ
@@ -71,7 +71,7 @@ void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch,Player::State 
 
         // 回転行列を取得
         MATRIX runMatrixY = MGetRotY(angle);
-        MATRIX runMatrixX = MGetRotX(0.2f);
+        MATRIX runMatrixX = MGetRotX(RunAnimationAngle);
         MATRIX runFinalMatrix = MMult(runMatrixX, runMatrixY);
 
         // 回転行列を合成
@@ -88,12 +88,16 @@ void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch,Player::State 
 /// <param name="cameraForwardVector"></param>
 void GunBase::FixedGunPosition(VECTOR setPosition, VECTOR cameraForwardVector)
 {
+    // カメラから平行なベクトル
     VECTOR horizonDirection = VGet(cameraForwardVector.x, 0.0f, cameraForwardVector.z);
 
+    // 正規化
     VECTOR velocity = VNorm(horizonDirection);
 
-    VECTOR offset = VScale(velocity, -0.7f);
+    // ずらし量を計算
+    VECTOR offset = VScale(velocity, HipUpPositionOffsetScale);
     position = VAdd(position, offset);
 
+    // 座標を設定
     MV1SetPosition(modelHandle, position);
 }

@@ -84,10 +84,11 @@ protected:
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
     // 腰だめ
-    static constexpr float  HipUpPositionAngleY     = 3.0f * DX_PI_F / 180.0f;      // 水平回転用：腰だめの位置に調整するために回転させるY軸回転度(ラジアン)
-    static constexpr float  HipUpPositionANglePitch = 30.0f * DX_PI_F / 180.0f;     // 垂直回転用：腰だめの位置に調整するために回転させる水平方向からの角度(ラジアン)
+    static constexpr float  HipUpPositionAngleY         = 3.0f * DX_PI_F / 180.0f;      // 水平回転用：腰だめの位置に調整するために回転させるY軸回転度(ラジアン)
+    static constexpr float  HipUpPositionANglePitch     = 30.0f * DX_PI_F / 180.0f;     // 垂直回転用：腰だめの位置に調整するために回転させる水平方向からの角度(ラジアン)
+    static constexpr float  HipUpPositionOffsetScale    = -0.7f;                        // 腰だめのずらし量の拡大率
     // アニメーション
-
+    static constexpr float  RunAnimationAngle           = 15.0f * DX_PI_F / 180.0f; // 走りアニメーション再生時の銃の修正角度
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
