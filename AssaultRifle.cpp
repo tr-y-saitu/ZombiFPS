@@ -52,13 +52,13 @@ void AssaultRifle::InitializeBulletData(VECTOR cameraPosition, VECTOR targetPosi
 /// 更新
 /// </summary>
 void AssaultRifle::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR cameraTargetVector,
-    VECTOR cameraPosition, float cameraPitch)
+    VECTOR cameraPosition, float cameraPitch, Player::State playerState)
 {
     // 座標を更新
     position = setPosition;
 
     // 角度を更新
-    UpdateAngle(cameraVector, cameraPitch);
+    //UpdateAngle(cameraVector, cameraPitch);
 
     // 座標の設定
     MV1SetPosition(modelHandle, position);

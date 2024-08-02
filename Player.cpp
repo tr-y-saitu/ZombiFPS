@@ -23,6 +23,7 @@ Player::Player()
     , isShooting            (false)
     , shootFireRateCount    (0)
     , isHitEnemyAttack      (false)
+    , runAnimationCount     (0)
 {
     modelDataManager        = ModelDataManager::GetInstance();
     Initialize();
@@ -104,7 +105,7 @@ void Player::Update(const Input& input, Stage& stage)
     VECTOR pos = playerCamera->GetCameraForwardVector();
     equippedGun->Update(position, playerCamera->GetCameraForwardVector(),
         playerCamera->GetTargetPosition(),playerCamera->GetCameraPosition(),
-        playerCamera->GetCameraPitch());
+        playerCamera->GetCameraPitch(),state);
 
     // プレイヤーカメラの更新
     UpdatePlayerCamera(input, stage);
@@ -415,8 +416,17 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
         position.y = MoveLimitY;
     }
 
+    // 移動用の座標
+    // MEMO:走りアニメーション再生時にY座標のみ下にしたいため別のVECTORを用意
+    VECTOR movePosition = position;
+
+    if (state == State::Run)
+    {
+        movePosition = VAdd(movePosition, RunAnimationOffset);
+    }
+
     // プレイヤーのモデルの座標を更新する
-    MV1SetPosition(modelHandle, position);
+    MV1SetPosition(modelHandle, movePosition);
 }
 
 /// <summary>
@@ -449,8 +459,23 @@ void Player::UpdateAngle()
     rotationMatrix = MMult(matrixX, matrixY);           // X軸回転した後Y軸回転
     rotationMatrix = MMult(rotationMatrix, matrixZ);    // Z軸回転
 
+
+    // 走るアニメーションを再生
+    if (state == State::Run)
+    {
+        // アニメーションを再生する
+        runAnimationCount++;
+
+        // 回転してほしい限度角度を
+        float angle = RunAnimationLimitAngle * sin(DX_TWO_PI_F * runAnimationCount / RunAnimationFrameCycle);
+
+        MATRIX runMatrix = MGetRotY(angle);
+        rotationMatrix = MMult(rotationMatrix, runMatrix);
+    }
+
     // モデルに回転行列を適用
     MV1SetRotationMatrix(modelHandle, rotationMatrix);
+
 }
   
 /// <summary>

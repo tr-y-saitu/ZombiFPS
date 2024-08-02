@@ -39,7 +39,7 @@ public:
     /// <param name="cameraVector">カメラの前ベクトル</param>
     /// <param name="cameraPitch">カメラの水平からの角度</param>
     void Update(VECTOR setPosition,VECTOR cameraVector, VECTOR cameraTargetVector,
-        VECTOR cameraPosition,float cameraPitch);
+        VECTOR cameraPosition,float cameraPitch, Player::State);
 
     /// <summary>
     /// 描画
@@ -47,6 +47,13 @@ public:
     void Draw() override;
 
 private:
+    /// <summary>
+    /// 移動の更新
+    /// </summary>
+    /// <param name="setPosition">設定したい座標</param>
+    /// <param name="playerState">プレイヤーの状態</param>
+    void UpdateMove(VECTOR setPosition, Player::State playerState) override;
+
     /// <summary>
     /// 銃を発砲する
     /// </summary>

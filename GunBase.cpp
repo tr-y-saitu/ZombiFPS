@@ -4,6 +4,8 @@
 /// コンストラクタ
 /// </summary>
 GunBase::GunBase()
+    : runAnimationCount     (0)
+    , rotationMatrix        (MGetIdent())
 {
 }
 
@@ -17,11 +19,21 @@ GunBase::~GunBase()
 }
 
 /// <summary>
+/// 移動の更新
+/// </summary>
+/// <param name="setPosition">設定したい座標</param>
+/// <param name="playerState">プレイヤーの状態</param>
+void GunBase::UpdateMove(VECTOR setPosition, Player::State playerState)
+{
+
+}
+
+/// <summary>
 /// 回転の更新
 /// </summary>
 /// <param name="cameraForwardVector">カメラの前ベクトル</param>
 /// <param name="pitch">上下角度</param>
-void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch)
+void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch,Player::State playerState)
 {
     // 銃モデルをプレイヤーカメラの回転率と同様に回転させる
     // プレイヤー専用カメラの方向を取得
@@ -35,8 +47,29 @@ void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch)
     gunAngleY -= HipUpPositionAngleY;           // 水平方向回転度
     cameraPitch += HipUpPositionANglePitch;     // 垂直方向回転度
 
-    // モデルの回転
-    MV1SetRotationXYZ(modelHandle, VGet(-cameraPitch, gunAngleY, 0.0f));
+    // 回転行列に変更
+    MATRIX rotationX = MGetRotX(-cameraPitch);
+    MATRIX rotationY = MGetRotY(gunAngleY);
+    MATRIX rotationZ = MGetRotZ(0.0f);
+
+    rotationMatrix = MMult(rotationX, rotationY);
+
+    // 走るアニメーションを再生
+    if (playerState == Player::State::Run)
+    {
+        runAnimationCount++;
+
+        float angle = Player::RunAnimationLimitAngle *
+            sin(DX_TWO_PI_F * runAnimationCount / Player::RunAnimationFrameCycle);
+
+        MATRIX runMatrixY = MGetRotY(angle);
+        MATRIX runMatrixX = MGetRotX(0.2f);
+        MATRIX runFinalMatrix = MMult(runMatrixX, runMatrixY);
+        rotationMatrix = MMult(runFinalMatrix, rotationMatrix);
+    }
+
+    // モデルに回転行列を適用
+    MV1SetRotationMatrix(modelHandle, rotationMatrix);
 }
 
 /// <summary>

@@ -63,7 +63,7 @@ void SubmachineGun::Initialize()
 /// 更新
 /// </summary>
 void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR cameraTargetVector,
-     VECTOR cameraPosition, float cameraPitch)
+     VECTOR cameraPosition, float cameraPitch, Player::State playerState)
 {
     // 座標を更新
     position = VAdd(setPosition, GunOffset);
@@ -72,14 +72,31 @@ void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR camer
     //FixedGunPosition(setPosition, cameraVector);
 
     // 角度を更新
-    UpdateAngle(cameraVector, cameraPitch);
+    UpdateAngle(cameraVector, cameraPitch,playerState);
 
     // 弾丸の更新
     UpdateShooting(cameraPosition,cameraTargetVector);
 
+    // 移動更新
+    UpdateMove(setPosition, playerState);
+}
+
+/// <summary>
+/// 移動の更新
+/// </summary>
+/// <param name="setPosition">設定したい座標</param>
+/// <param name="playerState">プレイヤーの状態</param>
+void SubmachineGun::UpdateMove(VECTOR setPosition, Player::State playerState)
+{
+    // Runステート用の座標
+    VECTOR movePosition = position;
+    if (playerState == Player::State::Run)
+    {
+        movePosition = VAdd(movePosition, Player::RunAnimationOffset);
+    }
 
     // 座標の設定
-    MV1SetPosition(modelHandle, position);
+    MV1SetPosition(modelHandle, movePosition);
 }
 
 /// <summary>
