@@ -23,10 +23,13 @@ Player::Player()
     , rotationMatrix                (MGetIdent())
     , pressMoveButton               (false)
     , isShooting                    (false)
+    , isReload                      (false)
     , shootFireRateCount            (0)
     , isHitEnemyAttack              (false)
     , runAnimationCount             (0)
     , runAnimationLerpFactor        (0.0f)
+    , reloadAnimationCount          (0)
+    , reloadAnimationFactor         (0.0f)
 {
     modelDataManager        = ModelDataManager::GetInstance();
     Initialize();
@@ -144,6 +147,8 @@ void Player::Draw(const Stage& stage)
     case Player::State::Shot:
         DrawString(100, 200, "Shot", DebugFontColor, true);
         break;
+    case Player::State::Reload:
+        DrawString(100, 200, "Reload", DebugFontColor, true);
     case Player::State::Jump:
         DrawString(100, 200, "Jump", DebugFontColor, true);
         break;
@@ -257,15 +262,19 @@ float Player::SettingMoveSpeed(State state)
     case Player::State::Idle:
         moveSpeed = 0.0f;
         break;
+
     case Player::State::Walk:
         moveSpeed = WalkMoveSpeed;
         break;
+
     case Player::State::Run:
         moveSpeed = RunMoveSpeed;
         break;
+
     case Player::State::Shot:
         moveSpeed = WalkMoveSpeed;
         break;
+
     case Player::State::Reload:
         moveSpeed = WalkMoveSpeed;
         break;
@@ -273,6 +282,7 @@ float Player::SettingMoveSpeed(State state)
     case Player::State::Jump:
         moveSpeed = 0.0f;
         break;
+
     case Player::State::OnHitEnemy:
         moveSpeed = OnHitEnemyMoveSpeed;
         break;
@@ -435,12 +445,13 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
     // MEMO:走りアニメーション再生時にY座標のみ下にしたいため別のVECTORを用意
     VECTOR movePosition = position;
 
-    // 走りステート時に座標修正
-    FixedRunPosition();
+    // 各種ステート時の座標修正
+    VECTOR runOffset = FixedRunPosition();
+    VECTOR reloadOffset =  FixedReloadPosition();
 
     // 現在の適用率に基づいてオフセットを計算
-    VECTOR offset = VScale(RunAnimationOffset, runAnimationLerpFactor);
-    movePosition = VAdd(position, offset);
+    movePosition = VAdd(movePosition, runOffset);
+    movePosition = VAdd(movePosition, reloadOffset);
 
     // プレイヤーのモデルの座標を更新する
     MV1SetPosition(modelHandle, movePosition);
@@ -506,9 +517,9 @@ void Player::UpdateAngle()
 }
 
 /// <summary>
-/// 走りステート時の座標の調整
+/// 走り時の座標調整
 /// </summary>
-void Player::FixedRunPosition()
+VECTOR Player::FixedRunPosition()
 {
     // 走りアニメーション時の処理
     if (state == State::Run)
@@ -529,6 +540,40 @@ void Player::FixedRunPosition()
             runAnimationLerpFactor = 0.0f;
         }
     }
+
+    // 現在の適用率を返す
+    VECTOR runOffset = VScale(RunAnimationOffset, runAnimationLerpFactor);
+    return runOffset;
+}
+
+/// <summary>
+/// リロード時の座標調整
+/// </summary>
+VECTOR Player::FixedReloadPosition()
+{
+    // リロードアニメーション時の処理
+    if (state == State::Reload)
+    {
+        // アニメーション適応率を増加
+        reloadAnimationFactor += ReloadAnimationFactorSpeed;
+        if (reloadAnimationFactor > 1.0f)
+        {
+            reloadAnimationFactor = 1.0f;
+        }
+    }
+    else
+    {
+        // ほかのステートに移行した場合、適用率を減少
+        reloadAnimationFactor -= ReloadAnimationFactorSpeed;
+        if (reloadAnimationFactor < 0.0f)
+        {
+            reloadAnimationFactor = 0.0f;
+        }
+    }
+
+    // 現在の適用率を返す
+    VECTOR reloadOffset = VScale(ReloadAnimationOffset, reloadAnimationFactor);
+    return reloadOffset;
 }
   
 /// <summary>
@@ -603,6 +648,20 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
 
     // 使い終わった弾丸があれば返却する
     DeactivateBulletReturn();
+}
+
+/// <summary>
+/// リロードの更新
+/// </summary>
+/// <param name="input">入力情報</param>
+void Player::UpdateReload(const Input& input)
+{
+    // 「R」が押されたらリロード
+    if (CheckHitKey(KEY_INPUT_R))
+    {
+        // リロードしている
+        isReload = true;
+    }
 }
 
 /// <summary>
