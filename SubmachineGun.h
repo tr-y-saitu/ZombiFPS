@@ -60,10 +60,18 @@ private:
     void UpdateShooting(VECTOR cameraPosition,VECTOR targetPosition);
 
     /// <summary>
-    /// 走りのアニメーション再生
+    /// 走り時の座標調整
     /// </summary>
-    /// <param name="playerState">プレイヤーのステート</param>
-    void PlayRunAnimation(Player::State playerState);
+    /// <param name="playerState">プレイヤーの状態</param>
+    /// <returns>調整された自身のポジション</returns>
+    VECTOR FixedRunPosition(Player::State playerState);
+
+    /// <summary>
+    /// リロード時の座標調整
+    /// </summary>
+    /// <param name="playerState">プレイヤーの状態</param>
+    /// <returns>調整された自身のポジション</returns>
+    VECTOR FixedReloadPosition(Player::State playerState);
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -87,6 +95,6 @@ private:
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
     ModelDataManager*       modelDataManager;           // モデルデータ読み込み用クラスのアドレス
-    float                   runAnimationLerpFactor;     // 走りアニメーション再生時の適応率
+    float                   runAnimationFactor;     // 走りアニメーション再生時の適応率
 };
 

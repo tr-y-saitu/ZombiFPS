@@ -104,6 +104,9 @@ void GunBase::FixedGunPosition(VECTOR setPosition, VECTOR cameraForwardVector)
     MV1SetPosition(modelHandle, position);
 }
 
+/// <summary>
+/// 走るアニメーションの再生
+/// </summary>
 void GunBase::PlayRunAnimation()
 {
     // アニメーションカウントを進める
@@ -162,4 +165,12 @@ void GunBase::PlayShotAnimation(VECTOR cameraForwardVector)
         // アニメーションカウントをリセットする
         shotAnimationCount = 0;
     }
+}
+
+/// <summary>
+/// リロードアニメーションの再生
+/// </summary>
+void GunBase::PlayReloadAnimation()
+{
+
 }

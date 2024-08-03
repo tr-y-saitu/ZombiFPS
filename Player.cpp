@@ -27,7 +27,7 @@ Player::Player()
     , shootFireRateCount            (0)
     , isHitEnemyAttack              (false)
     , runAnimationCount             (0)
-    , runAnimationLerpFactor        (0.0f)
+    , runAnimationFactor        (0.0f)
     , reloadAnimationCount          (0)
     , reloadAnimationFactor         (0.0f)
     , reloadTimer                   (0)
@@ -446,12 +446,12 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
     }
 
     // 移動用の座標
-    // MEMO:走りアニメーション再生時にY座標のみ下にしたいため別のVECTORを用意
+    // MEMO:アニメーション再生時にY座標のみ下にしたいため別のVECTORを用意
     VECTOR movePosition = position;
 
     // 各種ステート時の座標修正
-    VECTOR runOffset = FixedRunPosition();
-    VECTOR reloadOffset =  FixedReloadPosition();
+    VECTOR runOffset    = FixedRunPosition();
+    VECTOR reloadOffset = FixedReloadPosition();
 
     // 現在の適用率に基づいてオフセットを計算
     movePosition = VAdd(movePosition, runOffset);
@@ -529,24 +529,24 @@ VECTOR Player::FixedRunPosition()
     if (state == State::Run)
     {
         // アニメーションの適用率を増加
-        runAnimationLerpFactor += RunAnimationFactorSpeed;
-        if (runAnimationLerpFactor > 1.0f)
+        runAnimationFactor += RunAnimationFactorSpeed;
+        if (runAnimationFactor > 1.0f)
         {
-            runAnimationLerpFactor = 1.0f;
+            runAnimationFactor = 1.0f;
         }
     }
     else
     {
         // 他の状態に移行した場合、適用率を減少
-        runAnimationLerpFactor -= RunAnimationFactorSpeed;
-        if (runAnimationLerpFactor < 0.0f)
+        runAnimationFactor -= RunAnimationFactorSpeed;
+        if (runAnimationFactor < 0.0f)
         {
-            runAnimationLerpFactor = 0.0f;
+            runAnimationFactor = 0.0f;
         }
     }
 
     // 現在の適用率を返す
-    VECTOR runOffset = VScale(RunAnimationOffset, runAnimationLerpFactor);
+    VECTOR runOffset = VScale(RunAnimationOffset, runAnimationFactor);
     return runOffset;
 }
 

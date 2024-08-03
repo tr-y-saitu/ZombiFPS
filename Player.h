@@ -170,11 +170,13 @@ private:
     /// <summary>
     /// 走り時の座標調整
     /// </summary>
+    /// <returns>調整された自身のポジション</returns>
     VECTOR FixedRunPosition();
 
     /// <summary>
     /// リロード時の座標調整
     /// </summary>
+    /// <returns>調整された自身のポジション</returns>
     VECTOR FixedReloadPosition();
 
     /// <summary>
@@ -266,7 +268,7 @@ private:
     float       animationBlendRate;                 // 現在と過去のアニメーションのブレンド率
     PlayerStateBase::AnimationData animationData;   // アニメーション再生に必要なデータ
     int         runAnimationCount;                  // 走りアニメーションを再生するカウント
-    float       runAnimationLerpFactor;             // 走りアニメーションの適用率
+    float       runAnimationFactor;                 // 走りアニメーションの適用率
     int         reloadAnimationCount;               // リロードアニメーションを再生するカウント
     float       reloadAnimationFactor;              // リロードアニメーションの適用率
 };
