@@ -104,12 +104,13 @@ public:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
-    static constexpr VECTOR RunAnimationOffset      = { 0.0f,-0.5f,0.0f };  // 走りアニメーション再生時のずらし量
-    static constexpr float  RunAnimationLimitAngle  = 0.3f;                 // 走りアニメーション中に回転させる最大角度
-    static constexpr float  RunAnimationFrameCycle  = 60.0f;                // 走りアニメーションを再生する周期
-    static constexpr float  RunAnimationFactorSpeed = 0.07f;                 // 走りアニメーションの適応速度
-    static constexpr VECTOR ReloadAnimationOffset   = { 0.0f,-1.0f,0.0f };  // リロードアニメーション再生時のずらし量
-    static constexpr float  ReloadAnimationFactorSpeed = 0.01f;
+    static constexpr VECTOR RunAnimationOffset          = { 0.0f,-0.5f,0.0f };      // 走りアニメーション再生時のずらし量
+    static constexpr float  RunAnimationLimitAngle      = 0.3f;                     // 走りアニメーション中に回転させる最大角度
+    static constexpr float  RunAnimationFrameCycle      = 60.0f;                    // 走りアニメーションを再生する周期
+    static constexpr float  RunAnimationFactorSpeed     = 0.07f;                    // 走りアニメーションの適応速度
+    static constexpr VECTOR ReloadAnimationOffset       = { 0.0f,-1.0f,0.0f };      // リロードアニメーション再生時のずらし量
+    static constexpr float  ReloadAnimationFactorSpeed  = 0.03f;                    // リロードアニメーションの再生速度
+    static constexpr int    ReloadTimeFrame             = 60;                       // リロードに必要なフレーム数
 
 private:
     /// <summary>
@@ -253,6 +254,7 @@ private:
     State       state;                      // 状態
     bool        isShooting;                 // 発砲状態か
     bool        isReload;                   // リロード状態か
+    int         reloadTimer;                // リロードを完了するための時間
     bool        currentFrameMove;           // そのフレームで動いたかどうか
     bool        pressMoveButton;            // 移動用のボタンが入力されているか
 

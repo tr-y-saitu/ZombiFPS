@@ -30,6 +30,7 @@ Player::Player()
     , runAnimationLerpFactor        (0.0f)
     , reloadAnimationCount          (0)
     , reloadAnimationFactor         (0.0f)
+    , reloadTimer                   (0)
 {
     modelDataManager        = ModelDataManager::GetInstance();
     Initialize();
@@ -106,6 +107,9 @@ void Player::Update(const Input& input, Stage& stage)
 
     // 射撃更新
     UpdateShootingEquippedWeapon(input);
+
+    // リロード更新
+    UpdateReload(input);
 
     // 装備中の武器の更新
     VECTOR pos = playerCamera->GetCameraForwardVector();
@@ -662,6 +666,21 @@ void Player::UpdateReload(const Input& input)
         // リロードしている
         isReload = true;
     }
+
+    // 一定フレーム期間リロードさせる
+    if (isReload)
+    {
+        // タイマーを進める
+        reloadTimer++;
+
+        // リロードに必要なフレーム数になったら終了
+        // FIXME:銃からリロードに必要な時間をもらうように変更する
+        if (reloadTimer >= ReloadTimeFrame)
+        {
+            isReload = false;   // リロードをやめる
+            reloadTimer = 0;    // タイマーをリセット
+        }
+    }
 }
 
 /// <summary>
@@ -679,6 +698,9 @@ void Player::DeactivateBulletReturn()
 /// <param name="input">入力情報</param>
 void Player::TransitionInputState(const Input& input)
 {
+    // アイドル、歩き、走り、射撃、リロードしていないいずれかの状態か
+    bool isIdleWalkRun = (state == State::Idle || state == State::Walk || state == State::Run || state == State::Shot || !isReload);
+
     if (!pressMoveButton && !isShooting)   // 移動キーとショットボタンが押されていなければ
     {
         // アイドル
@@ -689,19 +711,25 @@ void Player::TransitionInputState(const Input& input)
         // 発砲中
         ChangeState(State::Shot);
     }
-    else if((state == State::Idle || state == State::Walk || state == State::Run) && CheckHitKey(KEY_INPUT_LSHIFT))
+    else if(isIdleWalkRun && CheckHitKey(KEY_INPUT_LSHIFT))
     {
         // 走り
         ChangeState(State::Run);
     }
-    else if (state == State::Idle || state == State::Run || state == State::Shot)
+    else if (isIdleWalkRun)
     {
         // 歩き
         ChangeState(State::Walk);
     }
 
+    if (isReload)
+    {
+        // リロード
+        ChangeState(Player::State::Reload);
+    }
+
     // 攻撃を受けた場合
-    if (state == State::Idle || state == State::Walk || state == State::Run)
+    if (isIdleWalkRun)
     {
         if (isHitEnemyAttack)
         {
