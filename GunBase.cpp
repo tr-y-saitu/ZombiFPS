@@ -56,31 +56,19 @@ void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch,Player::State 
     // 回転行列を合成
     rotationMatrix = MMult(rotationX, rotationY);
 
-    // 走るアニメーションを再生
-    if (playerState == Player::State::Run)
+    // ステートに応じてアニメーションを再生
+    switch (playerState)
     {
-        // アニメーションカウントを進める
-        runAnimationCount++;
-
-        // 回転角度を設定
-        // sin関数で[1]～[-1]を出してもらう
-        // (アニメーションカウントを再生周期で割ることで現在どのくらい進んでいるかが分かる)
-        float animationProgress = sin(DX_TWO_PI_F * runAnimationCount / Player::RunAnimationFrameCycle);
-        // 最大アングル * [１～ -１] = 角度
-        // sinを使うことでマイナスの条件式を省く
-        float angle = Player::RunAnimationLimitAngle * animationProgress;
-
-        // 回転行列を取得
-        MATRIX runMatrixY = MGetRotY(angle);
-        MATRIX runMatrixX = MGetRotX(RunAnimationAngle);
-        MATRIX runFinalMatrix = MMult(runMatrixX, runMatrixY);
-
-        // 回転行列を合成
-        rotationMatrix = MMult(runFinalMatrix, rotationMatrix);
-    }
-    if (playerState == Player::State::Shot)
-    {
+    case Player::State::Run:
+        PlayRunAnimation();
+        break;
+    case Player::State::Shot:
         PlayShotAnimation(cameraForwardVector);
+        break;
+    case Player::State::OnHitEnemy:
+        break;
+    default:
+        break;
     }
 
     // モデルに回転行列を適用
@@ -105,6 +93,28 @@ void GunBase::FixedGunPosition(VECTOR setPosition, VECTOR cameraForwardVector)
 
     // 座標を設定
     MV1SetPosition(modelHandle, position);
+}
+
+void GunBase::PlayRunAnimation()
+{
+    // アニメーションカウントを進める
+    runAnimationCount++;
+
+    // 回転角度を設定
+    // sin関数で[1]～[-1]を出してもらう
+    // (アニメーションカウントを再生周期で割ることで現在どのくらい進んでいるかが分かる)
+    float animationProgress = sin(DX_TWO_PI_F * runAnimationCount / Player::RunAnimationFrameCycle);
+    // 最大アングル * [１～ -１] = 角度
+    // sinを使うことでマイナスの条件式を省く
+    float angle = Player::RunAnimationLimitAngle * animationProgress;
+
+    // 回転行列を取得
+    MATRIX runMatrixY = MGetRotY(angle);
+    MATRIX runMatrixX = MGetRotX(RunAnimationAngle);
+    MATRIX runFinalMatrix = MMult(runMatrixX, runMatrixY);
+
+    // 回転行列を合成
+    rotationMatrix = MMult(runFinalMatrix, rotationMatrix);
 }
 
 /// <summary>

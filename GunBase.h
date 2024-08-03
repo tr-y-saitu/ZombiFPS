@@ -84,6 +84,11 @@ protected:
     void FixedGunPosition(VECTOR setPosition,VECTOR cameraForwardVector);
 
     /// <summary>
+    /// 走るアニメーションの再生
+    /// </summary>
+    void PlayRunAnimation();
+
+    /// <summary>
     /// 撃つアニメーションの再生
     /// </summary>
     void PlayShotAnimation(VECTOR cameraForwardVector);
