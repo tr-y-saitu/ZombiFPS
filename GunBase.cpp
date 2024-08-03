@@ -57,16 +57,25 @@ void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch,Player::State 
     rotationMatrix = MMult(rotationX, rotationY);
 
     // ステートに応じてアニメーションを再生
+    // MEMO:
+    // アニメーション中にモデルの座標、回転値が変わるため
+    // 回転の設定関数はこれよりも後に行う
     switch (playerState)
     {
     case Player::State::Run:
         PlayRunAnimation();
         break;
+
     case Player::State::Shot:
         PlayShotAnimation(cameraForwardVector);
         break;
+
+    case Player::State::Reload:
+        break;
+
     case Player::State::OnHitEnemy:
         break;
+
     default:
         break;
     }

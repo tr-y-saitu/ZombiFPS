@@ -7,6 +7,7 @@
 #include "PlayerRunState.h"
 #include "PlayerWalkState.h"
 #include "PlayerShotState.h"
+#include "PlayerReloadState.h"
 #include "ModelDataManager.h"
 #include "AssaultRifle.h"
 #include "BattleRifle.h"
@@ -265,6 +266,10 @@ float Player::SettingMoveSpeed(State state)
     case Player::State::Shot:
         moveSpeed = WalkMoveSpeed;
         break;
+    case Player::State::Reload:
+        moveSpeed = WalkMoveSpeed;
+        break;
+
     case Player::State::Jump:
         moveSpeed = 0.0f;
         break;
@@ -689,6 +694,12 @@ void Player::ChangeState(State newState)
         currentState = new PlayerShotState(modelHandle, previousData);
 
         break;
+    case Player::State::Reload:
+        // リロード状態に推移
+        state = State::Reload;
+        currentState = new PlayerReloadState(modelHandle, previousData);
+        break;
+
     case Player::State::OnHitEnemy:
         // エネミーに攻撃されている状態へ推移
         state = State::OnHitEnemy;

@@ -1,9 +1,9 @@
-﻿#include "PlayerIdleState.h"
+﻿#include "PlayerReloadState.h"
 
 /// <summary>
 /// デフォルトコンストラクタ
 /// </summary>
-PlayerIdleState::PlayerIdleState()
+PlayerReloadState::PlayerReloadState()
 {
     // 処理なし
 }
@@ -13,8 +13,8 @@ PlayerIdleState::PlayerIdleState()
 /// </summary>
 /// <param name="playerModelHandle">プレイヤーのモデルハンドル</param>
 /// <param name="previousStateData">前のステートの情報</param>
-PlayerIdleState::PlayerIdleState(int& playerModelHandle, AnimationData previousStateData)
-    : PlayerStateBase(playerModelHandle, previousStateData)
+PlayerReloadState::PlayerReloadState(int& playerModelHandle, AnimationData previousStateData)
+    : PlayerStateBase(playerModelHandle,previousStateData)
 {
     playAnimationSpeed  = PlayAnimationSpeed;
     animationBlendSpeed = AnimationBlendSpeed;
@@ -26,7 +26,7 @@ PlayerIdleState::PlayerIdleState(int& playerModelHandle, AnimationData previousS
 /// <summary>
 /// デストラクタ
 /// </summary>
-PlayerIdleState::~PlayerIdleState()
+PlayerReloadState::~PlayerReloadState()
 {
     // 処理なし
 }
@@ -34,7 +34,7 @@ PlayerIdleState::~PlayerIdleState()
 /// <summary>
 /// 更新
 /// </summary>
-void PlayerIdleState::Update()
+void PlayerReloadState::Update()
 {
     // アニメーションの更新
     UpdateAnimation();
@@ -46,7 +46,7 @@ void PlayerIdleState::Update()
 /// <summary>
 /// アニメーションデータの更新
 /// </summary>
-void PlayerIdleState::UpdateAnimationData()
+void PlayerReloadState::UpdateAnimationData()
 {
     nowStateData.currentAnimationCount  = currentAnimationCount;
     nowStateData.currentPlayAnimation   = currentPlayAnimation;
