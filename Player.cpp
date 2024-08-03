@@ -6,6 +6,7 @@
 #include "PlayerOnHitEnemyState.h"
 #include "PlayerRunState.h"
 #include "PlayerWalkState.h"
+#include "PlayerShotState.h"
 #include "ModelDataManager.h"
 #include "AssaultRifle.h"
 #include "BattleRifle.h"
@@ -139,6 +140,9 @@ void Player::Draw(const Stage& stage)
     case Player::State::Run:
         DrawString(100, 200, "Run", DebugFontColor, true);
         break;
+    case Player::State::Shot:
+        DrawString(100, 200, "Shot", DebugFontColor, true);
+        break;
     case Player::State::Jump:
         DrawString(100, 200, "Jump", DebugFontColor, true);
         break;
@@ -217,6 +221,7 @@ void Player::UpdateMovement(const Input& input, Stage& stage)
     // 移動ベクトルの更新
     UpdateMoveVector(input, upModveVector, leftMoveVector, currentFrameMoveVector);
 
+    // 移動ボタンが押されていたら
     if (pressMoveButton)
     {
         // 移動速度を設定
@@ -243,6 +248,7 @@ void Player::UpdateMovement(const Input& input, Stage& stage)
 /// <returns>移動速度</returns>
 float Player::SettingMoveSpeed(State state)
 {
+    // 移動速度
     float moveSpeed = 0.0f;
 
     switch (state)
@@ -255,6 +261,9 @@ float Player::SettingMoveSpeed(State state)
         break;
     case Player::State::Run:
         moveSpeed = RunMoveSpeed;
+        break;
+    case Player::State::Shot:
+        moveSpeed = WalkMoveSpeed;
         break;
     case Player::State::Jump:
         moveSpeed = 0.0f;
@@ -606,17 +615,22 @@ void Player::DeactivateBulletReturn()
 /// <param name="input">入力情報</param>
 void Player::TransitionInputState(const Input& input)
 {
-    if (!pressMoveButton)   // 移動キーが入力されていなければ
+    if (!pressMoveButton && !isShooting)   // 移動キーとショットボタンが押されていなければ
     {
         // アイドル
         ChangeState(State::Idle);
+    }
+    else if (isShooting)
+    {
+        // 発砲中
+        ChangeState(State::Shot);
     }
     else if((state == State::Idle || state == State::Walk || state == State::Run) && CheckHitKey(KEY_INPUT_LSHIFT))
     {
         // 走り
         ChangeState(State::Run);
     }
-    else if (state == State::Idle || state == State::Run)
+    else if (state == State::Idle || state == State::Run || state == State::Shot)
     {
         // 歩き
         ChangeState(State::Walk);
@@ -667,6 +681,12 @@ void Player::ChangeState(State newState)
         // 走り状態に推移
         state = State::Run;
         currentState = new PlayerRunState(modelHandle, previousData);
+
+        break;
+    case Player::State::Shot:
+        // 発砲状態に推移
+        state = State::Shot;
+        currentState = new PlayerShotState(modelHandle, previousData);
 
         break;
     case Player::State::OnHitEnemy:

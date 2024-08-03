@@ -83,6 +83,11 @@ protected:
     /// <param name="cameraForwardVector">カメラの前方向ベクトル</param>
     void FixedGunPosition(VECTOR setPosition,VECTOR cameraForwardVector);
 
+    /// <summary>
+    /// 撃つアニメーションの再生
+    /// </summary>
+    void PlayShotAnimation(VECTOR cameraForwardVector);
+
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
@@ -92,6 +97,8 @@ protected:
     static constexpr float  HipUpPositionOffsetScale    = -0.7f;                        // 腰だめのずらし量の拡大率
     // アニメーション
     static constexpr float  RunAnimationAngle           = 15.0f * DX_PI_F / 180.0f; // 走りアニメーション再生時の銃の修正角度
+    static constexpr float  RecoilDistance              = 0.1f;
+    static constexpr int    RecoilCycle                 = 5;
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
@@ -114,7 +121,8 @@ protected:
     float           bulletPenetrationPower;     // 弾丸の貫通力
 
     // アニメーション
-    int             runAnimationCount;          // 銃のアニメーションカウント
+    int             runAnimationCount;          // 走るアニメーションカウント
+    int             shotAnimationCount;         // 撃つアニメーションカウント
 };
 
 

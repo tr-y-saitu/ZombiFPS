@@ -1,35 +1,33 @@
 ﻿#pragma once
 #include "PlayerStateBase.h"
 
-
 /// <summary>
-/// プレイヤーが何もしていない状態
+/// プレイヤーが発砲している状態
 /// </summary>
-class PlayerIdleState : public PlayerStateBase
+class PlayerShotState : public PlayerStateBase
 {
 public:
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    PlayerIdleState();
+    PlayerShotState();
 
     /// <summary>
     /// コンストラクタ
     /// </summary>
     /// <param name="playerModelHandle">プレイヤーのモデルハンドル</param>
     /// <param name="previousStateData">前のステートの情報</param>
-    PlayerIdleState(int& playerModelHandle, AnimationData previousStateData);
+    PlayerShotState(int& playerModelHandle, AnimationData previousStateData);
 
     /// <summary>
     /// デストラクタ
     /// </summary>
-    virtual ~PlayerIdleState();
+    virtual ~PlayerShotState();
 
     /// <summary>
     /// 更新
     /// </summary>
     void Update() override;
-
 
 private:
     /// <summary>
@@ -38,9 +36,9 @@ private:
     void UpdateAnimationData();
 
     // アニメーション
-    static constexpr float  PlayAnimationSpeed = 0.5f;      // アニメーション速度
+    static constexpr float  PlayAnimationSpeed = 1.0f;      // アニメーション速度
     static constexpr float  AnimationBlendSpeed = 0.1f;     // アニメーションのブレンド率変化速度
 
-
 };
+
 

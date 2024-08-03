@@ -46,6 +46,7 @@
     <ClCompile Include="PlayerOnHitEnemyState.cpp" />
     <ClCompile Include="PlayerPowerUpMachine.cpp" />
     <ClCompile Include="PlayerRunState.cpp" />
+    <ClCompile Include="PlayerShotState.cpp" />
     <ClCompile Include="PlayerStateBase.cpp" />
     <ClCompile Include="PlayerWalkState.cpp" />
     <ClCompile Include="SceneCamera.cpp" />
@@ -98,6 +99,7 @@
     <ClInclude Include="PlayerOnHitEnemyState.h" />
     <ClInclude Include="PlayerPowerUpMachine.h" />
     <ClInclude Include="PlayerRunState.h" />
+    <ClInclude Include="PlayerShotState.h" />
     <ClInclude Include="PlayerStateBase.h" />
     <ClInclude Include="PlayerWalkState.h" />
     <ClInclude Include="SceneCamera.h" />

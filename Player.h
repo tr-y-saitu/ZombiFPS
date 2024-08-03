@@ -25,6 +25,7 @@ public:
         Idle,           // 何もしていない
         Walk,           // 歩き
         Run,            // 走り
+        Shot,           // 発砲中
         Jump,           // ジャンプ
         OnHitEnemy,     // エネミーに当たった状態
     };
