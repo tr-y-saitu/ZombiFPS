@@ -49,7 +49,7 @@ public:
     /// </summary>
     /// <param name="playerModelHandle">プレイヤーモデルハンドル</param>
     /// <param name="previousStateData">前のステートの情報</param>
-    PlayerStateBase(int& playerModelHandle, AnimationData previousStateData);
+    PlayerStateBase(int playerModelHandle, AnimationData previousStateData);
 
     /// <summary>
     /// デストラクタ
