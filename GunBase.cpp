@@ -6,6 +6,7 @@
 GunBase::GunBase()
     : runAnimationCount     (0)
     , shotAnimationCount    (0)
+    , reloadAnimationCount  (0)
     , rotationMatrix        (MGetIdent())
 {
 }

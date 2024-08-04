@@ -89,12 +89,12 @@ private:
     static constexpr VECTOR InitializeScale         = { 0.07f,0.07f,0.07f };    // 初期化時のスケール
     // ずらし量
     static constexpr VECTOR GunOffset = { 0.0f,0.5f,0.0f };   // 銃のプレイヤーの腕からのずらし量
-    
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
-    ModelDataManager*       modelDataManager;           // モデルデータ読み込み用クラスのアドレス
+    ModelDataManager*       modelDataManager;       // モデルデータ読み込み用クラスのアドレス
     float                   runAnimationFactor;     // 走りアニメーション再生時の適応率
+    float                   reloadAnimationFactor;  // リロードアニメーションの再生時の適応率
 };
 
