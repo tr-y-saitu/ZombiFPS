@@ -94,7 +94,7 @@ void SubmachineGun::UpdateMove(VECTOR setPosition, Player::State playerState)
     VECTOR movePosition = position;
 
     // 現在の適用率に基づいてオフセットを計算
-    VECTOR runOffset = FixedRunPosition(playerState);
+    VECTOR runOffset    = FixedRunPosition(playerState);
     VECTOR reloadOffset = FixedReloadPosition(playerState);
 
     // 各種ステート時の座標修正

@@ -153,6 +153,7 @@ void Player::Draw(const Stage& stage)
         break;
     case Player::State::Reload:
         DrawString(100, 200, "Reload", DebugFontColor, true);
+        break;
     case Player::State::Jump:
         DrawString(100, 200, "Jump", DebugFontColor, true);
         break;
@@ -698,10 +699,17 @@ void Player::DeactivateBulletReturn()
 /// <param name="input">入力情報</param>
 void Player::TransitionInputState(const Input& input)
 {
-    // アイドル、歩き、走り、射撃、リロードしていないいずれかの状態か
-    bool isIdleWalkRun = (state == State::Idle || state == State::Walk || state == State::Run || state == State::Shot || !isReload);
+    // アイドル、歩き、走り、射撃、いずれかの状態か
+    bool isIdleWalkRun = (state == State::Idle || state == State::Walk || state == State::Run || state == State::Shot || state == State::Reload);
 
-    if (!pressMoveButton && !isShooting)   // 移動キーとショットボタンが押されていなければ
+    // リロード中はステート移動できない
+    if (isReload)
+    {
+        // リロード
+        ChangeState(Player::State::Reload);
+        return;
+    }
+    else if(!pressMoveButton && !isShooting)   // 移動キーとショットボタンが押されていなければ
     {
         // アイドル
         ChangeState(State::Idle);
@@ -720,12 +728,6 @@ void Player::TransitionInputState(const Input& input)
     {
         // 歩き
         ChangeState(State::Walk);
-    }
-
-    if (isReload)
-    {
-        // リロード
-        ChangeState(Player::State::Reload);
     }
 
     // 攻撃を受けた場合
