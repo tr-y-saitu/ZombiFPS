@@ -1,28 +1,43 @@
-#pragma once
+﻿#pragma once
 #include "PlayerStateBase.h"
 
 /// <summary>
-/// �v���C���[�������Ă���
+/// プレイヤーが入ってる状態
 /// </summary>
 class PlayerRunState : public PlayerStateBase
 {
 public:
     /// <summary>
-    /// �R���X�g���N�^
+    /// コンストラクタ
     /// </summary>
     PlayerRunState();
 
     /// <summary>
-    /// �f�X�g���N�^
+    /// コンストラクタ
+    /// </summary>
+    /// <param name="playerModelHandle">プレイヤーのモデルハンドル</param>
+    /// <param name="previousStateData">前のステートの情報</param>
+    PlayerRunState(int playerModelHandle, AnimationData previousStateData);
+
+    /// <summary>
+    /// デストラクタ
     /// </summary>
     virtual ~PlayerRunState();
 
     /// <summary>
-    /// �X�V
+    /// 更新
     /// </summary>
     void Update() override;
 
 private:
+    /// <summary>
+    /// アニメーションデータの更新
+    /// </summary>
+    void UpdateAnimationData();
+
+    // アニメーション
+    static constexpr float  PlayAnimationSpeed = 0.5f;                         // アニメーション速度
+    static constexpr float  AnimationBlendSpeed = 0.1f;                         // アニメーションのブレンド率変化速度
 
 };
 

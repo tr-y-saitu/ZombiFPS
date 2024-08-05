@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Common.h"
+#include "PlayerStateBase.h"
 
 class PlayerStateBase;
 class GunBase;
@@ -8,6 +9,7 @@ class PlayerCamera;
 class Stage;
 class ModelDataManager;
 class BulletObjectPools;
+struct AnimationData;
 
 /// <summary>
 /// プレイヤー
@@ -20,10 +22,11 @@ public:
     /// </summary>
     enum class State : int
     {
-        None,   // 何もしていない
-        Walk,   // 歩き
-        Run,    // 走り
-        Jump,   // ジャンプ
+        Idle,           // 何もしていない
+        Walk,           // 歩き
+        Run,            // 走り
+        Jump,           // ジャンプ
+        OnHitEnemy,     // エネミーに当たった状態
     };
 
     /// <summary>
@@ -31,12 +34,12 @@ public:
     /// </summary>
     enum class AnimationType : int
     {
-        None    = 8,    // 何もしていない
-        Wolk    = 8,    // 歩き
-        Stop    = 8,    // 停止
-        Run     = 8,    // 走り
-        Jump    = 8,    // ジャンプ
-        Shooting,       // 射撃中
+        Idle        = 8,        // 何もしていない
+        Walk        = 9,        // 歩き
+        Stop        = 10,       // 停止
+        Run         = 11,       // 走り
+        Jump        = 12,       // ジャンプ
+        Shooting    = 13,       // 射撃中
     };
 
     /// <summary>
@@ -77,13 +80,6 @@ public:
     void Draw(const Stage& stage);
 
     /// <summary>
-    /// プレイヤーカメラの更新
-    /// </summary>
-    /// <param name="input">入力情報</param>
-    /// <param name="stage">ステージ</param>
-    void UpdatePlayerCamera(const Input& input,Stage& stage);
-
-    /// <summary>
     /// 天井に接触した時の処理
     /// </summary>
     void OnHitRoof();
@@ -99,8 +95,30 @@ public:
     bool GetIsShooting()const { return isShooting; }
     State GetState() const { return state; }
     float GetCurrentJumpPower() const { return currentJumpPower; }
+    const MATRIX GetRotationMatrix()const { return rotationMatrix; }
 
 private:
+    /// <summary>
+    /// プレイヤーカメラの更新
+    /// </summary>
+    /// <param name="input">入力情報</param>
+    /// <param name="stage">ステージ</param>
+    void UpdatePlayerCamera(const Input& input,Stage& stage);
+
+    /// <summary>
+    /// 移動更新
+    /// </summary>
+    /// <param name="input">入力情報</param>
+    /// <param name="stage">ステージ</param>
+    void UpdateMovement(const Input& input, Stage& stage);
+
+    /// <summary>
+    /// ステートに応じた移動速度を渡す
+    /// </summary>
+    /// <param name="state">現在のステート</param>
+    /// <returns>移動速度</returns>
+    float SettingMoveSpeed(State state);
+
     /// <summary>
     /// ルートフレームのZ軸方向の移動パラメータを無効にする
     /// </summary>
@@ -135,11 +153,6 @@ private:
     void PlayAnimation(AnimationType type);
 
     /// <summary>
-    /// アニメーション処理
-    /// </summary>
-    void UpdateAnimation();
-
-    /// <summary>
     /// 銃を撃つ
     /// </summary>
     /// <param name="input">入力情報</param>
@@ -150,12 +163,26 @@ private:
     /// </summary>
     void DeactivateBulletReturn();
 
+    /// <summary>
+    /// 入力に応じたステートの切り替えを行う
+    /// </summary>
+    /// <param name="input">入力情報</param>
+    void TransitionInputState(const Input& input);
+
+    /// <summary>
+    /// ステートの切り替え
+    /// </summary>
+    /// <param name="newState">新しいステート</param>
+    void ChangeState(State newState);
+
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     // ステータス
-    static constexpr float  MoveSpeed               = 0.5f;                         // 移動速度
+    static constexpr float  WalkMoveSpeed           = 0.23f;                        // 歩き時の移動速度
+    static constexpr float  RunMoveSpeed            = 0.43f;                        // 走り時の移動速度
+    static constexpr float  OnHitEnemyMoveSpeed     = 0.2f;                         // 被弾時の移動速度
     static constexpr float  AngleSpeed              = 0.2f;                         // 角度変化速度
     static constexpr float  JumpPower               = 100.0f;                       // ジャンプ力
     static constexpr float  MoveLimitY              = 4.5f;                         // Y軸の移動制限
@@ -182,28 +209,29 @@ private:
     
     // 基本情報
     PlayerCamera*       playerCamera;       // プレイヤー専用のカメラ(FPS視点カメラ)
-    VECTOR              position;           // 座標
-    PlayerStateBase*    playerState;        // プレイヤーの状態
-    GunBase*            equippedGun;        // 銃
+    PlayerStateBase*    currentState;       // 現在のステート
+    GunBase*            equippedGun;        // 装備中の武器
     BulletObjectPools*  bulletObjectPools;  // 弾丸のオブジェクトプール
     int                 shootFireRateCount; // 銃の連射力をカウント
+    bool                isHitEnemyAttack;   // エネミーの攻撃を受けている
 
     // 移動状態
+    VECTOR      position;                   // 座標
+    MATRIX      rotationMatrix;             // プレイヤー回転率
     VECTOR      targetMoveDirection;        // モデルが向くべき方向のベクトル
     float       currentJumpPower;           // Ｙ軸方向の速度
     int         modelHandle;                // モデルハンドル
     State       state;                      // 状態
     bool        isShooting;                 // 発砲状態か
-
-    // アニメーション関係
-    int         currentPlayAnimation;       // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
-    float       currentAnimationCount;      // 再生しているアニメーションの再生時間
-    int         previousPlayAnimation;      // 前の再生アニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
-    float       previousAnimationCount;     // 前の再生アニメーションの再生時間
-    float       animationBlendRate;         // 現在と過去のアニメーションのブレンド率
     bool        currentFrameMove;           // そのフレームで動いたかどうか
     bool        pressMoveButton;            // 移動用のボタンが入力されているか
 
-
+    // アニメーション関係
+    int         currentPlayAnimation;               // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
+    float       currentAnimationCount;              // 再生しているアニメーションの再生時間
+    int         previousPlayAnimation;              // 前の再生アニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
+    float       previousAnimationCount;             // 前の再生アニメーションの再生時間
+    float       animationBlendRate;                 // 現在と過去のアニメーションのブレンド率
+    PlayerStateBase::AnimationData animationData;   // アニメーション再生に必要なデータ
 };
 

@@ -54,12 +54,6 @@ public:
     /// </summary>
     virtual void Draw() abstract;
 
-    /// <summary>
-    /// 回転の更新
-    /// </summary>
-    /// <param name="setPosition">設定する座標</param>
-    void UpdateAngle(VECTOR setPosition,float pitch);
-
     // ゲッター
     const int GetFireRate()const { return fireRate; }
     list<Bullet*>& GetActiveBullet() { return activeBullet; }
@@ -67,6 +61,28 @@ public:
     const Bullet::BulletInitializeData GetBulletInitializeData()const { return bulletData; }
 
 protected:
+
+    /// <summary>
+    /// 銃の座標更新
+    /// </summary>
+    /// <param name="setPosition">設定する座標</param>
+    /// <param name="cameraForwardVector">カメラの前方向ベクトル</param>
+    /// <param name="cameraPitch">設定する上下角度</param>
+    void UpdateGunPosition(VECTOR setPosition,VECTOR cameraForwardVector,float cameraPitch);
+
+    /// <summary>
+    /// 回転の更新
+    /// </summary>
+    /// <param name="cameraForwardVector">カメラの前ベクトル</param>
+    /// <param name="pitch">上下角度</param>
+    void UpdateAngle(VECTOR cameraForwardVector,float pitch);
+
+    /// <summary>
+    /// 銃の位置調整
+    /// </summary>
+    /// <param name="cameraForwardVector">カメラの前方向ベクトル</param>
+    void FixedGunPosition(VECTOR setPosition,VECTOR cameraForwardVector);
+
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
@@ -81,6 +97,7 @@ protected:
     list<Bullet*>   activeBullet;               // 使用中の弾丸
     int             modelHandle;                // モデルハンドル
     VECTOR          position;                   // 座標
+    VECTOR          positionOffsetAmount;       // 座標をずらす量
     GunState        state;                      // 銃の状態
     GunStateBase*   currentState;               // 現在の銃の更新を行う状態
     float           bulletDamagePower;          // 弾丸の威力

@@ -37,8 +37,13 @@ CollisionManager::~CollisionManager()
         delete(lineCollisionData[i]);
     }
 
+
     // 当たり判定情報リスト
     collisionDataList.clear();
+    for (int i = 0; i < collisionDataList.size(); i++)
+    {
+        delete(collisionDataList[i]);
+    }
 
 }
 

@@ -18,16 +18,18 @@
 /// </summary>
 Player::Player()
     : position              (VGet(0,0,0))
+    , rotationMatrix        (MGetIdent())
     , pressMoveButton       (false)
     , isShooting            (false)
     , shootFireRateCount    (0)
+    , isHitEnemyAttack      (false)
 {
+    modelDataManager        = ModelDataManager::GetInstance();
+    Initialize();
     bulletObjectPools       = new BulletObjectPools();
     equippedGun             = new SubmachineGun();
-    modelDataManager        = ModelDataManager::GetInstance();
     playerCamera            = new PlayerCamera();
-    playerState             = new PlayerIdleState();
-    Initialize();
+    currentState            = new PlayerIdleState(modelHandle, animationData);
 }
 
 /// <summary>
@@ -37,7 +39,7 @@ Player::~Player()
 {
     delete(bulletObjectPools);
     delete(equippedGun);
-    delete(playerState);
+    delete(currentState);
     delete(playerCamera);
     MV1DeleteModel(modelHandle);
 }
@@ -57,7 +59,7 @@ void Player::Initialize()
     MV1SetScale(modelHandle, PlayerScale);
 
     // 状態を初期化
-    state = State::None;
+    state = State::Idle;
     
     // ジャンプ力は初期状態では０
     currentJumpPower = 0.0f;
@@ -73,7 +75,11 @@ void Player::Initialize()
     previousPlayAnimation = -1;
     
     // アニメーション設定
-    PlayAnimation(AnimationType::None);
+    PlayAnimation(AnimationType::Idle);
+    animationData.currentAnimationCount     = currentAnimationCount;
+    animationData.currentAnimationCount     = currentAnimationCount;
+    animationData.previousAnimationCount    = previousAnimationCount;
+    animationData.previousPlayAnimation     = previousPlayAnimation;
 }
 
 /// <summary>
@@ -83,74 +89,13 @@ void Player::Initialize()
 /// <param name="stage">ステージ</param>
 void Player::Update(const Input& input, Stage& stage)
 {
-    // ルートフレームのＺ軸方向の移動パラメータを無効にする
-    DisableRootFrameZMove();
+    // 移動更新
+    UpdateMovement(input, stage);
 
-    // パッド入力によって移動パラメータを設定する
-    VECTOR  upModveVector;          // 方向ボタン「↑」を入力をしたときのプレイヤーの移動方向ベクトル
-    VECTOR  leftMoveVector;         // 方向ボタン「←」を入力をしたときのプレイヤーの移動方向ベクトル
-    VECTOR  currentFrameMoveVector; // このフレームの移動ベクトル
-
-    // 移動ベクトルの更新
-    UpdateMoveVector(input, upModveVector, leftMoveVector, currentFrameMoveVector);
-
-    // 移動ボタンが押されたかどうかで処理を分岐
-    if (pressMoveButton)
-    {
-        // 移動ベクトルを正規化したものをプレイヤーが向くべき方向として保存
-        targetMoveDirection = VNorm(currentFrameMoveVector);
-
-        // プレイヤーが向くべき方向ベクトルをプレイヤーのスピード倍したものを移動ベクトルとする
-        currentFrameMoveVector = VScale(targetMoveDirection, MoveSpeed);
-
-        // もし今まで「立ち止まり」状態だったら
-        if (state == State::None)
-        {
-            // 走りアニメーションを再生する
-            PlayAnimation(AnimationType::Run);
-
-            // 状態を「走り」にする
-            state = State::Run;
-        }
-    }
-    else
-    {
-        // このフレームで移動していなくて、且つ状態が「走り」だったら
-        if (state == State::Run)
-        {
-            // 立ち止りアニメーションを再生する
-            PlayAnimation(AnimationType::Stop);
-
-            // 状態を「立ち止り」にする
-            state = State::None;
-        }
-    }
-
-    // 状態が「ジャンプ」の場合は
-    if (state == State::Jump)
-    {
-        // Ｙ軸方向の速度を重力分減算する
-        currentJumpPower -= Gravity;
-
-        // もし落下していて且つ再生されているアニメーションが上昇中用のものだった場合は
-        if (currentJumpPower < 0.0f && MV1GetAttachAnim(modelHandle, currentPlayAnimation) == 2)
-        {
-            // 落下中ようのアニメーションを再生する
-            PlayAnimation(AnimationType::Jump);
-        }
-
-        // 移動ベクトルのＹ成分をＹ軸方向の速度にする
-        currentFrameMoveVector.y = currentJumpPower;
-    }
-
-    // プレイヤーモデルとプレイヤーカメラの回転率を同期させる
-    UpdateAngle();
-
-    // 移動ベクトルを元にコリジョンを考慮しつつプレイヤーを移動
-    Move(currentFrameMoveVector, stage);
-
-    // アニメーション処理
-    UpdateAnimation();
+    // 現在のステートの更新
+    TransitionInputState(input);
+    ChangeState(state);
+    currentState->Update();
 
     // 射撃更新
     UpdateShootingEquippedWeapon(input);
@@ -158,7 +103,8 @@ void Player::Update(const Input& input, Stage& stage)
     // 装備中の武器の更新
     VECTOR pos = playerCamera->GetCameraForwardVector();
     equippedGun->Update(position, playerCamera->GetCameraForwardVector(),
-        playerCamera->GetTargetPosition(),playerCamera->GetCameraPosition(), playerCamera->GetCameraPitch());
+        playerCamera->GetTargetPosition(),playerCamera->GetCameraPosition(),
+        playerCamera->GetCameraPitch());
 
     // プレイヤーカメラの更新
     UpdatePlayerCamera(input, stage);
@@ -175,9 +121,31 @@ void Player::Draw(const Stage& stage)
     // 武器の描画
     equippedGun->Draw();
 
+    // デバッグ //
     // 座標描画
     DrawFormatString(DebugPositionDrawX, DebugPositionDrawY,
         DebugFontColor,"X:%f Y:%f Z:%f",position.x,position.y,position.z);
+    // 現在ステートの描画
+    switch (state)
+    {
+    case Player::State::Idle:
+        DrawString(100, 200, "Idle", DebugFontColor, true);
+        break;
+    case Player::State::Walk:
+        DrawString(100, 200, "Walk", DebugFontColor, true);
+        break;
+    case Player::State::Run:
+        DrawString(100, 200, "Run", DebugFontColor, true);
+        break;
+    case Player::State::Jump:
+        DrawString(100, 200, "Jump", DebugFontColor, true);
+        break;
+    case Player::State::OnHitEnemy:
+        DrawString(100, 200, "OnHitEnemy", DebugFontColor, true);
+        break;
+    default:
+        break;
+    }
 }
 
 /// <summary>
@@ -221,12 +189,82 @@ void Player::OnHitFloor()
         {
             // 移動していない場合は立ち止り状態に
             PlayAnimation(AnimationType::Stop);
-            state = State::None;
+            state = State::Idle;
         }
 
         // 着地時はアニメーションのブレンドは行わない
         animationBlendRate = 1.0f;
     }
+}
+
+/// <summary>
+/// 移動更新
+/// </summary>
+/// <param name="input">入力情報</param>
+/// <param name="stage">ステージ</param>
+void Player::UpdateMovement(const Input& input, Stage& stage)
+{
+    // ルートフレームのＺ軸方向の移動パラメータを無効にする
+    DisableRootFrameZMove();
+
+    // パッド入力によって移動パラメータを設定する
+    VECTOR  upModveVector;          // 方向ボタン「↑」を入力をしたときのプレイヤーの移動方向ベクトル
+    VECTOR  leftMoveVector;         // 方向ボタン「←」を入力をしたときのプレイヤーの移動方向ベクトル
+    VECTOR  currentFrameMoveVector; // このフレームの移動ベクトル
+
+    // 移動ベクトルの更新
+    UpdateMoveVector(input, upModveVector, leftMoveVector, currentFrameMoveVector);
+
+    if (pressMoveButton)
+    {
+        // 移動速度を設定
+        float moveSpeed = SettingMoveSpeed(state);
+
+        // 移動ベクトルを正規化したものをプレイヤーが向くべき方向として保存
+        targetMoveDirection = VNorm(currentFrameMoveVector);
+
+        // プレイヤーが向くべき方向ベクトルをプレイヤーのスピード倍したものを移動ベクトルとする
+        currentFrameMoveVector = VScale(targetMoveDirection, moveSpeed);
+    }
+
+    // プレイヤーモデルとプレイヤーカメラの回転率を同期させる
+    UpdateAngle();
+
+    // 移動ベクトルを元にコリジョンを考慮しつつプレイヤーを移動
+    Move(currentFrameMoveVector, stage);
+}
+
+/// <summary>
+/// ステートに応じた移動速度を渡す
+/// </summary>
+/// <param name="state">現在のステート</param>
+/// <returns>移動速度</returns>
+float Player::SettingMoveSpeed(State state)
+{
+    float moveSpeed = 0.0f;
+
+    switch (state)
+    {
+    case Player::State::Idle:
+        moveSpeed = 0.0f;
+        break;
+    case Player::State::Walk:
+        moveSpeed = WalkMoveSpeed;
+        break;
+    case Player::State::Run:
+        moveSpeed = RunMoveSpeed;
+        break;
+    case Player::State::Jump:
+        moveSpeed = 0.0f;
+        break;
+    case Player::State::OnHitEnemy:
+        moveSpeed = OnHitEnemyMoveSpeed;
+        break;
+    default:
+        break;
+    }
+
+    return moveSpeed;
 }
 
 /// <summary>
@@ -280,15 +318,16 @@ void Player::UpdateMoveVector(const Input& input, VECTOR& upModveVector,
 {
     // プレイヤーの移動方向のベクトルを算出
     // 方向ボタン「↑」を押したときのプレイヤーの移動ベクトルはカメラの視線方向からＹ成分を抜いたもの
-    upModveVector = VSub(playerCamera->GetTargetPosition(), playerCamera->GetCameraPosition());
+    upModveVector   = VSub(playerCamera->GetTargetPosition(),
+                           playerCamera->GetCameraPosition());
     upModveVector.y = 0.0f;
 
     // 方向ボタン「←」を押したときのプレイヤーの移動ベクトルは上を押したときの方向ベクトルとＹ軸のプラス方向のベクトルに垂直な方向
     leftMoveVector = VCross(upModveVector, VGet(0.0f, 1.0f, 0.0f));
 
     // ベクトルの正規化
-    upModveVector = VNorm(upModveVector);
-    leftMoveVector = VNorm(leftMoveVector);
+    upModveVector   = VNorm(upModveVector);
+    leftMoveVector  = VNorm(leftMoveVector);
 
     // このフレームでの移動ベクトルを初期化
     currentFrameMoveVector = ZeroVector;
@@ -297,7 +336,7 @@ void Player::UpdateMoveVector(const Input& input, VECTOR& upModveVector,
     pressMoveButton = false;
 
     // パッドの３ボタンと左シフトがどちらも押されていなかったらプレイヤーの移動処理
-    if (CheckHitKey(KEY_INPUT_LSHIFT) == 0 && (input.GetCurrentFrameInput() & PAD_INPUT_C) == 0)
+    if ((input.GetCurrentFrameInput() & PAD_INPUT_C) == 0)
     {
         // 方向ボタン「←」が入力されたらカメラの見ている方向から見て左方向に移動する
         if (input.GetCurrentFrameInput() & PAD_INPUT_LEFT || CheckHitKey(KEY_INPUT_A))
@@ -342,21 +381,6 @@ void Player::UpdateMoveVector(const Input& input, VECTOR& upModveVector,
                 pressMoveButton = true;
             }
         }
-
-        // MEMO:
-        // のちにジャンプを追加する可能性があるためコメントアウトしています
-        // プレイヤーの状態が「ジャンプ」ではなく、且つボタン１が押されていたらジャンプする
-        //if (state != State::Jump && (input.GetNowNewFrameInput() & PAD_INPUT_A))
-        //{
-        //    // 状態を「ジャンプ」にする
-        //    state = State::Jump;
-
-        //    // Ｙ軸方向の速度をセット
-        //    currentJumpPower = JumpPower;
-
-        //    // ジャンプアニメーションの再生
-        //    PlayAnimation(AnimationType::Jump);
-        //}
     }
 }
 
@@ -418,10 +442,17 @@ void Player::UpdateAngle()
     // 腰だめ角度に調整
     cameraPitch += HipUpPositionANglePitch;
 
-    // モデルの回転
-    MV1SetRotationXYZ(modelHandle, VGet(cameraPitch, playerAngleY, 0.0f));
-}
+    // 回転を行列に変換
+    MATRIX matrixX = MGetRotX(cameraPitch);
+    MATRIX matrixY = MGetRotY(playerAngleY);
+    MATRIX matrixZ = MGetRotZ(0.0f);
+    rotationMatrix = MMult(matrixX, matrixY);           // X軸回転した後Y軸回転
+    rotationMatrix = MMult(rotationMatrix, matrixZ);    // Z軸回転
 
+    // モデルに回転行列を適用
+    MV1SetRotationMatrix(modelHandle, rotationMatrix);
+}
+  
 /// <summary>
 /// プレイヤーのアニメーションを新しく追加する
 /// </summary>
@@ -446,68 +477,6 @@ void Player::PlayAnimation(AnimationType type)
 
     // ブレンド率はPrevが有効ではない場合は１．０ｆ( 現在モーションが１００％の状態 )にする
     animationBlendRate = previousPlayAnimation == -1 ? 1.0f : 0.0f;
-}
-
-/// <summary>
-/// アニメーション更新
-/// </summary>
-void Player::UpdateAnimation()
-{
-    float animationTotalTime;       // 再生しているアニメーションの総時間
-
-    // ブレンド率が１以下の場合は１に近づける
-    if (animationBlendRate < 1.0f)
-    {
-        animationBlendRate += AnimationBlendSpeed;
-        if (animationBlendRate > 1.0f)
-        {
-            animationBlendRate = 1.0f;
-        }
-    }
-
-    // 再生しているアニメーション１の処理
-    if (currentPlayAnimation != -1)
-    {
-        // アニメーションの総時間を取得
-        animationTotalTime = MV1GetAttachAnimTotalTime(modelHandle, currentPlayAnimation);
-
-        // 再生時間を進める
-        currentAnimationCount += PlayAnimationSpeed;
-
-        // 再生時間が総時間に到達していたら再生時間をループさせる
-        if (currentAnimationCount >= animationTotalTime)
-        {
-            currentAnimationCount = static_cast<float>(fmod(currentAnimationCount, animationTotalTime));
-        }
-
-        // 変更した再生時間をモデルに反映させる
-        MV1SetAttachAnimTime(modelHandle, currentPlayAnimation, currentAnimationCount);
-
-        // アニメーション１のモデルに対する反映率をセット
-        MV1SetAttachAnimBlendRate(modelHandle, currentPlayAnimation, animationBlendRate);
-    }
-
-    // 再生しているアニメーション２の処理
-    if (previousPlayAnimation != -1)
-    {
-        // アニメーションの総時間を取得
-        animationTotalTime = MV1GetAttachAnimTotalTime(modelHandle, previousPlayAnimation);
-
-        // 再生時間を進める
-        previousAnimationCount += PlayAnimationSpeed;
-
-        // 再生時間が総時間に到達していたら再生時間をループさせる
-        if (previousAnimationCount > animationTotalTime)
-        {
-            previousAnimationCount = static_cast<float>(fmod(previousAnimationCount, animationTotalTime));
-        }
-
-        // 変更した再生時間をモデルに反映させる
-        MV1SetAttachAnimTime(modelHandle, previousPlayAnimation, previousAnimationCount);
-
-        // アニメーション２のモデルに対する反映率をセット
-        MV1SetAttachAnimBlendRate(modelHandle, previousPlayAnimation, 1.0f - animationBlendRate);
-    }
 }
 
 /// <summary>
@@ -554,7 +523,6 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
         shootFireRateCount = 0;
     }
 
-
     // 使い終わった弾丸があれば返却する
     DeactivateBulletReturn();
 }
@@ -566,5 +534,87 @@ void Player::DeactivateBulletReturn()
 {
     // 使い終わったものを返す
     bulletObjectPools->ReturnActiveBulletInstance(equippedGun->GetActiveBullet());
+}
 
+/// <summary>
+/// 入力に応じたステートの切り替えを行う
+/// </summary>
+/// <param name="input">入力情報</param>
+void Player::TransitionInputState(const Input& input)
+{
+    // アイドル、歩き、走りのどれかの状態か
+    bool isIdleWalkRun = (state == State::Idle || state == State::Walk || state == State::Run);
+
+    if (!pressMoveButton)   // 移動キーが入力されていなければ
+    {
+        // アイドル
+        ChangeState(State::Idle);
+    }
+    else if(isIdleWalkRun && CheckHitKey(KEY_INPUT_LSHIFT))
+    {
+        // 走り
+        ChangeState(State::Run);
+    }
+    else if (state == State::Idle || state == State::Run)
+    {
+        // 歩き
+        ChangeState(State::Walk);
+    }
+
+    // 攻撃を受けた場合
+    if (isIdleWalkRun)
+    {
+        if (isHitEnemyAttack)
+        {
+            ChangeState(State::OnHitEnemy);
+        }
+    }
+}
+
+/// <summary>
+/// ステートの切り替え
+/// </summary>
+/// <param name="newState">新しいステート</param>
+void Player::ChangeState(State newState)
+{
+    // 同じステートの場合は変更しない
+    if (state == newState)return;
+
+    // 現在のステートの情報を次に渡す用の変数
+    PlayerStateBase::AnimationData previousData = currentState->GetStateAnimationData();
+
+    // 前のステートを削除する
+    delete(currentState);
+    currentState = nullptr;
+
+    // ステートの切り替え
+    switch (newState)
+    {
+    case Player::State::Idle:
+        // 何もしていない状態へ推移
+        state = State::Idle;
+        currentState = new PlayerIdleState(modelHandle,previousData);
+
+        break;
+    case Player::State::Walk:
+        // 歩き状態に推移
+        state = State::Walk;
+        currentState = new PlayerWalkState(modelHandle, previousData);
+
+        break;
+    case Player::State::Run:
+        // 走り状態に推移
+        state = State::Run;
+        currentState = new PlayerRunState(modelHandle, previousData);
+
+        break;
+    case Player::State::OnHitEnemy:
+        // エネミーに攻撃されている状態へ推移
+        state = State::OnHitEnemy;
+        currentState = new PlayerOnHitEnemyState();
+
+        break;
+    default:
+        break;
+    }
 }

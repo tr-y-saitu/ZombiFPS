@@ -17,16 +17,30 @@ GunBase::~GunBase()
 }
 
 /// <summary>
-/// 回転の更新
+/// 銃の座標更新
 /// </summary>
 /// <param name="setPosition">設定する座標</param>
-/// <param name="pitch">上下の視点傾度</param>
-void GunBase::UpdateAngle(VECTOR setPosition, float pitch)
+/// <param name="cameraForwardVector">カメラの前方向ベクトル</param>
+/// <param name="setPitch">設定する上下角度</param>
+void GunBase::UpdateGunPosition(VECTOR setPosition, VECTOR cameraForwardVector, float cameraPitch)
+{
+    // 座標をプレイヤーの腕に丁度良くずらす
+    //FixedGunPosition(setPosition, cameraForwardVector);
+
+    // 回転の更新
+    UpdateAngle(cameraForwardVector, cameraPitch);
+}
+
+/// <summary>
+/// 回転の更新
+/// </summary>
+/// <param name="cameraForwardVector">カメラの前ベクトル</param>
+/// <param name="pitch">上下角度</param>
+void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch)
 {
     // 銃モデルをプレイヤーカメラの回転率と同様に回転させる
-
     // プレイヤー専用カメラの方向を取得
-    VECTOR cameraForward = setPosition;
+    VECTOR cameraForward = cameraForwardVector;
     float cameraPitch = pitch;
 
     // モデルの水平方向回転値を計算
@@ -38,4 +52,20 @@ void GunBase::UpdateAngle(VECTOR setPosition, float pitch)
 
     // モデルの回転
     MV1SetRotationXYZ(modelHandle, VGet(-cameraPitch, gunAngleY, 0.0f));
+}
+
+/// <summary>
+/// 銃の位置調整
+/// </summary>
+/// <param name="cameraForwardVector">カメラの前方向ベクトル</param>
+void GunBase::FixedGunPosition(VECTOR setPosition, VECTOR cameraForwardVector)
+{
+    VECTOR horizonDirection = VGet(cameraForwardVector.x, 0.0f, cameraForwardVector.z);
+
+    VECTOR velocity = VNorm(horizonDirection);
+
+    VECTOR offset = VScale(velocity, -0.7f);
+    position = VAdd(position, offset);
+
+    MV1SetPosition(modelHandle, position);
 }
