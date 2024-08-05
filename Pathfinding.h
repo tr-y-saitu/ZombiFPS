@@ -56,7 +56,12 @@ public:
     /// <summary>
     /// すべての部屋リストを作成
     /// </summary>
-    void CreateAllRooms();
+    void CreateRooms();
+
+    /// <summary>
+    /// 部屋の初期化
+    /// </summary>
+    void InitializeRooms();
 
     /// <summary>
     /// 更新
@@ -72,8 +77,16 @@ public:
     Room FindRoomPathToPlayer(Room plyaerRoom, VECTOR enemyPosition);
 
 private:
+    //---------------------------------------------------------------------------------//
+    //                                      定数                                       //
+    //---------------------------------------------------------------------------------//
+    static constexpr int RoomTotalNumber = 12;          // 部屋の総数
 
+    //---------------------------------------------------------------------------------//
+    //                                      変数                                       //
+    //---------------------------------------------------------------------------------//
     list<Room*>     roomList;       // マップに存在するすべての部屋のリスト
+    Room initRoomData[RoomTotalNumber];
 
 };
 

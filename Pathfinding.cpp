@@ -6,6 +6,8 @@
 /// </summary>
 Pathfinding::Pathfinding()
 {
+    // すべての部屋をメモリ確保
+    CreateRooms();
 }
 
 /// <summary>
@@ -13,6 +15,11 @@ Pathfinding::Pathfinding()
 /// </summary>
 Pathfinding::~Pathfinding()
 {
+    for (auto it = roomList.begin(); it != roomList.end(); ++it)
+    {
+        delete* it;
+        *it = nullptr;
+    }
 }
 
 /// <summary>
@@ -26,9 +33,37 @@ void Pathfinding::Initialize()
 /// <summary>
 /// すべての部屋リストを作成
 /// </summary>
-void Pathfinding::CreateAllRooms()
+void Pathfinding::CreateRooms()
 {
-    
+    for (int i = 0; i < RoomTotalNumber; i++)
+    {
+        roomList.push_back(new Room());
+    }
+}
+
+/// <summary>
+/// 部屋の初期化
+/// </summary>
+void Pathfinding::InitializeRooms()
+{
+    initRoomData [0] = {West1,VGet(0,0,0),1,1 };
+    initRoomData[1] = { West2,VGet(0,0,0),1,1 };
+    initRoomData[2] = { West3,VGet(0,0,0),1,1 };
+    initRoomData[3] = { West4,VGet(0,0,0),1,1 };
+    initRoomData[4] = { Center1,VGet(0,0,0),1,1 };
+    initRoomData[5] = { Center2,VGet(0,0,0),1,1 };
+    initRoomData[6] = { Center3,VGet(0,0,0),1,1 };
+    initRoomData[7] = { Center4,VGet(0,0,0),1,1 };
+    initRoomData[8] = { East1,VGet(0,0,0),1,1 };
+    initRoomData[9] = { East2,VGet(0,0,0),1,1 };
+    initRoomData[10] = { East3,VGet(0,0,0),1,1 };
+    initRoomData[11] = { East4,VGet(0,0,0),1,1 };
+
+    for (int i = 0; i < RoomTotalNumber; i++)
+    {
+        Room* roomData = new Room(initRoomData[i]);
+        roomList.push_back(roomData);
+    }
 }
 
 /// <summary>
