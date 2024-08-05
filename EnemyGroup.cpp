@@ -7,7 +7,13 @@
 /// </summary>
 EnemyGroup::EnemyGroup()
 {
+    // 線形探索クラス
+    pathfinding = new Pathfinding();
+
+    // ゾンビを生成
     enemys.push_back(new Enemy());
+
+    // 初期化
     Initialize();
 }
 
@@ -21,6 +27,8 @@ EnemyGroup::~EnemyGroup()
     {
         delete(enemys[i]);
     }
+
+    delete(pathfinding);
 }
 
 /// <summary>
@@ -55,6 +63,10 @@ void EnemyGroup::Draw()
     // エネミーの数だけ描画
     for (int i = 0; i < enemys.size(); i++)
     {
-        enemys[i]->Draw();
+        //enemys[i]->Draw();
     }
+
+    // 線形探索用に区切った部屋を描画
+    pathfinding->Draw();
+
 }

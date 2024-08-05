@@ -59,14 +59,19 @@ public:
     void CreateRooms();
 
     /// <summary>
-    /// 部屋の初期化
+    /// 部屋情報の初期化
     /// </summary>
-    void InitializeRooms();
+    void InitializeRoomsData();
 
     /// <summary>
     /// 更新
     /// </summary>
     void Update();
+
+    /// <summary>
+    /// 描画
+    /// </summary>
+    void Draw();
 
     /// <summary>
     /// エネミーがプレイヤーへどの部屋を経由したら最短か計算し、次の部屋番号を返す
@@ -81,6 +86,10 @@ private:
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     static constexpr int RoomTotalNumber = 12;          // 部屋の総数
+    // デバッグ
+    static constexpr float  DebugRoomCenterPositionSphereRadius     = 0.7f;     // デバッグ用の球体の半径
+    static constexpr int    DebugRoomCenterPositionSphereDivision   = 8;        // 球を形成するポリゴンの細かさ
+
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
