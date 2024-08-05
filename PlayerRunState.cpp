@@ -12,7 +12,7 @@ PlayerRunState::PlayerRunState()
 /// </summary>
 /// <param name="playerModelHandle">プレイヤーのモデルハンドル</param>
 /// <param name="previousStateData">前のステートの情報</param>
-PlayerRunState::PlayerRunState(int& playerModelHandle, AnimationData previousStateData)
+PlayerRunState::PlayerRunState(int playerModelHandle, AnimationData previousStateData)
     : PlayerStateBase(playerModelHandle, previousStateData)
 {
     playAnimationSpeed  = PlayAnimationSpeed;

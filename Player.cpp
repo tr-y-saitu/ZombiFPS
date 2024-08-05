@@ -606,12 +606,15 @@ void Player::DeactivateBulletReturn()
 /// <param name="input">入力情報</param>
 void Player::TransitionInputState(const Input& input)
 {
+    // アイドル、歩き、走りのどれかの状態か
+    bool isIdleWalkRun = (state == State::Idle || state == State::Walk || state == State::Run);
+
     if (!pressMoveButton)   // 移動キーが入力されていなければ
     {
         // アイドル
         ChangeState(State::Idle);
     }
-    else if((state == State::Idle || state == State::Walk || state == State::Run) && CheckHitKey(KEY_INPUT_LSHIFT))
+    else if(isIdleWalkRun && CheckHitKey(KEY_INPUT_LSHIFT))
     {
         // 走り
         ChangeState(State::Run);
@@ -623,7 +626,7 @@ void Player::TransitionInputState(const Input& input)
     }
 
     // 攻撃を受けた場合
-    if (state == State::Idle || state == State::Walk || state == State::Run)
+    if (isIdleWalkRun)
     {
         if (isHitEnemyAttack)
         {
