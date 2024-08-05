@@ -13,7 +13,7 @@ PlayerStateBase::PlayerStateBase()
 /// </summary>
 /// <param name="playerModelHandle">プレイヤーモデルハンドル</param>
 /// <param name="previousStateData">前のステートの情報</param>
-PlayerStateBase::PlayerStateBase(int& playerModelHandle, AnimationData previousStateData)
+PlayerStateBase::PlayerStateBase(int playerModelHandle, AnimationData previousStateData)
     : modelHandle                           (playerModelHandle)
     , animationBlendRate                    (-1)
     , currentAnimationCount                 (previousStateData.currentAnimationCount)
