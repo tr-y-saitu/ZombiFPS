@@ -26,7 +26,20 @@ GunBase::~GunBase()
 /// <param name="playerState">プレイヤーの状態</param>
 void GunBase::UpdateMove(VECTOR setPosition, Player::State playerState)
 {
+}
 
+/// 銃の座標更新
+/// </summary>
+/// <param name="setPosition">設定する座標</param>
+/// <param name="cameraForwardVector">カメラの前方向ベクトル</param>
+/// <param name="setPitch">設定する上下角度</param>
+void GunBase::UpdateGunPosition(VECTOR setPosition, VECTOR cameraForwardVector, float cameraPitch, Player::State playerState)
+{
+    // 座標をプレイヤーの腕に丁度良くずらす
+    //FixedGunPosition(setPosition, cameraForwardVector);
+
+    // 回転の更新
+    UpdateAngle(cameraForwardVector, cameraPitch,playerState);
 }
 
 /// <summary>
@@ -78,7 +91,7 @@ void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch,Player::State 
 /// <summary>
 /// 銃の位置調整
 /// </summary>
-/// <param name="cameraForwardVector"></param>
+/// <param name="cameraForwardVector">カメラの前方向ベクトル</param>
 void GunBase::FixedGunPosition(VECTOR setPosition, VECTOR cameraForwardVector)
 {
     // カメラから平行なベクトル
