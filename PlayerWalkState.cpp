@@ -14,7 +14,7 @@ PlayerWalkState::PlayerWalkState()
 /// </summary>
 /// <param name="playerModelHandle">プレイヤーのモデルハンドル</param>
 /// <param name="previousStateData">前のステートの情報</param>
-PlayerWalkState::PlayerWalkState(int& playerModelHandle, AnimationData previousStateData)
+PlayerWalkState::PlayerWalkState(int playerModelHandle, AnimationData previousStateData)
     : PlayerStateBase(playerModelHandle, previousStateData)
 {
     playAnimationSpeed      = PlayAnimationSpeed;

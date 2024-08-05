@@ -18,7 +18,7 @@ public:
     /// </summary>
     /// <param name="playerModelHandle">プレイヤーのモデルハンドル</param>
     /// <param name="previousStateData">前のステートの情報</param>
-    PlayerWalkState(int& playerModelHandle, AnimationData previousStateData);
+    PlayerWalkState(int playerModelHandle, AnimationData previousStateData);
 
     /// <summary>
     /// デストラクタ
