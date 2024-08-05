@@ -8,6 +8,7 @@ Pathfinding::Pathfinding()
 {
     // すべての部屋をメモリ確保
     CreateRooms();
+    InitializeRooms();
 }
 
 /// <summary>
@@ -46,19 +47,20 @@ void Pathfinding::CreateRooms()
 /// </summary>
 void Pathfinding::InitializeRooms()
 {
-    initRoomData [0] = {West1,VGet(0,0,0),1,1 };
-    initRoomData[1] = { West2,VGet(0,0,0),1,1 };
-    initRoomData[2] = { West3,VGet(0,0,0),1,1 };
-    initRoomData[3] = { West4,VGet(0,0,0),1,1 };
-    initRoomData[4] = { Center1,VGet(0,0,0),1,1 };
-    initRoomData[5] = { Center2,VGet(0,0,0),1,1 };
-    initRoomData[6] = { Center3,VGet(0,0,0),1,1 };
-    initRoomData[7] = { Center4,VGet(0,0,0),1,1 };
-    initRoomData[8] = { East1,VGet(0,0,0),1,1 };
-    initRoomData[9] = { East2,VGet(0,0,0),1,1 };
-    initRoomData[10] = { East3,VGet(0,0,0),1,1 };
-    initRoomData[11] = { East4,VGet(0,0,0),1,1 };
+    initRoomData [0] = { West1,     VGet(0,0,0),1,1 };
+    initRoomData [1] = { West2,     VGet(0,0,0),1,1 };
+    initRoomData [2] = { West3,     VGet(0,0,0),1,1 };
+    initRoomData [3] = { West4,     VGet(0,0,0),1,1 };
+    initRoomData [4] = { Center1,   VGet(0,0,0),1,1 };
+    initRoomData [5] = { Center2,   VGet(0,0,0),1,1 };
+    initRoomData [6] = { Center3,   VGet(0,0,0),1,1 };
+    initRoomData [7] = { Center4,   VGet(0,0,0),1,1 };
+    initRoomData [8] = { East1,     VGet(0,0,0),1,1 };
+    initRoomData [9] = { East2,     VGet(0,0,0),1,1 };
+    initRoomData[10] = { East3,     VGet(0,0,0),1,1 };
+    initRoomData[11] = { East4,     VGet(0,0,0),1,1 };
 
+    // 部屋リストに書き込み
     for (int i = 0; i < RoomTotalNumber; i++)
     {
         Room* roomData = new Room(initRoomData[i]);
