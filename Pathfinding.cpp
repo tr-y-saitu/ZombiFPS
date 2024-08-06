@@ -91,8 +91,8 @@ void Pathfinding::Draw()
             DebugPolygonColor, DebugPolygonColor, true);
 
         // 部屋番号を画像で描画
-
-
+        DrawBillboard3D(room->centerPosition, DebugRoomNumberImageDrawCenter, 0.0f,
+            DebugRoomNumberImageSize, DebugRoomNumberImageAngle, room->imageHandle, true);
     }
 }
 

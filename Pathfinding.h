@@ -90,9 +90,11 @@ private:
     //---------------------------------------------------------------------------------//
     static constexpr int RoomTotalNumber = 12;          // 部屋の総数
     // デバッグ
-    static constexpr float  DebugRoomCenterPositionSphereRadius = 0.7f;     // デバッグ用の球体の半径
-    static constexpr int    DebugRoomCenterPositionSphereDivision = 8;        // 球を形成するポリゴンの細かさ
-
+    static constexpr float  DebugRoomCenterPositionSphereRadius     = 0.7f;     // デバッグ用の球体の半径
+    static constexpr int    DebugRoomCenterPositionSphereDivision   = 8;        // 球を形成するポリゴンの細かさ
+    static constexpr float  DebugRoomNumberImageSize                = 5.0f;     // デバッグ用部屋番号画像のサイズ
+    static constexpr float  DebugRoomNumberImageAngle               = 0.0f;     // デバッグ用部屋番号画像の角度
+    static constexpr float  DebugRoomNumberImageDrawCenter          = 0.5f;     // (0.5f固定)デバッグ用部屋番号画像のお描画する中心座標
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
