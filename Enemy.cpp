@@ -97,7 +97,7 @@ void Enemy::Draw()
 
     // カプセル型の当たり判定描画
     DrawCapsule3D(collisionData.startPosition, collisionData.endPosition,
-        collisionData.radius, PolygonDetail, DebugPolygonColor, DebugPolygonColor, false);
+        collisionData.radius, PolygonDetail, DebugPolygonColorRed, DebugPolygonColorRed, false);
 
     // 自身のHPを描画
     DrawFormatString(DebugHitPointDrawX, DebugHitPointDrawY,

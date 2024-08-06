@@ -77,6 +77,14 @@ public:
     void Draw();
 
     /// <summary>
+    /// 部屋とする範囲を描画する
+    /// </summary>
+    /// <param name="cneterPosition">部屋の中心座標</param>
+    /// <param name="width">幅</param>
+    /// <param name="depth">奥行き</param>
+    void DrawDebugRoomArea(VECTOR cneterPosition, float width, float depth);
+
+    /// <summary>
     /// エネミーがプレイヤーへどの部屋を経由したら最短か計算し、次の部屋番号を返す
     /// </summary>
     /// <param name="plyaerRoom">プレイヤーのいる部屋</param>
@@ -94,6 +102,7 @@ private:
     static constexpr int    DebugRoomCenterPositionSphereDivision   = 8;        // 球を形成するポリゴンの細かさ
     static constexpr float  DebugRoomNumberImageSize                = 5.0f;     // デバッグ用部屋番号画像のサイズ
     static constexpr float  DebugRoomNumberImageAngle               = 0.0f;     // デバッグ用部屋番号画像の角度
+    static constexpr float  DebugRoomNumberImageOffset              = 7.0f;     // デバッグ用部屋番号画像のずらし位置
     static constexpr float  DebugRoomNumberImageDrawCenter          = 0.5f;     // (0.5f固定)デバッグ用部屋番号画像のお描画する中心座標
 
     //---------------------------------------------------------------------------------//
