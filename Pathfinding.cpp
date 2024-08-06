@@ -1,4 +1,5 @@
-﻿#include "Pathfinding.h"
+﻿#include "ImageDataManager.h"
+#include "Pathfinding.h"
 
 
 /// <summary>
@@ -6,6 +7,9 @@
 /// </summary>
 Pathfinding::Pathfinding()
 {
+    // 画像データ管理クラス
+    imageDataManager = ImageDataManager::GetInstance();
+
     // すべての部屋をメモリ確保
     InitializeRoomsData();
     CreateRooms();
@@ -50,19 +54,19 @@ void Pathfinding::CreateRooms()
 /// </summary>
 void Pathfinding::InitializeRoomsData()
 {
-    // 部屋のデータ   // 部屋番号     // 中心座標             // 幅   // 奥行
-    initRoomData [0] = { West1,     VGet( -10.0f, 4.5f, 58.0f)     ,1      ,1  };
-    initRoomData [1] = { West2,     VGet( -10.0f, 4.5f, -5.0f)     ,1      ,1  };
-    initRoomData [2] = { West3,     VGet(      0, 4.5f,  0.0f)     ,1      ,1  };
-    initRoomData [3] = { West4,     VGet(      0, 4.5f,  0.0f)     ,1      ,1  };
-    initRoomData [4] = { Center1,   VGet(      0, 4.5f,  0.0f)     ,1      ,1  };
-    initRoomData [5] = { Center2,   VGet(      0, 4.5f,  0.0f)     ,1      ,1  };
-    initRoomData [6] = { Center3,   VGet(      0, 4.5f,  0.0f)     ,1      ,1  };
-    initRoomData [7] = { Center4,   VGet(      0, 4.5f,  0.0f)     ,1      ,1  };
-    initRoomData [8] = { East1,     VGet(      0, 4.5f,  0.0f)     ,1      ,1  };
-    initRoomData [9] = { East2,     VGet(      0, 4.5f,  0.0f)     ,1      ,1  };
-    initRoomData[10] = { East3,     VGet(      0, 4.5f,  0.0f)     ,1      ,1  };
-    initRoomData[11] = { East4,     VGet(      0, 4.5f,  0.0f)     ,1      ,1  };
+    // 部屋のデータ   // 部屋番号     // 中心座標             // 幅   // 奥行        // 画像データ
+    initRoomData[0]  = { West1,     VGet(-10.0f, 4.5f, 58.0f)      ,1      ,1   ,imageDataManager->GetImageHandle(ImageDataManager::West1ImageData) };
+    initRoomData [1] = { West2,     VGet( -10.0f, 4.5f, -5.0f)     ,1      ,1   ,imageDataManager->GetImageHandle(ImageDataManager::West2ImageData) };
+    initRoomData [2] = { West3,     VGet(      0, 4.5f,  0.0f)     ,1      ,1   ,imageDataManager->GetImageHandle(ImageDataManager::West3ImageData) };
+    initRoomData [3] = { West4,     VGet(      0, 4.5f,  0.0f)     ,1      ,1   ,imageDataManager->GetImageHandle(ImageDataManager::West4ImageData) };
+    initRoomData [4] = { Center1,   VGet(      0, 4.5f,  0.0f)     ,1      ,1   ,imageDataManager->GetImageHandle(ImageDataManager::Center1ImageData) };
+    initRoomData [5] = { Center2,   VGet(      0, 4.5f,  0.0f)     ,1      ,1   ,imageDataManager->GetImageHandle(ImageDataManager::Center2ImageData) };
+    initRoomData [6] = { Center3,   VGet(      0, 4.5f,  0.0f)     ,1      ,1   ,imageDataManager->GetImageHandle(ImageDataManager::Center3ImageData) };
+    initRoomData [7] = { Center4,   VGet(      0, 4.5f,  0.0f)     ,1      ,1   ,imageDataManager->GetImageHandle(ImageDataManager::Center4ImageData) };
+    initRoomData [8] = { East1,     VGet(      0, 4.5f,  0.0f)     ,1      ,1   ,imageDataManager->GetImageHandle(ImageDataManager::East1ImageData) };
+    initRoomData [9] = { East2,     VGet(      0, 4.5f,  0.0f)     ,1      ,1   ,imageDataManager->GetImageHandle(ImageDataManager::East2ImageData) };
+    initRoomData[10] = { East3,     VGet(      0, 4.5f,  0.0f)     ,1      ,1   ,imageDataManager->GetImageHandle(ImageDataManager::East3ImageData) };
+    initRoomData[11] = { East4,     VGet(      0, 4.5f,  0.0f)     ,1      ,1   ,imageDataManager->GetImageHandle(ImageDataManager::East4ImageData) };
 }
 
 /// <summary>
@@ -78,12 +82,17 @@ void Pathfinding::Update()
 /// </summary>
 void Pathfinding::Draw()
 {
-    // 部屋の中心座標を球体で描画
+    // 部屋の情報を描画
     for (auto& room : roomList)
     {
+        // 中心座標を球体で描画
         DrawSphere3D(room->centerPosition, DebugRoomCenterPositionSphereRadius,
             DebugRoomCenterPositionSphereDivision,
             DebugPolygonColor, DebugPolygonColor, true);
+
+        // 部屋番号を画像で描画
+
+
     }
 }
 

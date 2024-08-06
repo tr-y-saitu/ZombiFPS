@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "Common.h"
 
+class ImageDataManager;
+
 /// <summary>
 /// 線形探索クラス
 /// </summary>
@@ -35,6 +37,7 @@ public:
         VECTOR      centerPosition;     // 部屋の中心座標（これをエネミーは経由する）
         float       width;              // 部屋の幅
         float       depth;              // 部屋の奥行
+        int         imageHandle;        // 画像ハンドル
         list<Room*> adjacencyRoom;      // 隣接し、現在の部屋から行くことのできる部屋リスト
     };
 
@@ -42,7 +45,7 @@ public:
     /// コンストラクタ
     /// </summary>
     Pathfinding();
-    
+
     /// <summary>
     /// デストラクタ
     /// </summary>
@@ -87,15 +90,19 @@ private:
     //---------------------------------------------------------------------------------//
     static constexpr int RoomTotalNumber = 12;          // 部屋の総数
     // デバッグ
-    static constexpr float  DebugRoomCenterPositionSphereRadius     = 0.7f;     // デバッグ用の球体の半径
-    static constexpr int    DebugRoomCenterPositionSphereDivision   = 8;        // 球を形成するポリゴンの細かさ
+    static constexpr float  DebugRoomCenterPositionSphereRadius = 0.7f;     // デバッグ用の球体の半径
+    static constexpr int    DebugRoomCenterPositionSphereDivision = 8;        // 球を形成するポリゴンの細かさ
 
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
-    list<Room*>     roomList;       // マップに存在するすべての部屋のリスト
-    Room initRoomData[RoomTotalNumber];
+    // 情報
+    list<Room*>         roomList;                           // マップに存在するすべての部屋のリスト
+    Room                initRoomData[RoomTotalNumber];      // 部屋の情報
+
+    // 管理クラス
+    ImageDataManager*   imageDataManager;                   // 画像データ読み込みクラス
 
 };
 

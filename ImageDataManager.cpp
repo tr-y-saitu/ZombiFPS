@@ -9,6 +9,8 @@ ImageDataManager* ImageDataManager::imageDataManager = NULL;
 /// </summary>
 ImageDataManager::ImageDataManager()
 {
+    // 画像データの読み込み
+    ImageDataLoad();
 }
 
 /// <summary>
@@ -59,7 +61,19 @@ void ImageDataManager::DeleteInstance()
 /// </summary>
 void ImageDataManager::ImageDataLoad()
 {
-
+    // 部屋番号
+    imageDataList[West1ImageData]   = LoadGraph("Data/UI/RoomNumber/West1.png");
+    imageDataList[West2ImageData]   = LoadGraph("Data/UI/RoomNumber/West2.png");
+    imageDataList[West3ImageData]   = LoadGraph("Data/UI/RoomNumber/West3.png");
+    imageDataList[West4ImageData]   = LoadGraph("Data/UI/RoomNumber/West4.png");
+    imageDataList[Center1ImageData] = LoadGraph("Data/UI/RoomNumber/Center1.png");
+    imageDataList[Center2ImageData] = LoadGraph("Data/UI/RoomNumber/Center2.png");
+    imageDataList[Center3ImageData] = LoadGraph("Data/UI/RoomNumber/Center3.png");
+    imageDataList[Center4ImageData] = LoadGraph("Data/UI/RoomNumber/Center4.png");
+    imageDataList[East1ImageData]   = LoadGraph("Data/UI/RoomNumber/East1.png");
+    imageDataList[East2ImageData]   = LoadGraph("Data/UI/RoomNumber/East2.png");
+    imageDataList[East3ImageData]   = LoadGraph("Data/UI/RoomNumber/East3.png");
+    imageDataList[East4ImageData]   = LoadGraph("Data/UI/RoomNumber/East4.png");
 }
 
 /// <summary>

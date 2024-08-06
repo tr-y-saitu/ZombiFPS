@@ -7,9 +7,23 @@
 class ImageDataManager
 {
 public:
+    /// <summary>
+    /// 読み込むデータの種類
+    /// </summary>
     enum ImageDataType
     {
-
+        West1ImageData  ,       // 西の部屋１
+        West2ImageData  ,       // 西の部屋２
+        West3ImageData  ,       // 西の部屋３
+        West4ImageData  ,       // 西の部屋４
+        Center1ImageData,       // 中央の部屋１
+        Center2ImageData,       // 中央の部屋２
+        Center3ImageData,       // 中央の部屋３
+        Center4ImageData,       // 中央の部屋４
+        East1ImageData  ,       // 東の部屋１
+        East2ImageData  ,       // 東の部屋２
+        East3ImageData  ,       // 東の部屋３
+        East4ImageData  ,       // 東の部屋４
     };
 
     /// <summary>
