@@ -33,7 +33,7 @@ void GunBase::UpdateMove(VECTOR setPosition, Player::State playerState)
 /// <param name="setPosition">設定する座標</param>
 /// <param name="cameraForwardVector">カメラの前方向ベクトル</param>
 /// <param name="setPitch">設定する上下角度</param>
-void GunBase::UpdateGunPosition(VECTOR setPosition, VECTOR cameraForwardVector, float cameraPitch, Player::State playerState)
+void GunBase::UpdateGunPosition(VECTOR setPosition, VECTOR cameraForwardVector, float cameraPitch ,Player::State playerState)
 {
     // 座標をプレイヤーの腕に丁度良くずらす
     //FixedGunPosition(setPosition, cameraForwardVector);
