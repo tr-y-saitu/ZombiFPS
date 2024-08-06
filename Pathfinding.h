@@ -85,6 +85,13 @@ public:
     void DrawDebugRoomArea(VECTOR cneterPosition, float width, float depth);
 
     /// <summary>
+    /// 現在位置する部屋を取得
+    /// </summary>
+    /// <param name="objectPosition">どの部屋にいるか調べたいキャラの座標</param>
+    /// <returns>現在位置する部屋の情報</returns>
+    Room GetCurrentRoom(VECTOR objectPosition);
+
+    /// <summary>
     /// エネミーがプレイヤーへどの部屋を経由したら最短か計算し、次の部屋番号を返す
     /// </summary>
     /// <param name="plyaerRoom">プレイヤーのいる部屋</param>
