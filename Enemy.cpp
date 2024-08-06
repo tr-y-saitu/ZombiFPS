@@ -65,6 +65,8 @@ void Enemy::Initialize()
 /// <summary>
 /// 更新
 /// </summary>
+/// <param name="targetPosition">目標座標</param>
+/// <param name="stage">ステージ</param>
 void Enemy::Update(VECTOR targetPosition,Stage& stage)
 {
     // ルートフレームのＺ軸方向の移動パラメータを無効にする

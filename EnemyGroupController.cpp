@@ -41,23 +41,25 @@ void EnemyGroupController::Initialize()
 /// <summary>
 /// 更新
 /// </summary>
-void EnemyGroupController::Update(VECTOR targetPosition, Stage& stage)
+/// <param name="playerPosition">プレイヤー座標</param>
+/// <param name="stage">ステージ</param>
+void EnemyGroupController::Update(VECTOR playerPosition, Stage& stage)
 {
     // エネミーグループの数だけ更新
     for (int i = 0; i < enemyGroup.size(); i++)
     {
-        enemyGroup[i]->Update(targetPosition, stage);
+        enemyGroup[i]->Update(playerPosition, stage);
     }
 }
 
 /// <summary>
 /// 描画
 /// </summary>
-void EnemyGroupController::Draw()
+void EnemyGroupController::Draw(VECTOR playerPosition)
 {
     // エネミーの数だけ描画
     for (int i = 0; i < enemyGroup.size(); i++)
     {
-        enemyGroup[i]->Draw();
+        enemyGroup[i]->Draw(playerPosition);
     }
 }

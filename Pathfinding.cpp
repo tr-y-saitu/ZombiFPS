@@ -83,7 +83,7 @@ void Pathfinding::InitializeRoomsData()
 /// <summary>
 /// 更新
 /// </summary>
-void Pathfinding::Update()
+void Pathfinding::Update(VECTOR playerPosition)
 {
     
 }
@@ -144,13 +144,37 @@ void Pathfinding::DrawDebugRoomArea(VECTOR cneterPosition, float width, float de
 /// 現在位置する部屋を取得
 /// </summary>
 /// <param name="objectPosition">どの部屋にいるか調べたいキャラの座標</param>
-/// <returns>現在位置する部屋の情報</returns>
-Pathfinding::Room Pathfinding::GetCurrentRoom(VECTOR objectPosition)
+/// <param name="previousRoom">今ままで位置していた部屋</param>
+/// <returns>現在位置する部屋情報</returns>
+Pathfinding::Room Pathfinding::GetCurrentRoom(VECTOR objectPosition, Room& previousRoom)
 {
-    // 現在いる部屋
-    Room currentRoom;
+    Room room;
 
+    // 位置する部屋を検索
+    for (int i = 0; i < RoomTotalNumber; i++)
+    {
+        room = initRoomData[i];
 
+        // 部屋の範囲を計算 (XZ平面のみ)
+        float halfWidth = room.width / 2.0f;
+        float halfDepth = room.depth / 2.0f;
+
+        // 部屋の最小点と最大点を計算 (XZ平面、Y座標は無視)
+        float minX = room.centerPosition.x - halfWidth;
+        float maxX = room.centerPosition.x + halfWidth;
+        float minZ = room.centerPosition.z - halfDepth;
+        float maxZ = room.centerPosition.z + halfDepth;
+
+        // オブジェクトが部屋の範囲内にいるかをチェック (XZ平面)２次元当たり判定
+        if (objectPosition.x >= minX && objectPosition.x <= maxX &&
+            objectPosition.z >= minZ && objectPosition.z <= maxZ)
+        {
+            previousRoom = room;    // プレイヤーの以前いた部屋を更新する
+            return room;            // 部屋の情報を返す
+        }
+    }
+
+    return room = previousRoom;
 }
 
 /// <summary>

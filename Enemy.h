@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Common.h"
 #include "CollisionData.h"
+#include "Pathfinding.h"
 
 
 class ModelDataManager;
@@ -64,7 +65,7 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    /// <param name="targetPosition">進べき座標</param>
+    /// <param name="targetPosition">目標座標</param>
     /// <param name="stage">ステージ</param>
     void Update(VECTOR targetPosition,Stage& stage);
 
@@ -175,6 +176,7 @@ private:
     bool        currentFrameMove;           // そのフレームで動いたかどうか
     State       state;                      // 状態
     int         hitPoints;                  // 体力
+    Pathfinding::Room previousRoom;         // 以前いた部屋
 
     // 当たり判定用
     CollisionData           collisionData;          // 当たり判定用情報

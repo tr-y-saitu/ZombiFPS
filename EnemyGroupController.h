@@ -28,14 +28,14 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    /// <param name="targetPosition">進むべき座標</param>
+    /// <param name="playerPosition">プレイヤー座標</param>
     /// <param name="stage">ステージ</param>
-    void Update(VECTOR targetPosition, Stage& stage);
+    void Update(VECTOR playerPosition, Stage& stage);
 
     /// <summary>
     /// 描画
     /// </summary>
-    void Draw();
+    void Draw(VECTOR playerPosition);
 
 private:
     // 定数

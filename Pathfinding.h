@@ -14,18 +14,18 @@ public:
     /// </summary>
     enum RoomNumber
     {
-        West1,      // 西の部屋１
-        West2,      // 西の部屋２
-        West3,      // 西の部屋３
-        West4,      // 西の部屋４
-        Center1,    // 中央の部屋１
-        Center2,    // 中央の部屋２
-        Center3,    // 中央の部屋３
-        Center4,    // 中央の部屋４
-        East1,      // 東の部屋１
-        East2,      // 東の部屋２
-        East3,      // 東の部屋３
-        East4,      // 東の部屋４
+        West1,      // 西の部屋１        0
+        West2,      // 西の部屋２        1
+        West3,      // 西の部屋３        2
+        West4,      // 西の部屋４        3
+        Center1,    // 中央の部屋１      4
+        Center2,    // 中央の部屋２      5
+        Center3,    // 中央の部屋３      6
+        Center4,    // 中央の部屋４      7
+        East1,      // 東の部屋１        8
+        East2,      // 東の部屋２        9
+        East3,      // 東の部屋３        10
+        East4,      // 東の部屋４        11
     };
 
     /// <summary>
@@ -69,7 +69,7 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    void Update();
+    void Update(VECTOR playerPosition);
 
     /// <summary>
     /// 描画
@@ -88,8 +88,9 @@ public:
     /// 現在位置する部屋を取得
     /// </summary>
     /// <param name="objectPosition">どの部屋にいるか調べたいキャラの座標</param>
-    /// <returns>現在位置する部屋の情報</returns>
-    Room GetCurrentRoom(VECTOR objectPosition);
+    /// <param name="previousRoom">今ままで位置していた部屋</param>
+    /// <returns>現在位置する部屋情報</returns>
+    Room GetCurrentRoom(VECTOR objectPosition,Room& previousRoom);
 
     /// <summary>
     /// エネミーがプレイヤーへどの部屋を経由したら最短か計算し、次の部屋番号を返す
@@ -118,6 +119,7 @@ private:
     // 情報
     list<Room*>         roomList;                           // マップに存在するすべての部屋のリスト
     Room                initRoomData[RoomTotalNumber];      // 部屋の情報
+    
 
     // 管理クラス
     ImageDataManager*   imageDataManager;                   // 画像データ読み込みクラス

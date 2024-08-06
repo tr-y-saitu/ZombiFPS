@@ -33,14 +33,20 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    /// <param name="targetPosition">進べき座標</param>
+    /// <param name="playerPosition">プレイヤーの座標</param>
     /// <param name="stage">ステージ</param>
-    void Update(VECTOR targetPosition, Stage& stage);
+    void Update(VECTOR playerPosition, Stage& stage);
 
     /// <summary>
     /// 描画
     /// </summary>
-    void Draw();
+    void Draw(VECTOR playerPosition);
+
+    /// <summary>
+    /// エネミーの線形探索の更新
+    /// </summary>
+    /// <param name="playerPosition">プレイヤー座標</param>
+    void UpdateEnemyPathfinding(VECTOR playerPosition);
 
 private:
     // 定数
@@ -50,5 +56,6 @@ private:
     Boids*          boids;          // 集合計算用
     Pathfinding*    pathfinding;    // 線形探索用
 
+    Pathfinding::Room       playerPreviousRoom;     // プレイヤーが以前いた部屋
 };
 

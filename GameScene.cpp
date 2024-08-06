@@ -106,7 +106,7 @@ void GameScene::Draw()
 {
     stage->Draw();                      // ステージ
     player->Draw(*stage);               // プレイヤー
-    enemyGroupController->Draw();       // エネミーの集合体
+    enemyGroupController->Draw(player->GetPosition());       // エネミーの集合体
     DrawUI();                           // UIの描画
 }
 

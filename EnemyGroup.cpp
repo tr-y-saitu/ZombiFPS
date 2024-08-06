@@ -46,19 +46,24 @@ void EnemyGroup::Initialize()
 /// <summary>
 /// 更新
 /// </summary>
-void EnemyGroup::Update(VECTOR targetPosition, Stage& stage)
+/// <param name="playerPosition">プレイヤーの座標</param>
+/// <param name="stage">ステージ</param>
+void EnemyGroup::Update(VECTOR playerPosition, Stage& stage)
 {
+    // 線形探索の更新
+    UpdateEnemyPathfinding(playerPosition);
+
     // エネミーの数だけ更新
     for (int i = 0; i < enemys.size(); i++)
     {
-        enemys[i]->Update(targetPosition,stage);
+        enemys[i]->Update(playerPosition,stage);
     }
 }
 
 /// <summary>
 /// 描画
 /// </summary>
-void EnemyGroup::Draw()
+void EnemyGroup::Draw(VECTOR playerPosition)
 {
     // エネミーの数だけ描画
     for (int i = 0; i < enemys.size(); i++)
@@ -68,5 +73,19 @@ void EnemyGroup::Draw()
 
     // 線形探索用に区切った部屋を描画
     pathfinding->Draw();
+
+    // プレイヤーの位置する部屋を描画
+    Pathfinding::Room playerRoom = pathfinding->GetCurrentRoom(playerPosition, playerPreviousRoom);
+    DrawFormatString(100, 500, DebugFontColor, "PlayerRoom:%d", playerRoom.roomNumber);
+}
+
+/// <summary>
+/// エネミーの線形探索の更新
+/// </summary>
+/// <param name="playerPosition">プレイヤー座標</param>
+void EnemyGroup::UpdateEnemyPathfinding(VECTOR playerPosition)
+{
+    // プレイヤーの位置する部屋を取得
+    Pathfinding::Room playerRoom = pathfinding->GetCurrentRoom(playerPosition,playerPreviousRoom);
 
 }
