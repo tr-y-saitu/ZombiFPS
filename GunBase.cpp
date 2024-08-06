@@ -34,7 +34,7 @@ void GunBase::UpdateMove(VECTOR setPosition, Player::State playerState)
 /// <param name="setPosition">設定する座標</param>
 /// <param name="cameraForwardVector">カメラの前方向ベクトル</param>
 /// <param name="setPitch">設定する上下角度</param>
-void GunBase::UpdateGunPosition(VECTOR setPosition, VECTOR cameraForwardVector, float cameraPitch,Player::State playerState)
+void GunBase::UpdateGunPosition(VECTOR setPosition, VECTOR cameraForwardVector, float cameraPitch ,Player::State playerState)
 {
     // 座標をプレイヤーの腕に丁度良くずらす
     //FixedGunPosition(setPosition, cameraForwardVector);
@@ -135,9 +135,9 @@ void GunBase::PlayRunAnimation()
     float angle = Player::RunAnimationLimitAngle * animationProgress;
 
     // 回転行列を取得
-    MATRIX runMatrixY = MGetRotY(angle);
-    MATRIX runMatrixX = MGetRotX(RunAnimationAngle);
-    MATRIX runFinalMatrix = MMult(runMatrixX, runMatrixY);
+    MATRIX runMatrixY       = MGetRotY(angle);                  // 銃口を下に向ける
+    MATRIX runMatrixX       = MGetRotX(RunAnimationAngle);      // 左右に周期的に回転させる
+    MATRIX runFinalMatrix   = MMult(runMatrixX, runMatrixY);    // 最終的な回転率
 
     // 回転行列を合成
     rotationMatrix = MMult(runFinalMatrix, rotationMatrix);
@@ -156,9 +156,9 @@ void GunBase::PlayShotAnimation(VECTOR cameraForwardVector)
 
     // 銃を後ろに後退させる
     float recoiOffset = 0.0f;
-    if (shotAnimationFactor < 0.5f)
+    if (shotAnimationFactor < RecoilDistanceLimit)
     {
-        recoiOffset = RecoilDistance * (0.5f - fabs(0.5f - shotAnimationFactor) * 2.0f);
+        recoiOffset = RecoilDistance * (fabs(RecoilDistanceLimit - shotAnimationFactor));
     }
 
     // カメラの前方向ベクトルを正規化
