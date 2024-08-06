@@ -425,8 +425,8 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
     FixedRunPosition();
 
     // 現在の適用率に基づいてオフセットを計算
-    VECTOR offset = VScale(RunAnimationOffset, runAnimationLerpFactor);
-    movePosition = VAdd(position, offset);
+    VECTOR offset   = VScale(RunAnimationOffset, runAnimationLerpFactor);
+    movePosition    = VAdd(position, offset);
 
     // プレイヤーのモデルの座標を更新する
     MV1SetPosition(modelHandle, movePosition);

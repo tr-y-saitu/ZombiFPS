@@ -36,8 +36,10 @@ private:
     void UpdateAnimationData();
 
     // アニメーション
-    static constexpr float  PlayAnimationSpeed = 0.5f;                         // アニメーション速度
-    static constexpr float  AnimationBlendSpeed = 0.1f;                         // アニメーションのブレンド率変化速度
+    static constexpr float  PlayAnimationSpeed = 0.5f;              // アニメーション速度
+    static constexpr float  AnimationBlendSpeed = 0.1f;             // アニメーションのブレンド率変化速度
+
+
 
 };
 
