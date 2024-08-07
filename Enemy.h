@@ -79,6 +79,11 @@ public:
     /// </summary>
     void UpdateCollisionData();
 
+    // Getter
+    const VECTOR GetPosition()const { return position; }
+    const Pathfinding::Room GetPreviousRoom()const { return previousRoom; }
+    void SetPreviousRoom(Pathfinding::Room set) { previousRoom = set; }
+
 private:
     /// <summary>
     /// ルートフレームのZ軸方向の移動パラメータを無効にする
@@ -140,7 +145,7 @@ private:
     static constexpr float  AngleSpeed              = 0.2f;                         // 角度変化速度
     static constexpr float  JumpPower               = 100.0f;                       // ジャンプ力
     static constexpr float  MoveLimitY              = 1.0f;                         // Y軸の移動制限
-    static constexpr VECTOR InitializePosition      = { 0.0f,MoveLimitY,0.0f };     // 初期化座標
+    static constexpr VECTOR InitializePosition      = { -45.0f,MoveLimitY,45.0f };  // 初期化座標
     static constexpr VECTOR ZeroVector              = { 0.0f,0.0f,0.0f };           // ゼロベクトル
     static constexpr VECTOR EnemyScale              = { 0.03f,0.03f,0.03f };        // プレイヤーのスケール
     static constexpr int    InitializeHitPoints     = 100;                          // 初期化時の体力

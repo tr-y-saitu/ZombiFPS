@@ -2,6 +2,7 @@
 #include "Common.h"
 
 class ImageDataManager;
+class Enemy;
 
 /// <summary>
 /// 線形探索クラス
@@ -27,18 +28,18 @@ public:
         East3,      // 東の部屋３        10
         East4,      // 東の部屋４        11
     };
-
+    
     /// <summary>
     /// 部屋の情報
     /// </summary>
     struct Room
     {
-        RoomNumber  roomNumber;         // 部屋番号
-        VECTOR      centerPosition;     // 部屋の中心座標（これをエネミーは経由する）
-        float       width;              // 部屋の幅
-        float       depth;              // 部屋の奥行
-        int         imageHandle;        // 画像ハンドル
-        list<Room*> adjacencyRoom;      // 隣接し、現在の部屋から行くことのできる部屋リスト
+        RoomNumber          roomNumber;         // 部屋番号
+        VECTOR              centerPosition;     // 部屋の中心座標（これをエネミーは経由する）
+        float               width;              // 部屋の幅
+        float               depth;              // 部屋の奥行
+        int                 imageHandle;        // 画像ハンドル
+        vector<Room*>       adjacencyRoom;      // 隣接し、現在の部屋から行くことのできる部屋リスト
     };
 
     /// <summary>
@@ -79,10 +80,10 @@ public:
     /// <summary>
     /// 部屋とする範囲を描画する
     /// </summary>
-    /// <param name="cneterPosition">部屋の中心座標</param>
+    /// <param name="centerPosition">部屋の中心座標</param>
     /// <param name="width">幅</param>
     /// <param name="depth">奥行き</param>
-    void DrawDebugRoomArea(VECTOR cneterPosition, float width, float depth);
+    void DrawDebugRoomArea(VECTOR centerPosition, float width, float depth);
 
     /// <summary>
     /// 現在位置する部屋を取得
@@ -95,10 +96,8 @@ public:
     /// <summary>
     /// エネミーがプレイヤーへどの部屋を経由したら最短か計算し、次の部屋番号を返す
     /// </summary>
-    /// <param name="plyaerRoom">プレイヤーのいる部屋</param>
-    /// <param name="enemyPosition">エネミーの現在の座標</param>
-    /// <returns>エネミーが行くべき部屋</returns>
-    Room FindRoomPathToPlayer(Room plyaerRoom, VECTOR enemyPosition);
+    /// BFS幅優先探索で実装
+    Room FindRoomPathToPlayer(Room playerRoom,Enemy& enemy);
 
 private:
     //---------------------------------------------------------------------------------//

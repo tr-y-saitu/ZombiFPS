@@ -68,7 +68,7 @@ void EnemyGroup::Draw(VECTOR playerPosition)
     // エネミーの数だけ描画
     for (int i = 0; i < enemys.size(); i++)
     {
-        //enemys[i]->Draw();
+        enemys[i]->Draw();
     }
 
     // 線形探索用に区切った部屋を描画
@@ -88,4 +88,12 @@ void EnemyGroup::UpdateEnemyPathfinding(VECTOR playerPosition)
     // プレイヤーの位置する部屋を取得
     Pathfinding::Room playerRoom = pathfinding->GetCurrentRoom(playerPosition,playerPreviousRoom);
 
+    for (int i = 0; i < enemys.size(); i++)
+    {
+        // そのエネミーが度超え行けばよいかが帰ってくる
+        Pathfinding::Room enemyTargetRoom;  // エネミーが目指す部屋
+
+        // 線形探索開始
+        enemyTargetRoom = pathfinding->FindRoomPathToPlayer(playerRoom,*enemys[i]);
+    }
 }

@@ -1,5 +1,6 @@
 ﻿#include "ImageDataManager.h"
 #include "Pathfinding.h"
+#include "Enemy.h"
 
 
 /// <summary>
@@ -66,18 +67,55 @@ void Pathfinding::CreateRooms()
 void Pathfinding::InitializeRoomsData()
 {
     // 部屋のデータ   // 部屋番号     // 中心座標                 // 幅     // 奥行        // 画像データ
-    initRoomData [0] = { West1,     VGet(  -45.0f,  4.5f,  45.0f),      30,        40,       imageDataManager->GetImageHandle(ImageDataManager::West1ImageData) };
-    initRoomData [1] = { West2,     VGet(  -45.0f,  4.5f,  18.0f),      45,        13,       imageDataManager->GetImageHandle(ImageDataManager::West2ImageData) };
-    initRoomData [2] = { West3,     VGet(  -45.0f,  4.5f,  -5.0f),      45,        30,       imageDataManager->GetImageHandle(ImageDataManager::West3ImageData) };
-    initRoomData [3] = { West4,     VGet(  -48.0f,  4.5f, -35.0f),      50,        28,       imageDataManager->GetImageHandle(ImageDataManager::West4ImageData) };
-    initRoomData [4] = { Center1,   VGet(  -12.0f,  4.5f,  58.0f),      15,       100,       imageDataManager->GetImageHandle(ImageDataManager::Center1ImageData) };
-    initRoomData [5] = { Center2,   VGet(   -9.0f,  4.5f,  -5.0f),      25,        25,       imageDataManager->GetImageHandle(ImageDataManager::Center2ImageData) };
-    initRoomData [6] = { Center3,   VGet(  -12.0f,  4.5f, -47.0f),      18,        58,       imageDataManager->GetImageHandle(ImageDataManager::Center3ImageData) };
-    initRoomData [7] = { Center4,   VGet(  -12.0f,  4.5f, -83.0f),      18,        13,       imageDataManager->GetImageHandle(ImageDataManager::Center4ImageData) };
-    initRoomData [8] = { East1,     VGet(   25.0f,  4.5f,  25.0f),      55,        28,       imageDataManager->GetImageHandle(ImageDataManager::East1ImageData) };
-    initRoomData [9] = { East2,     VGet(   45.0f,  4.5f,  -5.0f),      80,        30,       imageDataManager->GetImageHandle(ImageDataManager::East2ImageData) };
-    initRoomData[10] = { East3,     VGet(   22.0f,  4.5f, -35.0f),      45,        28,       imageDataManager->GetImageHandle(ImageDataManager::East3ImageData) };
-    initRoomData[11] = { East4,     VGet(   50.0f,  4.5f, -35.0f),      10,        28,       imageDataManager->GetImageHandle(ImageDataManager::East4ImageData) };
+    initRoomData[West1] = { West1,     VGet(-45.0f,  4.5f,  45.0f),      30,        40,       imageDataManager->GetImageHandle(ImageDataManager::West1ImageData) };
+    initRoomData[West2] = { West2,     VGet(-45.0f,  4.5f,  18.0f),      45,        13,       imageDataManager->GetImageHandle(ImageDataManager::West2ImageData) };
+    initRoomData[West3] = { West3,     VGet(-45.0f,  4.5f,  -5.0f),      45,        30,       imageDataManager->GetImageHandle(ImageDataManager::West3ImageData) };
+    initRoomData[West4] = { West4,     VGet(-48.0f,  4.5f, -35.0f),      50,        28,       imageDataManager->GetImageHandle(ImageDataManager::West4ImageData) };
+    initRoomData[Center1] = { Center1,   VGet(-12.0f,  4.5f,  58.0f),      15,       100,       imageDataManager->GetImageHandle(ImageDataManager::Center1ImageData) };
+    initRoomData[Center2] = { Center2,   VGet(-9.0f,  4.5f,  -5.0f),      25,        25,       imageDataManager->GetImageHandle(ImageDataManager::Center2ImageData) };
+    initRoomData[Center3] = { Center3,   VGet(-12.0f,  4.5f, -47.0f),      18,        58,       imageDataManager->GetImageHandle(ImageDataManager::Center3ImageData) };
+    initRoomData[Center4] = { Center4,   VGet(-12.0f,  4.5f, -83.0f),      18,        13,       imageDataManager->GetImageHandle(ImageDataManager::Center4ImageData) };
+    initRoomData[East1] = { East1,     VGet(25.0f,  4.5f,  25.0f),      55,        28,       imageDataManager->GetImageHandle(ImageDataManager::East1ImageData) };
+    initRoomData[East2] = { East2,     VGet(45.0f,  4.5f,  -5.0f),      80,        30,       imageDataManager->GetImageHandle(ImageDataManager::East2ImageData) };
+    initRoomData[East3] = { East3,     VGet(22.0f,  4.5f, -35.0f),      45,        28,       imageDataManager->GetImageHandle(ImageDataManager::East3ImageData) };
+    initRoomData[East4] = { East4,     VGet(50.0f,  4.5f, -35.0f),      10,        28,       imageDataManager->GetImageHandle(ImageDataManager::East4ImageData) };
+
+    // 隣接する部屋を追加
+    // West１
+    initRoomData[West1].adjacencyRoom.push_back(&initRoomData[West2]);
+    // West2
+    initRoomData[West2].adjacencyRoom.insert(initRoomData[West2].adjacencyRoom.end(),
+        { &initRoomData[West1], &initRoomData[West3] });
+    // West3
+    initRoomData[West3].adjacencyRoom.insert(initRoomData[West3].adjacencyRoom.end(),
+        { &initRoomData[West2], &initRoomData[West4] });
+    // West4
+    initRoomData[West4].adjacencyRoom.insert(initRoomData[West4].adjacencyRoom.end(),
+        { &initRoomData[Center3] });
+    // Center1
+    initRoomData[Center1].adjacencyRoom.insert(initRoomData[Center1].adjacencyRoom.end(),
+        { &initRoomData[Center2] });
+    // Center2
+    initRoomData[Center2].adjacencyRoom.insert(initRoomData[Center2].adjacencyRoom.end(),
+        { &initRoomData[Center1], &initRoomData[West4], &initRoomData[Center3], &initRoomData[East2] });
+    // Center3
+    initRoomData[Center3].adjacencyRoom.insert(initRoomData[Center3].adjacencyRoom.end(),
+        { &initRoomData[West4],&initRoomData[Center2],&initRoomData[Center4] });
+    // Center4
+    initRoomData[Center4].adjacencyRoom.insert(initRoomData[Center4].adjacencyRoom.end(),
+        { &initRoomData[Center3] });
+    // East1
+    initRoomData[East1].adjacencyRoom.insert(initRoomData[East1].adjacencyRoom.end(),
+        { &initRoomData[East2] });
+    // East2
+    initRoomData[East2].adjacencyRoom.insert(initRoomData[East2].adjacencyRoom.end(),
+        { &initRoomData[East1],&initRoomData[Center2],&initRoomData[East3] });
+    // East3
+    initRoomData[East3].adjacencyRoom.insert(initRoomData[East3].adjacencyRoom.end(),
+        { &initRoomData[East4] });
+    // East4
+    initRoomData[East4].adjacencyRoom.insert(initRoomData[East4].adjacencyRoom.end(),
+        { &initRoomData[East2] });
 }
 
 /// <summary>
@@ -118,21 +156,21 @@ void Pathfinding::Draw()
 /// <summary>
 /// 部屋とする範囲を描画する
 /// </summary>
-/// <param name="cneterPosition">部屋の中心座標</param>
+/// <param name="centerPosition">部屋の中心座標</param>
 /// <param name="width">幅</param>
 /// <param name="depth">奥行き</param>
-void Pathfinding::DrawDebugRoomArea(VECTOR cneterPosition, float width, float depth)
+void Pathfinding::DrawDebugRoomArea(VECTOR centerPosition, float width, float depth)
 {
     // 半分の幅と奥行き
     float halfWidth = width / 2.0f;
     float halfDepth = depth / 2.0f;
-    float halfHeight = cneterPosition.y / 2.0f;
+    float halfHeight = centerPosition.y / 2.0f;
 
     // 四角形の頂点を計算
-    VECTOR p1 = VGet(cneterPosition.x - halfWidth, halfHeight, cneterPosition.z - halfDepth);
-    VECTOR p2 = VGet(cneterPosition.x + halfWidth, halfHeight, cneterPosition.z - halfDepth);
-    VECTOR p3 = VGet(cneterPosition.x + halfWidth, halfHeight, cneterPosition.z + halfDepth);
-    VECTOR p4 = VGet(cneterPosition.x - halfWidth, halfHeight, cneterPosition.z + halfDepth);
+    VECTOR p1 = VGet(centerPosition.x - halfWidth, halfHeight, centerPosition.z - halfDepth);
+    VECTOR p2 = VGet(centerPosition.x + halfWidth, halfHeight, centerPosition.z - halfDepth);
+    VECTOR p3 = VGet(centerPosition.x + halfWidth, halfHeight, centerPosition.z + halfDepth);
+    VECTOR p4 = VGet(centerPosition.x - halfWidth, halfHeight, centerPosition.z + halfDepth);
 
     // 三角形1: p1, p2, p3
     DrawTriangle3D(p1, p2, p3, DebugPolygonColorRed, TRUE);
@@ -180,18 +218,103 @@ Pathfinding::Room Pathfinding::GetCurrentRoom(VECTOR objectPosition, Room& previ
 /// <summary>
 /// エネミーがプレイヤーへどの部屋を経由したら最短か計算し、次の部屋番号を返す
 /// </summary>
-/// <param name="plyaerRoom">プレイヤーのいる部屋</param>
-/// <param name="enemyPosition">エネミーの現在の座標</param>
-/// <returns>エネミーが行くべき部屋</returns>
-Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room plyaerRoom, VECTOR enemyPosition)
+Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy)
 {
-    // 線形探索を行った結果どの部屋に行けばよいか
-    Room targetRoom;
+    //// 線形探索を行った結果どの部屋に行けばよいか
+    //// playerRoomにたどり着くためにはどの部屋を経由すればよいかで
+    //// 最短経路の中でもっとエネミーに近い部屋を指す
 
-    // エネミーがどの部屋にいるかを調べる
+    //// エネミーがどの部屋にいるかを調べる
+    //Room enemyPreviousRoom = enemy.GetPreviousRoom();
+    //Room enemyCurrentRoom = GetCurrentRoom(enemy.GetPosition(), enemyPreviousRoom);
+    //enemy.SetPreviousRoom(enemyPreviousRoom);           // エネミーの前に位置していた部屋を更新
 
-    // プレイヤーの部屋からエネミーがどの部屋を経由すればよいか検索
+    //// 幅優先探索 (BFS) のためのデータ構造
+    //std::queue<Room*> queue;
+    //std::unordered_map<Room*, Room*>    cameFrom; // 経路を追跡するためのマップ
+    //std::unordered_map<Room*, bool>     visited;   // 訪問済みの部屋を記録
 
-    // エネミーが行くべき部屋番号を返す
-    return targetRoom;
+    //// 初期設定
+    //queue.push(&enemyCurrentRoom);
+    //visited[&enemyCurrentRoom] = true;
+
+    //// BFS のメインループ
+    //while (!queue.empty())
+    //{
+    //    Room* currentRoom = queue.front();
+    //    queue.pop();
+
+    //    // プレイヤーの部屋に到達した場合
+    //    if (currentRoom->roomNumber == playerRoom.roomNumber)
+    //    {
+    //        break;
+    //    }
+
+    //    // 隣接する部屋を調べる
+    //    for (Room* adjacentRoom : currentRoom->adjacencyRoom)
+    //    {
+    //        if (visited.find(adjacentRoom) == visited.end())
+    //        {
+    //            visited[adjacentRoom] = true;
+    //            cameFrom[adjacentRoom] = currentRoom;
+    //            queue.push(adjacentRoom);
+    //        }
+    //    }
+    //}
+
+    //// プレイヤーの部屋から逆に辿って最初のステップを見つける
+    //Room* targetRoom = &playerRoom;
+    //while (cameFrom.find(targetRoom) != cameFrom.end() && cameFrom[targetRoom] != &enemyCurrentRoom) {
+    //    targetRoom = cameFrom[targetRoom];
+    //}
+
+    //// エネミーが行くべき部屋番号を返す
+    //return *targetRoom;
+
+    Room enemyPreviousRoom = enemy.GetPreviousRoom();
+    Room enemyCurrentRoom = GetCurrentRoom(enemy.GetPosition(), enemyPreviousRoom);
+    enemy.SetPreviousRoom(enemyPreviousRoom);           // エネミーの前に位置していた部屋を更新
+
+    // 幅優先探索 (BFS) のためのデータ構造
+    std::queue<Room*> queue;
+    std::unordered_map<Room*, Room*> cameFrom;
+    std::unordered_map<Room*, bool> visited;
+
+    // 初期設定
+    queue.push(&enemyCurrentRoom);
+    visited[&enemyCurrentRoom] = true;
+
+    // BFS のメインループ
+    while (!queue.empty()) {
+        Room* currentRoom = queue.front();
+        queue.pop();
+
+        // プレイヤーの部屋に到達した場合
+        if (currentRoom->roomNumber == playerRoom.roomNumber) {
+            break;
+        }
+
+        // 隣接する部屋を調べる
+        for (Room* adjacentRoom : currentRoom->adjacencyRoom) {
+            if (visited.find(adjacentRoom) == visited.end()) {
+                visited[adjacentRoom] = true;
+                cameFrom[adjacentRoom] = currentRoom;
+                queue.push(adjacentRoom);
+            }
+        }
+    }
+
+    // エネミーの現在の部屋から最短経路の最初の部屋を見つける
+    Room* nextRoom = nullptr;
+    for (Room* room = &enemyCurrentRoom; room != nullptr; room = cameFrom[room])
+    {
+        if (room->roomNumber == playerRoom.roomNumber) {
+            break;
+        }
+        nextRoom = room;
+    }
+
+    // 最初に移動すべき部屋を返す
+    return nextRoom ? *nextRoom : enemyCurrentRoom;
+
 }

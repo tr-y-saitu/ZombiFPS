@@ -1,7 +1,10 @@
 ﻿#pragma once
 #include <iostream>
+#include <limits>
 #include <vector>
 #include <map>
+#include <queue>
+#include <unordered_map>
 #include "math.h"
 #include "DxLib.h"
 #include "EffekseerForDXLib.h"
