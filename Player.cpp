@@ -415,7 +415,7 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
     }
 
     // 当たり判定をして、新しい座標を保存する
-    VECTOR oldPosition = position;                      // 移動前の座標
+    VECTOR oldPosition  = position;                     // 移動前の座標
     VECTOR nextPosition = VAdd(position, MoveVector);   // 移動後の座標
 
     // ステージとの当たり判定処理
