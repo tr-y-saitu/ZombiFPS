@@ -35,7 +35,7 @@ PlayerRunState::~PlayerRunState()
 void PlayerRunState::Update()
 {
     // プレイヤーの座標修正
-    FixedPosition();
+    UpdateOffsetValue();
 
     // アニメーションの更新
     UpdateAnimation();
@@ -47,7 +47,7 @@ void PlayerRunState::Update()
 /// <summary>
 /// プレイヤーの座標の修正
 /// </summary>
-void PlayerRunState::FixedPosition()
+void PlayerRunState::UpdateOffsetValue()
 {
     // アニメーションの適用率を上昇
     // 上昇させることで腕を下げる

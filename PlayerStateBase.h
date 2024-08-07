@@ -82,7 +82,7 @@ protected:
     /// <summary>
     /// プレイヤーのステートごとの座標修正
     /// </summary>
-    virtual void FixedPosition();
+    virtual void UpdateOffsetValue();
 
     /// <summary>
     /// アニメーションデータの更新

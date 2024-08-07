@@ -34,7 +34,7 @@ private:
     /// <summary>
     /// プレイヤーの座標修正
     /// </summary>
-    void FixedPosition() override;
+    void UpdateOffsetValue() override;
 
     // アニメーション
     static constexpr float  PlayAnimationSpeed      = 0.5f;     // アニメーション速度

@@ -38,7 +38,7 @@ PlayerWalkState::~PlayerWalkState()
 void PlayerWalkState::Update()
 {
     // プレイヤーの座標修正
-    FixedPosition();
+    UpdateOffsetValue();
 
     // アニメーションの更新
     UpdateAnimation();

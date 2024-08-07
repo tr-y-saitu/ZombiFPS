@@ -134,7 +134,7 @@ void PlayerStateBase::UpdateAnimation()
 /// <summary>
 /// プレイヤーのステートごとの座標修正
 /// </summary>
-void PlayerStateBase::FixedPosition()
+void PlayerStateBase::UpdateOffsetValue()
 {
     // 適用率を減少させる
     // Run,Reloadステートで適用率を上昇させることでポジションを下げる

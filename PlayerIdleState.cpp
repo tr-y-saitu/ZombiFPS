@@ -35,7 +35,7 @@ PlayerIdleState::~PlayerIdleState()
 void PlayerIdleState::Update()
 {
     // プレイヤーの座標修正
-    FixedPosition();
+    UpdateOffsetValue();
 
     // アニメーションの更新
     UpdateAnimation();
