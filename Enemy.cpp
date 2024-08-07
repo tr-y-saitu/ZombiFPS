@@ -15,6 +15,7 @@ Enemy::Enemy()
     , currentJumpPower          (0.0f)
     , state                     (State::Idle)
     , position                  (InitializePosition)
+    , targetNextPosition        (InitializePosition)
 {
     modelDataManager = ModelDataManager::GetInstance();
     collisionManager = CollisionManager::GetInstance();

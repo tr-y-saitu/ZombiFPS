@@ -99,6 +99,14 @@ public:
     /// BFS幅優先探索で実装
     Room FindRoomPathToPlayer(Room playerRoom,Enemy& enemy);
 
+    /// <summary>
+    /// 二つの座標の距離を計算
+    /// </summary>
+    /// <param name="vector1">座標１</param>
+    /// <param name="vector2">座標２</param>
+    /// <returns>二つの座標の距離</returns>
+    float GetDistance3D(const VECTOR position1, const VECTOR position2);
+    
 private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //

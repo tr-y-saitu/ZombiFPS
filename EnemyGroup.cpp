@@ -51,12 +51,19 @@ void EnemyGroup::Initialize()
 void EnemyGroup::Update(VECTOR playerPosition, Stage& stage)
 {
     // 線形探索の更新
-    UpdateEnemyPathfinding(playerPosition);
+     // プレイヤーの位置する部屋を取得
+    Pathfinding::Room playerRoom = pathfinding->GetCurrentRoom(playerPosition, playerPreviousRoom);
 
-    // エネミーの数だけ更新
     for (int i = 0; i < enemys.size(); i++)
     {
-        enemys[i]->Update(playerPosition,stage);
+        // そのエネミーが度超え行けばよいかが帰ってくる
+        Pathfinding::Room enemyTargetRoom;  // エネミーが目指す部屋
+
+        // 線形探索開始
+        enemyTargetRoom = pathfinding->FindRoomPathToPlayer(playerRoom, *enemys[i]);
+
+        // エネミーの更新
+        enemys[i]->Update(enemyTargetRoom.centerPosition,stage);
     }
 }
 
@@ -85,15 +92,5 @@ void EnemyGroup::Draw(VECTOR playerPosition)
 /// <param name="playerPosition">プレイヤー座標</param>
 void EnemyGroup::UpdateEnemyPathfinding(VECTOR playerPosition)
 {
-    // プレイヤーの位置する部屋を取得
-    Pathfinding::Room playerRoom = pathfinding->GetCurrentRoom(playerPosition,playerPreviousRoom);
-
-    for (int i = 0; i < enemys.size(); i++)
-    {
-        // そのエネミーが度超え行けばよいかが帰ってくる
-        Pathfinding::Room enemyTargetRoom;  // エネミーが目指す部屋
-
-        // 線形探索開始
-        enemyTargetRoom = pathfinding->FindRoomPathToPlayer(playerRoom,*enemys[i]);
-    }
+   
 }

@@ -83,6 +83,7 @@ public:
     const VECTOR GetPosition()const { return position; }
     const Pathfinding::Room GetPreviousRoom()const { return previousRoom; }
     void SetPreviousRoom(Pathfinding::Room set) { previousRoom = set; }
+    void SetTargetNextPosition(VECTOR set) { targetNextPosition = set; }
 
 private:
     /// <summary>
@@ -182,6 +183,7 @@ private:
     State       state;                      // 状態
     int         hitPoints;                  // 体力
     Pathfinding::Room previousRoom;         // 以前いた部屋
+    VECTOR      targetNextPosition;         // 線形探索を行った結果、次に移動したい座標
 
     // 当たり判定用
     CollisionData           collisionData;          // 当たり判定用情報
