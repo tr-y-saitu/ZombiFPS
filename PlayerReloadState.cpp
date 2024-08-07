@@ -36,6 +36,9 @@ PlayerReloadState::~PlayerReloadState()
 /// </summary>
 void PlayerReloadState::Update()
 {
+    // プレイヤー座標の修正
+    UpdateOffsetValue();
+
     // アニメーションの更新
     UpdateAnimation();
 
@@ -44,13 +47,18 @@ void PlayerReloadState::Update()
 }
 
 /// <summary>
-/// アニメーションデータの更新
+/// リロードステートの座標修正
 /// </summary>
-void PlayerReloadState::UpdateAnimationData()
+void PlayerReloadState::UpdateOffsetValue()
 {
-    nowStateData.currentAnimationCount  = currentAnimationCount;
-    nowStateData.currentPlayAnimation   = currentPlayAnimation;
-    nowStateData.previousAnimationCount = previousAnimationCount;
-    nowStateData.previousPlayAnimation  = previousPlayAnimation;
-}
+    // アニメーションの適用率を上昇
+    // 上昇させることで腕を下げる
+    animationFactor += ReloadAnimationSpeed;
+    if (animationFactor > 1.0f)
+    {
+        animationFactor = 1.0f;
+    }
 
+    // リロードステートのずらし量を決める
+    stateOffsetValue = VScale(ReloadAnimationOffsetValue, animationFactor);
+}

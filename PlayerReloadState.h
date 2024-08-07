@@ -30,14 +30,17 @@ public:
     void Update() override;
 
 private:
+
     /// <summary>
-    /// アニメーションデータの更新
+    /// リロードステートの座標修正
     /// </summary>
-    void UpdateAnimationData();
+    void UpdateOffsetValue() override;
 
     // アニメーション
     static constexpr float  PlayAnimationSpeed = 0.5f;      // アニメーション速度
     static constexpr float  AnimationBlendSpeed = 0.1f;     // アニメーションのブレンド率変化速度
+    static constexpr float  ReloadAnimationSpeed = 0.05f;   // リロードアニメーションの適用速度
+    static constexpr VECTOR ReloadAnimationOffsetValue = { 0.0f,-1.0f,0.0f };  // リロードステート時のずらし量
 };
 
 

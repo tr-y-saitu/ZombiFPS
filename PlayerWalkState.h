@@ -31,10 +31,6 @@ public:
     void Update() override;
 
 private:
-    /// <summary>
-    /// アニメーションデータの更新
-    /// </summary>
-    void UpdateAnimationData();
 
     // アニメーション
     static constexpr float  PlayAnimationSpeed  = 0.5f;     // アニメーション速度
