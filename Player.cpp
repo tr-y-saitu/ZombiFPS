@@ -83,6 +83,7 @@ void Player::Initialize()
     animationData.currentAnimationCount     = currentAnimationCount;
     animationData.previousAnimationCount    = previousAnimationCount;
     animationData.previousPlayAnimation     = previousPlayAnimation;
+    animationData.animationFactor           = 0.0f;
 }
 
 /// <summary>
@@ -430,11 +431,8 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
     // MEMO:走りアニメーション再生時にY座標のみ下にしたいため別のVECTORを用意
     VECTOR movePosition = position;
 
-    // 走りステート時に座標修正
-    FixedRunPosition();
-
     // 現在の適用率に基づいてオフセットを計算
-    VECTOR offset = VScale(RunAnimationOffset, runAnimationLerpFactor);
+    VECTOR offset = currentState->GetStateOffsetValue();
     movePosition = VAdd(position, offset);
 
     // プレイヤーのモデルの座標を更新する
