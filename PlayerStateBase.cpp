@@ -20,6 +20,7 @@ PlayerStateBase::PlayerStateBase(int playerModelHandle, AnimationData previousSt
     , currentPlayAnimation                  (previousStateData.currentPlayAnimation)
     , previousAnimationCount                (previousStateData.previousAnimationCount)
     , previousPlayAnimation                 (previousStateData.previousPlayAnimation)
+    , animationFactor                       (previousStateData.animationFactor)
 {
     nowStateData.currentAnimationCount  = 0;
     nowStateData.currentPlayAnimation   = 0;
@@ -127,5 +128,19 @@ void PlayerStateBase::UpdateAnimation()
         // アニメーション２のモデルに対する反映率をセット
         MV1SetAttachAnimBlendRate(modelHandle, previousPlayAnimation,
             MaxAnimationBlendRate - animationBlendRate);
+    }
+}
+
+/// <summary>
+/// プレイヤーのステートごとの座標修正
+/// </summary>
+void PlayerStateBase::FixedPosition()
+{
+    // 適用率を減少させる
+    // Run,Reloadステートで適用率を上昇させることでポジションを下げる
+    animationFactor -= AnimationFactorSpeed;
+    if (animationFactor < 0.0f)
+    {
+        animationFactor = 0.0f;
     }
 }
