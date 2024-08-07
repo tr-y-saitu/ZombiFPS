@@ -64,8 +64,7 @@ public:
 
     // Getter
     const AnimationData GetStateAnimationData()const { return nowStateData; }
-    const float GetAnimationFactor()const { return animationFactor; }
-    const VECTOR GetStateOffseValue()const { return stateOffsetValue; }
+    const VECTOR GetStateOffsetValue()const { return stateOffsetValue; }
 
 protected:
     /// <summary>

@@ -423,7 +423,7 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
     VECTOR movePosition = position;
 
     // 現在の適用率に基づいてオフセットを計算
-    VECTOR offset   = currentState->GetStateOffseValue();
+    VECTOR offset   = currentState->GetStateOffsetValue();
     movePosition    = VAdd(position, offset);
 
     // プレイヤーのモデルの座標を更新する
