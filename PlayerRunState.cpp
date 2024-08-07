@@ -12,7 +12,7 @@ PlayerRunState::PlayerRunState()
 /// </summary>
 /// <param name="playerModelHandle">プレイヤーのモデルハンドル</param>
 /// <param name="previousStateData">前のステートの情報</param>
-PlayerRunState::PlayerRunState(int& playerModelHandle, AnimationData previousStateData)
+PlayerRunState::PlayerRunState(int playerModelHandle, AnimationData previousStateData)
     : PlayerStateBase(playerModelHandle, previousStateData)
 {
     playAnimationSpeed  = PlayAnimationSpeed;
@@ -34,6 +34,9 @@ PlayerRunState::~PlayerRunState()
 /// </summary>
 void PlayerRunState::Update()
 {
+    // プレイヤーの座標修正
+    UpdateOffsetValue();
+
     // アニメーションの更新
     UpdateAnimation();
 
@@ -42,14 +45,18 @@ void PlayerRunState::Update()
 }
 
 /// <summary>
-/// アニメーションデータの更新
+/// 走りステートのプレイヤーオフセット量の更新
 /// </summary>
-void PlayerRunState::UpdateAnimationData()
+void PlayerRunState::UpdateOffsetValue()
 {
-    nowStateData.currentAnimationCount  = currentAnimationCount;
-    nowStateData.currentPlayAnimation   = currentPlayAnimation;
-    nowStateData.previousAnimationCount = previousAnimationCount;
-    nowStateData.previousPlayAnimation  = previousPlayAnimation;
+    // アニメーションの適用率を上昇
+    // 上昇させることで腕を下げる
+    animationFactor += RunAnimationSpeed;
+    if (animationFactor > 1.0f)
+    {
+        animationFactor = 1.0f;
+    }
+
+    // 走りステートのずらし量を決める
+    stateOffsetValue = VScale(RunAnimationOffsetValue, animationFactor);
 }
-
-

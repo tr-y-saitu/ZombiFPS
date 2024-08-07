@@ -13,7 +13,7 @@ PlayerIdleState::PlayerIdleState()
 /// </summary>
 /// <param name="playerModelHandle">プレイヤーのモデルハンドル</param>
 /// <param name="previousStateData">前のステートの情報</param>
-PlayerIdleState::PlayerIdleState(int& playerModelHandle, AnimationData previousStateData)
+PlayerIdleState::PlayerIdleState(int playerModelHandle, AnimationData previousStateData)
     : PlayerStateBase(playerModelHandle, previousStateData)
 {
     playAnimationSpeed  = PlayAnimationSpeed;
@@ -36,6 +36,9 @@ PlayerIdleState::~PlayerIdleState()
 /// </summary>
 void PlayerIdleState::Update()
 {
+    // プレイヤーの座標修正
+    UpdateOffsetValue();
+
     // アニメーションの更新
     UpdateAnimation();
 
@@ -43,14 +46,4 @@ void PlayerIdleState::Update()
     UpdateAnimationData();
 }
 
-/// <summary>
-/// アニメーションデータの更新
-/// </summary>
-void PlayerIdleState::UpdateAnimationData()
-{
-    nowStateData.currentAnimationCount  = currentAnimationCount;
-    nowStateData.currentPlayAnimation   = currentPlayAnimation;
-    nowStateData.previousAnimationCount = previousAnimationCount;
-    nowStateData.previousPlayAnimation  = previousPlayAnimation;
-}
 

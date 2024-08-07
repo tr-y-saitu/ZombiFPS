@@ -18,7 +18,7 @@ public:
     /// </summary>
     /// <param name="playerModelHandle">プレイヤーのモデルハンドル</param>
     /// <param name="previousStateData">前のステートの情報</param>
-    PlayerIdleState(int& playerModelHandle, AnimationData previousStateData);
+    PlayerIdleState(int playerModelHandle, AnimationData previousStateData);
 
     /// <summary>
     /// デストラクタ
@@ -32,10 +32,6 @@ public:
 
 
 private:
-    /// <summary>
-    /// アニメーションデータの更新
-    /// </summary>
-    void UpdateAnimationData();
 
     // アニメーション
     static constexpr float  PlayAnimationSpeed = 0.5f;      // アニメーション速度

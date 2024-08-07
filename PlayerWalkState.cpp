@@ -14,7 +14,7 @@ PlayerWalkState::PlayerWalkState()
 /// </summary>
 /// <param name="playerModelHandle">プレイヤーのモデルハンドル</param>
 /// <param name="previousStateData">前のステートの情報</param>
-PlayerWalkState::PlayerWalkState(int& playerModelHandle, AnimationData previousStateData)
+PlayerWalkState::PlayerWalkState(int playerModelHandle, AnimationData previousStateData)
     : PlayerStateBase(playerModelHandle, previousStateData)
 {
     playAnimationSpeed      = PlayAnimationSpeed;
@@ -37,6 +37,9 @@ PlayerWalkState::~PlayerWalkState()
 /// </summary>
 void PlayerWalkState::Update()
 {
+    // プレイヤーの座標修正
+    UpdateOffsetValue();
+
     // アニメーションの更新
     UpdateAnimation();
 
@@ -44,14 +47,4 @@ void PlayerWalkState::Update()
     UpdateAnimationData();
 }
 
-/// <summary>
-/// アニメーションデータの更新
-/// </summary>
-void PlayerWalkState::UpdateAnimationData()
-{
-    nowStateData.currentAnimationCount  = currentAnimationCount;
-    nowStateData.currentPlayAnimation   = currentPlayAnimation;
-    nowStateData.previousAnimationCount = previousAnimationCount;
-    nowStateData.previousPlayAnimation  = previousPlayAnimation;
-}
 

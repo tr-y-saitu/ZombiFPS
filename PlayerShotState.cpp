@@ -31,6 +31,9 @@ PlayerShotState::~PlayerShotState()
 /// </summary>
 void PlayerShotState::Update()
 {
+    // プレイヤーの座標修正
+    UpdateOffsetValue();
+
     // アニメーションの再生
     UpdateAnimation();
 
@@ -38,13 +41,3 @@ void PlayerShotState::Update()
     UpdateAnimationData();
 }
 
-/// <summary>
-/// アニメーションデータの更新
-/// </summary>
-void PlayerShotState::UpdateAnimationData()
-{
-    nowStateData.currentAnimationCount = currentAnimationCount;
-    nowStateData.currentPlayAnimation = currentPlayAnimation;
-    nowStateData.previousAnimationCount = previousAnimationCount;
-    nowStateData.previousPlayAnimation = previousPlayAnimation;
-}

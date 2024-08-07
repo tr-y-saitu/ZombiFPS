@@ -17,7 +17,7 @@ public:
     /// </summary>
     /// <param name="playerModelHandle">プレイヤーのモデルハンドル</param>
     /// <param name="previousStateData">前のステートの情報</param>
-    PlayerRunState(int& playerModelHandle, AnimationData previousStateData);
+    PlayerRunState(int playerModelHandle, AnimationData previousStateData);
 
     /// <summary>
     /// デストラクタ
@@ -30,15 +30,17 @@ public:
     void Update() override;
 
 private:
+
     /// <summary>
-    /// アニメーションデータの更新
+    /// プレイヤーのステートごとの座標修正
     /// </summary>
-    void UpdateAnimationData();
+    void UpdateOffsetValue() override;
 
     // アニメーション
-    static constexpr float  PlayAnimationSpeed = 0.5f;                         // アニメーション速度
-    static constexpr float  AnimationBlendSpeed = 0.1f;                         // アニメーションのブレンド率変化速度
-
+    static constexpr float  PlayAnimationSpeed      = 0.5f;     // アニメーション速度
+    static constexpr float  AnimationBlendSpeed     = 0.1f;     // アニメーションのブレンド率変化速度
+    static constexpr float  RunAnimationSpeed       = 0.1f;     // 走るアニメーションの再生速度
+    static constexpr VECTOR RunAnimationOffsetValue = { 0.0f,-0.5f,0.0f };  // 走りステート時のずらし量
 };
 
 

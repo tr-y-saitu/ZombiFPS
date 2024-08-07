@@ -109,7 +109,7 @@ public:
     static constexpr float  RunAnimationFrameCycle      = 60.0f;                    // 走りアニメーションを再生する周期
     static constexpr float  RunAnimationFactorSpeed     = 0.07f;                    // 走りアニメーションの適応速度
     static constexpr VECTOR ReloadAnimationOffset       = { 0.0f,-1.0f,0.0f };      // リロードアニメーション再生時のずらし量
-    static constexpr float  ReloadAnimationFactorSpeed  = 0.03f;                    // リロードアニメーションの再生速度
+    static constexpr float  ReloadAnimationFactorSpeed  = 0.05f;                    // リロードアニメーションの再生速度
     static constexpr int    ReloadTimeFrame             = 60;                       // リロードに必要なフレーム数
 
 private:

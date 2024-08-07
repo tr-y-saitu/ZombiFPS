@@ -88,6 +88,7 @@ void Player::Initialize()
     animationData.currentAnimationCount     = currentAnimationCount;
     animationData.previousAnimationCount    = previousAnimationCount;
     animationData.previousPlayAnimation     = previousPlayAnimation;
+    animationData.animationFactor           = 0.0f;
 }
 
 /// <summary>
@@ -97,13 +98,13 @@ void Player::Initialize()
 /// <param name="stage">ステージ</param>
 void Player::Update(const Input& input, Stage& stage)
 {
-    // 移動更新
-    UpdateMovement(input, stage);
-
     // 現在のステートの更新
     TransitionInputState(input);
     ChangeState(state);
     currentState->Update();
+
+    // 移動更新
+    UpdateMovement(input, stage);
 
     // 射撃更新
     UpdateShootingEquippedWeapon(input);
@@ -341,7 +342,7 @@ void Player::DisableRootFrameZMove()
 /// 移動ベクトルの更新
 /// </summary>
 /// <param name="input">入力情報</param>
-/// <param name="upModveVector">上方向ベクトル</param>
+/// <param name="upMoveVector">上方向ベクトル</param>
 /// <param name="leftMoveVector">左方向ベクトル</param>
 /// <param name="currentFrameMoveVector">移動ベクトル</param>
 void Player::UpdateMoveVector(const Input& input, VECTOR& upModveVector,
@@ -434,7 +435,7 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
     }
 
     // 当たり判定をして、新しい座標を保存する
-    VECTOR oldPosition = position;                      // 移動前の座標
+    VECTOR oldPosition  = position;                     // 移動前の座標
     VECTOR nextPosition = VAdd(position, MoveVector);   // 移動後の座標
 
     // ステージとの当たり判定処理
@@ -450,13 +451,9 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
     // MEMO:アニメーション再生時にY座標のみ下にしたいため別のVECTORを用意
     VECTOR movePosition = position;
 
-    // 各種ステート時の座標修正
-    VECTOR runOffset    = FixedRunPosition();
-    VECTOR reloadOffset = FixedReloadPosition();
-
     // 現在の適用率に基づいてオフセットを計算
-    movePosition = VAdd(movePosition, runOffset);
-    movePosition = VAdd(movePosition, reloadOffset);
+    VECTOR offset   = currentState->GetStateOffsetValue();
+    movePosition    = VAdd(position, offset);
 
     // プレイヤーのモデルの座標を更新する
     MV1SetPosition(modelHandle, movePosition);
@@ -587,7 +584,7 @@ VECTOR Player::FixedReloadPosition()
 /// <param name="PlayAnimation">再生したいアニメーション番号</param>
 void Player::PlayAnimation(AnimationType type)
 {
-    // HACK: 指定した番号のアニメーションをアタッチし、直前に再生していたアニメーションの情報をprevに移行している
+    // HACK: 指定した番号のアニメーションをアタッチし、直前に再生していたアニメーションの情報をpreviousに移行している
     // 入れ替えを行うので、１つ前のモーションがが有効だったらデタッチする
     if (previousPlayAnimation != -1)
     {

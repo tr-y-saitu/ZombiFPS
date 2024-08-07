@@ -62,6 +62,15 @@ public:
     const Bullet::BulletInitializeData GetBulletInitializeData()const { return bulletData; }
 
 protected:
+
+    /// <summary>
+    /// 銃の座標更新
+    /// </summary>
+    /// <param name="setPosition">設定する座標</param>
+    /// <param name="cameraForwardVector">カメラの前方向ベクトル</param>
+    /// <param name="cameraPitch">設定する上下角度</param>
+    void UpdateGunPosition(VECTOR setPosition, VECTOR cameraForwardVector, float cameraPitch, Player::State playerState);
+
     /// <summary>
     /// 移動の更新
     /// </summary>
@@ -106,9 +115,10 @@ protected:
     static constexpr float  HipUpPositionANglePitch     = 30.0f * DX_PI_F / 180.0f;     // 垂直回転用：腰だめの位置に調整するために回転させる水平方向からの角度(ラジアン)
     static constexpr float  HipUpPositionOffsetScale    = -0.7f;                        // 腰だめのずらし量の拡大率
     // アニメーション
-    static constexpr float  RunAnimationAngle           = 15.0f * DX_PI_F / 180.0f; // 走りアニメーション再生時の銃の修正角度
-    static constexpr float  RecoilDistance              = 0.1f;
-    static constexpr int    RecoilCycle                 = 5;
+    static constexpr float  RunAnimationAngle           = 15.0f * DX_PI_F / 180.0f;     // 走りアニメーション再生時の銃の修正角度
+    static constexpr float  RecoilDistance              = 0.05f;                        // 銃を撃った時の反動の大きさ
+    static constexpr float  RecoilDistanceLimit         = 1.0f;                         // 銃を撃った時の反動の大きさの最大値
+    static constexpr int    RecoilCycle                 = 5;                            // 反動のサイクル
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
