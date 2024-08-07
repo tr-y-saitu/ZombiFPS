@@ -143,4 +143,19 @@ void PlayerStateBase::FixedPosition()
     {
         animationFactor = 0.0f;
     }
+
+    // 現在のステートのずらし量を決める
+    stateOffsetValue = VScale(AnimationOffsetValue, animationFactor);
+}
+
+/// <summary>
+/// アニメーションデータの更新
+/// </summary>
+void PlayerStateBase::UpdateAnimationData()
+{
+    nowStateData.currentAnimationCount  = currentAnimationCount;
+    nowStateData.currentPlayAnimation   = currentPlayAnimation;
+    nowStateData.previousAnimationCount = previousAnimationCount;
+    nowStateData.previousPlayAnimation  = previousPlayAnimation;
+    nowStateData.animationFactor        = animationFactor;
 }

@@ -34,6 +34,9 @@ PlayerIdleState::~PlayerIdleState()
 /// </summary>
 void PlayerIdleState::Update()
 {
+    // プレイヤーの座標修正
+    FixedPosition();
+
     // アニメーションの更新
     UpdateAnimation();
 
@@ -41,14 +44,4 @@ void PlayerIdleState::Update()
     UpdateAnimationData();
 }
 
-/// <summary>
-/// アニメーションデータの更新
-/// </summary>
-void PlayerIdleState::UpdateAnimationData()
-{
-    nowStateData.currentAnimationCount  = currentAnimationCount;
-    nowStateData.currentPlayAnimation   = currentPlayAnimation;
-    nowStateData.previousAnimationCount = previousAnimationCount;
-    nowStateData.previousPlayAnimation  = previousPlayAnimation;
-}
 

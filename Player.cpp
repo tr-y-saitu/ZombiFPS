@@ -82,6 +82,7 @@ void Player::Initialize()
     animationData.currentAnimationCount     = currentAnimationCount;
     animationData.previousAnimationCount    = previousAnimationCount;
     animationData.previousPlayAnimation     = previousPlayAnimation;
+    animationData.animationFactor           = 0.0f;
 }
 
 /// <summary>
@@ -91,13 +92,13 @@ void Player::Initialize()
 /// <param name="stage">ステージ</param>
 void Player::Update(const Input& input, Stage& stage)
 {
-    // 移動更新
-    UpdateMovement(input, stage);
-
     // 現在のステートの更新
     TransitionInputState(input);
     ChangeState(state);
     currentState->Update();
+
+    // 移動更新
+    UpdateMovement(input, stage);
 
     // 射撃更新
     UpdateShootingEquippedWeapon(input);
@@ -421,11 +422,8 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
     // MEMO:走りアニメーション再生時にY座標のみ下にしたいため別のVECTORを用意
     VECTOR movePosition = position;
 
-    // 走りステート時に座標修正
-    FixedRunPosition();
-
     // 現在の適用率に基づいてオフセットを計算
-    VECTOR offset   = VScale(RunAnimationOffset, runAnimationLerpFactor);
+    VECTOR offset   = currentState->GetStateOffseValue();
     movePosition    = VAdd(position, offset);
 
     // プレイヤーのモデルの座標を更新する
