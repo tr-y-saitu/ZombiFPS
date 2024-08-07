@@ -322,7 +322,7 @@ void Player::DisableRootFrameZMove()
 /// 移動ベクトルの更新
 /// </summary>
 /// <param name="input">入力情報</param>
-/// <param name="upModveVector">上方向ベクトル</param>
+/// <param name="upMoveVector">上方向ベクトル</param>
 /// <param name="leftMoveVector">左方向ベクトル</param>
 /// <param name="currentFrameMoveVector">移動ベクトル</param>
 void Player::UpdateMoveVector(const Input& input, VECTOR& upModveVector,
@@ -530,7 +530,7 @@ void Player::FixedRunPosition()
 /// <param name="PlayAnimation">再生したいアニメーション番号</param>
 void Player::PlayAnimation(AnimationType type)
 {
-    // HACK: 指定した番号のアニメーションをアタッチし、直前に再生していたアニメーションの情報をprevに移行している
+    // HACK: 指定した番号のアニメーションをアタッチし、直前に再生していたアニメーションの情報をpreviousに移行している
     // 入れ替えを行うので、１つ前のモーションがが有効だったらデタッチする
     if (previousPlayAnimation != -1)
     {
