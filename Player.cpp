@@ -93,13 +93,13 @@ void Player::Initialize()
 /// <param name="stage">ステージ</param>
 void Player::Update(const Input& input, Stage& stage)
 {
-    // 移動更新
-    UpdateMovement(input, stage);
-
     // 現在のステートの更新
     TransitionInputState(input);
     ChangeState(state);
     currentState->Update();
+
+    // 移動更新
+    UpdateMovement(input, stage);
 
     // 射撃更新
     UpdateShootingEquippedWeapon(input);
@@ -428,12 +428,12 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
     }
 
     // 移動用の座標
-    // MEMO:走りアニメーション再生時にY座標のみ下にしたいため別のVECTORを用意
+    // MEMO:アニメーション再生時にY座標のみ下にしたいため別のVECTORを用意
     VECTOR movePosition = position;
 
     // 現在の適用率に基づいてオフセットを計算
-    VECTOR offset = currentState->GetStateOffsetValue();
-    movePosition = VAdd(position, offset);
+    VECTOR offset   = currentState->GetStateOffsetValue();
+    movePosition    = VAdd(position, offset);
 
     // プレイヤーのモデルの座標を更新する
     MV1SetPosition(modelHandle, movePosition);

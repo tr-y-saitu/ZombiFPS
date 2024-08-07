@@ -36,7 +36,7 @@ void PlayerRunState::Update()
 {
     // プレイヤーの座標修正
     UpdateOffsetValue();
-    
+
     // アニメーションの更新
     UpdateAnimation();
 
