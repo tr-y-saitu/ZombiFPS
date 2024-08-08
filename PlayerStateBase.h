@@ -81,6 +81,8 @@ protected:
     /// <summary>
     /// プレイヤーのステートごとの座標修正
     /// </summary>
+    /// Fixed:オーバーライドさせている分のifをベース側の関数でまとめて
+    ///       加算する符号、オフセット量、再生速度、引数で受け取れるようにする
     virtual void UpdateOffsetValue();
 
     /// <summary>
