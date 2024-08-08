@@ -499,32 +499,6 @@ void Player::UpdateAngle()
 }
 
 /// <summary>
-/// 走りステート時の座標の調整
-/// </summary>
-void Player::FixedRunPosition()
-{
-    // 走りアニメーション時の処理
-    if (state == State::Run)
-    {
-        // アニメーションの適用率を増加
-        runAnimationLerpFactor += RunAnimationFactorSpeed;
-        if (runAnimationLerpFactor > 1.0f)
-        {
-            runAnimationLerpFactor = 1.0f;
-        }
-    }
-    else
-    {
-        // 他の状態に移行した場合、適用率を減少
-        runAnimationLerpFactor -= RunAnimationFactorSpeed;
-        if (runAnimationLerpFactor < 0.0f)
-        {
-            runAnimationLerpFactor = 0.0f;
-        }
-    }
-}
-  
-/// <summary>
 /// プレイヤーのアニメーションを新しく追加する
 /// </summary>
 /// <param name="PlayAnimation">再生したいアニメーション番号</param>

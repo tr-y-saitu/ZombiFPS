@@ -164,11 +164,6 @@ private:
     void PlayAnimation(AnimationType type);
 
     /// <summary>
-    /// 走りステート時の座標の調整
-    /// </summary>
-    void FixedRunPosition();
-
-    /// <summary>
     /// 銃を撃つ
     /// </summary>
     /// <param name="input">入力情報</param>

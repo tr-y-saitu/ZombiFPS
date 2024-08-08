@@ -81,6 +81,11 @@ protected:
     /// <summary>
     /// プレイヤーのステートごとの座標修正
     /// </summary>
+<<<<<<< HEAD
+=======
+    /// TODO :オーバーライドさせている分のifをベース側の関数でまとめて
+    ///       加算する符号、オフセット量、再生速度、引数で受け取れるようにする
+>>>>>>> PlayerRunState
     virtual void UpdateOffsetValue();
 
     /// <summary>
@@ -91,9 +96,15 @@ protected:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
+<<<<<<< HEAD
     static constexpr float  MaxAnimationBlendRate   = 1.0f;             // アニメーションのブレンド率の最大値
     static constexpr int    NoAnimationAttached     = -1;               // アニメーションアタッチがされていない
     static constexpr float  AnimationFactorSpeed    = 0.1f;             // プログラムで作成したアニメーションの適用率
+=======
+    static constexpr float  MaxAnimationBlendRate   = 1.0f;         // アニメーションのブレンド率の最大値
+    static constexpr int    NoAnimationAttached     = -1;           // アニメーションアタッチがされていない
+    static constexpr float  AnimationFactorSpeed    = 0.1f;         // プログラムで作成したアニメーションの適用率
+>>>>>>> PlayerRunState
     static constexpr VECTOR AnimationOffsetValue    = { 0,-0.5f,0 };    // 基本のずらし量(ステートごとにずらす量を定義する)
 
     //---------------------------------------------------------------------------------//
