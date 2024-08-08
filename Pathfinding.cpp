@@ -354,7 +354,7 @@ Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy
     // エネミーがどの部屋にいるかを調べる
     Room enemyPreviousRoom = enemy.GetPreviousRoom();
     Room enemyCurrentRoom1 = GetCurrentRoom(enemy.GetPosition(), enemyPreviousRoom);
-    enemy.SetPreviousRoom(enemyPreviousRoom);  // エネミーの前に位置していた部屋を更新
+    enemy.SetPreviousRoom(enemyCurrentRoom1);  // エネミーの前に位置していた部屋を更新
     
     Room* enemyCurrentRoom = &enemyCurrentRoom1;
     
@@ -362,11 +362,12 @@ Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy
     VECTOR enemyPosition = enemy.GetPosition();
     VECTOR roomPosition = enemyCurrentRoom->centerPosition;
     
-    float distance = GetDistance3D(enemyPosition, enemyCurrentRoom->centerPosition);
+    float distance = GetDistance3D(enemyPosition, roomPosition);
     
-    if (distance < 1.0f)
+    // エネミーがまだ部屋の中心に到達していない場合は次の部屋への更新を行わない
+    if (distance >= 3.6f)
     {
-        // エネミーがまだ部屋の中心に到達していない場合は次の部屋への更新を行わない
+        enemy.SetTargetNextPosition(roomPosition);
         return *enemyCurrentRoom;
     }
     
@@ -398,20 +399,7 @@ Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy
     
                 // プレイヤーの部屋に到達した場合
                 if (adjacentRoom->roomNumber == playerRoom.roomNumber) {
-                    // 現在の部屋がエネミーの現在の部屋なら、次の部屋を返す
-                    if (currentRoom == enemyCurrentRoom) {
-                        // エネミーの現在の部屋に隣接する部屋がプレイヤーの部屋の場合でも
-                        // 別の部屋を返すように、cameFromから次の部屋を見つける
-                        for (Room* room = adjacentRoom; room != nullptr; room = cameFrom[room]) {
-                            if (cameFrom[room] == enemyCurrentRoom) {
-                                enemy.SetTargetNextPosition(room->centerPosition);
-                                return *room;
-                            }
-                        }
-                    }
-    
-                    // プレイヤーの部屋が隣接しているが、直接移動するのを防ぐために
-                    // エネミーの現在の部屋から別の隣接する部屋を返す
+                    // エネミーの現在の部屋からプレイヤーの部屋へのパスを見つける
                     Room* nextRoom = nullptr;
                     for (Room* room = adjacentRoom; room != nullptr; room = cameFrom[room]) {
                         if (cameFrom[room] == enemyCurrentRoom) {
@@ -419,18 +407,21 @@ Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy
                         }
                     }
     
-                    // 次に進むべき部屋がプレイヤーの部屋の隣接部屋であれば、その部屋の中心点を経由
-                    if (nextRoom && nextRoom->roomNumber == playerRoom.roomNumber) {
-                        // 隣接部屋の中心点を通過してプレイヤーの部屋に移動
-                        VECTOR nextRoomCenter = nextRoom->centerPosition;
-                        enemy.SetTargetNextPosition(nextRoomCenter);  // エネミーを隣接部屋の中心点に移動
-                        enemy.SetPreviousRoom(playerRoom);  // 次の部屋としてプレイヤーの部屋を設定
+                    // 次に進むべき部屋が見つからない場合の処理
+                    if (nextRoom == nullptr) {
+                        return *enemyCurrentRoom;  // 現在の部屋に留まる
+                    }
+    
+                    // エネミーがプレイヤーの部屋の隣接部屋にいる場合
+                    if (nextRoom->roomNumber == playerRoom.roomNumber) {
+                        enemy.SetTargetNextPosition(nextRoom->centerPosition);  // 隣接部屋の中心点に移動
+                        enemy.SetPreviousRoom(*nextRoom);  // 次の部屋として隣接部屋を設定
                         return *nextRoom;  // 隣接部屋を返す
                     }
     
                     // それ以外の場合は、次の部屋に移動
                     enemy.SetTargetNextPosition(nextRoom->centerPosition);
-                    return nextRoom ? *nextRoom : *enemyCurrentRoom;
+                    return *nextRoom;
                 }
             }
         }
@@ -438,7 +429,7 @@ Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy
     
     // プレイヤーの部屋に到達できない場合はエネミーの現在の部屋を返す
     return *enemyCurrentRoom;
-    
+
 }
 
 /// <summary>
