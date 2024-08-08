@@ -82,8 +82,10 @@ public:
     // Getter
     const VECTOR GetPosition()const { return position; }
     const Pathfinding::Room GetPreviousRoom()const { return previousRoom; }
+    const bool GetIsTouchingRoomCenter()const { return isTouchingRoomCenter; }
     void SetPreviousRoom(Pathfinding::Room set) { previousRoom = set; }
     void SetTargetNextPosition(VECTOR set) { targetNextPosition = set; }
+    void SetIsTouchingRoomCenter(bool set) { isTouchingRoomCenter = set; }
 
 private:
     /// <summary>
@@ -184,6 +186,7 @@ private:
     int         hitPoints;                  // 体力
     Pathfinding::Room previousRoom;         // 以前いた部屋
     VECTOR      targetNextPosition;         // 線形探索を行った結果、次に移動したい座標
+    bool        isTouchingRoomCenter;       // 今いる部屋の中心座標に接触したか
 
     // 当たり判定用
     CollisionData           collisionData;          // 当たり判定用情報

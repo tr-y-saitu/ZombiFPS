@@ -67,18 +67,18 @@ void Pathfinding::CreateRooms()
 void Pathfinding::InitializeRoomsData()
 {
     // 部屋のデータ   // 部屋番号     // 中心座標                 // 幅     // 奥行        // 画像データ
-    initRoomData[West1] = { West1,     VGet(-45.0f,  4.5f,  45.0f),      30,        40,       imageDataManager->GetImageHandle(ImageDataManager::West1ImageData) };
-    initRoomData[West2] = { West2,     VGet(-45.0f,  4.5f,  18.0f),      45,        13,       imageDataManager->GetImageHandle(ImageDataManager::West2ImageData) };
-    initRoomData[West3] = { West3,     VGet(-45.0f,  4.5f,  -5.0f),      45,        30,       imageDataManager->GetImageHandle(ImageDataManager::West3ImageData) };
-    initRoomData[West4] = { West4,     VGet(-48.0f,  4.5f, -35.0f),      50,        28,       imageDataManager->GetImageHandle(ImageDataManager::West4ImageData) };
-    initRoomData[Center1] = { Center1,   VGet(-12.0f,  4.5f,  58.0f),      15,       100,       imageDataManager->GetImageHandle(ImageDataManager::Center1ImageData) };
-    initRoomData[Center2] = { Center2,   VGet(-9.0f,  4.5f,  -5.0f),      25,        25,       imageDataManager->GetImageHandle(ImageDataManager::Center2ImageData) };
-    initRoomData[Center3] = { Center3,   VGet(-12.0f,  4.5f, -47.0f),      18,        58,       imageDataManager->GetImageHandle(ImageDataManager::Center3ImageData) };
-    initRoomData[Center4] = { Center4,   VGet(-12.0f,  4.5f, -83.0f),      18,        13,       imageDataManager->GetImageHandle(ImageDataManager::Center4ImageData) };
-    initRoomData[East1] = { East1,     VGet(25.0f,  4.5f,  25.0f),      55,        28,       imageDataManager->GetImageHandle(ImageDataManager::East1ImageData) };
-    initRoomData[East2] = { East2,     VGet(45.0f,  4.5f,  -5.0f),      80,        30,       imageDataManager->GetImageHandle(ImageDataManager::East2ImageData) };
-    initRoomData[East3] = { East3,     VGet(22.0f,  4.5f, -35.0f),      45,        28,       imageDataManager->GetImageHandle(ImageDataManager::East3ImageData) };
-    initRoomData[East4] = { East4,     VGet(50.0f,  4.5f, -35.0f),      10,        28,       imageDataManager->GetImageHandle(ImageDataManager::East4ImageData) };
+    initRoomData[West1]     = { West1,     VGet( -45.0f,  4.5f,  45.0f),      30,        40,       imageDataManager->GetImageHandle(ImageDataManager::West1ImageData) };
+    initRoomData[West2]     = { West2,     VGet( -45.0f,  4.5f,  18.0f),      45,        13,       imageDataManager->GetImageHandle(ImageDataManager::West2ImageData) };
+    initRoomData[West3]     = { West3,     VGet( -45.0f,  4.5f,  -5.0f),      45,        30,       imageDataManager->GetImageHandle(ImageDataManager::West3ImageData) };
+    initRoomData[West4]     = { West4,     VGet( -48.0f,  4.5f, -35.0f),      50,        28,       imageDataManager->GetImageHandle(ImageDataManager::West4ImageData) };
+    initRoomData[Center1]   = { Center1,   VGet( -12.0f,  4.5f,  58.0f),      15,       100,       imageDataManager->GetImageHandle(ImageDataManager::Center1ImageData) };
+    initRoomData[Center2]   = { Center2,   VGet(  -9.0f,  4.5f,  -5.0f),      25,        25,       imageDataManager->GetImageHandle(ImageDataManager::Center2ImageData) };
+    initRoomData[Center3]   = { Center3,   VGet( -12.0f,  4.5f, -47.0f),      18,        58,       imageDataManager->GetImageHandle(ImageDataManager::Center3ImageData) };
+    initRoomData[Center4]   = { Center4,   VGet( -12.0f,  4.5f, -83.0f),      18,        13,       imageDataManager->GetImageHandle(ImageDataManager::Center4ImageData) };
+    initRoomData[East1]     = { East1,     VGet(  25.0f,  4.5f,  25.0f),      55,        28,       imageDataManager->GetImageHandle(ImageDataManager::East1ImageData) };
+    initRoomData[East2]     = { East2,     VGet(  45.0f,  4.5f,  -5.0f),      80,        30,       imageDataManager->GetImageHandle(ImageDataManager::East2ImageData) };
+    initRoomData[East3]     = { East3,     VGet(  22.0f,  4.5f, -35.0f),      45,        28,       imageDataManager->GetImageHandle(ImageDataManager::East3ImageData) };
+    initRoomData[East4]     = { East4,     VGet(  50.0f,  4.5f, -35.0f),      10,        28,       imageDataManager->GetImageHandle(ImageDataManager::East4ImageData) };
 
     // 隣接する部屋を追加
     // West１
@@ -354,22 +354,43 @@ Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy
     // エネミーがどの部屋にいるかを調べる
     Room enemyPreviousRoom = enemy.GetPreviousRoom();
     Room enemyCurrentRoom1 = GetCurrentRoom(enemy.GetPosition(), enemyPreviousRoom);
-    enemy.SetPreviousRoom(enemyCurrentRoom1);  // エネミーの前に位置していた部屋を更新
+    //enemy.SetPreviousRoom(enemyCurrentRoom1);  // エネミーの前に位置していた部屋を更新
     
     Room* enemyCurrentRoom = &enemyCurrentRoom1;
     
+    VECTOR roomPosition = enemyCurrentRoom->centerPosition;
+
+    // エネミーの今いる部屋と、前いた部屋が違えばフラグをリセット
+    Room enemyPreviousRoom1 = enemy.GetPreviousRoom();
+    if (enemyCurrentRoom1.roomNumber != enemyPreviousRoom1.roomNumber)
+    {
+        enemy.SetIsTouchingRoomCenter(false);
+        enemy.SetPreviousRoom(enemyCurrentRoom1);  // エネミーの前に位置していた部屋を更新
+    }
+
+
+
     // エネミーの現在の座標と今いる部屋の中心座標を見比べる
     VECTOR enemyPosition = enemy.GetPosition();
-    VECTOR roomPosition = enemyCurrentRoom->centerPosition;
-    
+
+    // エネミーの座標と今いる部屋の中心座標との距離
     float distance = GetDistance3D(enemyPosition, roomPosition);
-    
-    // エネミーがまだ部屋の中心に到達していない場合は次の部屋への更新を行わない
+
+
+
+    // エネミーがまだ部屋の中心に到達していない場合は前の部屋の中心座標を目指す
     if (distance >= 3.6f)
     {
-        enemy.SetTargetNextPosition(roomPosition);
-        return *enemyCurrentRoom;
+        // 今いる部屋の中心座標をタッチしたのかをチェック
+        if (!enemy.GetIsTouchingRoomCenter())
+        {
+            VECTOR previousRoomCenterPosition = enemyPreviousRoom.centerPosition;
+            enemy.SetTargetNextPosition(previousRoomCenterPosition);
+            enemy.SetIsTouchingRoomCenter(true);            // 今いる部屋の中心座標をタッチしました
+            return *enemyCurrentRoom;
+        }
     }
+
     
     // エネミーがプレイヤーと同じ部屋にいる場合は、プレイヤーの部屋情報を返す
     if (enemyCurrentRoom->roomNumber == playerRoom.roomNumber) {
@@ -399,7 +420,7 @@ Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy
     
                 // プレイヤーの部屋に到達した場合
                 if (adjacentRoom->roomNumber == playerRoom.roomNumber) {
-                    // エネミーの現在の部屋からプレイヤーの部屋へのパスを見つける
+                    // エネミーの現在の部屋からプレイヤーの部屋へのパスを見つけるa 
                     Room* nextRoom = nullptr;
                     for (Room* room = adjacentRoom; room != nullptr; room = cameFrom[room]) {
                         if (cameFrom[room] == enemyCurrentRoom) {
