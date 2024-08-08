@@ -167,19 +167,6 @@ private:
     /// <param name="type">アニメーションの種類</param>
     void PlayAnimation(AnimationType type);
 
-    /// <summary>
-    /// 走り時の座標調整
-    /// </summary>
-    /// <returns>調整された自身のポジション</returns>
-    VECTOR FixedRunPosition();
-
-    /// <summary>
-    /// リロード時の座標調整
-    /// </summary>
-    /// <returns>調整された自身のポジション</returns>
-    VECTOR FixedReloadPosition();
-
-    /// <summary>
     /// 銃を撃つ
     /// </summary>
     /// <param name="input">入力情報</param>
