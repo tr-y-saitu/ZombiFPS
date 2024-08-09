@@ -39,7 +39,7 @@ public:
     /// <param name="cameraVector">カメラの前ベクトル</param>
     /// <param name="cameraPitch">カメラの水平からの角度</param>
     void Update(VECTOR setPosition,VECTOR cameraVector, VECTOR cameraTargetVector,
-        VECTOR cameraPosition,float cameraPitch);
+        VECTOR cameraPosition,float cameraPitch, Player::State);
 
     /// <summary>
     /// 描画
@@ -48,9 +48,22 @@ public:
 
 private:
     /// <summary>
+    /// 移動の更新
+    /// </summary>
+    /// <param name="setPosition">設定したい座標</param>
+    /// <param name="playerState">プレイヤーの状態</param>
+    void UpdateMove(VECTOR setPosition, Player::State playerState) override;
+
+    /// <summary>
     /// 銃を発砲する
     /// </summary>
     void UpdateShooting(VECTOR cameraPosition,VECTOR targetPosition);
+
+    /// <summary>
+    /// 走りのアニメーション再生
+    /// </summary>
+    /// <param name="playerState">プレイヤーのステート</param>
+    void PlayRunAnimation(Player::State playerState);
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -65,14 +78,15 @@ private:
     static constexpr int    GunFireRate             = 5;            // 銃の連射力(このフレームに１回発射する)
     static constexpr float  GunRecoil               = 1.0f;         // 銃の反動
     static constexpr float  GunAccuracy             = 1.0f;         // 銃の精度(拡散度合い)
-    static constexpr VECTOR InitializeScale         = { 0.07f,0.07f,0.07f };   // 初期化時のスケール
+    static constexpr VECTOR InitializeScale         = { 0.07f,0.07f,0.07f };    // 初期化時のスケール
     // ずらし量
     static constexpr VECTOR GunOffset = { 0.0f,0.5f,0.0f };   // 銃のプレイヤーの腕からのずらし量
-
+    
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
-    ModelDataManager*       modelDataManager;   // モデルデータ読み込み用クラスのアドレス
+    ModelDataManager*       modelDataManager;           // モデルデータ読み込み用クラスのアドレス
+    float                   runAnimationLerpFactor;     // 走りアニメーション再生時の適応率
 };
 

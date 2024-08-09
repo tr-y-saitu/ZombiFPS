@@ -17,12 +17,14 @@
 /// コンストラクタ
 /// </summary>
 Player::Player()
-    : position              (VGet(0,0,0))
-    , rotationMatrix        (MGetIdent())
-    , pressMoveButton       (false)
-    , isShooting            (false)
-    , shootFireRateCount    (0)
-    , isHitEnemyAttack      (false)
+    : position                      (VGet(0,0,0))
+    , rotationMatrix                (MGetIdent())
+    , pressMoveButton               (false)
+    , isShooting                    (false)
+    , shootFireRateCount            (0)
+    , isHitEnemyAttack              (false)
+    , runAnimationCount             (0)
+    , runAnimationLerpFactor        (0.0f)
 {
     modelDataManager        = ModelDataManager::GetInstance();
     Initialize();
@@ -80,6 +82,7 @@ void Player::Initialize()
     animationData.currentAnimationCount     = currentAnimationCount;
     animationData.previousAnimationCount    = previousAnimationCount;
     animationData.previousPlayAnimation     = previousPlayAnimation;
+    animationData.animationFactor           = 0.0f;
 }
 
 /// <summary>
@@ -89,13 +92,13 @@ void Player::Initialize()
 /// <param name="stage">ステージ</param>
 void Player::Update(const Input& input, Stage& stage)
 {
-    // 移動更新
-    UpdateMovement(input, stage);
-
     // 現在のステートの更新
     TransitionInputState(input);
     ChangeState(state);
     currentState->Update();
+
+    // 移動更新
+    UpdateMovement(input, stage);
 
     // 射撃更新
     UpdateShootingEquippedWeapon(input);
@@ -104,7 +107,7 @@ void Player::Update(const Input& input, Stage& stage)
     VECTOR pos = playerCamera->GetCameraForwardVector();
     equippedGun->Update(position, playerCamera->GetCameraForwardVector(),
         playerCamera->GetTargetPosition(),playerCamera->GetCameraPosition(),
-        playerCamera->GetCameraPitch());
+        playerCamera->GetCameraPitch(),state);
 
     // プレイヤーカメラの更新
     UpdatePlayerCamera(input, stage);
@@ -415,8 +418,16 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
         position.y = MoveLimitY;
     }
 
+    // 移動用の座標
+    // MEMO:走りアニメーション再生時にY座標のみ下にしたいため別のVECTORを用意
+    VECTOR movePosition = position;
+
+    // 現在の適用率に基づいてオフセットを計算
+    VECTOR offset   = currentState->GetStateOffsetValue();
+    movePosition    = VAdd(position, offset);
+
     // プレイヤーのモデルの座標を更新する
-    MV1SetPosition(modelHandle, position);
+    MV1SetPosition(modelHandle, movePosition);
 }
 
 /// <summary>
@@ -443,16 +454,41 @@ void Player::UpdateAngle()
     cameraPitch += HipUpPositionANglePitch;
 
     // 回転を行列に変換
-    MATRIX matrixX = MGetRotX(cameraPitch);
-    MATRIX matrixY = MGetRotY(playerAngleY);
-    MATRIX matrixZ = MGetRotZ(0.0f);
+    MATRIX matrixX = MGetRotX(cameraPitch);             // X軸回転
+    MATRIX matrixY = MGetRotY(playerAngleY);            // Y軸回転
+    MATRIX matrixZ = MGetRotZ(0.0f);                    // Z軸回転
+
+    // 回転行列を合成
     rotationMatrix = MMult(matrixX, matrixY);           // X軸回転した後Y軸回転
     rotationMatrix = MMult(rotationMatrix, matrixZ);    // Z軸回転
 
+
+    // 走るアニメーションを再生
+    if (state == State::Run)
+    {
+        // アニメーションカウントを進める
+        runAnimationCount++;
+
+        // 回転角度を設定
+        // sin関数で[1]～[-1]を出してもらう
+        // (アニメーションカウントを再生周期で割ることで現在どのくらい進んでいるかが分かる)
+        float animationProgress = sin(DX_TWO_PI_F * runAnimationCount / RunAnimationFrameCycle);
+        // 最大アングル * [１～ -１] = 角度
+        // sinを使うことでマイナスの条件式を省く
+        float angle = RunAnimationLimitAngle * animationProgress;
+
+        // 回転行列を取得
+        MATRIX runMatrix = MGetRotY(angle);
+
+        // 回転行列を合成
+        rotationMatrix = MMult(rotationMatrix, runMatrix);
+    }
+
     // モデルに回転行列を適用
     MV1SetRotationMatrix(modelHandle, rotationMatrix);
+
 }
-  
+
 /// <summary>
 /// プレイヤーのアニメーションを新しく追加する
 /// </summary>

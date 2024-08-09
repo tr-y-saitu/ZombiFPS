@@ -19,31 +19,8 @@ CollisionManager::~CollisionManager()
 {
     // メモリ解放 //
 
-    // 球型の当たり判定
-    for (int i = 0; i < sphereCollisionData.size(); i++)
-    {
-        delete(sphereCollisionData[i]);
-    }
-
-    // カプセル型の当たり判定
-    for (int i = 0; i < capsuleCollisionData.size(); i++)
-    {
-        delete(capsuleCollisionData[i]);
-    }
-
-    // 線分型の当たり判定
-    for (int i = 0; i < lineCollisionData.size(); i++)
-    {
-        delete(lineCollisionData[i]);
-    }
-
-
     // 当たり判定情報リスト
     collisionDataList.clear();
-    for (int i = 0; i < collisionDataList.size(); i++)
-    {
-        delete(collisionDataList[i]);
-    }
 
 }
 

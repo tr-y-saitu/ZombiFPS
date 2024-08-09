@@ -89,13 +89,23 @@ public:
     /// </summary>
     void OnHitFloor();
 
-    // ゲッター、セッター
+    //---------------------------------------------------------------------------------//
+    //                                Getter/Setter                                    //
+    //---------------------------------------------------------------------------------//
     const VECTOR& GetPosition() const { return position; }
     bool GetCurrentFrameMove() const { return currentFrameMove; }
     bool GetIsShooting()const { return isShooting; }
     State GetState() const { return state; }
     float GetCurrentJumpPower() const { return currentJumpPower; }
     const MATRIX GetRotationMatrix()const { return rotationMatrix; }
+
+    //---------------------------------------------------------------------------------//
+    //                                      定数                                       //
+    //---------------------------------------------------------------------------------//
+    static constexpr VECTOR RunAnimationOffset      = { 0.0f,-0.5f,0.0f };  // 走りアニメーション再生時のずらし量
+    static constexpr float  RunAnimationLimitAngle  = 0.3f;                 // 走りアニメーション中に回転させる最大角度
+    static constexpr float  RunAnimationFrameCycle  = 60.0f;                // 走りアニメーションを再生する周期
+    static constexpr float  RunAnimationFactorSpeed = 0.1f;                 // 走りアニメーションの適応速度
 
 private:
     /// <summary>
@@ -175,7 +185,6 @@ private:
     /// <param name="newState">新しいステート</param>
     void ChangeState(State newState);
 
-
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
@@ -233,5 +242,7 @@ private:
     float       previousAnimationCount;             // 前の再生アニメーションの再生時間
     float       animationBlendRate;                 // 現在と過去のアニメーションのブレンド率
     PlayerStateBase::AnimationData animationData;   // アニメーション再生に必要なデータ
+    int         runAnimationCount;                  // 走りアニメーションを再生するカウント
+    float       runAnimationLerpFactor;
 };
 

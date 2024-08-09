@@ -11,6 +11,7 @@
 /// コンストラクタ
 /// </summary>
 SubmachineGun::SubmachineGun()
+    : runAnimationLerpFactor        (0.0f)
 {
     modelDataManager = ModelDataManager::GetInstance();
     Initialize();
@@ -63,19 +64,67 @@ void SubmachineGun::Initialize()
 /// 更新
 /// </summary>
 void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR cameraTargetVector,
-     VECTOR cameraPosition, float cameraPitch)
+     VECTOR cameraPosition, float cameraPitch, Player::State playerState)
 {
     // 座標を更新
     position = VAdd(setPosition, GunOffset);
 
     // 銃の座標更新
-    UpdateGunPosition(setPosition, cameraVector, cameraPitch);
+    UpdateGunPosition(setPosition, cameraVector, cameraPitch,playerState);
 
     // 弾丸の更新
     UpdateShooting(cameraPosition,cameraTargetVector);
 
+    // プレイヤーが走っているときアニメーション再生
+    PlayRunAnimation(playerState);
+
+    // 移動更新
+    UpdateMove(setPosition, playerState);
+}
+
+/// <summary>
+/// 移動の更新
+/// </summary>
+/// <param name="setPosition">設定したい座標</param>
+/// <param name="playerState">プレイヤーの状態</param>
+void SubmachineGun::UpdateMove(VECTOR setPosition, Player::State playerState)
+{
+    // Runステート用の座標
+    VECTOR movePosition = position;
+
+    // 現在の適用率に基づいてオフセットを計算
+    VECTOR offset = VScale(Player::RunAnimationOffset, runAnimationLerpFactor);
+    movePosition = VAdd(position, offset);
+
     // 座標の設定
-    MV1SetPosition(modelHandle, position);
+    MV1SetPosition(modelHandle, movePosition);
+}
+
+/// <summary>
+/// 走りのアンメーション再生
+/// </summary>
+/// <param name="playerState">プレイヤーのステート</param>
+void SubmachineGun::PlayRunAnimation(Player::State playerState)
+{
+    // 走りアニメーション時の処理
+    if (playerState == Player::State::Run)
+    {
+        // アニメーションの適用率を増加させる
+        runAnimationLerpFactor += Player::RunAnimationFactorSpeed;
+        if (runAnimationLerpFactor > 1.0f)
+        {
+            runAnimationLerpFactor = 1.0f;
+        }
+    }
+    else
+    {
+        // 他の状態に移行した場合、適用率を減少させる
+        runAnimationLerpFactor -= Player::RunAnimationFactorSpeed;
+        if (runAnimationLerpFactor < 0.0f)
+        {
+            runAnimationLerpFactor = 0.0f;
+        }
+    }
 }
 
 /// <summary>
