@@ -5,6 +5,7 @@
 /// </summary>
 GunBase::GunBase()
     : runAnimationCount     (0)
+    , shotAnimationCount    (0)
     , rotationMatrix        (MGetIdent())
 {
 }
@@ -68,27 +69,19 @@ void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch,Player::State 
     // 回転行列を合成
     rotationMatrix = MMult(rotationX, rotationY);
 
-    // 走るアニメーションを再生
-    if (playerState == Player::State::Run)
+    // ステートに応じてアニメーションを再生
+    switch (playerState)
     {
-        // アニメーションカウントを進める
-        runAnimationCount++;
-
-        // 回転角度を設定
-        // sin関数で[1]～[-1]を出してもらう
-        // (アニメーションカウントを再生周期で割ることで現在どのくらい進んでいるかが分かる)
-        float animationProgress = sin(DX_TWO_PI_F * runAnimationCount / Player::RunAnimationFrameCycle);
-        // 最大アングル * [１～ -１] = 角度
-        // sinを使うことでマイナスの条件式を省く
-        float angle = Player::RunAnimationLimitAngle * animationProgress;
-
-        // 回転行列を取得
-        MATRIX runMatrixY = MGetRotY(angle);
-        MATRIX runMatrixX = MGetRotX(RunAnimationAngle);
-        MATRIX runFinalMatrix = MMult(runMatrixX, runMatrixY);
-
-        // 回転行列を合成
-        rotationMatrix = MMult(runFinalMatrix, rotationMatrix);
+    case Player::State::Run:
+        PlayRunAnimation();
+        break;
+    case Player::State::Shot:
+        PlayShotAnimation(cameraForwardVector);
+        break;
+    case Player::State::OnHitEnemy:
+        break;
+    default:
+        break;
     }
 
     // モデルに回転行列を適用
@@ -113,4 +106,67 @@ void GunBase::FixedGunPosition(VECTOR setPosition, VECTOR cameraForwardVector)
 
     // 座標を設定
     MV1SetPosition(modelHandle, position);
+}
+
+/// <summary>
+/// 走るアニメーションを再生
+/// </summary>
+void GunBase::PlayRunAnimation()
+{
+    // アニメーションカウントを進める
+    runAnimationCount++;
+
+    // 回転角度を設定
+    // sin関数で[1]～[-1]を出してもらう
+    // (アニメーションカウントを再生周期で割ることで現在どのくらい進んでいるかが分かる)
+    float animationProgress = sin(DX_TWO_PI_F * runAnimationCount / Player::RunAnimationFrameCycle);
+    // 最大アングル * [１～ -１] = 角度
+    // sinを使うことでマイナスの条件式を省く
+    float angle = Player::RunAnimationLimitAngle * animationProgress;
+
+    // 回転行列を取得
+    MATRIX runMatrixY       = MGetRotY(angle);                  // 銃口を下に向ける
+    MATRIX runMatrixX       = MGetRotX(RunAnimationAngle);      // 左右に周期的に回転させる
+    MATRIX runFinalMatrix   = MMult(runMatrixX, runMatrixY);    // 最終的な回転率
+
+    // 回転行列を合成
+    rotationMatrix = MMult(runFinalMatrix, rotationMatrix);
+}
+
+/// <summary>
+/// 撃つアニメーションの再生
+/// </summary>
+void GunBase::PlayShotAnimation(VECTOR cameraForwardVector)
+{
+    // アニメーションカウントを進める
+    shotAnimationCount++;
+
+    // 進行度合を計算
+    float shotAnimationFactor = shotAnimationCount / RecoilCycle;
+
+    // 銃を後ろに後退させる
+    float recoiOffset = 0.0f;
+    if (shotAnimationFactor < RecoilDistanceLimit)
+    {
+        recoiOffset = RecoilDistance * (fabs(RecoilDistanceLimit - shotAnimationFactor));
+    }
+
+    // カメラの前方向ベクトルを正規化
+    VECTOR cameraForwardVectorNormalized = VNorm(cameraForwardVector);
+
+    // カメラの前方向から見て後ろへ反動を加える
+    VECTOR recoilVector = VScale(cameraForwardVectorNormalized, recoiOffset);
+
+    // 座標を更新
+    position = VAdd(position, recoilVector);
+
+    // 座標を設定
+    MV1SetPosition(modelHandle, position);
+
+    // カウントが上限ではないか
+    if (shotAnimationCount >= RecoilCycle)
+    {
+        // アニメーションカウントをリセットする
+        shotAnimationCount = 0;
+    }
 }

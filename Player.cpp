@@ -6,6 +6,7 @@
 #include "PlayerOnHitEnemyState.h"
 #include "PlayerRunState.h"
 #include "PlayerWalkState.h"
+#include "PlayerShotState.h"
 #include "ModelDataManager.h"
 #include "AssaultRifle.h"
 #include "BattleRifle.h"
@@ -140,6 +141,9 @@ void Player::Draw(const Stage& stage)
     case Player::State::Run:
         DrawString(100, 200, "Run", DebugFontColor, true);
         break;
+    case Player::State::Shot:
+        DrawString(100, 200, "Shot", DebugFontColor, true);
+        break;
     case Player::State::Jump:
         DrawString(100, 200, "Jump", DebugFontColor, true);
         break;
@@ -218,6 +222,7 @@ void Player::UpdateMovement(const Input& input, Stage& stage)
     // 移動ベクトルの更新
     UpdateMoveVector(input, upModveVector, leftMoveVector, currentFrameMoveVector);
 
+    // 移動ボタンが押されていたら
     if (pressMoveButton)
     {
         // 移動速度を設定
@@ -244,6 +249,7 @@ void Player::UpdateMovement(const Input& input, Stage& stage)
 /// <returns>移動速度</returns>
 float Player::SettingMoveSpeed(State state)
 {
+    // 移動速度
     float moveSpeed = 0.0f;
 
     switch (state)
@@ -256,6 +262,9 @@ float Player::SettingMoveSpeed(State state)
         break;
     case Player::State::Run:
         moveSpeed = RunMoveSpeed;
+        break;
+    case Player::State::Shot:
+        moveSpeed = WalkMoveSpeed;
         break;
     case Player::State::Jump:
         moveSpeed = 0.0f;
@@ -313,7 +322,7 @@ void Player::DisableRootFrameZMove()
 /// 移動ベクトルの更新
 /// </summary>
 /// <param name="input">入力情報</param>
-/// <param name="upModveVector">上方向ベクトル</param>
+/// <param name="upMoveVector">上方向ベクトル</param>
 /// <param name="leftMoveVector">左方向ベクトル</param>
 /// <param name="currentFrameMoveVector">移動ベクトル</param>
 void Player::UpdateMoveVector(const Input& input, VECTOR& upModveVector,
@@ -406,7 +415,7 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
     }
 
     // 当たり判定をして、新しい座標を保存する
-    VECTOR oldPosition = position;                      // 移動前の座標
+    VECTOR oldPosition  = position;                     // 移動前の座標
     VECTOR nextPosition = VAdd(position, MoveVector);   // 移動後の座標
 
     // ステージとの当たり判定処理
@@ -419,7 +428,7 @@ void Player::Move(const VECTOR& MoveVector, Stage& stage)
     }
 
     // 移動用の座標
-    // MEMO:走りアニメーション再生時にY座標のみ下にしたいため別のVECTORを用意
+    // MEMO:アニメーション再生時にY座標のみ下にしたいため別のVECTORを用意
     VECTOR movePosition = position;
 
     // 現在の適用率に基づいてオフセットを計算
@@ -495,7 +504,7 @@ void Player::UpdateAngle()
 /// <param name="PlayAnimation">再生したいアニメーション番号</param>
 void Player::PlayAnimation(AnimationType type)
 {
-    // HACK: 指定した番号のアニメーションをアタッチし、直前に再生していたアニメーションの情報をprevに移行している
+    // HACK: 指定した番号のアニメーションをアタッチし、直前に再生していたアニメーションの情報をpreviousに移行している
     // 入れ替えを行うので、１つ前のモーションがが有効だったらデタッチする
     if (previousPlayAnimation != -1)
     {
@@ -581,17 +590,22 @@ void Player::TransitionInputState(const Input& input)
     // アイドル、歩き、走りのどれかの状態か
     bool isIdleWalkRun = (state == State::Idle || state == State::Walk || state == State::Run);
 
-    if (!pressMoveButton)   // 移動キーが入力されていなければ
+    if (!pressMoveButton && !isShooting)   // 移動キーとショットボタンが押されていなければ
     {
         // アイドル
         ChangeState(State::Idle);
+    }
+    else if (isShooting)
+    {
+        // 発砲中
+        ChangeState(State::Shot);
     }
     else if(isIdleWalkRun && CheckHitKey(KEY_INPUT_LSHIFT))
     {
         // 走り
         ChangeState(State::Run);
     }
-    else if (state == State::Idle || state == State::Run)
+    else if (state == State::Idle || state == State::Run || state == State::Shot)
     {
         // 歩き
         ChangeState(State::Walk);
@@ -642,6 +656,12 @@ void Player::ChangeState(State newState)
         // 走り状態に推移
         state = State::Run;
         currentState = new PlayerRunState(modelHandle, previousData);
+
+        break;
+    case Player::State::Shot:
+        // 発砲状態に推移
+        state = State::Shot;
+        currentState = new PlayerShotState(modelHandle, previousData);
 
         break;
     case Player::State::OnHitEnemy:

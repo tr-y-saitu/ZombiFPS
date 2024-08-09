@@ -1,10 +1,11 @@
 ﻿#include "PlayerIdleState.h"
 
 /// <summary>
-/// コンストラクタ
+/// デフォルトコンストラクタ
 /// </summary>
 PlayerIdleState::PlayerIdleState()
 {
+    // 処理なし
 }
 
 /// <summary>

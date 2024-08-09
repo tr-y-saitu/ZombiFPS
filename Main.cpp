@@ -73,7 +73,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
             break;
         }
         // もしＥＳＣキーが押されていたらループから抜ける
-        else if (CheckHitKey(KEY_INPUT_ESCAPE))
+         else if (CheckHitKey(KEY_INPUT_ESCAPE))
         {
             break;
         }

@@ -45,7 +45,7 @@ void PlayerRunState::Update()
 }
 
 /// <summary>
-/// プレイヤーの座標の修正
+/// 走りステートのプレイヤーオフセット量の更新
 /// </summary>
 void PlayerRunState::UpdateOffsetValue()
 {
@@ -58,5 +58,5 @@ void PlayerRunState::UpdateOffsetValue()
     }
 
     // 走りステートのずらし量を決める
-    stateOffsetValue = VScale(RunAnimationOffsetValue,animationFactor);
+    stateOffsetValue = VScale(RunAnimationOffsetValue, animationFactor);
 }

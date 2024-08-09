@@ -292,6 +292,9 @@
     <ClCompile Include="BulletObjectPools.cpp">
       <Filter>ZombiFPS\GameObject\Player\Gun\Bullet\BulletObjectPools</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerShotState.cpp">
+      <Filter>ZombiFPS\GameObject\Player\PlayerState\Status</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -441,8 +444,9 @@
     <ClInclude Include="BulletObjectPools.h">
       <Filter>ZombiFPS\GameObject\Player\Gun\Bullet\BulletObjectPools</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionData.h">
-      <Filter>ZombiFPS\CollisionManager</Filter>
+    <ClInclude Include="CollisionData.h" />
+    <ClInclude Include="PlayerShotState.h">
+      <Filter>ZombiFPS\GameObject\Player\PlayerState\Status</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

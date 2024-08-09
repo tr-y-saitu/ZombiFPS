@@ -32,7 +32,7 @@ public:
 private:
 
     /// <summary>
-    /// プレイヤーの座標修正
+    /// プレイヤーのステートごとの座標修正
     /// </summary>
     void UpdateOffsetValue() override;
 
@@ -41,7 +41,6 @@ private:
     static constexpr float  AnimationBlendSpeed     = 0.1f;     // アニメーションのブレンド率変化速度
     static constexpr float  RunAnimationSpeed       = 0.1f;     // 走るアニメーションの再生速度
     static constexpr VECTOR RunAnimationOffsetValue = { 0.0f,-0.5f,0.0f };  // 走りステート時のずらし量
-
 };
 
 
