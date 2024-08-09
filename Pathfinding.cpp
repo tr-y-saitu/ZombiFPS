@@ -220,137 +220,6 @@ Pathfinding::Room Pathfinding::GetCurrentRoom(VECTOR objectPosition, Room& previ
 /// </summary>
 Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy)
 {
-    //// エネミーがどの部屋にいるかを調べる
-    //Room enemyPreviousRoom = enemy.GetPreviousRoom();
-    //Room enemyCurrentRoom1 = GetCurrentRoom(enemy.GetPosition(), enemyPreviousRoom);
-    //enemy.SetPreviousRoom(enemyPreviousRoom);  // エネミーの前に位置していた部屋を更新
-
-    //Room* enemyCurrentRoom = &enemyCurrentRoom1;
-
-    //// エネミーがプレイヤーと同じ部屋にいる場合は、プレイヤーの部屋情報を返す
-    //if (enemyCurrentRoom->roomNumber == playerRoom.roomNumber) {
-    //    return playerRoom;
-    //}
-
-    //// 幅優先探索 (BFS) のためのデータ構造
-    //std::queue<Room*> queue;
-    //std::unordered_map<Room*, Room*> cameFrom;
-    //std::unordered_map<Room*, bool> visited;
-
-    //// 初期設定
-    //queue.push(enemyCurrentRoom);
-    //visited[enemyCurrentRoom] = true;
-
-    //// BFS のメインループ
-    //while (!queue.empty()) {
-    //    Room* currentRoom = queue.front();
-    //    queue.pop();
-
-    //    // プレイヤーの部屋に到達した場合
-    //    if (currentRoom->roomNumber == playerRoom.roomNumber) {
-    //        // プレイヤーの部屋に到達した場合は、その部屋から最短経路を辿って最初の部屋を見つける
-    //        Room* nextRoom = nullptr;
-    //        for (Room* room = currentRoom; room != nullptr; room = cameFrom[room]) {
-    //            if (room != enemyCurrentRoom) {  // エネミーの現在の部屋を除外
-    //                nextRoom = cameFrom[room];
-    //                break;
-    //            }
-    //        }
-    //        // 最初に移動すべき部屋を返す
-    //        return nextRoom ? *nextRoom : *enemyCurrentRoom;
-    //    }
-
-    //    // 隣接する部屋を調べる
-    //    for (Room* adjacentRoom : currentRoom->adjacencyRoom) {
-    //        if (visited.find(adjacentRoom) == visited.end()) {
-    //            visited[adjacentRoom] = true;
-    //            cameFrom[adjacentRoom] = currentRoom;
-    //            queue.push(adjacentRoom);
-    //        }
-    //    }
-    //}
-
-    //// プレイヤーの部屋に到達できない場合はエネミーの現在の部屋を返す
-    //return *enemyCurrentRoom;
-
-
-
-    //// エネミーがどの部屋にいるかを調べる
-    //Room enemyPreviousRoom = enemy.GetPreviousRoom();
-    //Room enemyCurrentRoom1 = GetCurrentRoom(enemy.GetPosition(), enemyPreviousRoom);
-    //enemy.SetPreviousRoom(enemyPreviousRoom);  // エネミーの前に位置していた部屋を更新
-
-    //Room* enemyCurrentRoom = &enemyCurrentRoom1;
-
-    //// エネミーがプレイヤーと同じ部屋にいる場合は、プレイヤーの部屋情報を返す
-    //if (enemyCurrentRoom->roomNumber == playerRoom.roomNumber) {
-    //    return playerRoom;
-    //}
-
-    //// 幅優先探索 (BFS) のためのデータ構造
-    //std::queue<Room*> queue;
-    //std::unordered_map<Room*, Room*> cameFrom;
-    //std::unordered_map<Room*, bool> visited;
-
-    //// 初期設定
-    //queue.push(enemyCurrentRoom);
-    //visited[enemyCurrentRoom] = true;
-
-    //// BFS のメインループ
-    //while (!queue.empty()) {
-    //    Room* currentRoom = queue.front();
-    //    queue.pop();
-
-    //    // 隣接する部屋を調べる
-    //    for (Room* adjacentRoom : currentRoom->adjacencyRoom) {
-    //        if (visited.find(adjacentRoom) == visited.end()) {
-    //            visited[adjacentRoom] = true;
-    //            cameFrom[adjacentRoom] = currentRoom;
-    //            queue.push(adjacentRoom);
-
-    //            // プレイヤーの部屋に到達した場合
-    //            if (adjacentRoom->roomNumber == playerRoom.roomNumber) {
-    //                // 現在の部屋がエネミーの現在の部屋なら、次の部屋を返す
-    //                if (currentRoom == enemyCurrentRoom) {
-    //                    // エネミーの現在の部屋に隣接する部屋がプレイヤーの部屋の場合でも
-    //                    // 別の部屋を返すように、cameFromから次の部屋を見つける
-    //                    for (Room* room = adjacentRoom; room != nullptr; room = cameFrom[room]) {
-    //                        if (cameFrom[room] == enemyCurrentRoom) {
-    //                            return *room;
-    //                        }
-    //                    }
-    //                }
-
-    //                // プレイヤーの部屋が隣接しているが、直接移動するのを防ぐために
-    //                // エネミーの現在の部屋から別の隣接する部屋を返す
-    //                Room* nextRoom = nullptr;
-    //                for (Room* room = adjacentRoom; room != nullptr; room = cameFrom[room]) {
-    //                    if (cameFrom[room] == enemyCurrentRoom) {
-    //                        nextRoom = room;
-    //                    }
-    //                }
-
-    //                // 次に進むべき部屋がプレイヤーの部屋の隣接部屋であれば、その部屋の中心点を経由
-    //                if (nextRoom && nextRoom->roomNumber == playerRoom.roomNumber) {
-    //                    // 隣接部屋の中心点を通過してプレイヤーの部屋に移動
-    //                    // nextRoomCenterが部屋の中心点
-    //                    //Vec3 nextRoomCenter = nextRoom->center;
-    //                    //enemy.MoveTo(nextRoomCenter);  // エネミーを隣接部屋の中心点に移動
-    //                    return playerRoom;  // その後プレイヤーの部屋に移動
-    //                }
-
-    //                // それ以外の場合は、次の部屋に移動
-    //                return nextRoom ? *nextRoom : *enemyCurrentRoom;
-    //            }
-    //        }
-    //    }
-    //}
-
-    //// プレイヤーの部屋に到達できない場合はエネミーの現在の部屋を返す
-    //return *enemyCurrentRoom;
-
-
-
     // エネミーがどの部屋にいるかを調べる
     Room enemyPreviousRoom = enemy.GetPreviousRoom();
     Room enemyCurrentRoom1 = GetCurrentRoom(enemy.GetPosition(), enemyPreviousRoom);
@@ -358,11 +227,11 @@ Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy
     Room enemyPreviousRoomView = enemy.GetPreviousRoom();   // エネミーの前にいた部屋の情報
     
     // エネミーの今いる部屋と前いた部屋が違えば、エネミーが今いる部屋の中心座標をタッチしたかのフラグをリセット
-    if (enemyCurrentRoom1.roomNumber != enemyPreviousRoomView.roomNumber)
+    if (enemyCurrentRoom1.roomNumber != enemyPreviousRoomView.roomNumber  && enemy.GetRoomEntryState() == MovingToNextRoom)
     {
         enemy.SetIsTouchingRoomCenter(false);
-        enemy.SetRoomEntryState(EntryRoom);     // 部屋に入った
-        enemy.SetPreviousRoom(enemyCurrentRoom1);  // エネミーの前に位置していた部屋を更新
+        enemy.SetRoomEntryState(EntryRoom);         // 部屋に入った
+        enemy.SetPreviousRoom(enemyCurrentRoom1);   // エネミーの前に位置していた部屋を更新
     }
     
     Room* enemyCurrentRoom = &enemyCurrentRoom1;
@@ -375,19 +244,22 @@ Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy
     // エネミーのフラグとステートを取得
     bool isTouchingRoomCenter = enemy.GetIsTouchingRoomCenter();
     
-    // エネミーが部屋の中心に到達していない場合は中心を目指す
-    if (!isTouchingRoomCenter && distance >= 13.6f) {
-        enemy.SetTargetNextPosition(roomCenterPosition);
-        return *enemyCurrentRoom;
-    }
+    //// エネミーが部屋の中心に到達していない場合は中心を目指す
+    //if (!isTouchingRoomCenter && distance >= 3.6f)
+    //{
+    //    return *enemyCurrentRoom;
+    //}
     
     // エネミーが部屋の中心に到達した場合、フラグをセットしステートを更新
-    if (distance < 3.6f) {
-        enemy.SetIsTouchingRoomCenter(true);
+    if (distance < 3.6f)
+    {
+        enemy.SetRoomEntryState(MovingToNextRoom);      // 次の部屋に移動する
+        enemy.SetIsTouchingRoomCenter(true);            // 部屋の中央にタッチした
     }
     
     // エネミーがプレイヤーと同じ部屋にいる場合は、プレイヤーの部屋情報を返す
-    if (enemyCurrentRoom->roomNumber == playerRoom.roomNumber) {
+    if (enemyCurrentRoom->roomNumber == playerRoom.roomNumber)
+    {
         return playerRoom;
     }
     
@@ -401,7 +273,8 @@ Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy
     visited[enemyCurrentRoom] = true;
     
     // BFS のメインループ
-    while (!queue.empty()) {
+    while (!queue.empty() && enemy.GetRoomEntryState() == MovingToNextRoom)
+    {
         Room* currentRoom = queue.front();
         queue.pop();
     
@@ -435,12 +308,13 @@ Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy
                     }
     
                     // エネミーがプレイヤーの部屋の隣接部屋にいる場合
-                    if (nextRoom->roomNumber == playerRoom.roomNumber) {
-                        enemy.SetTargetNextPosition(nextRoom->centerPosition);  // 隣接部屋の中心点に移動
-                        enemy.SetPreviousRoom(*nextRoom);  // 次の部屋として隣接部屋を設定
-                        enemy.SetIsTouchingRoomCenter(false); // フラグをリセット
-                        return *nextRoom;  // 隣接部屋を返す
-                    }
+                    //if (nextRoom->roomNumber == playerRoom.roomNumber)
+                    //{
+                    //    enemy.SetTargetNextPosition(nextRoom->centerPosition);  // 隣接部屋の中心点に移動
+                    //    enemy.SetPreviousRoom(*nextRoom);  // 次の部屋として隣接部屋を設定
+                    //    enemy.SetIsTouchingRoomCenter(false); // フラグをリセット
+                    //    return *nextRoom;  // 隣接部屋を返す
+                    //}
     
                     // それ以外の場合は、次の部屋に移動
                     enemy.SetTargetNextPosition(nextRoom->centerPosition);

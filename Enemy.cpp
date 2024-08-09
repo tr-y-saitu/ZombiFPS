@@ -65,7 +65,7 @@ void Enemy::Initialize()
 
     // 初期化時にいる部屋を設定
     previousRoom.roomNumber = Pathfinding::Center1;
-    roomEntryState = Pathfinding::EntryRoom;
+    roomEntryState = Pathfinding::MovingToNextRoom;
 }
 
 /// <summary>
