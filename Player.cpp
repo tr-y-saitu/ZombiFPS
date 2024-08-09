@@ -519,66 +519,6 @@ void Player::UpdateAngle()
 }
 
 /// <summary>
-/// 走り時の座標調整
-/// </summary>
-VECTOR Player::FixedRunPosition()
-{
-    // 走りアニメーション時の処理
-    if (state == State::Run)
-    {
-        // アニメーションの適用率を増加
-        runAnimationFactor += RunAnimationFactorSpeed;
-        if (runAnimationFactor > 1.0f)
-        {
-            runAnimationFactor = 1.0f;
-        }
-    }
-    else
-    {
-        // 他の状態に移行した場合、適用率を減少
-        runAnimationFactor -= RunAnimationFactorSpeed;
-        if (runAnimationFactor < 0.0f)
-        {
-            runAnimationFactor = 0.0f;
-        }
-    }
-
-    // 現在の適用率を返す
-    VECTOR runOffset = VScale(RunAnimationOffset, runAnimationFactor);
-    return runOffset;
-}
-
-/// <summary>
-/// リロード時の座標調整
-/// </summary>
-VECTOR Player::FixedReloadPosition()
-{
-    // リロードアニメーション時の処理
-    if (state == State::Reload)
-    {
-        // アニメーション適応率を増加
-        reloadAnimationFactor += ReloadAnimationFactorSpeed;
-        if (reloadAnimationFactor > 1.0f)
-        {
-            reloadAnimationFactor = 1.0f;
-        }
-    }
-    else
-    {
-        // ほかのステートに移行した場合、適用率を減少
-        reloadAnimationFactor -= ReloadAnimationFactorSpeed;
-        if (reloadAnimationFactor < 0.0f)
-        {
-            reloadAnimationFactor = 0.0f;
-        }
-    }
-
-    // 現在の適用率を返す
-    VECTOR reloadOffset = VScale(ReloadAnimationOffset, reloadAnimationFactor);
-    return reloadOffset;
-}
-  
-/// <summary>
 /// プレイヤーのアニメーションを新しく追加する
 /// </summary>
 /// <param name="PlayAnimation">再生したいアニメーション番号</param>
