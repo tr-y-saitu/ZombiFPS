@@ -221,40 +221,32 @@ Pathfinding::Room Pathfinding::GetCurrentRoom(VECTOR objectPosition, Room& previ
 Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy)
 {
     // エネミーがどの部屋にいるかを調べる
+    // TODO:GetCurrentRoomの第二引数が&型でこの段階ではまだ前いた部屋の更新を行ってほしくないため、
+    //      ローカル変数で値だけもらって対応
     Room enemyPreviousRoom = enemy.GetPreviousRoom();
-    Room enemyCurrentRoom1 = GetCurrentRoom(enemy.GetPosition(), enemyPreviousRoom);
+    Room tempEnemyCurrentRoom = GetCurrentRoom(enemy.GetPosition(), enemyPreviousRoom);
     
     Room enemyPreviousRoomView = enemy.GetPreviousRoom();   // エネミーの前にいた部屋の情報
     
     // エネミーの今いる部屋と前いた部屋が違えば、エネミーが今いる部屋の中心座標をタッチしたかのフラグをリセット
-    if (enemyCurrentRoom1.roomNumber != enemyPreviousRoomView.roomNumber  && enemy.GetRoomEntryState() == MovingToNextRoom)
+    if (tempEnemyCurrentRoom.roomNumber != enemyPreviousRoomView.roomNumber  && enemy.GetRoomEntryState() == MovingToNextRoom)
     {
-        enemy.SetIsTouchingRoomCenter(false);
-        enemy.SetRoomEntryState(EntryRoom);         // 部屋に入った
-        enemy.SetPreviousRoom(enemyCurrentRoom1);   // エネミーの前に位置していた部屋を更新
+        enemy.SetRoomEntryState(EntryRoom);             // 部屋に入った
+        enemy.SetPreviousRoom(tempEnemyCurrentRoom);   // エネミーの前に位置していた部屋を更新
     }
-    
-    Room* enemyCurrentRoom = &enemyCurrentRoom1;
+
+    // 前に位置していた部屋を更新したのち現在の部屋に追加
+    Room* enemyCurrentRoom = &tempEnemyCurrentRoom;
     
     // エネミーの現在の座標と今いる部屋の中心座標を見比べる
-    VECTOR enemyPosition = enemy.GetPosition();
-    VECTOR roomCenterPosition = enemyCurrentRoom->centerPosition;
-    float distance = GetDistance3D(enemyPosition, roomCenterPosition);
-    
-    // エネミーのフラグとステートを取得
-    bool isTouchingRoomCenter = enemy.GetIsTouchingRoomCenter();
-    
-    //// エネミーが部屋の中心に到達していない場合は中心を目指す
-    //if (!isTouchingRoomCenter && distance >= 3.6f)
-    //{
-    //    return *enemyCurrentRoom;
-    //}
+    VECTOR enemyPosition = enemy.GetPosition();                             // エネミーの現在座標
+    VECTOR roomCenterPosition = enemyCurrentRoom->centerPosition;           // エネミーのいる部屋の中心座標
+    float distance = GetDistance3D(enemyPosition, roomCenterPosition);      // 座標間の距離を計算
     
     // エネミーが部屋の中心に到達した場合、フラグをセットしステートを更新
-    if (distance < 3.6f)
+    if (distance < RoomCenterDistance)
     {
         enemy.SetRoomEntryState(MovingToNextRoom);      // 次の部屋に移動する
-        enemy.SetIsTouchingRoomCenter(true);            // 部屋の中央にタッチした
     }
     
     // エネミーがプレイヤーと同じ部屋にいる場合は、プレイヤーの部屋情報を返す
@@ -263,71 +255,83 @@ Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy
         return playerRoom;
     }
     
+    // 幅優先探索(BFS)
+    return UpdateBFS(playerRoom, enemy, enemyCurrentRoom);
+}
+
+/// <summary>
+/// 幅優先探索(BFS)
+/// </summary>
+/// <param name="playerRoom">プレイヤーの位置する部屋</param>
+/// <param name="enemy">エネミー</param>
+/// <param name="enemyCurrentRoom">エネミーの位置する部屋</param>
+/// <returns>エネミーが目指す部屋</returns>
+Pathfinding::Room Pathfinding::UpdateBFS(Room playerRoom, Enemy& enemy,Room* enemyCurrentRoom)
+{
     // 幅優先探索 (BFS) のためのデータ構造
-    std::queue<Room*> queue;
-    std::unordered_map<Room*, Room*> cameFrom;
-    std::unordered_map<Room*, bool> visited;
-    
+    std::queue<Room*>                   searchQueue;    // 探索用のキュー（調査待ちの部屋）
+    std::unordered_map<Room*, Room*>    pathMap;        // どの部屋からどの部屋に移動したのかを記録する配列
+    std::unordered_map<Room*, bool>     visitedRooms;   // 調査済みの部屋を記録するマップ
+
     // 初期設定
-    queue.push(enemyCurrentRoom);
-    visited[enemyCurrentRoom] = true;
-    
+    searchQueue.push(enemyCurrentRoom);             // 現在エネミーの位置する部屋を探索用のキューに追加
+    visitedRooms[enemyCurrentRoom] = true;          // エネミーが現在位置している部屋はもうすでに探索済みである
+
     // BFS のメインループ
-    while (!queue.empty() && enemy.GetRoomEntryState() == MovingToNextRoom)
+    while (!searchQueue.empty() && enemy.GetRoomEntryState() == MovingToNextRoom)
     {
-        Room* currentRoom = queue.front();
-        queue.pop();
-    
-        // 隣接する部屋を調べる
-        for (Room* adjacentRoom : currentRoom->adjacencyRoom) {
-            if (visited.find(adjacentRoom) == visited.end()) {
-                visited[adjacentRoom] = true;
-                cameFrom[adjacentRoom] = currentRoom;
-                queue.push(adjacentRoom);
-    
+        Room* currentRoom = searchQueue.front();    // 探索用のキューから現在の部屋を抽出
+        searchQueue.pop();                          // 探索用のキューからは除く
+
+        // 現在の部屋に隣接する部屋を調べる
+        for (Room* adjacentRoom : currentRoom->adjacencyRoom)   // adjacentRoomは現在の部屋の隣接リストになる
+        {
+            // 今から調べる部屋がまだ探索されていないか
+            if (visitedRooms.find(adjacentRoom) == visitedRooms.end())
+            {
+                visitedRooms[adjacentRoom]  = true;         // 探索済み
+                pathMap[adjacentRoom]       = currentRoom;  // 隣接部屋に到達するために、現在の部屋を経由することを記録
+                searchQueue.push(adjacentRoom);             // 隣接部屋を次に探索するキューに追加
+
                 // プレイヤーの部屋に到達した場合
-                if (adjacentRoom->roomNumber == playerRoom.roomNumber) {
+                if (adjacentRoom->roomNumber == playerRoom.roomNumber)
+                {
                     // 最短経路を保存するためのベクター
                     std::vector<Room*> path;
-    
+
                     // エネミーの現在の部屋からプレイヤーの部屋へのパスを見つける
                     Room* nextRoom = nullptr;
-                    for (Room* room = adjacentRoom; room != nullptr; room = cameFrom[room]) {
-                        path.push_back(room);
-                        if (cameFrom[room] == enemyCurrentRoom) {
-                            nextRoom = room;
+
+                    // プレイヤーの部屋からエネミーの現在の部屋までの逆順にパスをたどる
+                    for (Room* room = adjacentRoom; room != nullptr; room = pathMap[room])
+                    {
+                        path.push_back(room);   // 現在の部屋のパスを追加
+
+                        // 現在の部屋がエネミーの部屋である場合
+                        if (pathMap[room] == enemyCurrentRoom)
+                        {
+                            nextRoom = room;    // 現在の部屋にとどまる
                         }
                     }
-    
-                    // パスを逆順にして正しい順序にする
+
+                    // パスを逆順にして正しい順序にする(最短経路確認用配列)
                     std::reverse(path.begin(), path.end());
-    
+
                     // 次に進むべき部屋が見つからない場合の処理
-                    if (nextRoom == nullptr) {
+                    if (nextRoom == nullptr)
+                    {
                         return *enemyCurrentRoom;  // 現在の部屋に留まる
                     }
-    
-                    // エネミーがプレイヤーの部屋の隣接部屋にいる場合
-                    //if (nextRoom->roomNumber == playerRoom.roomNumber)
-                    //{
-                    //    enemy.SetTargetNextPosition(nextRoom->centerPosition);  // 隣接部屋の中心点に移動
-                    //    enemy.SetPreviousRoom(*nextRoom);  // 次の部屋として隣接部屋を設定
-                    //    enemy.SetIsTouchingRoomCenter(false); // フラグをリセット
-                    //    return *nextRoom;  // 隣接部屋を返す
-                    //}
-    
+
                     // それ以外の場合は、次の部屋に移動
-                    enemy.SetTargetNextPosition(nextRoom->centerPosition);
-                    enemy.SetIsTouchingRoomCenter(false); // フラグをリセット
                     return *nextRoom;
                 }
             }
         }
     }
-    
+
     // プレイヤーの部屋に到達できない場合はエネミーの現在の部屋を返す
     return *enemyCurrentRoom;
-
 }
 
 /// <summary>

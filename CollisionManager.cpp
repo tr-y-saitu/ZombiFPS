@@ -102,6 +102,9 @@ void CollisionManager::Update()
             if (!collisionDataList[i]->isCollisionActive)
             {
                 collisionDataList.erase(collisionDataList.begin() + i);
+
+                // 削除後の要素が次にチェックされるため、インデックスを調整
+                i--;
             }
         }
     }

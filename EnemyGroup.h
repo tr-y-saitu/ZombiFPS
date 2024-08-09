@@ -45,8 +45,10 @@ public:
     /// <summary>
     /// エネミーの線形探索の更新
     /// </summary>
-    /// <param name="playerPosition">プレイヤー座標</param>
-    void UpdateEnemyPathfinding(VECTOR playerPosition);
+    /// <param name="playerPosition">プレイヤーの座標</param>
+    /// <param name="stage">ステージ</param>
+    /// <returns>そのエネミーが目指す座標</returns>
+    VECTOR UpdateEnemyPathfinding(VECTOR playerPosition, Enemy& enemy,Stage& stage);
 
 private:
     // 定数

@@ -51,19 +51,15 @@ void EnemyGroup::Initialize()
 void EnemyGroup::Update(VECTOR playerPosition, Stage& stage)
 {
     // 線形探索の更新
-     // プレイヤーの位置する部屋を取得
+    // プレイヤーの位置する部屋を取得
     Pathfinding::Room playerRoom = pathfinding->GetCurrentRoom(playerPosition, playerPreviousRoom);
 
     for (int i = 0; i < enemys.size(); i++)
     {
-        // そのエネミーが度超え行けばよいかが帰ってくる
-        Pathfinding::Room enemyTargetRoom;  // エネミーが目指す部屋
-
-        // 線形探索開始
-        enemyTargetRoom = pathfinding->FindRoomPathToPlayer(playerRoom, *enemys[i]);
+        VECTOR enemyTargetPosition = UpdateEnemyPathfinding(playerPosition, *enemys[i], stage);
 
         // エネミーの更新
-        enemys[i]->Update(enemyTargetRoom.centerPosition,stage);
+        enemys[i]->Update(enemyTargetPosition,stage);
     }
 }
 
@@ -89,8 +85,39 @@ void EnemyGroup::Draw(VECTOR playerPosition)
 /// <summary>
 /// エネミーの線形探索の更新
 /// </summary>
-/// <param name="playerPosition">プレイヤー座標</param>
-void EnemyGroup::UpdateEnemyPathfinding(VECTOR playerPosition)
+/// <param name="playerPosition">プレイヤーの座標</param>
+/// <param name="stage">ステージ</param>
+/// <returns>そのエネミーが目指す座標</returns>
+VECTOR EnemyGroup::UpdateEnemyPathfinding(VECTOR playerPosition,Enemy& enemy, Stage& stage)
 {
-   
+    // 線形探索の更新
+    VECTOR enemyTargetPosition = playerPosition; // エネミーが目指す座標
+    
+    // プレイヤーの位置する部屋を取得
+    Pathfinding::Room playerRoom = pathfinding->GetCurrentRoom(playerPosition, playerPreviousRoom);
+
+    // そのエネミーが度超え行けばよいかが帰ってくる
+    Pathfinding::Room enemyTargetRoom;  // エネミーが目指す部屋
+
+    // 線形探索開始
+    enemyTargetRoom = pathfinding->FindRoomPathToPlayer(playerRoom, enemy);
+
+    // プレイヤーとエネミーの今いる部屋を取得
+    Pathfinding::Room enemyPreviousRoom = enemy.GetPreviousRoom();
+    Pathfinding::Room enemyRoom = pathfinding->GetCurrentRoom(enemy.GetPosition(), enemyPreviousRoom);
+
+    // エネミーの部屋とプレイヤーの部屋が一致した場合
+    if (playerRoom.roomNumber == enemyRoom.roomNumber)
+    {
+        // プレイヤーの座標を目指す
+        enemyTargetPosition = playerPosition;
+    }
+    else
+    {
+        // 次の部屋の中心座標を目指す
+        enemyTargetPosition = enemyTargetRoom.centerPosition;
+    }
+
+    // エネミーが目指す座標
+    return enemyTargetPosition;
 }

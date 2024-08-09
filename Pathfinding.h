@@ -110,6 +110,8 @@ public:
     /// BFS幅優先探索で実装
     Room FindRoomPathToPlayer(Room playerRoom,Enemy& enemy);
 
+    Room UpdateBFS(Room playerRoom, Enemy& enemy, Room* enemyCurrentRoom);
+
     /// <summary>
     /// 二つの座標の距離を計算
     /// </summary>
@@ -122,7 +124,8 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
-    static constexpr int RoomTotalNumber = 12;          // 部屋の総数
+    static constexpr int    RoomTotalNumber                         = 12;       // 部屋の総数
+    static constexpr float  RoomCenterDistance                      = 3.6f;     // この範囲なら部屋の中心とみなす
     // デバッグ
     static constexpr float  DebugRoomCenterPositionSphereRadius     = 0.7f;     // デバッグ用の球体の半径
     static constexpr int    DebugRoomCenterPositionSphereDivision   = 8;        // 球を形成するポリゴンの細かさ
