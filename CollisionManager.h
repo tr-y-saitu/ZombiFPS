@@ -89,6 +89,19 @@ private:
     bool IsCollisionSphere(VECTOR position1, float radius1,
         VECTOR position2, float radius2);
 
+    /// <summary>
+    /// カプセルとカプセルの当たり判定
+    /// </summary>
+    /// <param name="capsule1Start"></param>
+    /// <param name="capsule1End"></param>
+    /// <param name="capsule1Radius"></param>
+    /// <param name="capsule2Start"></param>
+    /// <param name="capsule2End"></param>
+    /// <param name="capsule2Radius"></param>
+    /// <returns></returns>
+    bool IsCollisionCapsuleCapsule(VECTOR capsule1Start, VECTOR capsule1End, float capsule1Radius,
+        VECTOR capsule2Start, VECTOR capsule2End, float capsule2Radius);
+
     // 管理用
     static CollisionManager*        collisionManager;           // コリジョンマネージャーのインスタンス
 
