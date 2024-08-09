@@ -62,6 +62,10 @@ void Enemy::Initialize()
 
     // 当たり判定用情報更新
     UpdateCollisionData();
+
+    // 初期化時にいる部屋を設定
+    previousRoom.roomNumber = Pathfinding::Center1;
+    roomEntryState = Pathfinding::EntryRoom;
 }
 
 /// <summary>

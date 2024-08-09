@@ -354,43 +354,37 @@ Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy
     // エネミーがどの部屋にいるかを調べる
     Room enemyPreviousRoom = enemy.GetPreviousRoom();
     Room enemyCurrentRoom1 = GetCurrentRoom(enemy.GetPosition(), enemyPreviousRoom);
-    //enemy.SetPreviousRoom(enemyCurrentRoom1);  // エネミーの前に位置していた部屋を更新
+    
+    Room enemyPreviousRoomView = enemy.GetPreviousRoom();   // エネミーの前にいた部屋の情報
+    
+    // エネミーの今いる部屋と前いた部屋が違えば、エネミーが今いる部屋の中心座標をタッチしたかのフラグをリセット
+    if (enemyCurrentRoom1.roomNumber != enemyPreviousRoomView.roomNumber)
+    {
+        enemy.SetIsTouchingRoomCenter(false);
+        enemy.SetRoomEntryState(EntryRoom);     // 部屋に入った
+        enemy.SetPreviousRoom(enemyCurrentRoom1);  // エネミーの前に位置していた部屋を更新
+    }
     
     Room* enemyCurrentRoom = &enemyCurrentRoom1;
     
-    VECTOR roomPosition = enemyCurrentRoom->centerPosition;
-
-    // エネミーの今いる部屋と、前いた部屋が違えばフラグをリセット
-    Room enemyPreviousRoom1 = enemy.GetPreviousRoom();
-    if (enemyCurrentRoom1.roomNumber != enemyPreviousRoom1.roomNumber)
-    {
-        enemy.SetIsTouchingRoomCenter(false);
-        enemy.SetPreviousRoom(enemyCurrentRoom1);  // エネミーの前に位置していた部屋を更新
-    }
-
-
-
     // エネミーの現在の座標と今いる部屋の中心座標を見比べる
     VECTOR enemyPosition = enemy.GetPosition();
-
-    // エネミーの座標と今いる部屋の中心座標との距離
-    float distance = GetDistance3D(enemyPosition, roomPosition);
-
-
-
-    // エネミーがまだ部屋の中心に到達していない場合は前の部屋の中心座標を目指す
-    if (distance >= 3.6f)
-    {
-        // 今いる部屋の中心座標をタッチしたのかをチェック
-        if (!enemy.GetIsTouchingRoomCenter())
-        {
-            VECTOR previousRoomCenterPosition = enemyPreviousRoom.centerPosition;
-            enemy.SetTargetNextPosition(previousRoomCenterPosition);
-            enemy.SetIsTouchingRoomCenter(true);            // 今いる部屋の中心座標をタッチしました
-            return *enemyCurrentRoom;
-        }
+    VECTOR roomCenterPosition = enemyCurrentRoom->centerPosition;
+    float distance = GetDistance3D(enemyPosition, roomCenterPosition);
+    
+    // エネミーのフラグとステートを取得
+    bool isTouchingRoomCenter = enemy.GetIsTouchingRoomCenter();
+    
+    // エネミーが部屋の中心に到達していない場合は中心を目指す
+    if (!isTouchingRoomCenter && distance >= 13.6f) {
+        enemy.SetTargetNextPosition(roomCenterPosition);
+        return *enemyCurrentRoom;
     }
-
+    
+    // エネミーが部屋の中心に到達した場合、フラグをセットしステートを更新
+    if (distance < 3.6f) {
+        enemy.SetIsTouchingRoomCenter(true);
+    }
     
     // エネミーがプレイヤーと同じ部屋にいる場合は、プレイヤーの部屋情報を返す
     if (enemyCurrentRoom->roomNumber == playerRoom.roomNumber) {
@@ -420,13 +414,20 @@ Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy
     
                 // プレイヤーの部屋に到達した場合
                 if (adjacentRoom->roomNumber == playerRoom.roomNumber) {
-                    // エネミーの現在の部屋からプレイヤーの部屋へのパスを見つけるa 
+                    // 最短経路を保存するためのベクター
+                    std::vector<Room*> path;
+    
+                    // エネミーの現在の部屋からプレイヤーの部屋へのパスを見つける
                     Room* nextRoom = nullptr;
                     for (Room* room = adjacentRoom; room != nullptr; room = cameFrom[room]) {
+                        path.push_back(room);
                         if (cameFrom[room] == enemyCurrentRoom) {
                             nextRoom = room;
                         }
                     }
+    
+                    // パスを逆順にして正しい順序にする
+                    std::reverse(path.begin(), path.end());
     
                     // 次に進むべき部屋が見つからない場合の処理
                     if (nextRoom == nullptr) {
@@ -437,11 +438,13 @@ Pathfinding::Room Pathfinding::FindRoomPathToPlayer(Room playerRoom,Enemy& enemy
                     if (nextRoom->roomNumber == playerRoom.roomNumber) {
                         enemy.SetTargetNextPosition(nextRoom->centerPosition);  // 隣接部屋の中心点に移動
                         enemy.SetPreviousRoom(*nextRoom);  // 次の部屋として隣接部屋を設定
+                        enemy.SetIsTouchingRoomCenter(false); // フラグをリセット
                         return *nextRoom;  // 隣接部屋を返す
                     }
     
                     // それ以外の場合は、次の部屋に移動
                     enemy.SetTargetNextPosition(nextRoom->centerPosition);
+                    enemy.SetIsTouchingRoomCenter(false); // フラグをリセット
                     return *nextRoom;
                 }
             }

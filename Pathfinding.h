@@ -43,6 +43,17 @@ public:
     };
 
     /// <summary>
+    /// 部屋へ入ったキャラのステート
+    /// </summary>
+    enum RoomEntryState
+    {
+        EntryRoom,          // 部屋に入った
+        RoomCenter,         // その部屋の中心座標にいる
+        MovingToNextRoom,   // 次の部屋を目指している
+        MovingTarget,       // 室内のターゲットを目指している
+    };
+
+    /// <summary>
     /// コンストラクタ
     /// </summary>
     Pathfinding();
