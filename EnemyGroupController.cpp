@@ -8,7 +8,7 @@
 EnemyGroupController::EnemyGroupController()
 {
     // メモリ確保
-    for (int i = 0; i < TestEnmeyGroupNumber; i++)
+    for (int i = 0; i < TestEnemyGroupNumber; i++)
     {
         enemyGroup.push_back(new EnemyGroup());
     }
@@ -36,6 +36,21 @@ void EnemyGroupController::Initialize()
     {
         enemyGroup[i]->Initialize();
     }
+}
+
+/// <summary>
+/// エネミーを作成する
+/// </summary>
+void EnemyGroupController::CreateEnemy()
+{
+    // 新しいエネミーグループを作成
+    EnemyGroup* newEnemyGroup = new EnemyGroup();
+
+    // 初期化
+    newEnemyGroup->Initialize();
+
+    // リストに追加
+    enemyGroup.push_back(newEnemyGroup);
 }
 
 /// <summary>

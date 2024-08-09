@@ -26,6 +26,11 @@ public:
     void Initialize();
 
     /// <summary>
+    /// エネミーを作成する
+    /// </summary>
+    void CreateEnemy();
+
+    /// <summary>
     /// 更新
     /// </summary>
     /// <param name="playerPosition">プレイヤー座標</param>
@@ -41,7 +46,7 @@ private:
     // 定数
     // TODO: エネミーウェーブコントローラーで生成数を管理する
     //       オブジェクトプールでの管理ものちに行う
-    static constexpr int TestEnmeyGroupNumber = 3;  // 仮のエネミーの生成数
+    static constexpr int TestEnemyGroupNumber = 1;  // 仮のエネミーの生成数
 
     // 変数
     vector<EnemyGroup*> enemyGroup;     // エネミーの集合体
