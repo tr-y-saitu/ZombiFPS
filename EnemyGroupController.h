@@ -3,6 +3,7 @@
 
 class EnemyGroup;
 class Stage;
+class EnemyObjectPools;
 
 /// <summary>
 /// 集合したエネミーを一つにまとめる
@@ -52,7 +53,8 @@ private:
     static constexpr int TestEnemyGroupNumber = 1;  // 仮のエネミーの生成数
 
     // 変数
-    vector<EnemyGroup*> enemyGroup;     // エネミーの集合体
+    vector<EnemyGroup*> enemyGroup;         // エネミーの集合体
+    EnemyObjectPools*   enemyObjectPools;   // エネミーのオブジェクトプール
 };
 
 

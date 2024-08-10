@@ -1,4 +1,5 @@
-﻿#include "EnemyGroupController.h"
+﻿#include "EnemyObjectPools.h"
+#include "EnemyGroupController.h"
 #include "EnemyGroup.h"
 
 
@@ -7,6 +8,9 @@
 /// </summary>
 EnemyGroupController::EnemyGroupController()
 {
+    // エネミーのオブジェクトプール
+    enemyObjectPools = new EnemyObjectPools();
+
     // メモリ確保
     for (int i = 0; i < TestEnemyGroupNumber; i++)
     {
@@ -24,6 +28,8 @@ EnemyGroupController::~EnemyGroupController()
     {
         delete(enemyGroup[i]);
     }
+
+    delete(enemyObjectPools);
 }
 
 /// <summary>

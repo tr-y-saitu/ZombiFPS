@@ -41,7 +41,6 @@ GameScene::GameScene()
     player                  = new Player();
     enemyGroupController    = new EnemyGroupController();
     enemyWaveController     = new EnemyWaveController();
-    enemyObjectPools        = new EnemyObjectPools();
 
     // アイテム関連
     maxAmmoItem             = new MaxAmmo();
@@ -63,7 +62,6 @@ GameScene::~GameScene()
     delete(player);
     delete(enemyGroupController);
     delete(enemyWaveController);
-    delete(enemyObjectPools);
     delete(maxAmmoItem);
     delete(incomeDoubleItem);
     delete(gameSceneUI);

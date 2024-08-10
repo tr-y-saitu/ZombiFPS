@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Common.h"
 #include "Enemy.h"
+#include "EnemyGroup.h"
 
 class Enemy;
 
