@@ -58,8 +58,14 @@ void EnemyGroupController::CreateEnemy()
 /// </summary>
 /// <param name="playerPosition">プレイヤー座標</param>
 /// <param name="stage">ステージ</param>
-void EnemyGroupController::Update(VECTOR playerPosition, Stage& stage)
+void EnemyGroupController::Update(VECTOR playerPosition, Stage& stage, bool enemySpawnFlag)
 {
+    // エネミー作成指示が出れば作成
+    if (enemySpawnFlag)
+    {
+        CreateEnemy();
+    }
+
     // エネミーグループの数だけ更新
     for (int i = 0; i < enemyGroup.size(); i++)
     {
@@ -77,4 +83,7 @@ void EnemyGroupController::Draw(VECTOR playerPosition)
     {
         enemyGroup[i]->Draw(playerPosition);
     }
+
+    // エネミーの総数を描画
+    DrawFormatString(100, 800, DebugFontColor, "EnemySize:%d", enemyGroup.size());
 }

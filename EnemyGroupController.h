@@ -35,12 +35,15 @@ public:
     /// </summary>
     /// <param name="playerPosition">プレイヤー座標</param>
     /// <param name="stage">ステージ</param>
-    void Update(VECTOR playerPosition, Stage& stage);
+    void Update(VECTOR playerPosition, Stage& stage,bool enemySpawnFlag);
 
     /// <summary>
     /// 描画
     /// </summary>
     void Draw(VECTOR playerPosition);
+
+    // Getter
+    const int GetEnemyGroupSize()const { return enemyGroup.size(); }
 
 private:
     // 定数
