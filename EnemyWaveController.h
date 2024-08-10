@@ -74,6 +74,7 @@ private:
     WaveState   currentWaveState;       // 現在のウェーブステート
     int         lastEnemySpawnTime;     // 最後にエネミーを出現させた時間
     bool        enemySpawnFlag;         // エネミーを出現させる指示
+    int         currentWaveSpawnCount;  // 現在のウェーブで出現させたエネミーの数
 };
 
 

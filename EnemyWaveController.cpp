@@ -9,6 +9,7 @@ EnemyWaveController::EnemyWaveController()
     , waveElapsedTime       (0)
     , lastEnemySpawnTime    (0)
     , enemySpawnFlag        (false)
+    , currentWaveSpawnCount (0)
 {
     // 現在のウェーブで出現するエネミーの数
     waveEnemySpawnCount = currentWaveState * EnemySpawnRate;
@@ -43,8 +44,9 @@ void EnemyWaveController::Update(int activeEnemyNumber)
 
         // ウェーブ開始時間を更新
         waveStartTime = GetNowCount();
-        lastEnemySpawnTime = waveStartTime;  // 最後のエネミー出現時間を更新
-        enemySpawnFlag = false;              // 出現フラグをリセット
+        lastEnemySpawnTime = waveStartTime;     // 最後のエネミー出現時間を更新
+        enemySpawnFlag = false;                 // 出現フラグをリセット
+        currentWaveSpawnCount = 0;              // このウェーブで出現させたエネミーの数をリセット
     }
 
     // 現在のウェーブの経過時間を計測
@@ -53,17 +55,24 @@ void EnemyWaveController::Update(int activeEnemyNumber)
     // レスポンス時間ごとにエネミー出現フラグを立てる
     if (GetNowCount() - lastEnemySpawnTime >= EnemySpawnResponseTime * 1000)
     {
-        // 一度に存在できるエネミーの総数を越えていなければ
-        if (activeEnemyNumber < EnemySpawnLimit)
+        // 現在のウェーブで出現できるエネミーの数を越えていなければ
+        if ((currentWaveState * EnemySpawnRate) >= currentWaveSpawnCount)
         {
-            // エネミーを出現させる処理
-            if (!enemySpawnFlag)
+            // 一度に存在できるエネミーの総数を越えていなければ
+            if (activeEnemyNumber < EnemySpawnLimit)
             {
-                // 最後のエネミー出現時間を更新
-                lastEnemySpawnTime = GetNowCount();
+                // エネミーを出現させる処理
+                if (!enemySpawnFlag)
+                {
+                    // 最後のエネミー出現時間を更新
+                    lastEnemySpawnTime = GetNowCount();
 
-                // 出現フラグを設定
-                enemySpawnFlag = true;
+                    // 出現フラグを設定
+                    enemySpawnFlag = true;
+
+                    // このウェーブで出したエネミーの数を数える
+                    currentWaveSpawnCount++;
+                }
             }
         }
     }
