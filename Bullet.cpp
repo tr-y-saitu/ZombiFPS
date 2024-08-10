@@ -60,7 +60,7 @@ void Bullet::Update()
     collisionData.onHit = std::bind(&Bullet::OnHit, this, std::placeholders::_1);
 
     // 当たり判定に必要なデータを更新する
-    UpdataCollisionData();
+    UpdateCollisionData();
 
     // 弾丸は１フレームのみ存在する
     isActive = false;                           // 未使用のプールに戻す
@@ -81,7 +81,7 @@ void Bullet::Draw()
 /// <summary>
 /// 当たり判定に必要なデータを更新する
 /// </summary>
-void Bullet::UpdataCollisionData()
+void Bullet::UpdateCollisionData()
 {
     collisionData.tag                   = ObjectTag::Bullet;
     collisionData.lineStartPosition     = lineStartPosition;

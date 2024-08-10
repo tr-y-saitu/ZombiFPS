@@ -6,6 +6,11 @@
 /// </summary>
 EnemyObjectPools::EnemyObjectPools()
 {
+    // エネミーのインスタンスを作成
+    for (int i = 0; i < EnemyTotalNumber; i++)
+    {
+        inactiveEnemy.push_back(new Enemy());
+    }
 }
 
 /// <summary>
@@ -13,12 +18,67 @@ EnemyObjectPools::EnemyObjectPools()
 /// </summary>
 EnemyObjectPools::~EnemyObjectPools()
 {
+    // メモリ解放
+    for (Enemy* enemy : inactiveEnemy)
+    {
+        delete enemy;
+    }
 }
 
 /// <summary>
-/// 初期化
+/// 現在未使用のエネミーがあるかどうか調べる
 /// </summary>
-void EnemyObjectPools::Initialize()
+/// <returns>未使用のエネミーがある:true   ない:false</returns>
+bool EnemyObjectPools::HasInactiveEnemyInstance()
 {
+    // 未使用があればtrue
+    return inactiveEnemy.size();
+}
 
+/// <summary>
+/// 未使用のエネミーのインスタンスを渡す
+/// </summary>
+/// <returns>未使用のエネミーがあればそのインスタンス　　無ければnullptr</returns>
+Enemy* EnemyObjectPools::GetInactiveEnemy()
+{
+    // プールに未使用が存在するかチェック
+    if (HasInactiveEnemyInstance())
+    {
+        // 未使用のプールの先頭から要素を取得
+        Enemy* enemy = inactiveEnemy.front();
+
+        // 移動させるので先頭要素は削除
+        inactiveEnemy.pop_front();
+
+        return enemy;
+    }
+    else
+    {
+        // 未使用がない場合はヌル
+        return nullptr;
+    }
+}
+
+/// <summary>
+/// 使用中のリストから未使用リストにインスタンスを移動する
+/// </summary>
+/// <param name="activeEnemy">移動したい使用中のリストのアドレス</param>
+void EnemyObjectPools::ReturnActiveEnemyInstance(list<Enemy*>& activeEnemy)
+{
+    // 使用中のエネミーを調べる
+    for (auto it = activeEnemy.begin(); it != activeEnemy.end();)
+    {
+        Enemy* enemy = *it;
+        // エネミーが使用中出ない場合、未使用リストに移動する
+        if (!enemy->GetIsActive())
+        {
+            // エネミーを未使用リストに移動
+            inactiveEnemy.splice(inactiveEnemy.end(), activeEnemy, it++);
+        }
+        else
+        {
+            // イテレータを次に進める
+            ++it;
+        }
+    }
 }

@@ -17,6 +17,7 @@ Enemy::Enemy()
     , position                  (InitializePosition)
     , targetNextPosition        (InitializePosition)
     , isTouchingRoomCenter      (false)
+    , isActive                  (true)
 {
     modelDataManager = ModelDataManager::GetInstance();
     collisionManager = CollisionManager::GetInstance();
