@@ -44,7 +44,7 @@ public:
     void Draw(VECTOR playerPosition);
 
     // Getter
-    const int GetEnemyGroupSize()const { return enemyGroup.size(); }
+    const int GetEnemyGroupSize()const { return activeEnemyGroup.size(); }
 
 private:
     // 定数

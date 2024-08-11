@@ -130,17 +130,42 @@ void Enemy::OnHit(CollisionData hitObjectData)
         // HPを減少
         hitPoints -= hitObjectData.bulletPower;
 
+        // HPがゼロになった場合
+        if (hitPoints < 0)
+        {
+            isActive = false;
+        }
+
         break;
 
     case ObjectTag::EnemyBoby:  // エネミーと当たった時
         // 押し出し処理を行う
-        // 方向を計算
 
-        // 自分と相手の距離を図る
+        //// 進行方向を計算 (相手の位置から自分の位置を引いて方向ベクトルを求める)
+        //direction = VSub(position, hitObjectData.centerPosition);
 
-        // 自分と相手の半径の合計
+        //// 方向ベクトルを正規化する（長さを1にする）
+        //direction = VNorm(direction);
+        //direction.y = 0.0f;
 
-        // めり込んだ分だけ押し戻す
+        //// 進行方向の右方向ベクトルを計算
+        //VECTOR rightDirection = VCross(VGet(0.0f, 1.0f, 0.0f), direction);
+        //rightDirection = VNorm(rightDirection);
+
+        //// 自分と相手の距離を計算
+        //distance = VSize(VSub(position, hitObjectData.endPosition));
+
+        //// 自分と相手の半径の合計
+        //radiusSum = collisionData.radius + hitObjectData.radius;
+
+        //// めり込んだ分を計算 (半径の合計 - 距離)
+        //penetrationDepth = radiusSum - distance;
+
+        //// めり込んだ分だけ右方向に押し戻す
+        //if (penetrationDepth > 0)
+        //{
+        //    position = VAdd(position, VScale(rightDirection, penetrationDepth * 0.5f));
+        //}
 
         break;
 
