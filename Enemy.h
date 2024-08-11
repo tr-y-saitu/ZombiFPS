@@ -171,6 +171,7 @@ private:
     static constexpr int    InitializeHitPoints     = 100;                          // 初期化時の体力
     static constexpr VECTOR InitializeDirection     = { 1.0f, 0.0f, 0.0f };         // 初期化時の移動方向
     static constexpr int    DeathInactiveFrame      = 150;                          // 死亡してからモデルを削除するまでのフレームカウント数
+    static constexpr float  AttackRange             = 3.0f;                         // この範囲に入ったら攻撃を開始する
     // 当たり判定
     static constexpr float  CollisionRadius         = 1.0f;                         // 当たり判定用半径
     static constexpr VECTOR CapsulePositionOffset   = { 0.0f,4.0f,0.0f };           // カプセルの始点を作るためのずらし量

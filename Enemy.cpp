@@ -343,12 +343,36 @@ void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
     if (targetTag == ObjectTag::Player)
     {
         // 距離を図る
-        float distance = Calculation::Distance3D(targetPosition, position);
+        VECTOR playerPosition = targetPosition;
+        playerPosition.y = 1.0f;
+        float distance = Calculation::Distance3D(playerPosition, position);
 
         // 距離が近ければ攻撃する
-        if (distance > 1.0f)
+        if (distance < AttackRange)
         {
+            if (currentState != State::Attack)
+            {
+                // 攻撃アニメーション再生
+                PlayAnimation(AnimationType::Attack);
 
+                // 現在のステート更新
+                currentState = State::Attack;
+            }
+        }
+        else if (currentState == State::Attack)
+        {
+            // 再生しているアニメーションの総時間
+            float animationTotalTime = MV1GetAttachAnimTotalTime(modelHandle, currentPlayAnimation);
+
+            // 攻撃アニメーションが終了しているかチェック
+            if (currentAnimationCount >= animationTotalTime / 2)
+            {
+                // Runアニメーションに変更
+                PlayAnimation(AnimationType::Run);
+
+                // 現在のステートをRunに更新
+                currentState = State::Run;
+            }
         }
 
     }
