@@ -13,11 +13,12 @@ Enemy::Enemy()
     , animationBlendRate        (1.0f)
     , targetMoveDirection       (InitializeDirection)
     , currentJumpPower          (0.0f)
-    , state                     (State::Idle)
+    , currentState              (State::Run)
     , position                  (InitializePosition)
     , targetNextPosition        (InitializePosition)
     , isTouchingRoomCenter      (false)
     , isActive                  (true)
+    , deathFrameCount           (0)
 {
     modelDataManager = ModelDataManager::GetInstance();
     collisionManager = CollisionManager::GetInstance();
@@ -55,8 +56,10 @@ void Enemy::Initialize()
     // 初期状態でエネミーが向くべき方向はＸ軸方向
     targetMoveDirection = VGet(1.0f, 0.0f, 0.0f);
 
-    // 初期状態ではアニメーションはアタッチされていないにする
+    // アニメーション関係
     currentPlayAnimation = -1;
+    previousPlayAnimation = -1;
+    animationBlendRate = 1.0f;
 
     // アニメーション設定
     PlayAnimation(AnimationType::Run);
@@ -67,6 +70,12 @@ void Enemy::Initialize()
     // 初期化時にいる部屋を設定
     previousRoom.roomNumber = Pathfinding::Center1;
     roomEntryState = Pathfinding::MovingToNextRoom;
+
+    // ステータス
+    hitPoints = InitializeHitPoints;
+
+    // 死亡してからの経過フレーム数を初期化
+    deathFrameCount = 0;
 }
 
 /// <summary>
@@ -85,6 +94,9 @@ void Enemy::Update(VECTOR targetPosition,Stage& stage)
 
     // 回転制御
     UpdateAngle();
+
+    // 死んだかどうかのチェック
+    UpdateDead();
 
     // アニメーション更新
     UpdateAnimation();
@@ -129,12 +141,6 @@ void Enemy::OnHit(CollisionData hitObjectData)
     case ObjectTag::Bullet: // 弾丸と当たった時
         // HPを減少
         hitPoints -= hitObjectData.bulletPower;
-
-        // HPがゼロになった場合
-        if (hitPoints < 0)
-        {
-            isActive = false;
-        }
 
         break;
 
@@ -253,21 +259,25 @@ void Enemy::UpdateMoveVector(VECTOR targetPosition)
 /// <param name="stage">ステージ</param>
 void Enemy::Move(const VECTOR& MoveVector, Stage& stage)
 {
-    // 当たり判定をして、新しい座標を保存する
-    VECTOR oldPosition = position;                      // 移動前の座標
-    VECTOR nextPosition = VAdd(position, VScale(MoveVector, MoveSpeed));   // 移動後の座標
-
-    // ステージとの当たり判定処理
-    position = stage.IsHitCollisionEnemy(*this, nextPosition, MoveVector);
-
-    // 床より少し高くする
-    if (position.y <= MoveLimitY)
+    // 死亡していたら無視
+    if (currentState != State::Death)
     {
-        position.y = MoveLimitY;
-    }
+        // 当たり判定をして、新しい座標を保存する
+        VECTOR oldPosition = position;                      // 移動前の座標
+        VECTOR nextPosition = VAdd(position, VScale(MoveVector, MoveSpeed));   // 移動後の座標
 
-    // 座標の更新
-    MV1SetPosition(modelHandle, position);
+        // ステージとの当たり判定処理
+        position = stage.IsHitCollisionEnemy(*this, nextPosition, MoveVector);
+
+        // 床より少し高くする
+        if (position.y <= MoveLimitY)
+        {
+            position.y = MoveLimitY;
+        }
+
+        // 座標の更新
+        MV1SetPosition(modelHandle, position);
+    }
 }
 
 /// <summary>
@@ -288,6 +298,35 @@ void Enemy::UpdateAngle()
 
     // モデルを回転
     MV1SetFrameUserLocalMatrix(modelHandle, 0, rotation);
+}
+
+/// <summary>
+/// 死んだかどうかチェックし、死んだ後の更新
+/// </summary>
+void Enemy::UpdateDead()
+{
+    // HPがゼロになった場合
+    if (hitPoints < 0)
+    {
+        // 現在のアニメーションが Death でない場合のみ再生
+        if (currentState != State::Death)
+        {
+            // 死亡アニメーションを再生
+            PlayAnimation(AnimationType::Death);
+
+            // 現在のステート更新
+            currentState = State::Death;
+        }
+
+        // 死んでからのフレーム数をカウント
+        deathFrameCount++;
+
+        // 死亡してから一定フレームが経過した場合は削除する
+        if (deathFrameCount > DeathInactiveFrame)
+        {
+            isActive = false;
+        }
+    }
 }
 
 /// <summary>
