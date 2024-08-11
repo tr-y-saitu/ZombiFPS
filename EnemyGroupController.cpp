@@ -24,9 +24,9 @@ EnemyGroupController::EnemyGroupController()
 EnemyGroupController::~EnemyGroupController()
 {
     // メモリ解放
-    for (int i = 0; i < enemyGroup.size(); i++)
+    for (EnemyGroup* enemy : activeEnemyGroup)
     {
-        delete(enemyGroup[i]);
+        delete(enemy);
     }
 
     delete(enemyObjectPools);
@@ -49,14 +49,16 @@ void EnemyGroupController::Initialize()
 /// </summary>
 void EnemyGroupController::CreateEnemy()
 {
-    // 新しいエネミーグループを作成
-    EnemyGroup* newEnemyGroup = new EnemyGroup();
+    // 未使用のエネミーをオブジェクトプールから取得
+    EnemyGroup* enemy = enemyObjectPools->GetInactiveEnemy();
 
-    // 初期化
-    newEnemyGroup->Initialize();
+    // 取得したエネミーがあるなら使用中に追加
+    if (enemy != nullptr)
+    {
+        enemy->Initialize();            // 初期化
+        activeEnemyGroup.push_back(enemy);    // エネミーの追加
+    }
 
-    // リストに追加
-    enemyGroup.push_back(newEnemyGroup);
 }
 
 /// <summary>
@@ -73,10 +75,13 @@ void EnemyGroupController::Update(VECTOR playerPosition, Stage& stage, bool enem
     }
 
     // エネミーグループの数だけ更新
-    for (int i = 0; i < enemyGroup.size(); i++)
+    for (auto& enemyGroup : activeEnemyGroup)
     {
-        enemyGroup[i]->Update(playerPosition, stage);
+        enemyGroup->Update(playerPosition, stage);
     }
+
+    // 使い終わったエネミーがいればプールに返却する
+    enemyObjectPools->ReturnActiveEnemyInstance(activeEnemyGroup);
 }
 
 /// <summary>
@@ -84,12 +89,12 @@ void EnemyGroupController::Update(VECTOR playerPosition, Stage& stage, bool enem
 /// </summary>
 void EnemyGroupController::Draw(VECTOR playerPosition)
 {
-    // エネミーの数だけ描画
-    for (int i = 0; i < enemyGroup.size(); i++)
+    // エネミーグループの数だけ更新
+    for (auto& enemyGroup : activeEnemyGroup)
     {
-        enemyGroup[i]->Draw(playerPosition);
+        enemyGroup->Draw(playerPosition);
     }
 
     // エネミーの総数を描画
-    DrawFormatString(100, 800, DebugFontColor, "EnemySize:%d", enemyGroup.size());
+    DrawFormatString(100, 800, DebugFontColor, "EnemySize:%d", activeEnemyGroup.size());
 }

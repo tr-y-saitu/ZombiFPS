@@ -50,6 +50,9 @@ public:
     /// <returns>そのエネミーが目指す座標</returns>
     VECTOR UpdateEnemyPathfinding(VECTOR playerPosition, Enemy& enemy,Stage& stage);
 
+    // Getter
+    const bool GetIsActive()const { return isActive; }
+
 private:
     // 定数
 
@@ -57,6 +60,7 @@ private:
     vector<Enemy*>  enemys;         // エネミー(ゾンビ)
     Boids*          boids;          // 集合計算用
     Pathfinding*    pathfinding;    // 線形探索用
+    bool            isActive;       // エネミーが使用中かどうか
 
     Pathfinding::Room       playerPreviousRoom;     // プレイヤーが以前いた部屋
 };

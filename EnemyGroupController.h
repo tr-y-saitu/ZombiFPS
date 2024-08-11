@@ -54,6 +54,7 @@ private:
 
     // 変数
     vector<EnemyGroup*> enemyGroup;         // エネミーの集合体
+    list<EnemyGroup*>   activeEnemyGroup;   // 使用中のエネミーの集合体
     EnemyObjectPools*   enemyObjectPools;   // エネミーのオブジェクトプール
 };
 

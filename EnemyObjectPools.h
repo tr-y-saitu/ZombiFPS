@@ -31,13 +31,13 @@ public:
     /// 未使用のエネミーのインスタンスを渡す
     /// </summary>
     /// <returns>未使用のエネミーがあればそのインスタンス　　無ければnullptr</returns>
-    Enemy* GetInactiveEnemy();
+    EnemyGroup* GetInactiveEnemy();
 
     /// <summary>
     /// 使用中のリストから未使用リストにインスタンスを移動する
     /// </summary>
     /// <param name="activeEnemy">移動したい使用中のリストのアドレス</param>
-    void ReturnActiveEnemyInstance(list<Enemy*>& activeEnemy);
+    void ReturnActiveEnemyInstance(list<EnemyGroup*>& activeEnemy);
 
 private:
     //---------------------------------------------------------------------------------//
@@ -48,7 +48,7 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
-    list<Enemy*> inactiveEnemy;     // 未使用のエネミー
+    list<EnemyGroup*> inactiveEnemy;     // 未使用のエネミー
 
 };
 
