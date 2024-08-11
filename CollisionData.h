@@ -17,6 +17,7 @@ enum class ObjectTag : int
     EnemyHead,  // エネミーの頭
     EnemyBoby,  // エネミーの胴体
     Bullet,     // 弾丸
+    RoomCenter, // 部屋の中心
 };
 
 /// <summary>

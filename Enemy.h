@@ -68,7 +68,7 @@ public:
     /// </summary>
     /// <param name="targetPosition">目標座標</param>
     /// <param name="stage">ステージ</param>
-    void Update(VECTOR targetPosition, Stage& stage);
+    void Update(VECTOR targetPosition, Stage& stage, ObjectTag targetTag);
 
     /// <summary>
     /// 描画
@@ -150,6 +150,12 @@ private:
     /// 死んだかどうかチェックし、死んだ後の更新
     /// </summary>
     void UpdateDead();
+
+    /// <summary>
+    /// 攻撃の更新
+    /// </summary>
+    /// <param name="playerPosition">プレイヤーの座標</param>
+    void UpdateAttack(VECTOR targetPosition, ObjectTag targetTag);
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //

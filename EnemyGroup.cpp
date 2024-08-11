@@ -1,6 +1,6 @@
 ﻿#include "EnemyGroup.h"
 #include "Stage.h"
-
+#include"Calculation.h"
 
 /// <summary>
 /// コンストラクタ
@@ -56,10 +56,25 @@ void EnemyGroup::Update(VECTOR playerPosition, Stage& stage)
 
     for (int i = 0; i < enemys.size(); i++)
     {
+        // 線形探索
         VECTOR enemyTargetPosition = UpdateEnemyPathfinding(playerPosition, *enemys[i], stage);
 
+
+        // ターゲットがプレイヤーか部屋の中心座標かチェック
+        float distance = Calculation::Distance3D(playerPosition, enemyTargetPosition);
+        ObjectTag tag;
+
+        if (distance < 1.0f)
+        {
+            tag = ObjectTag::Player;
+        }
+        else
+        {
+            tag = ObjectTag::RoomCenter;
+        }
+
         // エネミーの更新
-        enemys[i]->Update(enemyTargetPosition,stage);
+        enemys[i]->Update(enemyTargetPosition,stage, tag);
     }
 
     for (int i = 0; i < enemys.size(); i++)

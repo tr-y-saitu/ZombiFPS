@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "ModelDataManager.h"
 #include "Stage.h"
+#include "Calculation.h"
 
 /// <summary>
 /// コンストラクタ
@@ -83,7 +84,7 @@ void Enemy::Initialize()
 /// </summary>
 /// <param name="targetPosition">目標座標</param>
 /// <param name="stage">ステージ</param>
-void Enemy::Update(VECTOR targetPosition,Stage& stage)
+void Enemy::Update(VECTOR targetPosition,Stage& stage,ObjectTag targetTag)
 {
     // ルートフレームのＺ軸方向の移動パラメータを無効にする
     DisableRootFrameZMove();
@@ -97,6 +98,9 @@ void Enemy::Update(VECTOR targetPosition,Stage& stage)
 
     // 死んだかどうかのチェック
     UpdateDead();
+
+    // 攻撃の更新
+    UpdateAttack(targetPosition,targetTag);
 
     // アニメーション更新
     UpdateAnimation();
@@ -327,6 +331,28 @@ void Enemy::UpdateDead()
             isActive = false;
         }
     }
+}
+
+/// <summary>
+/// 攻撃の更新
+/// </summary>
+/// <param name="playerPosition">ターゲットの座標</param>
+void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
+{
+    // プレイヤーとエネミーとの距離を図る
+    if (targetTag == ObjectTag::Player)
+    {
+        // 距離を図る
+        float distance = Calculation::Distance3D(targetPosition, position);
+
+        // 距離が近ければ攻撃する
+        if (distance > 1.0f)
+        {
+
+        }
+
+    }
+
 }
 
 /// <summary>
