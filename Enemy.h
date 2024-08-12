@@ -80,6 +80,11 @@ public:
     /// </summary>
     void UpdateCollisionData();
 
+    /// <summary>
+    /// 攻撃の当たり判定に必要なデータの更新
+    /// </summary>
+    void UpdateAttackCollisionData();
+
     // Getter
     const VECTOR GetPosition()const { return position; }
     const Pathfinding::Room GetPreviousRoom()const { return previousRoom; }
@@ -147,6 +152,12 @@ private:
     void OnHit(CollisionData hitObjectData);
 
     /// <summary>
+    /// 攻撃がオブジェクトと接触した時の処理
+    /// </summary>
+    /// <param name="hitObjectData"></param>
+    void OnHitAttack(CollisionData hitObjectData);
+
+    /// <summary>
     /// 死んだかどうかチェックし、死んだ後の更新
     /// </summary>
     void UpdateDead();
@@ -176,6 +187,9 @@ private:
     static constexpr float  CollisionRadius         = 1.0f;                         // 当たり判定用半径
     static constexpr VECTOR CapsulePositionOffset   = { 0.0f,4.0f,0.0f };           // カプセルの始点を作るためのずらし量
     static constexpr float  PolygonDetail           = 8.0f;                         // 描画するポリゴンの数
+    // 攻撃
+    static constexpr float  AttackCollisionRadius   = 2.0f;                         // 攻撃の球型の当たり判定半径
+    static constexpr float  AttackPower             = 10.0f;                        // 攻撃力
     // 重力関係
     static constexpr float  Gravity                 = 3.0f;                         // 重力
     static constexpr float  FallUpPower             = 20.0f;                        // 足を踏み外した時のジャンプ力
@@ -214,6 +228,8 @@ private:
 
     // 当たり判定用
     CollisionData           collisionData;          // 当たり判定用情報
+    CollisionData           attackCollisionData;    // 攻撃時の当たり判定情報
+
 
     // アニメーション情報
     int         currentPlayAnimation;       // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )

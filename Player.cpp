@@ -31,13 +31,21 @@ Player::Player()
     , reloadAnimationCount          (0)
     , reloadAnimationFactor         (0.0f)
     , reloadTimer                   (0)
+    , hitPoint                      (InitializeHitPoint)
 {
+    collisionManager        = CollisionManager::GetInstance();
     modelDataManager        = ModelDataManager::GetInstance();
     Initialize();
     bulletObjectPools       = new BulletObjectPools();
     equippedGun             = new SubmachineGun();
     playerCamera            = new PlayerCamera();
     currentState            = new PlayerIdleState(modelHandle, animationData);
+
+    // 当たった後の関数をコリジョンマネージャーに渡す
+    collisionData.onHit = std::bind(&Player::OnHitObject, this, std::placeholders::_1);
+
+    // 当たり判定に必要なデータを渡す
+    collisionManager->RegisterCollisionData(&collisionData);
 }
 
 /// <summary>
@@ -89,6 +97,9 @@ void Player::Initialize()
     animationData.previousAnimationCount    = previousAnimationCount;
     animationData.previousPlayAnimation     = previousPlayAnimation;
     animationData.animationFactor           = 0.0f;
+
+    // 当たり判定情報更新
+    UpdateCollisionData();
 }
 
 /// <summary>
@@ -120,6 +131,9 @@ void Player::Update(const Input& input, Stage& stage)
 
     // プレイヤーカメラの更新
     UpdatePlayerCamera(input, stage);
+
+    // 当たり判定用の情報を更新
+    UpdateCollisionData();
 }
 
 /// <summary>
@@ -164,6 +178,9 @@ void Player::Draw(const Stage& stage)
     default:
         break;
     }
+
+    // 体力の描画
+    DrawFormatString(100, 400, DebugFontColor, "HP:%.1f", hitPoint);
 }
 
 /// <summary>
@@ -213,6 +230,36 @@ void Player::OnHitFloor()
         // 着地時はアニメーションのブレンドは行わない
         animationBlendRate = 1.0f;
     }
+}
+
+/// <summary>
+/// オブジェクトと接触した時の処理
+/// </summary>
+/// <param name="hitObjectData"></param>
+void Player::OnHitObject(CollisionData hitObjectData)
+{
+    switch (hitObjectData.tag)
+    {
+    case ObjectTag::EnemyAttack:    // エネミーの攻撃
+        // HPを減らす
+        hitPoint -= hitObjectData.attackPower;
+
+        break;
+
+    default:
+        break;
+    }
+}
+
+/// <summary>
+/// 当たり判定情報の更新
+/// </summary>
+void Player::UpdateCollisionData()
+{
+    collisionData.isCollisionActive = true;                 // 当たり判定をしてほしいか
+    collisionData.tag               = ObjectTag::Player;    // プレイヤーである
+    collisionData.centerPosition    = position;             // プレイヤーの当たり判定用の座標
+    collisionData.radius            = HitBoxRadius;         // プレイヤー当たり判定用の半径
 }
 
 /// <summary>

@@ -106,6 +106,18 @@ void CollisionManager::Update()
 
             }
 
+            //プレイヤーとエネミーの攻撃
+            if (data1.tag == ObjectTag::Player && data2.tag == ObjectTag::EnemyAttack)
+            {
+                // 球どおしの当たり判定
+                if (IsCollisionSphere(data1.centerPosition, data1.radius, data2.centerPosition, data2.radius))
+                {
+                    // 当たった後の関数を呼び出す
+                    data1.onHit(data2);
+                    data2.onHit(data1);
+                }
+            }
+
             // 球体とカプセル
 
             // カプセルとライン

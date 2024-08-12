@@ -29,10 +29,12 @@ Enemy::Enemy()
 
     // 自身のOnHit関数をもとに新しい引数を持った関数を作成
     // std::bind(&名前空間::関数名,その関数のある参照,引数の数だけプレースホルダーが増える)
-    collisionData.onHit = std::bind(&Enemy::OnHit, this, std::placeholders::_1);
+    collisionData.onHit = std::bind(&Enemy::OnHit, this, std::placeholders::_1);                // 胴体
+    attackCollisionData.onHit = std::bind(&Enemy::OnHitAttack, this, std::placeholders::_1);    // 攻撃
 
     // 当たり判定に必要なデータを渡す
     collisionManager->RegisterCollisionData(&collisionData);
+
 }
 
 /// <summary>
@@ -66,7 +68,8 @@ void Enemy::Initialize()
     PlayAnimation(AnimationType::Run);
 
     // 当たり判定用情報更新
-    UpdateCollisionData();
+    UpdateCollisionData();          // 自身の当たり判定
+    UpdateAttackCollisionData();    // 攻撃用の当たり判定
 
     // 初期化時にいる部屋を設定
     previousRoom.roomNumber = Pathfinding::Center1;
@@ -110,6 +113,7 @@ void Enemy::Update(VECTOR targetPosition,Stage& stage,ObjectTag targetTag)
 
     // 当たり判定用情報更新
     UpdateCollisionData();
+    UpdateAttackCollisionData();
 }
 
 /// <summary>
@@ -127,6 +131,13 @@ void Enemy::Draw()
     // 自身のHPを描画
     DrawFormatString(DebugHitPointDrawX, DebugHitPointDrawY,
         DebugFontColor, "HP:%d", hitPoints);
+
+    // 攻撃の当たり判定を描画する
+    if (attackCollisionData.isCollisionActive)
+    {
+        DrawSphere3D(attackCollisionData.centerPosition, attackCollisionData.radius,
+            DebugSphereDivision, DebugPolygonColorBlue, DebugPolygonColorBlue, true);
+    }
 }
 
 /// <summary>
@@ -184,6 +195,18 @@ void Enemy::OnHit(CollisionData hitObjectData)
     }
 }
 
+/// <summary>
+/// 攻撃がオブジェクトと接触した時の処理
+/// </summary>
+/// <param name="hitObjectData"></param>
+void Enemy::OnHitAttack(CollisionData hitObjectData)
+{
+    if (hitObjectData.tag == ObjectTag::Player)
+    {
+        attackCollisionData.isCollisionActive = false;  // 非アクティブ化
+    }
+}
+
 /// 当たり判定に必要なデータの更新
 /// </summary>
 void Enemy::UpdateCollisionData()
@@ -200,6 +223,20 @@ void Enemy::UpdateCollisionData()
 
     // カプセルの半径を登録
     collisionData.radius = CollisionRadius;
+}
+
+/// <summary>
+/// 攻撃の当たり判定に必要なデータの更新
+/// </summary>
+void Enemy::UpdateAttackCollisionData()
+{
+
+    attackCollisionData.centerPosition      = position;                 // 座標
+    attackCollisionData.centerPosition.y    = 4.5f;                     // Y座標をプレイヤーに合わせる
+
+    attackCollisionData.tag                 = ObjectTag::EnemyAttack;   // エネミーの攻撃である
+    attackCollisionData.radius              = AttackCollisionRadius;    // 攻撃の当たり判定の半径
+    attackCollisionData.attackPower         = AttackPower;              // 攻撃力
 }
 
 /// <summary>
@@ -359,10 +396,19 @@ void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
                 currentState = State::Attack;
             }
         }
-        else if (currentState == State::Attack)
+        else if (currentState == State::Attack) // 攻撃アニメーションの終了判定
         {
             // 再生しているアニメーションの総時間
             float animationTotalTime = MV1GetAttachAnimTotalTime(modelHandle, currentPlayAnimation);
+
+            // 当たり判定を出現させる
+            if (currentAnimationCount >= animationTotalTime / 3 && !attackCollisionData.isCollisionActive)
+            {
+                // 攻撃当たり判定を行う
+                attackCollisionData.isCollisionActive = true;
+                collisionManager->RegisterCollisionData(&attackCollisionData);
+            }
+
 
             // 攻撃アニメーションが終了しているかチェック
             if (currentAnimationCount >= animationTotalTime / 2)
@@ -372,6 +418,9 @@ void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
 
                 // 現在のステートをRunに更新
                 currentState = State::Run;
+
+                // 攻撃アニメーションが終了したら当たり判定も消す
+                attackCollisionData.isCollisionActive = false;
             }
         }
 

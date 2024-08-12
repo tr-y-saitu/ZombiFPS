@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "Common.h"
 #include "PlayerStateBase.h"
+#include "CollisionData.h"
+#include "CollisionManager.h"
 
 class PlayerStateBase;
 class GunBase;
@@ -91,6 +93,12 @@ public:
     /// </summary>
     void OnHitFloor();
 
+    /// <summary>
+    /// オブジェクトと接触した時の処理
+    /// </summary>
+    /// <param name="hitObjectData"></param>
+    void OnHitObject(CollisionData hitObjectData);
+
     //---------------------------------------------------------------------------------//
     //                                Getter/Setter                                    //
     //---------------------------------------------------------------------------------//
@@ -162,6 +170,11 @@ private:
     void UpdateAngle();
 
     /// <summary>
+    /// 当たり判定情報の更新
+    /// </summary>
+    void UpdateCollisionData();
+
+    /// <summary>
     /// アニメーションを新しく再生する
     /// </summary>
     /// <param name="type">アニメーションの種類</param>
@@ -208,6 +221,9 @@ private:
     static constexpr float  MoveLimitY              = 4.5f;                         // Y軸の移動制限
     static constexpr VECTOR ZeroVector              = { 0.0f,0.0f,0.0f };           // ゼロベクトル
     static constexpr VECTOR PlayerScale             = { 0.05f,0.05f,0.05f };        // プレイヤーのスケール
+    static constexpr float  InitializeHitPoint      = 50.0f;                        // プレイヤーの初期体力
+    // 当たり判定
+    static constexpr float  HitBoxRadius            = 3.0f;                         // 自身の当たり判定
     // 重力関係
     static constexpr float  Gravity                 = 3.0f;                         // 重力
     static constexpr float  FallUpPower             = 20.0f;                        // 足を踏み外した時のジャンプ力
@@ -226,7 +242,11 @@ private:
     //---------------------------------------------------------------------------------//
     // ロード関係
     ModelDataManager*   modelDataManager;   // モデルデータマネージャー
-    
+
+    // 当たり判定関係
+    CollisionManager*   collisionManager;   // 当たり判定管理クラス
+    CollisionData       collisionData;      // 当たり判定用情報
+
     // 基本情報
     PlayerCamera*       playerCamera;       // プレイヤー専用のカメラ(FPS視点カメラ)
     PlayerStateBase*    currentState;       // 現在のステート
@@ -234,6 +254,7 @@ private:
     BulletObjectPools*  bulletObjectPools;  // 弾丸のオブジェクトプール
     int                 shootFireRateCount; // 銃の連射力をカウント
     bool                isHitEnemyAttack;   // エネミーの攻撃を受けている
+    float               hitPoint;           // 体力
 
     // 移動状態
     VECTOR      position;                   // 座標

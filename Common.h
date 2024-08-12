@@ -20,3 +20,4 @@ static const int ScreenHeightHalf       = ScreenHeight / 2;             // 画�
 const int        DebugFontColor         = GetColor(255, 255, 225);      // デバッグ時のフォントの色(白)
 const int        DebugPolygonColorRed   = GetColor(200, 0, 0);          // デバッグ時のポリゴンの色(赤)
 const int        DebugPolygonColorBlue  = GetColor(0, 0,200);           // デバッグ時のポリゴンの色(青)
+static const int DebugSphereDivision    = 16;                           // デバッグ時のポリゴンの細かさ
