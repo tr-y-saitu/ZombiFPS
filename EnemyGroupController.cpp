@@ -55,8 +55,9 @@ void EnemyGroupController::CreateEnemy()
     // 取得したエネミーがあるなら使用中に追加
     if (enemy != nullptr)
     {
-        enemy->Initialize();            // 初期化
-        activeEnemyGroup.push_back(enemy);    // エネミーの追加
+        enemy->Initialize();                    // 初期化
+        enemy->SetCollisionDataIsActive(true);  // 当たり判定をアクティブにする
+        activeEnemyGroup.push_back(enemy);      // エネミーの追加
     }
 
 }

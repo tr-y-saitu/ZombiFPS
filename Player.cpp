@@ -619,6 +619,7 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
             if (bullet != nullptr)
             {
                 bullet->Initialize(initData);                       // 弾丸の初期化
+                bullet->SetCollisionDataIsActive(true);             // 当たり判定を適用する
                 equippedGun->GetActiveBullet().push_back(bullet);   // 弾丸の追加
             }
 

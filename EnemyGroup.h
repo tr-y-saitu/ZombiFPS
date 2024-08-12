@@ -53,6 +53,9 @@ public:
     // Getter
     const bool GetIsActive()const { return isActive; }
 
+    // Setter
+    void SetCollisionDataIsActive(bool set);
+
 private:
     // 定数
 

@@ -26,15 +26,6 @@ Enemy::Enemy()
 
     // 初期化
     Initialize();
-
-    // 自身のOnHit関数をもとに新しい引数を持った関数を作成
-    // std::bind(&名前空間::関数名,その関数のある参照,引数の数だけプレースホルダーが増える)
-    collisionData.onHit = std::bind(&Enemy::OnHit, this, std::placeholders::_1);                // 胴体
-    attackCollisionData.onHit = std::bind(&Enemy::OnHitAttack, this, std::placeholders::_1);    // 攻撃
-
-    // 当たり判定に必要なデータを渡す
-    collisionManager->RegisterCollisionData(&collisionData);
-
 }
 
 /// <summary>
@@ -80,6 +71,14 @@ void Enemy::Initialize()
 
     // 死亡してからの経過フレーム数を初期化
     deathFrameCount = 0;
+
+    // 自身のOnHit関数をもとに新しい引数を持った関数を作成
+    // std::bind(&名前空間::関数名,その関数のある参照,引数の数だけプレースホルダーが増える)
+    collisionData.onHit = std::bind(&Enemy::OnHit, this, std::placeholders::_1);                // 胴体
+    attackCollisionData.onHit = std::bind(&Enemy::OnHitAttack, this, std::placeholders::_1);    // 攻撃
+
+    // 当たり判定に必要なデータを渡す
+    collisionManager->RegisterCollisionData(&collisionData);
 }
 
 /// <summary>
@@ -162,31 +161,27 @@ void Enemy::OnHit(CollisionData hitObjectData)
     case ObjectTag::EnemyBoby:  // エネミーと当たった時
         // 押し出し処理を行う
 
-        //// 進行方向を計算 (相手の位置から自分の位置を引いて方向ベクトルを求める)
-        //direction = VSub(position, hitObjectData.centerPosition);
+        // 進行方向を計算 (相手の位置から自分の位置を引いて方向ベクトルを求める)
+        VECTOR direction = VSub(position, hitObjectData.centerPosition);
 
-        //// 方向ベクトルを正規化する（長さを1にする）
-        //direction = VNorm(direction);
-        //direction.y = 0.0f;
+        // 方向ベクトルを正規化する（長さを1にする）
+        direction = VNorm(direction);
+        direction.y = 0.0f;  // Y方向の成分を無視
 
-        //// 進行方向の右方向ベクトルを計算
-        //VECTOR rightDirection = VCross(VGet(0.0f, 1.0f, 0.0f), direction);
-        //rightDirection = VNorm(rightDirection);
+        // 自分と相手の距離を計算
+        distance = VSize(VSub(position, hitObjectData.centerPosition));
 
-        //// 自分と相手の距離を計算
-        //distance = VSize(VSub(position, hitObjectData.endPosition));
+        // 自分と相手の半径の合計
+        radiusSum = collisionData.radius + hitObjectData.radius;
 
-        //// 自分と相手の半径の合計
-        //radiusSum = collisionData.radius + hitObjectData.radius;
+        // めり込んだ分を計算 (半径の合計 - 距離)
+        penetrationDepth = radiusSum - distance;
 
-        //// めり込んだ分を計算 (半径の合計 - 距離)
-        //penetrationDepth = radiusSum - distance;
-
-        //// めり込んだ分だけ右方向に押し戻す
-        //if (penetrationDepth > 0)
-        //{
-        //    position = VAdd(position, VScale(rightDirection, penetrationDepth * 0.5f));
-        //}
+        // めり込んだ分だけ方向に押し戻す
+        if (penetrationDepth > 0)
+        {
+            position = VAdd(position, VScale(direction, penetrationDepth));
+        }
 
         break;
 
@@ -211,9 +206,6 @@ void Enemy::OnHitAttack(CollisionData hitObjectData)
 /// </summary>
 void Enemy::UpdateCollisionData()
 {
-    // 当たり判定を行う
-    collisionData.isCollisionActive = true;
-
     // タグを設定
     collisionData.tag = ObjectTag::EnemyBoby;
 
@@ -408,7 +400,6 @@ void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
                 attackCollisionData.isCollisionActive = true;
                 collisionManager->RegisterCollisionData(&attackCollisionData);
             }
-
 
             // 攻撃アニメーションが終了しているかチェック
             if (currentAnimationCount >= animationTotalTime / 2)

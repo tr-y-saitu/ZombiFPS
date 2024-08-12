@@ -64,7 +64,6 @@ void Bullet::Update()
 
     // 弾丸は１フレームのみ存在する
     isActive = false;                           // 未使用のプールに戻す
-    collisionData.isCollisionActive = false;    // 当たり判定をなくす
 }
 
 /// <summary>

@@ -142,3 +142,15 @@ VECTOR EnemyGroup::UpdateEnemyPathfinding(VECTOR playerPosition,Enemy& enemy, St
     // エネミーが目指す座標
     return enemyTargetPosition;
 }
+
+/// <summary>
+/// エネミーグループ内のエネミーのコリジョンデータを使用するかどうかを設定する
+/// </summary>
+/// <param name="set">使用したいかどうか</param>
+void EnemyGroup::SetCollisionDataIsActive(bool set)
+{
+    for (int i = 0; i < enemys.size(); i++)
+    {
+        enemys[i]->SetCollisionDataIsActive(set);
+    }
+}
