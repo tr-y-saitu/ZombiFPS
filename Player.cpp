@@ -675,7 +675,7 @@ void Player::UpdateReload(const Input& input)
             isReload = false;   // リロードをやめる
             reloadTimer = 0;    // タイマーをリセット
             equippedGun->SetGunAmmo(equippedGun->GetGunMaxAmmo());  // 銃の最大総弾数まで回復
-            money += equippedGun->GetRewardMoney();         // 獲得金額を加算
+            money += equippedGun->GetRewardMoney();                 // 獲得金額を加算
         }
     }
 }
