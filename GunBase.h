@@ -60,6 +60,12 @@ public:
     list<Bullet*>& GetActiveBullet() { return activeBullet; }
     const  int GetActiveBulletSize() const { return activeBullet.size(); }
     const Bullet::BulletInitializeData GetBulletInitializeData()const { return bulletData; }
+    const int GetGunAmmo()const { return gunAmmo; }
+    const int GetGunMaxAmmo()const { return gunMaxAmmo; }
+    const int GetRewardMoney()const { return rewardMoney; }
+
+    // セッター
+    void SetGunAmmo(int set) { gunAmmo = set; }
 
 protected:
 
@@ -112,7 +118,7 @@ protected:
     //---------------------------------------------------------------------------------//
     // 腰だめ
     static constexpr float  HipUpPositionAngleY         = 3.0f * DX_PI_F / 180.0f;      // 水平回転用：腰だめの位置に調整するために回転させるY軸回転度(ラジアン)
-    static constexpr float  HipUpPositionANglePitch     = 30.0f * DX_PI_F / 180.0f;     // 垂直回転用：腰だめの位置に調整するために回転させる水平方向からの角度(ラジアン)
+    static constexpr float  HipUpPositionAnglePitch     = 30.0f * DX_PI_F / 180.0f;     // 垂直回転用：腰だめの位置に調整するために回転させる水平方向からの角度(ラジアン)
     static constexpr float  HipUpPositionOffsetScale    = -0.7f;                        // 腰だめのずらし量の拡大率
     // アニメーション
     static constexpr float  RunAnimationAngle           = 15.0f * DX_PI_F / 180.0f;     // 走りアニメーション再生時の銃の修正角度
@@ -133,6 +139,9 @@ protected:
     int             fireRate;                   // 銃の連射力
     float           recoil;                     // 銃の反動
     float           accuracy;                   // 銃の精度(拡散度合い)
+    int             gunAmmo;                    // 銃の総弾数
+    int             gunMaxAmmo;                 // 銃の最大総弾数
+    int             rewardMoney;                // 獲得した金額
 
     // 弾丸
     Bullet::BulletInitializeData bulletData;    // 弾丸のデータ

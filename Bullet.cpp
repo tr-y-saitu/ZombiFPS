@@ -42,6 +42,8 @@ void Bullet::Initialize(BulletInitializeData initializeData)
     power               = initializeData.power;
     speed               = initializeData.speed;
     penetratingPower    = initializeData.penetratingPower;
+    getMoney            = 0;
+    activeFrameCount    = ActiveFrameCount;
 }
 
 /// <summary>
@@ -63,7 +65,14 @@ void Bullet::Update()
     UpdateCollisionData();
 
     // 弾丸は１フレームのみ存在する
-    isActive = false;                           // 未使用のプールに戻す
+    if (activeFrameCount)
+    {
+        activeFrameCount--;     // アクティブ数を数える
+    }
+    else
+    {
+        isActive = false;       // 未使用のプールに戻す
+    }
 }
 
 /// <summary>
@@ -97,5 +106,22 @@ void Bullet::UpdateCollisionData()
 /// <param name="hitObjectData">オブジェクトのデータ</param>
 void Bullet::OnHit(CollisionData hitObjectData)
 {
-    // 処理なし
+    switch (hitObjectData.tag)
+    {
+    case ObjectTag::EnemyBoby:
+        // 死んでいるかどうか
+        if (hitObjectData.objectHP > 0)
+        {
+            getMoney += 10;
+        }
+        else
+        {
+            getMoney += 80;
+        }
+
+        break;
+
+    default:
+        break;
+    }
 }

@@ -60,7 +60,7 @@ void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch,Player::State 
 
     // 腰だめの角度に修正
     gunAngleY   -= HipUpPositionAngleY;         // 水平方向回転度
-    cameraPitch += HipUpPositionANglePitch;     // 垂直方向回転度
+    cameraPitch += HipUpPositionAnglePitch;     // 垂直方向回転度
 
     // 回転行列に変更
     MATRIX rotationX = MGetRotX(-cameraPitch);

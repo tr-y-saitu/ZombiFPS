@@ -88,7 +88,7 @@ SceneBase* GameScene::UpdateScene()
     input->Update();                                                // 入力処理
     player->Update(*input,*stage);                                  // プレイヤー
     enemyGroupController->Update(player->GetPosition(), *stage,
-        enemyWaveController->GetEnemySpawnFlag());    // エネミーの集合体
+        enemyWaveController->GetEnemySpawnFlag());                  // エネミーの集合体
     enemyWaveController->Update(enemyGroupController->GetEnemyGroupSize());
     collisionManager->Update();                                     // 当たり判定処理
     gameSceneUI->Update();                                          // UIの更新
@@ -114,7 +114,7 @@ void GameScene::Draw()
 /// </summary>
 void GameScene::DrawUI()
 {
-    gameSceneUI->Draw();
+    gameSceneUI->Draw(*player);
 }
 
 /// <summary>

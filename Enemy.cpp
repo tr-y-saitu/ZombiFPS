@@ -224,6 +224,9 @@ void Enemy::UpdateCollisionData()
 
     // カプセルの半径を登録
     collisionData.radius = CollisionRadius;
+
+    // 体力
+    collisionData.objectHP = hitPoints;
 }
 
 /// <summary>

@@ -63,6 +63,7 @@ public:
 
     // ゲッター、セッター
     const bool GetIsActive()const { return isActive; }
+    const int GetMoney()const { return getMoney; }
     void SetCollisionDataIsActive(bool set) { collisionData.isCollisionActive = set; }
 
 private:
@@ -73,6 +74,8 @@ private:
     static constexpr float  HitBoxRadius            = 0.05f;                // デバッグ時の当たり判定を描画するための半径
     static constexpr float  PolygonDetail           = 8.0f;                 // 描画するポリゴンの数
     const int               DebugPolygonColorRed    = GetColor(255, 0, 0);  // デバッグ時の当たり判定ポリゴンの色
+    // ステータス
+    static constexpr int    ActiveFrameCount        = 1;                    // 弾丸がアクティブであるフレーム数
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
@@ -90,6 +93,8 @@ private:
     float               speed;              // 速度
     int                 penetratingPower;   // 貫通力
     bool                isActive;           // 使用中かどうか
+    int                 activeFrameCount;   // 使用中であるフレームカウント数
+    int                 getMoney;           // 当たって獲得した金額
 };
 
 
