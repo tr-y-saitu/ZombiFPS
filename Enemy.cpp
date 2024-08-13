@@ -25,7 +25,7 @@ Enemy::Enemy()
     collisionManager = CollisionManager::GetInstance();
 
     // 初期化
-    Initialize();
+    //Initialize();
 }
 
 /// <summary>
@@ -161,27 +161,35 @@ void Enemy::OnHit(CollisionData hitObjectData)
     case ObjectTag::EnemyBoby:  // エネミーと当たった時
         // 押し出し処理を行う
 
-        // 進行方向を計算 (相手の位置から自分の位置を引いて方向ベクトルを求める)
-        VECTOR direction = VSub(position, hitObjectData.centerPosition);
+        //// 半径の合計
+        //radiusSum = hitObjectData.radius + collisionData.radius;
 
-        // 方向ベクトルを正規化する（長さを1にする）
-        direction = VNorm(direction);
-        direction.y = 0.0f;  // Y方向の成分を無視
+        //// y座標は変更しなくていいので０に修正する
+        //VECTOR correctedTargetPosition = VGet(hitObjectData.centerPosition.x, 0.0f, hitObjectData.centerPosition.z);
 
-        // 自分と相手の距離を計算
-        distance = VSize(VSub(position, hitObjectData.centerPosition));
+        //// エネミーも同じように修正
+        //VECTOR correctedEnemyPosition = VGet(position.x, 0.0f, position.z);
 
-        // 自分と相手の半径の合計
-        radiusSum = collisionData.radius + hitObjectData.radius;
+        //// 修正した座標からボスからプレイヤーの向きのベクトルを計算
+        //VECTOR vectorToPlayer = VSub(correctedEnemyPosition, correctedTargetPosition);
 
-        // めり込んだ分を計算 (半径の合計 - 距離)
-        penetrationDepth = radiusSum - distance;
+        //// ベクトルのサイズを計算
+        //distance = VSize(vectorToPlayer);
 
-        // めり込んだ分だけ方向に押し戻す
-        if (penetrationDepth > 0)
-        {
-            position = VAdd(position, VScale(direction, penetrationDepth));
-        }
+        //// 押し戻す距離の計算
+        //distance = radiusSum - distance;
+
+        //// ベクトルを正規化する
+        //vectorToPlayer = VNorm(vectorToPlayer);
+
+        //// 押し出す量
+        //VECTOR pushBackVector = VScale(vectorToPlayer, distance);
+
+        //// 計算したベクトルからプレイヤーの位置を変更
+        //position = VAdd(position, pushBackVector);
+
+        //// モデルの位置も合わせて修正
+        //MV1SetPosition(modelHandle, position);
 
         break;
 
@@ -212,6 +220,7 @@ void Enemy::UpdateCollisionData()
     // 座標をもとにカプセルを作成
     collisionData.startPosition = VAdd(position, CapsulePositionOffset);
     collisionData.endPosition = position;
+    collisionData.centerPosition = position;
 
     // カプセルの半径を登録
     collisionData.radius = CollisionRadius;
