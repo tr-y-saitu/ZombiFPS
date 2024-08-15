@@ -173,30 +173,30 @@ private:
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     // ステータス
-    static constexpr float  MoveSpeed               = 0.2f;                         // 移動速度
-    static constexpr float  AngleSpeed              = 0.2f;                         // 角度変化速度
-    static constexpr float  JumpPower               = 100.0f;                       // ジャンプ力
-    static constexpr float  MoveLimitY              = 1.0f;                         // Y軸の移動制限
-    static constexpr VECTOR InitializePosition      = { -45.0f,MoveLimitY,45.0f };  // 初期化座標
-    static constexpr VECTOR ZeroVector              = { 0.0f,0.0f,0.0f };           // ゼロベクトル
-    static constexpr VECTOR EnemyScale              = { 0.03f,0.03f,0.03f };        // プレイヤーのスケール
-    static constexpr int    InitializeHitPoints     = 100;                          // 初期化時の体力
-    static constexpr VECTOR InitializeDirection     = { 1.0f, 0.0f, 0.0f };         // 初期化時の移動方向
-    static constexpr int    DeathInactiveFrame      = 150;                          // 死亡してからモデルを削除するまでのフレームカウント数
-    static constexpr float  AttackRange             = 4.0f;                         // この範囲に入ったら攻撃を開始する
+    static constexpr float  MoveSpeed               = 0.2f;                             // 移動速度
+    static constexpr float  AngleSpeed              = 0.2f;                             // 角度変化速度
+    static constexpr float  JumpPower               = 100.0f;                           // ジャンプ力
+    static constexpr float  MoveLimitY              = 1.0f;                             // Y軸の移動制限
+    static constexpr VECTOR InitializePosition      = { -48.0f,  MoveLimitY, -35.0f };  // 初期化座標
+    static constexpr VECTOR ZeroVector              = { 0.0f,0.0f,0.0f };               // ゼロベクトル
+    static constexpr VECTOR EnemyScale              = { 0.03f,0.03f,0.03f };            // プレイヤーのスケール
+    static constexpr int    InitializeHitPoints     = 100;                              // 初期化時の体力
+    static constexpr VECTOR InitializeDirection     = { 1.0f, 0.0f, 0.0f };             // 初期化時の移動方向
+    static constexpr int    DeathInactiveFrame      = 150;                              // 死亡してからモデルを削除するまでのフレームカウント数
+    static constexpr float  AttackRange             = 4.0f;                             // この範囲に入ったら攻撃を開始する
     // 当たり判定
-    static constexpr float  CollisionRadius         = 1.0f;                         // 当たり判定用半径
-    static constexpr VECTOR CapsulePositionOffset   = { 0.0f,4.0f,0.0f };           // カプセルの始点を作るためのずらし量
-    static constexpr float  PolygonDetail           = 8.0f;                         // 描画するポリゴンの数
+    static constexpr float  CollisionRadius         = 1.0f;                             // 当たり判定用半径
+    static constexpr VECTOR CapsulePositionOffset   = { 0.0f,4.0f,0.0f };               // カプセルの始点を作るためのずらし量
+    static constexpr float  PolygonDetail           = 8.0f;                             // 描画するポリゴンの数
     // 攻撃
-    static constexpr float  AttackCollisionRadius   = 2.0f;                         // 攻撃の球型の当たり判定半径
-    static constexpr float  AttackPower             = 10.0f;                        // 攻撃力
+    static constexpr float  AttackCollisionRadius   = 2.0f;                             // 攻撃の球型の当たり判定半径
+    static constexpr float  AttackPower             = 10.0f;                            // 攻撃力
     // 重力関係
-    static constexpr float  Gravity                 = 3.0f;                         // 重力
-    static constexpr float  FallUpPower             = 20.0f;                        // 足を踏み外した時のジャンプ力
+    static constexpr float  Gravity                 = 3.0f;                             // 重力
+    static constexpr float  FallUpPower             = 20.0f;                            // 足を踏み外した時のジャンプ力
     // アニメーション
-    static constexpr float  PlayAnimationSpeed      = 0.5f;                         // アニメーション速度
-    static constexpr float  AnimationBlendSpeed     = 0.1f;                         // アニメーションのブレンド率変化速度
+    static constexpr float  PlayAnimationSpeed      = 0.5f;                             // アニメーション速度
+    static constexpr float  AnimationBlendSpeed     = 0.1f;                             // アニメーションのブレンド率変化速度
     // デバッグ
     static constexpr int DebugHitPointDrawX = 0;        // デバッグ時のHP表示X座標
     static constexpr int DebugHitPointDrawY = 100;      // デバッグ時のHP表示Y座標

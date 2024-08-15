@@ -62,7 +62,9 @@ void ShutterController::CreateShutter()
 /// </summary>
 void ShutterController::CreateInitializeData()
 {
-    shutterInitializeDataList[ShutterTag::Center1] = {Center1,VGet(-22,0,-4),MGetIdent(),VGet(0.003,0.011,0.01),modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ShutterModelData)};
+    MATRIX shutter1Matrix = MGetRotY(180.0f * DX_PI_F / 180.0f);
+    shutterInitializeDataList[ShutterTag::Shutter1] = { Shutter1,VGet( 6,0,-5),shutter1Matrix,VGet( 3.0f, 5.0f, 3.5f),modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ShutterModelData)};
+    shutterInitializeDataList[ShutterTag::Shutter2] = { Shutter2,VGet( -10,0,-5),shutter1Matrix,VGet( 3.0f, 5.0f, 3.5f),modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ShutterModelData)};
 }
 
 /// <summary>

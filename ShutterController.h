@@ -17,7 +17,10 @@ public:
     /// </summary>
     enum ShutterTag
     {
-        Center1,
+        Shutter1,
+        Shutter2,
+        Shutter3,
+        Shutter4
     };
 
     /// <summary>

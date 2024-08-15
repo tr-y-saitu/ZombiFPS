@@ -19,6 +19,7 @@ enum class ObjectTag : int
     Bullet,         // 弾丸
     RoomCenter,     // 部屋の中心
     EnemyAttack,    // エネミーの攻撃
+    Shutter,        // シャッター
 };
 
 /// <summary>

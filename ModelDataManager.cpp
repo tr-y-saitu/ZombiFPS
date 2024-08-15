@@ -65,7 +65,7 @@ void ModelDataManager::ModelDataLoad()
     modelDataList[StageModelData]           = MV1LoadModel("Data/Stage/BackroomsScaleMini.mv1");
 
     // シャッター
-    modelDataList[ShutterModelData] = MV1LoadModel("Data/Object/shutter.mv1");
+    modelDataList[ShutterModelData]         = MV1LoadModel("Data/Object/ShutterMini.mv1");
 
     // キャラクター
     modelDataList[PlayerModelData]          = MV1LoadModel("Data/Player/playerAnimationFixed.mv1");
