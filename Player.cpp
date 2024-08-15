@@ -793,8 +793,8 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
 /// <param name="input">入力情報</param>
 void Player::UpdateReload(const Input& input)
 {
-    // 「R」が押されたらリロード
-    if (CheckHitKey(KEY_INPUT_R))
+    // 「R」が押されているかつ、予備弾薬数があればリロード
+    if (CheckHitKey(KEY_INPUT_R) && equippedGun->GetBackUpAmmo() > 0)
     {
         // リロードしている
         isReload = true;
@@ -812,7 +812,25 @@ void Player::UpdateReload(const Input& input)
         {
             isReload = false;   // リロードをやめる
             reloadTimer = 0;    // タイマーをリセット
-            equippedGun->SetGunAmmo(equippedGun->GetGunMaxAmmo());  // 銃の最大総弾数まで回復
+
+            // リロードする弾薬数を設定
+            int reloadAmmo;     
+            if (equippedGun->GetBackUpAmmo() >= equippedGun->GetGunMaxAmmo())
+            {
+                // 予備弾薬数が十分にある
+                reloadAmmo = equippedGun->GetGunMaxAmmo() - equippedGun->GetGunAmmo();
+            }
+            else
+            {
+                // 予備弾薬数がマガジンの最大数に達しない場合
+                reloadAmmo = equippedGun->GetBackUpAmmo();
+            }
+
+            int currentGunAmmo = equippedGun->GetGunAmmo(); // 現在の所持弾薬
+            int currentBackUpAmmo = equippedGun->GetBackUpAmmo();   // 現在の予備弾薬
+            
+            equippedGun->SetBackUpAmmo(currentBackUpAmmo - reloadAmmo); // 予備弾薬数を更新
+            equippedGun->SetGunAmmo(equippedGun->GetGunAmmo() + reloadAmmo);      // 銃の最大総弾数まで回復
         }
     }
 }
@@ -940,4 +958,13 @@ void Player::ChangeState(State newState)
 const int Player::GetEquippedGunAmmo()
 {
     return  equippedGun->GetGunAmmo();
+}
+
+/// <summary>
+/// 現在の予備弾薬を返す
+/// </summary>
+/// <returns></returns>
+const int Player::GetEquippedBackUpAmmo()
+{
+    return equippedGun->GetBackUpAmmo();
 }

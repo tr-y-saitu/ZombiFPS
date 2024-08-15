@@ -120,6 +120,7 @@ public:
     float GetCurrentJumpPower() const { return currentJumpPower; }
     const MATRIX GetRotationMatrix()const { return rotationMatrix; }
     const int GetEquippedGunAmmo();
+    const int GetEquippedBackUpAmmo();
     const int GetMoney()const { return money; }
 
     //---------------------------------------------------------------------------------//

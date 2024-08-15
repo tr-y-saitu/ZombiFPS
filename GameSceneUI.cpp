@@ -31,6 +31,9 @@ void GameSceneUI::Draw(Player& player)
     // 銃の総弾数
     DrawFormatString(500, 800, DebugFontColor, "Ammo:%d", player.GetEquippedGunAmmo());
 
+    // 銃の予備弾薬
+    DrawFormatString(500, 1000, DebugFontColor, "BackUp:%d", player.GetEquippedBackUpAmmo(), true);
+
     // プレイヤーの所持金
     DrawFormatString(500, 900, DebugFontColor, "Money:%d", player.GetMoney());
 }

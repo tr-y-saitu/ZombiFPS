@@ -45,7 +45,7 @@ struct CollisionData
     int         bulletPower;            // 弾丸の威力
 
     // ステータス
-    int         objectHP;               // オブジェクトの体力
+    float       objectHP;               // オブジェクトの体力
 
     // インタラクト
     float       interactRadius;         // そのオブジェクトにアクセルできる半径
