@@ -27,9 +27,15 @@ public:
     /// <summary>
     /// 描画
     /// </summary>
-    void Draw(Player& player);
+    void Draw(Player& player,int waveState);
 
 private:
+    /// <summary>
+    /// 現在のウェーブステートを描画する
+    /// </summary>
+    /// <param name="waveState">現在のウェーブステート</param>
+    void DrawWaveState(int waveState);
+    
 
 };
 

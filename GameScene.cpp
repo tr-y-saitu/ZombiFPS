@@ -120,7 +120,7 @@ void GameScene::Draw()
 /// </summary>
 void GameScene::DrawUI()
 {
-    gameSceneUI->Draw(*player);
+    gameSceneUI->Draw(*player,enemyWaveController->GetCurrentWaveState());
 }
 
 /// <summary>

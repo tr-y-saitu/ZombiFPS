@@ -5,6 +5,9 @@
 /// </summary>
 SceneUIBase::SceneUIBase()
 {
+    // フォントを作成
+    outlastFontHandle = CreateFontToHandle("Outlast 2 Game Font", OutlastFontSize,
+        OutlastFontThickness, DX_FONTTYPE_NORMAL);
 }
 
 /// <summary>

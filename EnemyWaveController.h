@@ -54,6 +54,7 @@ public:
 
     // Getter
     const bool GetEnemySpawnFlag()const { return enemySpawnFlag; }
+    const int GetCurrentWaveState()const { return currentWaveState; }
 
 private:
     //---------------------------------------------------------------------------------//
@@ -76,6 +77,8 @@ private:
     bool        enemySpawnFlag;         // エネミーを出現させる指示
     int         currentWaveSpawnCount;  // 現在のウェーブで出現させたエネミーの数
     bool        canSwichWave;           // ウェーブ切り替え可能かどうか
+    int         waveChangeStartTime;    // ウェーブ切り替えの開始時間
+    bool        isWaitingWaveChange;    // ウェーブ切り替え待機中かどうか
 };
 
 

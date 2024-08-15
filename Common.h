@@ -5,6 +5,8 @@
 #include <map>
 #include <queue>
 #include <unordered_map>
+#include <cstdio>
+#include <string>
 #include "math.h"
 #include "DxLib.h"
 #include "EffekseerForDXLib.h"
