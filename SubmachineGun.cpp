@@ -173,7 +173,7 @@ VECTOR SubmachineGun::FixedReloadPosition(Player::State playerState)
 void SubmachineGun::InitializeBulletData(VECTOR cameraPosition, VECTOR targetPosition)
 {
     bulletData.lineStartPosition    = cameraPosition;           // カメラの座標
-    bulletData.lineEndPosiion       = targetPosition;           // カメラの向いている座標
+    bulletData.lineEndPosition       = targetPosition;           // カメラの向いている座標
     bulletData.direction            = VNorm(VSub(targetPosition, cameraPosition));  // 弾丸の移動方向
     bulletData.position             = position;                 // 座標
     bulletData.power                = BulletDamagePower;        // 威力

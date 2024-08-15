@@ -16,7 +16,7 @@ public:
     struct BulletInitializeData
     {
         VECTOR lineStartPosition;   // 線の始まり
-        VECTOR lineEndPosiion;      // 線の終わり
+        VECTOR lineEndPosition;     // 線の終わり
         VECTOR  position;           // 座標
         VECTOR  direction;          // 移動方向
         int     power;              // 威力

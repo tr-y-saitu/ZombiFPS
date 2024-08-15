@@ -11,6 +11,7 @@ Bullet::Bullet()
     , speed             (0)
     , penetratingPower  (0)
     , isActive          (true)
+    , getMoney          (0)
 {
     // 当たり判定をするかどうか
     collisionData.isCollisionActive = true;
@@ -36,7 +37,7 @@ void Bullet::Initialize(BulletInitializeData initializeData)
     // 弾丸は初期化する時点で使用中になるのでtrue
     isActive            = true;
     lineStartPosition   = initializeData.lineStartPosition;
-    lineEndPosition     = initializeData.lineEndPosiion;
+    lineEndPosition     = initializeData.lineEndPosition;
     position            = initializeData.position;
     direction           = initializeData.direction;
     power               = initializeData.power;
@@ -51,6 +52,16 @@ void Bullet::Initialize(BulletInitializeData initializeData)
 /// </summary>
 void Bullet::Update()
 {
+    // 弾丸は１フレームのみ存在する
+    if (activeFrameCount)
+    {
+        activeFrameCount--;     // アクティブ数を数える
+    }
+    else
+    {
+        isActive = false;       // 未使用のプールに戻す
+    }
+
     // 移動量を計算
     VECTOR velocity = VScale(direction, speed);
 
@@ -63,16 +74,6 @@ void Bullet::Update()
 
     // 当たり判定に必要なデータを更新する
     UpdateCollisionData();
-
-    // 弾丸は１フレームのみ存在する
-    if (activeFrameCount)
-    {
-        activeFrameCount--;     // アクティブ数を数える
-    }
-    else
-    {
-        isActive = false;       // 未使用のプールに戻す
-    }
 }
 
 /// <summary>
@@ -109,14 +110,14 @@ void Bullet::OnHit(CollisionData hitObjectData)
     switch (hitObjectData.tag)
     {
     case ObjectTag::EnemyBoby:
-        // 死んでいるかどうか
-        if (hitObjectData.objectHP > 0)
+        // 残りHPがこの一撃で0以下になる場合
+        if (hitObjectData.objectHP - power <= 0)
         {
-            getMoney += 10;
+            getMoney = +50;  // あと一撃で倒せる場合は50ポイント
         }
         else
         {
-            getMoney += 80;
+            getMoney = +20;  // それ以外の場合は20ポイント
         }
 
         break;

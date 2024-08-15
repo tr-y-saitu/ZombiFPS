@@ -11,11 +11,6 @@ EnemyGroupController::EnemyGroupController()
     // エネミーのオブジェクトプール
     enemyObjectPools = new EnemyObjectPools();
 
-    // メモリ確保
-    for (int i = 0; i < TestEnemyGroupNumber; i++)
-    {
-        enemyGroup.push_back(new EnemyGroup());
-    }
 }
 
 /// <summary>
