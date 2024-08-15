@@ -72,6 +72,9 @@ void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR camer
     // 座標を更新
     position = VAdd(setPosition, GunOffset);
 
+    // 獲得金額をリセット
+    rewardMoney = 0;
+
     // 銃の座標更新
     UpdateGunPosition(setPosition, cameraVector, cameraPitch,playerState);
 

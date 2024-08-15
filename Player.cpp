@@ -293,6 +293,9 @@ void Player::OnHitObject(CollisionData hitObjectData)
 
             // シャッターのインタラクトの範囲に入っている
             interactLocationState = InteractLocationState::Shutter;
+
+            // シャッターのインタラクトコストをもらう
+            interactionCost = hitObjectData.interactionCost;
         }
         else
         {
@@ -300,7 +303,7 @@ void Player::OnHitObject(CollisionData hitObjectData)
             interactLocationState = InteractLocationState::Shutter;
 
             // シャッターのインタラクトコストをもらう
-            interactionCost = collisionData.interactionCost;
+            interactionCost = hitObjectData.interactionCost;
         }
 
         break;
@@ -373,9 +376,12 @@ void Player::UpdateInteract(const Input& input)
         // 処理なし
         break;
     case Player::InteractLocationState::Shutter:
-        if (input.GetCurrentFrameInput() & PAD_INPUT_1 || CheckHitKey(KEY_INPUT_F))
+        // 所持金があるかつ、インタラクトキーが入力されていれば
+        if (input.GetCurrentFrameInput() & PAD_INPUT_1 || CheckHitKey(KEY_INPUT_F)
+            && interactionCost <= money)
         {
             isInteracted = true;        // インタラクトしている
+            money -= interactionCost;   // 所持金を支払う
         }
 
         break;
@@ -778,7 +784,7 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
     DeactivateBulletReturn();
 
     // 獲得金額を加算
-    money = equippedGun->GetRewardMoney();
+    money += equippedGun->GetRewardMoney();
 }
 
 /// <summary>

@@ -10,6 +10,7 @@ Shutter::Shutter()
     : position          (VGet(0,0,0))
     , rotationMatrix    (MGetIdent())
     , modelHandle       (-1)
+    , isOpen            (false)
 {
     // 当たり判定管理クラスの参照をもらう
     collisionManager = CollisionManager::GetInstance();
@@ -40,7 +41,7 @@ void Shutter::Initialize(ShutterController::ShutterInitializeData initializeData
     position        = initializeData.initializePosition;            // 座標
     rotationMatrix  = initializeData.initializeRotationMatrix;      // 回転率
     modelHandle     = initializeData.modelHandle;                   // モデルハンドル
-    collisionData.interactionCost = initializeData.interactionCost; // インタラクトにかかるコスト
+    interactionCost = initializeData.interactionCost;               // インタラクトにかかるコスト
 
     // モデルのサイズを設定
     MV1SetScale(modelHandle, initializeData.initializeScale);
@@ -56,6 +57,9 @@ void Shutter::Update()
 {
     // 当たり判定情報の更新
     UpdateCollisionData();
+
+    // 開ける処理を行う
+    UpdateOpen();
 
     // モデルの座標を設定
     MV1SetPosition(modelHandle, position);
@@ -88,6 +92,7 @@ void Shutter::UpdateCollisionData()
     collisionData.interactRadius    = HItBoxInteractRadius; // シャッターにアクセルできる当たり判定
     collisionData.centerPosition    = position;             // 座標
     collisionData.centerPosition.y  = position.y + 4.5f;    // 高さを合わせる
+    collisionData.interactionCost   = interactionCost;      // インタラクトするコスト
 }
 
 /// <summary>
@@ -96,5 +101,35 @@ void Shutter::UpdateCollisionData()
 /// <param name="hitObjectData">接触したオブジェクト</param>
 void Shutter::OnHit(CollisionData hitObjectData)
 {
-    // 処理なし
+    switch (hitObjectData.tag)
+    {
+    case ObjectTag::Player:
+        // プレイヤーからインタラクトする指示が出れば
+        if (hitObjectData.isInteracted)
+        {
+            isOpen = true;      // 扉を開ける
+        }
+
+        break;
+
+    default:
+        break;
+    }
+}
+
+/// <summary>
+/// シャッターを開ける
+/// </summary>
+void Shutter::UpdateOpen()
+{
+    // 開ける指示が出たら
+    if (isOpen)
+    {
+        // 上昇上限でなければ
+        if (position.y <= RiseUpperLimit)
+        {
+            // 少しづつ上に上げる
+            position.y += OpenSpeed;
+        }
+    }
 }
