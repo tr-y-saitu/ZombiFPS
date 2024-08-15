@@ -62,9 +62,23 @@ void ShutterController::CreateShutter()
 /// </summary>
 void ShutterController::CreateInitializeData()
 {
-    MATRIX shutter1Matrix = MGetRotY(180.0f * DX_PI_F / 180.0f);
-    shutterInitializeDataList[ShutterTag::Shutter1] = { Shutter1,VGet( 6,0,-5),shutter1Matrix,VGet( 3.0f, 5.0f, 3.5f),modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ShutterModelData)};
-    shutterInitializeDataList[ShutterTag::Shutter2] = { Shutter2,VGet( -10,0,-5),shutter1Matrix,VGet( 3.0f, 5.0f, 3.5f),modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ShutterModelData)};
+    // シャッター１
+    MATRIX shutter1Matrix = MGetRotY(90.0f * DX_PI_F / 180.0f);
+    shutterInitializeDataList[0] = { Shutter1,VGet(32,0,10),shutter1Matrix,VGet(3.0f, 5.0f, 3.5f),
+        modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ShutterModelData),
+    500};
+
+    // シャッター２
+    MATRIX shutter2Matrix = MGetIdent();
+    shutterInitializeDataList[1] = { Shutter2,VGet(-21,0,-5),shutter2Matrix,VGet(3.0f, 5.0f, 3.5f),
+        modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ShutterModelData),
+    750};
+
+    // シャッター３
+    MATRIX shutter3Matrix = MGetRotY(-90.0f * DX_PI_F / 180.f);
+    shutterInitializeDataList[2] = { Shutter3,VGet(49,0,-19),shutter3Matrix,VGet(3.0f, 5.0f, 2.8f),
+        modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ShutterModelData)
+    ,1000};
 }
 
 /// <summary>

@@ -33,6 +33,7 @@ public:
         MATRIX      initializeRotationMatrix;   // 初期化回転率
         VECTOR      initializeScale;            // 初期化拡大率
         int         modelHandle;                // モデルハンドル
+        int         interactionCost;            // そのオブジェクトのインタラクトにかかるコスト
     };
 
     /// <summary>
@@ -74,7 +75,7 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
-    static constexpr int ShutterNumber = 2;     // シャッターの数
+    static constexpr int ShutterNumber = 3;     // シャッターの数
 
 
     //---------------------------------------------------------------------------------//

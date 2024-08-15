@@ -109,8 +109,8 @@ void GameScene::Draw()
 {
     stage->Draw();                      // ステージ
     player->Draw(*stage);               // プレイヤー
-    enemyGroupController->Draw(player->GetPosition());       // エネミーの集合体
-    //enemyWaveController->Draw();        // エネミーウェーブ
+    //enemyGroupController->Draw(player->GetPosition());       // エネミーの集合体
+    enemyWaveController->Draw();        // エネミーウェーブ
     shutterController->Draw();          // シャッター
     DrawUI();                           // UIの描画
 }

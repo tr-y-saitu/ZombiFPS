@@ -36,10 +36,11 @@ Shutter::~Shutter()
 /// </summary>
 void Shutter::Initialize(ShutterController::ShutterInitializeData initializeData)
 {
-    shutterTag      = initializeData.tag;                       // シャッターの固有名称
-    position        = initializeData.initializePosition;        // 座標
-    rotationMatrix  = initializeData.initializeRotationMatrix;  // 回転率
-    modelHandle     = initializeData.modelHandle;               // モデルハンドル
+    shutterTag      = initializeData.tag;                           // シャッターの固有名称
+    position        = initializeData.initializePosition;            // 座標
+    rotationMatrix  = initializeData.initializeRotationMatrix;      // 回転率
+    modelHandle     = initializeData.modelHandle;                   // モデルハンドル
+    collisionData.interactionCost = initializeData.interactionCost; // インタラクトにかかるコスト
 
     // モデルのサイズを設定
     MV1SetScale(modelHandle, initializeData.initializeScale);
@@ -70,7 +71,11 @@ void Shutter::Draw()
 
     // デバッグ当たり判定の描画
     DrawSphere3D(collisionData.centerPosition, collisionData.radius,
-        DebugSphereDivision, DebugPolygonColorBlue, DebugPolygonColorBlue,true);
+        DebugSphereDivision, DebugPolygonColorBlue, DebugPolygonColorBlue,false);
+
+    // デバッグシャッターにアクセルできる半径を描画
+    DrawSphere3D(collisionData.centerPosition, collisionData.interactRadius,
+        DebugSphereDivision, DebugPolygonColorRed, DebugPolygonColorRed, false);
 }
 
 /// <summary>
@@ -80,8 +85,9 @@ void Shutter::UpdateCollisionData()
 {
     collisionData.tag               = ObjectTag::Shutter;   // タグ
     collisionData.radius            = HitBoxRadius;         // 半径
+    collisionData.interactRadius    = HItBoxInteractRadius; // シャッターにアクセルできる当たり判定
     collisionData.centerPosition    = position;             // 座標
-    collisionData.centerPosition.y  = 4.5f;                 // 高さを合わせる
+    collisionData.centerPosition.y  = position.y + 4.5f;    // 高さを合わせる
 }
 
 /// <summary>

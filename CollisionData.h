@@ -47,6 +47,11 @@ struct CollisionData
     // ステータス
     int         objectHP;               // オブジェクトの体力
 
+    // インタラクト
+    float       interactRadius;         // そのオブジェクトにアクセルできる半径
+    int         interactionCost;        // そのオブジェクトのインタラクトにかかるコスト
+    bool        isInteracted;           // インタラクトを行ったかどうか
+
     std::function<void(CollisionData)> onHit;   // 当たった時に行われる処理
     bool        isCollisionActive;              // 当たり判定を適用させたいかどうか
 };

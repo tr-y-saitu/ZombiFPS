@@ -131,7 +131,7 @@ void CollisionManager::Update()
                 if (data1.tag == ObjectTag::Player && data2.tag == ObjectTag::Shutter)
                 {
                     // 球どおしの当たり判定
-                    if (IsCollisionSphere(data1.centerPosition, data1.radius, data2.centerPosition, data2.radius))
+                    if (IsCollisionSphere(data1.centerPosition, data1.radius, data2.centerPosition, data2.interactRadius))
                     {
                         // 当たった後の関数を呼び出す
                         data1.onHit(data2);
