@@ -1,4 +1,5 @@
 ﻿#include "SceneUIBase.h"
+#include "ImageDataManager.h"
 
 /// <summary>
 /// コンストラクタ
@@ -6,8 +7,12 @@
 SceneUIBase::SceneUIBase()
 {
     // フォントを作成
+    // アウトラスト風フォント
     outlastFontHandle = CreateFontToHandle("Outlast 2 Game Font", OutlastFontSize,
-        OutlastFontThickness, DX_FONTTYPE_NORMAL);
+        OutlastFontThickness, DX_FONTTYPE_EDGE);
+
+    // VHS風フォント
+    vhsFontHandle = CreateFontToHandle("VCR OSD Mono", 100, 2, DX_FONTTYPE_NORMAL);
 }
 
 /// <summary>

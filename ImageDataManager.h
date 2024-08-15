@@ -24,6 +24,7 @@ public:
         East2ImageData  ,       // 東の部屋２
         East3ImageData  ,       // 東の部屋３
         East4ImageData  ,       // 東の部屋４
+        VHSFiltersImageData,    // VHSフィルター
     };
 
     /// <summary>

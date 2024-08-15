@@ -1,11 +1,17 @@
 ﻿#include "GameSceneUI.h"
 #include "Player.h"
+#include "ImageDataManager.h"
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
 GameSceneUI::GameSceneUI()
 {
+    // 画像管理クラス
+    imageDataManager = ImageDataManager::GetInstance();
+
+    // 初期化
+    Initialize();
 }
 
 /// <summary>
@@ -13,6 +19,14 @@ GameSceneUI::GameSceneUI()
 /// </summary>
 GameSceneUI::~GameSceneUI()
 {
+}
+
+/// <summary>
+/// 初期化
+/// </summary>
+void GameSceneUI::Initialize()
+{
+    vhsFilterImageHandle = imageDataManager->GetImageHandle(ImageDataManager::VHSFiltersImageData);
 }
 
 /// <summary>
@@ -28,11 +42,11 @@ void GameSceneUI::Update()
 /// </summary>
 void GameSceneUI::Draw(Player& player, int waveState)
 {
-    // 銃の総弾数
-    DrawFormatString(500, 800, DebugFontColor, "Ammo:%d", player.GetEquippedGunAmmo());
+    // VHSフィルター画像を描画
+    DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, 1, 0, vhsFilterImageHandle, true);
 
-    // 銃の予備弾薬
-    DrawFormatString(500, 1000, DebugFontColor, "BackUp:%d", player.GetEquippedBackUpAmmo(), true);
+    // 銃の情報を描画
+    DrawGunInformation(player);
 
     // プレイヤーの所持金
     DrawFormatString(500, 900, DebugFontColor, "Money:%d", player.GetMoney());
@@ -49,5 +63,19 @@ void GameSceneUI::DrawWaveState(int waveState)
 {
     char waveStateString[256];
     sprintf_s(waveStateString, "%d", waveState++);
-    DrawStringToHandle(100, 900, waveStateString, GetColor(200,0,0), outlastFontHandle,DebugFontColor,waveState);
+    DrawStringToHandle(100, 850, waveStateString, GetColor(200,0,0), outlastFontHandle);
 }
+
+/// <summary>
+/// 銃の情報を描画
+/// </summary>
+/// <param name="player">プレイヤー</param>
+void GameSceneUI::DrawGunInformation(Player& player)
+{
+    // 銃の弾薬を描画
+    char gunInfo[256];
+    sprintf_s(gunInfo, "%d/%d", player.GetEquippedGunAmmo(), player.GetEquippedBackUpAmmo());
+    DrawStringToHandle(1600, 950, gunInfo, GetColor(200, 200, 200), vhsFontHandle);
+}
+
+
