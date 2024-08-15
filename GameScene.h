@@ -15,6 +15,7 @@ class Player;
 class EnemyGroupController;
 class EnemyWaveController;
 class EnemyObjectPools;
+class ShutterController;
 class MaxAmmo;
 class IncomeDouble;
 class GameSceneUI;
@@ -88,6 +89,7 @@ private:
     CollisionManager*       collisionManager;       // 当たり判定
     Stage*                  stage;                  // ステージ
     Player*                 player;                 // プレイヤー
+    ShutterController*      shutterController;      // シャッター管理
     
     // エネミー関連
     EnemyGroupController*   enemyGroupController;   // エネミーの群れ
