@@ -56,6 +56,7 @@ public:
     virtual void Draw() abstract;
 
     // ゲッター
+    const VECTOR GetPosition()const { return position; }
     const int GetFireRate()const { return fireRate; }
     list<Bullet*>& GetActiveBullet() { return activeBullet; }
     const  int GetActiveBulletSize() const { return activeBullet.size(); }

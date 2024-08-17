@@ -7,7 +7,8 @@ EffectManager* EffectManager::effectManager = NULL;
 /// コンストラクタ
 /// </summary>
 EffectManager::EffectManager()
-    : playingEffectHandle(0)
+    : playingEffectHandle           (0)
+    , muzzleFlashEffectHandle       (0)
 {
     // DirectX11を使用するようにする。(DirectX9も可、一部機能不可)
     // Effekseerを使用するには必ず設定する。
@@ -57,9 +58,10 @@ EffectManager::~EffectManager()
 void EffectManager::LoadEffect()
 {
     // エフェクトのロード
+    muzzleFlashEffectHandle = LoadEffekseerEffect("Data/Effect/Gun/MuzzleFlashEffect.efk");
 
     // エフェクトリストに書き込み
-
+    effectList[MuzzleFlashEffect] = muzzleFlashEffectHandle;
 }
 
 /// <summary>
@@ -169,3 +171,13 @@ void EffectManager::PlayEffectList(EffectType effectType, VECTOR playPosition, V
     SetPosPlayingEffekseer3DEffect(playingEffectHandle, playPosition.x, playPosition.y, playPosition.z);
 }
 
+/// <summary>
+/// マズルフラッシュえエフェクト再生
+/// </summary>
+/// <param name="playPosition">再生座標</param>
+void EffectManager::PlayMuzzleFlashEffect(VECTOR playPosition)
+{
+    playingEffectHandle = PlayEffekseer3DEffect(muzzleFlashEffectHandle);
+    playingList.push_back(playingEffectHandle);
+    SetPosPlayingEffekseer3DEffect(playingEffectHandle, playPosition.x, playPosition.y, playPosition.z);
+}
