@@ -25,6 +25,7 @@ public:
         East3ImageData  ,       // 東の部屋３
         East4ImageData  ,       // 東の部屋４
         VHSFiltersImageData,    // VHSフィルター
+        CrosshairImageData,     // 銃のクロスヘア
     };
 
     /// <summary>

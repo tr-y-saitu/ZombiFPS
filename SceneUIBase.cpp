@@ -11,11 +11,17 @@ SceneUIBase::SceneUIBase()
     outlastFontHandle = CreateFontToHandle("Outlast 2 Game Font", OutlastFontSize,
         OutlastFontThickness, DX_FONTTYPE_EDGE);
 
-    // VHS風フォント
-    vhsFontHandle = CreateFontToHandle("VCR OSD Mono", 100, 2, DX_FONTTYPE_NORMAL);
+    // VHS風フォント(大)
+    vhsLargeFontHandle = CreateFontToHandle("VCR OSD Mono", 100, 2, DX_FONTTYPE_NORMAL);
 
-    // VHS風日本語対応フォント
-    vhsJPFontHandle = CreateFontToHandle("VCR-JP Regular", 50, 2, DX_FONTTYPE_NORMAL);
+    // VHS風フォント(小)
+    vhsSmallFontHandle = CreateFontToHandle("VCR OSD Mono", 50, 2, DX_FONTTYPE_NORMAL);
+
+    // VHS風日本語対応フォント(大)
+    vhsJPLargeFontHandle = CreateFontToHandle("VCR-JP Regular", 50, 2, DX_FONTTYPE_NORMAL);
+
+    // VHS風日本語対応フォント(小)
+    vhsJPSmallFontHandle = CreateFontToHandle("VCR-JP Regular", 25, 2, DX_FONTTYPE_NORMAL);
 }
 
 /// <summary>

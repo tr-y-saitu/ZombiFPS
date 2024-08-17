@@ -36,6 +36,7 @@ Player::Player()
     , interactLocationState         (InteractLocationState::None)
     , isInteracted                  (false)
     , interactionCost               (0)
+    , currentGunType                (GunType::SubmachineGun)
 {
     collisionManager        = CollisionManager::GetInstance();
     modelDataManager        = ModelDataManager::GetInstance();
@@ -161,6 +162,7 @@ void Player::Draw(const Stage& stage)
     // 座標描画
     DrawFormatString(DebugPositionDrawX, DebugPositionDrawY,
         DebugFontColor,"X:%f Y:%f Z:%f",position.x,position.y,position.z);
+
     // 現在ステートの描画
     switch (state)
     {

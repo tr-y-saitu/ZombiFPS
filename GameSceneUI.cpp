@@ -26,7 +26,9 @@ GameSceneUI::~GameSceneUI()
 /// </summary>
 void GameSceneUI::Initialize()
 {
+    // 画像ハンドルの取得
     vhsFilterImageHandle = imageDataManager->GetImageHandle(ImageDataManager::VHSFiltersImageData);
+    crosshairImageHandle = imageDataManager->GetImageHandle(ImageDataManager::CrosshairImageData);
 }
 
 /// <summary>
@@ -45,17 +47,33 @@ void GameSceneUI::Draw(Player& player, int waveState)
     // VHSフィルター画像を描画
     DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, 1, 0, vhsFilterImageHandle, true);
 
+    // ウェーブステート描画
+    DrawWaveState(waveState);
+
+    // プレイヤーの情報を描画
+    DrawPlayerInformation(player);
+}
+
+/// <summary>
+/// プレイヤーの情報を描画
+/// </summary>
+/// <param name="player">プレイヤー</param>
+void GameSceneUI::DrawPlayerInformation(Player& player)
+{
     // 銃の情報を描画
     DrawGunInformation(player);
 
     // プレイヤーの所持金
-    DrawFormatString(500, 900, DebugFontColor, "Money:%d", player.GetMoney());
+    DrawPlayerMoney(player);
 
     // プレイヤーのインタラクトできる情報を描画
     DrawPlayerInteractState(player);
 
-    // ウェーブステート描画
-    DrawWaveState(waveState);
+    // プレイヤーの装備中の銃の名称を描画
+    DrawEquippedGunName(player);
+
+    // 銃のクロスヘア描画
+    DrawCrosshair(player);
 }
 
 /// <summary>
@@ -78,7 +96,7 @@ void GameSceneUI::DrawGunInformation(Player& player)
     // 銃の弾薬を描画
     char gunInfo[256];
     sprintf_s(gunInfo, "%d/%d", player.GetEquippedGunAmmo(), player.GetEquippedBackUpAmmo());
-    DrawStringToHandle(1600, 950, gunInfo, GetColor(200, 200, 200), vhsFontHandle);
+    DrawStringToHandle(1600, 950, gunInfo, GetColor(200, 200, 200), vhsLargeFontHandle);
 }
 
 /// <summary>
@@ -96,8 +114,11 @@ void GameSceneUI::DrawPlayerInteractState(Player& player)
     case Player::InteractLocationState::Shutter:
         // シャッターの支払い料金を描画
         char shutterInfo[256];
-        snprintf(shutterInfo, sizeof(shutterInfo), "[F]ｷｰﾃﾞﾄﾞｱｦﾋﾗｸ[ｺｽﾄ:%d]", player.GetInteractionCost());
-        DrawStringCenterScreen(shutterInfo, 800, DebugFontColor, vhsJPFontHandle);
+        snprintf(shutterInfo, sizeof(shutterInfo), "[F]ｷｰ ﾄﾞｱｦﾋﾗｸ");
+        DrawStringCenterScreen(shutterInfo, 800, DebugFontColor, vhsJPLargeFontHandle);
+        char shutterCost[256];
+        snprintf(shutterCost, sizeof(shutterCost), "[ｺｽﾄ:%d]", player.GetInteractionCost());
+        DrawStringCenterScreen(shutterCost, 900, DebugFontColor, vhsJPLargeFontHandle);
 
         break;
 
@@ -107,6 +128,51 @@ void GameSceneUI::DrawPlayerInteractState(Player& player)
 
     case Player::InteractLocationState::AmmoBox:
 
+        break;
+    default:
+        break;
+    }
+}
+
+/// <summary>
+/// プレイヤーの所持金を描画
+/// </summary>
+/// <param name="player">プレイヤー</param>
+void GameSceneUI::DrawPlayerMoney(Player& player)
+{
+    char moneyString[256];
+    snprintf(moneyString, sizeof(moneyString), "$:%d", player.GetMoney());
+    DrawStringToHandle(100, 800, moneyString, DebugFontColor, vhsJPLargeFontHandle);
+}
+
+/// <summary>
+/// プレイヤーの銃のクロスヘアの描画
+/// </summary>
+/// <param name="player">プレイヤー</param>
+void GameSceneUI::DrawCrosshair(Player& player)
+{
+    // クロスヘア描画
+    DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, 1, 0, crosshairImageHandle, true);
+}
+
+/// <summary>
+/// プレイヤーの装備中の銃の名称を描画
+/// </summary>
+/// <param name="player">プレイヤー</param>
+void GameSceneUI::DrawEquippedGunName(Player& player)
+{
+    switch (player.GetCurrentGunType())
+    {
+    case Player::GunType::AssaultRifle:
+
+        break;
+
+    case Player::GunType::BattleRifle:
+
+        break;
+
+    case Player::GunType::SubmachineGun:
+        DrawStringToHandle(1600, 850, "MP5", DebugFontColor, vhsJPLargeFontHandle);
         break;
     default:
         break;

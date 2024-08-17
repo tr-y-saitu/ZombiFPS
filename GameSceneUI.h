@@ -38,6 +38,12 @@ public:
 
 private:
     /// <summary>
+    /// プレイヤーの情報を描画
+    /// </summary>
+    /// <param name="player">プレイヤー</param>
+    void DrawPlayerInformation(Player& player);
+
+    /// <summary>
     /// 現在のウェーブステートを描画する
     /// </summary>
     /// <param name="waveState">現在のウェーブステート</param>
@@ -52,8 +58,26 @@ private:
     /// <summary>
     /// プレイヤーのインタラクトできるステート情報を描画する
     /// </summary>
-    /// <param name="player"></param>
+    /// <param name="player">プレイヤー</param>
     void DrawPlayerInteractState(Player& player);
+
+    /// <summary>
+    /// プレイヤーの所持金を描画
+    /// </summary>
+    /// <param name="player">プレイヤー</param>
+    void DrawPlayerMoney(Player& player);
+
+    /// <summary>
+    /// プレイヤーの銃のクロスヘアの描画
+    /// </summary>
+    /// <param name="player">プレイヤー</param>
+    void DrawCrosshair(Player& player);
+
+    /// <summary>
+    /// プレイヤーの装備中の銃の名称を描画
+    /// </summary>
+    /// <param name="player">プレイヤー</param>
+    void DrawEquippedGunName(Player& player);
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -64,10 +88,10 @@ private:
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//]
     // 管理クラス
-    ImageDataManager* imageDataManager; // 画像管理クラス
+    ImageDataManager*   imageDataManager;   // 画像管理クラス
     
-    int vhsFilterImageHandle;   // VHSフィルター画像
-
+    int     vhsFilterImageHandle;   // VHSフィルター画像
+    int     crosshairImageHandle;   // クロスヘア画像
 };
 
 

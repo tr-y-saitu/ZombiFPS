@@ -52,9 +52,10 @@ protected:
     //---------------------------------------------------------------------------------//
     // ハンドル
     int outlastFontHandle;      // アウトラストに似たフォントハンドル
-    int vhsFontHandle;          // VHSフォントハンドル
-    int vhsJPFontHandle;        // VHS日本語対応フォントタイプ
-
+    int vhsLargeFontHandle;     // VHSフォントハンドル(大)
+    int vhsSmallFontHandle;     // VHSフォントハンドル(小)
+    int vhsJPLargeFontHandle;   // VHS日本語対応フォントハンドル(大)
+    int vhsJPSmallFontHandle;   // VHS日本語対応フォントハンドル(小)
 
 };
 

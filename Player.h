@@ -124,6 +124,7 @@ public:
     const int GetMoney()const { return money; }
     const InteractLocationState GetInteractLocationState() { return interactLocationState; }
     const int GetInteractionCost()const { return interactionCost; }
+    const GunType GetCurrentGunType()const { return currentGunType; }
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -279,7 +280,8 @@ private:
     // 基本情報
     PlayerCamera*           playerCamera;               // プレイヤー専用のカメラ(FPS視点カメラ)
     PlayerStateBase*        currentState;               // 現在のステート
-    GunBase*                equippedGun;                // 装備中の武器
+    GunBase*                equippedGun;                // 装備中の銃
+    GunType                 currentGunType;             // 装備中の銃の種類名
     BulletObjectPools*      bulletObjectPools;          // 弾丸のオブジェクトプール
     int                     shootFireRateCount;         // 銃の連射力をカウント
     bool                    isHitEnemyAttack;           // エネミーの攻撃を受けている
