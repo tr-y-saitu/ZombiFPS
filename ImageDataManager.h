@@ -26,6 +26,7 @@ public:
         East4ImageData  ,       // 東の部屋４
         VHSFiltersImageData,    // VHSフィルター
         CrosshairImageData,     // 銃のクロスヘア
+        RECImageData,           // REC(録画)
     };
 
     /// <summary>

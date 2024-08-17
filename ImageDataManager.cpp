@@ -76,6 +76,7 @@ void ImageDataManager::ImageDataLoad()
     imageDataList[East4ImageData]       = LoadGraph("Data/UI/RoomNumber/East4.png");
     imageDataList[VHSFiltersImageData]  = LoadGraph("Data/UI/Filter/VHSFilters.png");
     imageDataList[CrosshairImageData]   = LoadGraph("Data/UI/GameScene/Crosshair.png");
+    imageDataList[RECImageData]         = LoadGraph("Data/UI/GameScene/RECImg.png");
 }
 
 /// <summary>

@@ -27,8 +27,9 @@ GameSceneUI::~GameSceneUI()
 void GameSceneUI::Initialize()
 {
     // 画像ハンドルの取得
-    vhsFilterImageHandle = imageDataManager->GetImageHandle(ImageDataManager::VHSFiltersImageData);
-    crosshairImageHandle = imageDataManager->GetImageHandle(ImageDataManager::CrosshairImageData);
+    vhsFilterImageHandle    = imageDataManager->GetImageHandle(ImageDataManager::VHSFiltersImageData);
+    crosshairImageHandle    = imageDataManager->GetImageHandle(ImageDataManager::CrosshairImageData);
+    recImageHandle          = imageDataManager->GetImageHandle(ImageDataManager::RECImageData);
 }
 
 /// <summary>
@@ -44,8 +45,8 @@ void GameSceneUI::Update()
 /// </summary>
 void GameSceneUI::Draw(Player& player, int waveState)
 {
-    // VHSフィルター画像を描画
-    DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, 1, 0, vhsFilterImageHandle, true);
+    // ビデオ風の情報を描画
+    DrawVHSInformation();
 
     // ウェーブステート描画
     DrawWaveState(waveState);
@@ -177,4 +178,16 @@ void GameSceneUI::DrawEquippedGunName(Player& player)
     default:
         break;
     }
+}
+
+/// <summary>
+/// ビデオ風の情報を画面に描画
+/// </summary>
+void GameSceneUI::DrawVHSInformation()
+{
+    // VHSフィルター画像を描画
+    DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, 1, 0, vhsFilterImageHandle, true);
+
+    // 録画文字を描画
+    DrawRotaGraph(150, 100, 1, 0, recImageHandle, true);
 }

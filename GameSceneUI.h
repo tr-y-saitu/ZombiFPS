@@ -79,6 +79,11 @@ private:
     /// <param name="player">プレイヤー</param>
     void DrawEquippedGunName(Player& player);
 
+    /// <summary>
+    /// ビデオ風の情報を画面に描画
+    /// </summary>
+    void DrawVHSInformation();
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
@@ -92,6 +97,7 @@ private:
     
     int     vhsFilterImageHandle;   // VHSフィルター画像
     int     crosshairImageHandle;   // クロスヘア画像
+    int     recImageHandle;         // REC画像
 };
 
 
