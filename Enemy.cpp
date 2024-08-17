@@ -1,6 +1,7 @@
 ﻿#include "CollisionManager.h"
 #include "Enemy.h"
 #include "ModelDataManager.h"
+#include "SoundManager.h"
 #include "Stage.h"
 #include "Calculation.h"
 
@@ -21,8 +22,9 @@ Enemy::Enemy()
     , isActive                  (true)
     , deathFrameCount           (0)
 {
-    modelDataManager = ModelDataManager::GetInstance();
-    collisionManager = CollisionManager::GetInstance();
+    modelDataManager    = ModelDataManager::GetInstance();
+    collisionManager    = CollisionManager::GetInstance();
+    soundManager        = SoundManager::GetInstance();
 }
 
 /// <summary>
@@ -152,6 +154,9 @@ void Enemy::OnHit(CollisionData hitObjectData)
     case ObjectTag::Bullet: // 弾丸と当たった時
         // HPを減少
         hitPoints -= hitObjectData.bulletPower;
+
+        // 当たった時の音を出す
+        //soundManager->PlaySoundListSE(SoundManager::EnemyHitSE);
 
         break;
 

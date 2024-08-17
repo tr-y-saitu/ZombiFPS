@@ -1,13 +1,18 @@
 ﻿#include "EnemyObjectPools.h"
 #include "EnemyGroupController.h"
 #include "EnemyGroup.h"
+#include "SoundManager.h"
 
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
 EnemyGroupController::EnemyGroupController()
+    : frameCount        (0)
 {
+    // 音管理クラスのインスタンスをもらう
+    soundManager = SoundManager::GetInstance();
+
     // エネミーのオブジェクトプール
     enemyObjectPools = new EnemyObjectPools();
 
@@ -64,6 +69,9 @@ void EnemyGroupController::CreateEnemy()
 /// <param name="stage">ステージ</param>
 void EnemyGroupController::Update(VECTOR playerPosition, Stage& stage, bool enemySpawnFlag)
 {
+    // フレームカウントを進める
+    frameCount++;
+
     // エネミー作成指示が出れば作成
     if (enemySpawnFlag)
     {
@@ -78,6 +86,9 @@ void EnemyGroupController::Update(VECTOR playerPosition, Stage& stage, bool enem
 
     // 使い終わったエネミーがいればプールに返却する
     enemyObjectPools->ReturnActiveEnemyInstance(activeEnemyGroup);
+
+    // 音の更新
+    UpdateSound();
 }
 
 /// <summary>
@@ -93,4 +104,35 @@ void EnemyGroupController::Draw(VECTOR playerPosition)
 
     // エネミーの総数を描画
     DrawFormatString(100, 800, DebugFontColor, "EnemySize:%d", activeEnemyGroup.size());
+}
+
+/// <summary>
+/// 音の更新
+/// </summary>
+void EnemyGroupController::UpdateSound()
+{
+    // ゾンビの声を再生する
+    if (!(frameCount % ZombieSoundInterval))
+    {
+        int randomIndex = rand() % ZombieSoundTypeNumber;
+
+        // ランダムにゾンビの声を再生する
+        switch (randomIndex)
+        {
+        case 0:
+            soundManager->PlaySoundListSE(SoundManager::ZombieVoice1SE);
+            break;
+
+        case 1:
+            soundManager->PlaySoundListSE(SoundManager::ZombieVoice2SE);
+            break;
+
+        case 2:
+            soundManager->PlaySoundListSE(SoundManager::ZombieVoice3SE);
+            break;
+
+        default:
+            break;
+        }
+    }
 }

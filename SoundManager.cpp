@@ -38,6 +38,12 @@ void SoundManager::LoadData()
     soundListSE[MoneyUseSE]     = moneyUseSE;
 
     // プレイヤー
+    int playerDamageSE              = LoadSoundMem("");
+    int playerWalkingSE             = LoadSoundMem("Data/Sound/SE/Player/PlayerWalkingSE.mp3");
+    int playerRunSE                 = LoadSoundMem("Data/Sound/SE/Player/PlayerRunSE.mp3");
+    soundListSE[PlayerDamageSE]     = playerDamageSE;
+    soundListSE[PlayerWalkingSE]    = playerWalkingSE;
+    soundListSE[PlayerRunSE]        = playerRunSE;
 
     // 銃
     int submachineGunShootingSE = LoadSoundMem("Data/Sound/SE/Gun/SubmachineGunShootingSE1.mp3");
@@ -51,8 +57,17 @@ void SoundManager::LoadData()
     soundListSE[EnemyHitSE]                 = enemyHitSE;
     soundListSE[MissShootingSE]             = missShootingSE;
 
+    // ゾンビ
+    int zombieVoice1SE = LoadSoundMem("Data/Sound/SE/Zombie/ZombieVoice1SE.mp3");
+    int zombieVoice2SE = LoadSoundMem("Data/Sound/SE/Zombie/ZombieVoice2SE.mp3");
+    int zombieVoice3SE = LoadSoundMem("Data/Sound/SE/Zombie/ZombieVoice3SE.mp3");
+    soundListSE[ZombieVoice1SE] = zombieVoice1SE;
+    soundListSE[ZombieVoice2SE] = zombieVoice2SE;
+    soundListSE[ZombieVoice3SE] = zombieVoice3SE;
 
     // BGM ////////////////////////////////
+
+    // プレイヤー
     int walkingBGM              = LoadSoundMem("Data/Sound/BGM/Player/WalkingBGM.mp3");
     int runBGM                  = LoadSoundMem("Data/Sound/BGM/Player/RunBGM.mp3");
     soundListBGM[WalkingBGM]    = walkingBGM;
@@ -122,6 +137,20 @@ void SoundManager::PlaySoundListSE(PlaySoundSE soundType)
     playingSoundHandle = soundListSE[soundType];
     playingList.push_back(playingSoundHandle);
     PlaySoundMem(playingSoundHandle, DX_PLAYTYPE_BACK, true);
+}
+
+/// <summary>
+/// 読み込んだサウンドリストから効果音再生（ループ再生したい効果音用）
+/// </summary>
+/// <param name="soundType">再生したい効果音の種類</param>
+void SoundManager::PlaySoundListSETypeLoop(PlaySoundSE soundType)
+{
+    playingSoundHandle = soundListSE[soundType];
+    if (!CheckSoundMem(playingSoundHandle))
+    {
+        playingList.push_back(playingSoundHandle);
+        PlaySoundMem(playingSoundHandle, DX_PLAYTYPE_BACK, true);
+    }
 }
 
 /// <summary>

@@ -27,6 +27,9 @@ GameScene::GameScene()
     // フォントサイズ設定
     SetFontSize(GameSceneFontSize);
 
+    // 乱数を初期化
+    srand(unsigned int(time(nullptr)));
+
     // 入力処理
     input                   = new Input();
 
@@ -146,13 +149,13 @@ void GameScene::UpdateSound()
     {
     case Player::State::Run:
         // 走る音
-        soundManager->PlaySoundListBGM(SoundManager::RunBGM);
+        soundManager->PlaySoundListSETypeLoop(SoundManager::PlayerRunSE);
 
         break;
 
     case Player::State::Walk:
         // それ以外は歩く音
-        soundManager->PlaySoundListBGM(SoundManager::WalkingBGM);
+        soundManager->PlaySoundListSETypeLoop(SoundManager::PlayerWalkingSE);
 
         break;
 

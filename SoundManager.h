@@ -20,6 +20,8 @@ public:
 
         // プレイヤー
         PlayerDamageSE,             // プレイヤーが攻撃を受けたときの音
+        PlayerWalkingSE,            // プレイヤーが歩く音
+        PlayerRunSE,                // プレイヤーが走る音
 
         // 銃
         AssaulRifleShootingSE,      // アサルトライフル発砲音
@@ -32,8 +34,8 @@ public:
 
         // エネミー
         ZombieVoice1SE,             // ゾンビの声１
-        ZonbieVoice2SE,             // ゾンビの声２
-        ZonbieVoice3SE,             // ゾンビの声３
+        ZombieVoice2SE,             // ゾンビの声２
+        ZombieVoice3SE,             // ゾンビの声３
     };
 
     /// <summary>
@@ -89,6 +91,12 @@ public:
     void PlaySoundListSE(PlaySoundSE soundType);
 
     /// <summary>
+    /// 読み込んだサウンドリストから効果音再生（ループ再生したい効果音用）
+    /// </summary>
+    /// <param name="soundType">再生したい効果音の種類</param>
+    void PlaySoundListSETypeLoop(PlaySoundSE soundType);
+
+    /// <summary>
     /// 読み込んだサウンドリストからBGM再生
     /// </summary>
     /// <param name="soundType">再生したいBGMの種類</param>
@@ -101,11 +109,11 @@ private:
     SoundManager();
 
     // 管理用
-    static SoundManager* soundManager;      // サウンドマネージャークラスのインスタンス
-    int playingSoundHandle;                 // 現在再生中のサウンド
-    vector<int> playingList;                // 現在再生中のサウンドリスト
-    map<PlaySoundSE, int> soundListSE;    // 再生する効果音のリスト
-    map<PlaySoundBGM, int> soundListBGM;  // 再生するBGMのリスト
+    static SoundManager*    soundManager;           // サウンドマネージャークラスのインスタンス
+    int                     playingSoundHandle;     // 現在再生中のサウンド
+    vector<int>             playingList;            // 現在再生中のサウンドリスト
+    map<PlaySoundSE, int>   soundListSE;            // 再生する効果音のリスト
+    map<PlaySoundBGM, int>  soundListBGM;           // 再生するBGMのリスト
 
     //                  サウンドデータ                  //
     // 共通
