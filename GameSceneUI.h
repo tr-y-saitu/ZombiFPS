@@ -49,6 +49,12 @@ private:
     /// <param name="player">プレイヤー</param>
     void DrawGunInformation(Player& player);
 
+    /// <summary>
+    /// プレイヤーのインタラクトできるステート情報を描画する
+    /// </summary>
+    /// <param name="player"></param>
+    void DrawPlayerInteractState(Player& player);
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//

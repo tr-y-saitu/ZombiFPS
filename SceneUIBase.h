@@ -29,6 +29,17 @@ public:
     /// MEMO:virtualにしていないのは各シーンで引数が異なるため
     void Draw();
 
+    /// <summary>
+    /// 文字を画面中央に描画する
+    /// </summary>
+    /// <param name="string">描画したい文字</param>
+    /// <param name="drawPositionY">描画するY座標</param>
+    /// <param name="uiColor">文字の色</param>
+    /// <param name="fontHandle">自分で作成したフォントがあるなら、フォントハンドルを引数に追加</param>
+    /// MEMO:数値も同時に描画したい場合はsnprintfを使い、
+    ///      数値を代入後、第一引数に渡してください。
+    void DrawStringCenterScreen(const char* string, int drawPositionY, int uiColor, int fontHandle = 0);
+
 protected:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -42,6 +53,7 @@ protected:
     // ハンドル
     int outlastFontHandle;      // アウトラストに似たフォントハンドル
     int vhsFontHandle;          // VHSフォントハンドル
+    int vhsJPFontHandle;        // VHS日本語対応フォントタイプ
 
 
 };

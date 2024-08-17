@@ -122,6 +122,8 @@ public:
     const int GetEquippedGunAmmo();
     const int GetEquippedBackUpAmmo();
     const int GetMoney()const { return money; }
+    const InteractLocationState GetInteractLocationState() { return interactLocationState; }
+    const int GetInteractionCost()const { return interactionCost; }
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //

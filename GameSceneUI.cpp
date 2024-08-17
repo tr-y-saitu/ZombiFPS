@@ -51,6 +51,9 @@ void GameSceneUI::Draw(Player& player, int waveState)
     // プレイヤーの所持金
     DrawFormatString(500, 900, DebugFontColor, "Money:%d", player.GetMoney());
 
+    // プレイヤーのインタラクトできる情報を描画
+    DrawPlayerInteractState(player);
+
     // ウェーブステート描画
     DrawWaveState(waveState);
 }
@@ -78,4 +81,34 @@ void GameSceneUI::DrawGunInformation(Player& player)
     DrawStringToHandle(1600, 950, gunInfo, GetColor(200, 200, 200), vhsFontHandle);
 }
 
+/// <summary>
+/// プレイヤーのインタラクトできるステート情報を描画する
+/// </summary>
+/// <param name="player"></param>
+void GameSceneUI::DrawPlayerInteractState(Player& player)
+{
+    switch (player.GetInteractLocationState())
+    {
+    case Player::InteractLocationState::None:
+        // 処理なし
+        break;
 
+    case Player::InteractLocationState::Shutter:
+        // シャッターの支払い料金を描画
+        char shutterInfo[256];
+        snprintf(shutterInfo, sizeof(shutterInfo), "[F]ｷｰﾃﾞﾄﾞｱｦﾋﾗｸ[ｺｽﾄ:%d]", player.GetInteractionCost());
+        DrawStringCenterScreen(shutterInfo, 800, DebugFontColor, vhsJPFontHandle);
+
+        break;
+
+    case Player::InteractLocationState::PowerUpMachine:
+
+        break;
+
+    case Player::InteractLocationState::AmmoBox:
+
+        break;
+    default:
+        break;
+    }
+}
