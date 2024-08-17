@@ -51,11 +51,13 @@ void SoundManager::LoadData()
     int gunReloadEndSE          = LoadSoundMem("Data/Sound/SE/Gun/GunReloadEndSE.mp3");
     int enemyHitSE              = LoadSoundMem("Data/Sound/SE/Gun/EnemyHitSE.mp3");
     int missShootingSE          = LoadSoundMem("Data/Sound/SE/Gun/MissShootingSE.mp3");
+    int dryFireSE               = LoadSoundMem("Data/Sound/SE/Gun/DryFireSE.mp3");
     soundListSE[SubmachineGunShootingSE]    = submachineGunShootingSE;
     soundListSE[GunReloadStartSE]           = gunReloadStartSE;
     soundListSE[GunReloadEndSE]             = gunReloadEndSE;
     soundListSE[EnemyHitSE]                 = enemyHitSE;
     soundListSE[MissShootingSE]             = missShootingSE;
+    soundListSE[DryFireSE]                  = dryFireSE;
 
     // ゾンビ
     int zombieVoice1SE = LoadSoundMem("Data/Sound/SE/Zombie/ZombieVoice1SE.mp3");

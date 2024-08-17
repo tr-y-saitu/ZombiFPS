@@ -31,6 +31,7 @@ public:
         GunReloadEndSE,             // リロード終了音
         EnemyHitSE,                 // エネミーに当たった時の音
         MissShootingSE,             // 弾丸が当たらなかった音
+        DryFireSE,                  // マガジン内の弾丸がない状態でトリガーを引いた時の音
 
         // エネミー
         ZombieVoice1SE,             // ゾンビの声１
