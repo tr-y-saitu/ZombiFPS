@@ -29,22 +29,37 @@ SoundManager::~SoundManager()
 /// </summary>
 void SoundManager::LoadData()
 {
-    // 効果音
-    int shutterOpenSE = LoadSoundMem("Data/Sound/SE/System/ShutterOpenSE.mp3");
-    int moneyUseSE = LoadSoundMem("Data/Sound/SE/System/MoneyUseSE.mp3");
+    // SE ///////////////////////////
 
-    soundListSE[ShutterOpenSE] = shutterOpenSE;
-    soundListSE[MoneyUseSE] = moneyUseSE;
+    // システム
+    int shutterOpenSE           = LoadSoundMem("Data/Sound/SE/System/ShutterOpenSE.mp3");
+    int moneyUseSE              = LoadSoundMem("Data/Sound/SE/System/MoneyUseSE.mp3");
+    soundListSE[ShutterOpenSE]  = shutterOpenSE;
+    soundListSE[MoneyUseSE]     = moneyUseSE;
 
-    // BGM
-    titleSceneBGM = LoadSoundMem("data/sound/TitleScene/TitleSceneBGM1.mp3");
-    gameSceneBGM = LoadSoundMem("data/sound/GameScene/GameSceneBMG1.mp3");
-    clearSceneBGM = LoadSoundMem("data/sound/ClearScene/ClearSceneBGM.mp3");
-    clearFinishBGM = LoadSoundMem("data/sound/ClearScene/gameClearSE.mp3");
-    soundListBGM[TITLE_SCENE_BGM] = titleSceneBGM;
-    soundListBGM[GAME_SCENE_BGM] = gameSceneBGM;
-    soundListBGM[CLEAR_SCENE_BGM] = clearSceneBGM;
-    soundListBGM[CLEAR_FINISH_BGM] = clearFinishBGM;
+    // プレイヤー
+
+    // 銃
+    int submachineGunShootingSE = LoadSoundMem("Data/Sound/SE/Gun/SubmachineGunShootingSE1.mp3");
+    int gunReloadStartSE        = LoadSoundMem("Data/Sound/SE/Gun/GunReloadStartSE.mp3");
+    int gunReloadEndSE          = LoadSoundMem("Data/Sound/SE/Gun/GunReloadEndSE.mp3");
+    int enemyHitSE              = LoadSoundMem("Data/Sound/SE/Gun/EnemyHitSE.mp3");
+    int missShootingSE          = LoadSoundMem("Data/Sound/SE/Gun/MissShootingSE.mp3");
+    soundListSE[SubmachineGunShootingSE]    = submachineGunShootingSE;
+    soundListSE[GunReloadStartSE]           = gunReloadStartSE;
+    soundListSE[GunReloadEndSE]             = gunReloadEndSE;
+    soundListSE[EnemyHitSE]                 = enemyHitSE;
+    soundListSE[MissShootingSE]             = missShootingSE;
+
+
+    // BGM ////////////////////////////////
+    int walkingBGM              = LoadSoundMem("Data/Sound/BGM/Player/WalkingBGM.mp3");
+    int runBGM                  = LoadSoundMem("Data/Sound/BGM/Player/RunBGM.mp3");
+    soundListBGM[WalkingBGM]    = walkingBGM;
+    soundListBGM[RunBGM]        = runBGM;
+
+
+
 }
 
 /// <summary>

@@ -19,8 +19,6 @@ public:
         MoneyUseSE,                 // お金を使った時の音
 
         // プレイヤー
-        WalkingSE,                  // 歩く音
-        RunSE,                      // 走る音
         PlayerDamageSE,             // プレイヤーが攻撃を受けたときの音
 
         // 銃
@@ -43,10 +41,9 @@ public:
     /// </summary>
     enum PlaySoundBGM
     {
-        TITLE_SCENE_BGM,    // タイトルシーンのBGM
-        GAME_SCENE_BGM,     // ゲームシーンのBGM
-        CLEAR_SCENE_BGM,    // クリアシーンのBGM
-        CLEAR_FINISH_BGM,   // 終了音
+        // プレイヤー
+        WalkingBGM,              // 歩く音
+        RunBGM,                  // 走る音
     };
 
     /// <summary>

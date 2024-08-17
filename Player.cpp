@@ -37,6 +37,7 @@ Player::Player()
     , isInteracted                  (false)
     , interactionCost               (0)
     , currentGunType                (GunType::SubmachineGun)
+    , reloadState                   (ReloadState::None)
 {
     collisionManager        = CollisionManager::GetInstance();
     modelDataManager        = ModelDataManager::GetInstance();
@@ -772,6 +773,11 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
             currentAmmo--;
             equippedGun->SetGunAmmo(currentAmmo);
         }
+        else
+        {
+            // 発砲していない
+            isShooting = false;
+        }
     }
     else
     {
@@ -795,11 +801,26 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
 /// <param name="input">入力情報</param>
 void Player::UpdateReload(const Input& input)
 {
+    // 前のフレームでリロード終了していればNoneに戻す
+    if (reloadState == ReloadState::End)
+    {
+        reloadState = ReloadState::None;
+    }
+
+    // 前のフレームでリロード開始しているのであればNowに移行する
+    if (reloadState == ReloadState::Start)
+    {
+        reloadState = ReloadState::Now;
+    }
+
     // 「R」が押されているかつ、予備弾薬数があればリロード
     if (CheckHitKey(KEY_INPUT_R) && equippedGun->GetBackUpAmmo() > 0)
     {
         // リロードしている
         isReload = true;
+
+        // リロード開始
+        reloadState = ReloadState::Start;
     }
 
     // 一定フレーム期間リロードさせる
@@ -828,11 +849,14 @@ void Player::UpdateReload(const Input& input)
                 reloadAmmo = equippedGun->GetBackUpAmmo();
             }
 
-            int currentGunAmmo = equippedGun->GetGunAmmo(); // 現在の所持弾薬
+            int currentGunAmmo = equippedGun->GetGunAmmo();         // 現在の所持弾薬
             int currentBackUpAmmo = equippedGun->GetBackUpAmmo();   // 現在の予備弾薬
             
-            equippedGun->SetBackUpAmmo(currentBackUpAmmo - reloadAmmo); // 予備弾薬数を更新
-            equippedGun->SetGunAmmo(equippedGun->GetGunAmmo() + reloadAmmo);      // 銃の最大総弾数まで回復
+            equippedGun->SetBackUpAmmo(currentBackUpAmmo - reloadAmmo);         // 予備弾薬数を更新
+            equippedGun->SetGunAmmo(equippedGun->GetGunAmmo() + reloadAmmo);    // 銃の最大総弾数まで回復
+
+            // リロード終了
+            reloadState = ReloadState::End;
         }
     }
 }

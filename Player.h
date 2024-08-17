@@ -68,6 +68,17 @@ public:
     };
 
     /// <summary>
+    /// リロードステート
+    /// </summary>
+    enum class ReloadState : int
+    {
+        None,       // リロードしていない
+        Start,      // リロード開始
+        Now,        // リロード中
+        End,        // リロード終了
+    };
+
+    /// <summary>
     /// コンストラクタ
     /// </summary>
     Player();
@@ -126,6 +137,7 @@ public:
     const bool GetIsInteracted()const { return isInteracted; }
     const int GetInteractionCost()const { return interactionCost; }
     const GunType GetCurrentGunType()const { return currentGunType; }
+    const ReloadState GetReloadState()const { return reloadState; }
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -291,6 +303,11 @@ private:
     InteractLocationState   interactLocationState;      // どのオブジェクトにアクセスできる状態であるか
     bool                    isInteracted;               // インタラクトを行ったかどうか
     int                     interactionCost;            // インタラクトしたオブジェクトの支払いコスト
+    State                   state;                      // 状態
+    bool                    isShooting;                 // 発砲状態か
+    ReloadState             reloadState;                // リロードステート
+    bool                    isReload;                   // リロード状態か
+    int                     reloadTimer;                // リロードを完了するための時間
 
     // 移動状態
     VECTOR      position;                   // 座標
@@ -298,10 +315,6 @@ private:
     VECTOR      targetMoveDirection;        // モデルが向くべき方向のベクトル
     float       currentJumpPower;           // Ｙ軸方向の速度
     int         modelHandle;                // モデルハンドル
-    State       state;                      // 状態
-    bool        isShooting;                 // 発砲状態か
-    bool        isReload;                   // リロード状態か
-    int         reloadTimer;                // リロードを完了するための時間
     bool        currentFrameMove;           // そのフレームで動いたかどうか
     bool        pressMoveButton;            // 移動用のボタンが入力されているか
 

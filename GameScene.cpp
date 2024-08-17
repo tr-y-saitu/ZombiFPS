@@ -133,7 +133,62 @@ void GameScene::UpdateSound()
     if (player->GetIsInteracted())
     {
         soundManager->PlaySoundListSE(SoundManager::MoneyUseSE);
+
+        // シャッターを開けた場合
+        if (player->GetInteractLocationState() == Player::InteractLocationState::Shutter)
+        {
+            soundManager->PlaySoundListSE(SoundManager::ShutterOpenSE);
+        }
     }
+
+    // プレイヤーのステートごとの音
+    switch (player->GetState())
+    {
+    case Player::State::Run:
+        // 走る音
+        soundManager->PlaySoundListBGM(SoundManager::RunBGM);
+
+        break;
+
+    case Player::State::Walk:
+        // それ以外は歩く音
+        soundManager->PlaySoundListBGM(SoundManager::WalkingBGM);
+
+        break;
+
+    default:
+        
+        break;
+    }
+
+    // 銃の発砲音
+    if (player->GetIsShooting())
+    {
+        soundManager->PlaySoundListSE(SoundManager::SubmachineGunShootingSE);
+    }
+
+    // リロード音
+    switch (player->GetReloadState())
+    {
+    case Player::ReloadState::None:
+        // 処理なし
+        break;
+
+    case Player::ReloadState::Start:
+        // マガジンを抜く音を再生
+        soundManager->PlaySoundListSE(SoundManager::GunReloadStartSE);
+        break;
+
+    case Player::ReloadState::End:
+        // マガジンを挿入する音を再生
+        soundManager->PlaySoundListSE(SoundManager::GunReloadEndSE);
+
+        break;
+
+    default:
+        break;
+    }
+
 }
 
 /// <summary>
