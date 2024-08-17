@@ -58,7 +58,7 @@ EffectManager::~EffectManager()
 void EffectManager::LoadEffect()
 {
     // エフェクトのロード
-    muzzleFlashEffectHandle = LoadEffekseerEffect("Data/Effect/Gun/MuzzleFlashEffect.efk");
+    muzzleFlashEffectHandle = LoadEffekseerEffect("Data/Effect/Gun/MuzzleFlashEffect.efk",0.1f);
 
     // エフェクトリストに書き込み
     effectList[MuzzleFlashEffect] = muzzleFlashEffectHandle;
