@@ -86,6 +86,12 @@ public:
     /// <param name="playPosition">再生座標</param>
     void PlayMuzzleFlashEffect(VECTOR playPosition);
 
+    /// <summary>
+    /// 血しぶきのエフェクト再生
+    /// </summary>
+    /// <param name="playPosition">再生座標</param>
+    void PlayBloodSplatterEffect(VECTOR playPosition);
+
 private:
     /// <summary>
     /// コンストラクタ

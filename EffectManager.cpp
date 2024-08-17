@@ -59,9 +59,11 @@ void EffectManager::LoadEffect()
 {
     // エフェクトのロード
     muzzleFlashEffectHandle = LoadEffekseerEffect("Data/Effect/Gun/MuzzleFlashEffect.efk",0.1f);
+    bloodSplatterEffectHandle = LoadEffekseerEffect("Data/Effect/Gun/blood.efk");
 
     // エフェクトリストに書き込み
     effectList[MuzzleFlashEffect] = muzzleFlashEffectHandle;
+    effectList[BloodSplatter] = bloodSplatterEffectHandle;
 }
 
 /// <summary>
@@ -178,6 +180,17 @@ void EffectManager::PlayEffectList(EffectType effectType, VECTOR playPosition, V
 void EffectManager::PlayMuzzleFlashEffect(VECTOR playPosition)
 {
     playingEffectHandle = PlayEffekseer3DEffect(muzzleFlashEffectHandle);
+    playingList.push_back(playingEffectHandle);
+    SetPosPlayingEffekseer3DEffect(playingEffectHandle, playPosition.x, playPosition.y, playPosition.z);
+}
+
+/// <summary>
+/// 血しぶきのエフェクト再生
+/// </summary>
+/// <param name="playPosition">再生座標</param>
+void EffectManager::PlayBloodSplatterEffect(VECTOR playPosition)
+{
+    playingEffectHandle = PlayEffekseer3DEffect(bloodSplatterEffectHandle);
     playingList.push_back(playingEffectHandle);
     SetPosPlayingEffekseer3DEffect(playingEffectHandle, playPosition.x, playPosition.y, playPosition.z);
 }

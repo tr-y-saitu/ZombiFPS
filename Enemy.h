@@ -8,6 +8,7 @@ class ModelDataManager;
 class Stage;
 class CollisionManager;
 class SoundManager;
+class EffectManager;
 
 /// <summary>
 /// エネミー(ゾンビ)
@@ -209,6 +210,7 @@ private:
     ModelDataManager*   modelDataManager;
     CollisionManager*   collisionManager;
     SoundManager*       soundManager;
+    EffectManager*      effectManager;
 
     // ステータス
     VECTOR      position;                   // 座標

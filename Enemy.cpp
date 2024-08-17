@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "ModelDataManager.h"
 #include "SoundManager.h"
+#include "EffectManager.h"
 #include "Stage.h"
 #include "Calculation.h"
 
@@ -25,6 +26,7 @@ Enemy::Enemy()
     modelDataManager    = ModelDataManager::GetInstance();
     collisionManager    = CollisionManager::GetInstance();
     soundManager        = SoundManager::GetInstance();
+    effectManager       = EffectManager::GetInstance();
 }
 
 /// <summary>
@@ -157,6 +159,9 @@ void Enemy::OnHit(CollisionData hitObjectData)
 
         // 当たった時の音を出す
         //soundManager->PlaySoundListSE(SoundManager::EnemyHitSE);
+
+        // 当たった時の血しぶきエフェクトを再生
+        effectManager->PlayBloodSplatterEffect(position);
 
         break;
 
