@@ -123,6 +123,7 @@ public:
     const int GetEquippedBackUpAmmo();
     const int GetMoney()const { return money; }
     const InteractLocationState GetInteractLocationState() { return interactLocationState; }
+    const bool GetIsInteracted()const { return isInteracted; }
     const int GetInteractionCost()const { return interactionCost; }
     const GunType GetCurrentGunType()const { return currentGunType; }
 

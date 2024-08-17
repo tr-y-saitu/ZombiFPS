@@ -13,7 +13,29 @@ public:
     /// </summary>
     enum PlaySoundSE
     {
-        PUSH_SE,            // ボタン入力音
+        // システム
+        PUSH_SE,                    // ボタン入力音
+        ShutterOpenSE,              // シャッターを開けたときの音
+        MoneyUseSE,                 // お金を使った時の音
+
+        // プレイヤー
+        WalkingSE,                  // 歩く音
+        RunSE,                      // 走る音
+        PlayerDamageSE,             // プレイヤーが攻撃を受けたときの音
+
+        // 銃
+        AssaulRifleShootingSE,      // アサルトライフル発砲音
+        BattleRifleShootingSE,      // バトルライフル発砲音
+        SubmachineGunShootingSE,    // サブマシンガン発砲音
+        GunReloadStartSE,           // リロード開始音
+        GunReloadEndSE,             // リロード終了音
+        EnemyHitSE,                 // エネミーに当たった時の音
+        MissShootingSE,             // 弾丸が当たらなかった音
+
+        // エネミー
+        ZombieVoice1SE,             // ゾンビの声１
+        ZonbieVoice2SE,             // ゾンビの声２
+        ZonbieVoice3SE,             // ゾンビの声３
     };
 
     /// <summary>

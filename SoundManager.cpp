@@ -30,8 +30,12 @@ SoundManager::~SoundManager()
 void SoundManager::LoadData()
 {
     // 効果音
-    pushuSE = LoadSoundMem("data/sound/Common/pushuSE.mp3");
-    soundListSE[PUSH_SE] = pushuSE;
+    int shutterOpenSE = LoadSoundMem("Data/Sound/SE/System/ShutterOpenSE.mp3");
+    int moneyUseSE = LoadSoundMem("Data/Sound/SE/System/MoneyUseSE.mp3");
+
+    soundListSE[ShutterOpenSE] = shutterOpenSE;
+    soundListSE[MoneyUseSE] = moneyUseSE;
+
     // BGM
     titleSceneBGM = LoadSoundMem("data/sound/TitleScene/TitleSceneBGM1.mp3");
     gameSceneBGM = LoadSoundMem("data/sound/GameScene/GameSceneBMG1.mp3");

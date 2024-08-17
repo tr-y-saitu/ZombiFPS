@@ -96,6 +96,7 @@ SceneBase* GameScene::UpdateScene()
     enemyWaveController->Update(enemyGroupController->GetEnemyGroupSize());
     shutterController->Update();                                    // シャッター
     collisionManager->Update();                                     // 当たり判定処理
+    UpdateSound();                                                  // 音の更新
     gameSceneUI->Update();                                          // UIの更新
 
     // 現状のシーンを返す
@@ -128,7 +129,11 @@ void GameScene::DrawUI()
 /// </summary>
 void GameScene::UpdateSound()
 {
-
+    // お金を払った時の音
+    if (player->GetIsInteracted())
+    {
+        soundManager->PlaySoundListSE(SoundManager::MoneyUseSE);
+    }
 }
 
 /// <summary>
