@@ -49,11 +49,11 @@ void TitleSceneUI::Update()
 /// </summary>
 void TitleSceneUI::Draw()
 {
-    // テスト描画
-    DrawString(0, 0, "Title", GetColor(255, 255, 255), true);
-
     // ビデオ風の情報描画
     DrawVHSInformation();
+
+    // キー入力指示を描画
+    DrawBlinkingTextKeyInfomation();
 }
 
 /// <summary>
@@ -68,13 +68,10 @@ void TitleSceneUI::DrawVHSInformation()
     DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, DefaultExpansion, DefaultAngle , vhsFilterImageHandle, true);
 
     // 録画文字を描画
-    DrawRotaGraph(150, 100, 1, 0, recImageHandle, true);
+    DrawRotaGraph(RECDrawPositionX, RECDrawPositionY, DefaultExpansion, DefaultAngle, recImageHandle, true);
 
     // 現在時刻を描画
     DrawCurrentTime();
-
-    // キー入力指示を描画
-    DrawBlinkingTextKeyInfomation();
 }
 
 /// <summary>
@@ -93,7 +90,8 @@ void TitleSceneUI::DrawCurrentTime()
     strftime(timeString, sizeof(timeString), "%Y-%m-%d %H:%M:%S", &localTime);
 
     // 時刻を描画
-    DrawFormatStringToHandle(1400, 50, FontColorVHS, vhsSmallFontHandle, "%s", timeString);
+    DrawFormatStringToHandle(VHSTimeDrawPositionX, VHSTimeDrawPositionY, FontColorVHS,
+        vhsSmallFontHandle, "%s", timeString);
 }
 
 /// <summary>
