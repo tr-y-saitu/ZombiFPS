@@ -29,6 +29,12 @@ public:
     void Initialize(ShutterController::ShutterInitializeData initializeData);
 
     /// <summary>
+    /// タイトルシーンでの初期化
+    /// </summary>
+    /// <param name="initializeData"></param>
+    void InitializeTitleScene(ShutterController::ShutterInitializeData initializeData);
+
+    /// <summary>
     /// 更新
     /// </summary>
     void Update();

@@ -1,6 +1,17 @@
 ﻿#include "Common.h"
 #include "TitleScene.h"
 #include "GameScene.h"
+#include "SoundManager.h"
+#include "EffectManager.h"
+#include "CollisionManager.h"
+#include "CollisionData.h"
+#include "Stage.h"
+#include "ShutterController.h"
+#include "Enemy.h"
+#include "SceneCamera.h"
+#include "Input.h"
+#include "ImageDataManager.h"
+#include "ModelDataManager.h"
 
 /// <summary>
 /// コンストラクタ
@@ -10,7 +21,26 @@ TitleScene::TitleScene()
     , isKeyRelease      (false)
     , isPreviousKeyOn   (false)
 {
-    titleSceneUI = TitleSceneUI();
+    // リソース管理
+    imageDataManager    = ImageDataManager::GetInstance();
+    modelDataManager    = ModelDataManager::GetInstance();
+
+    // 当たり判定
+    //collisionManager    = CollisionManager::GetInstance();
+
+    // 演出関連
+    soundManager        = SoundManager::GetInstance();
+    effectManager       = EffectManager::GetInstance();
+
+    // オブジェクト関連
+    stage               = new Stage();
+    shutterController   = new ShutterController();
+
+    // カメラ
+    sceneCamera         = new SceneCamera();
+
+    // UI
+    titleSceneUI        = new TitleSceneUI();
 
     // 初期化
     Initialize();
@@ -21,6 +51,11 @@ TitleScene::TitleScene()
 /// </summary>
 TitleScene::~TitleScene()
 {
+    // メモリ開放
+    delete(stage);
+    delete(sceneCamera);
+    delete(titleSceneUI);
+    delete(shutterController);
 }
 
 /// <summary>
@@ -28,7 +63,9 @@ TitleScene::~TitleScene()
 /// </summary>
 void TitleScene::Initialize()
 {
-
+    stage->InitializeTitleScene();
+    sceneCamera->Initialize(InitializeCameraPosition, InitializeCameraTargetPosition);
+    shutterController->InitializeTitleScene();
 }
 
 /// <summary>
@@ -41,7 +78,9 @@ SceneBase* TitleScene::UpdateScene()
     UpdateKeyState();
 
     // オブジェクト更新
-    titleSceneUI.Update();      // UIの更新
+    shutterController->Update();        // シャッター
+    sceneCamera->UpdateTitleScene();    // カメラ
+    titleSceneUI->Update();             // UI
 
     // スペースキーが入力されたらシーン推移
     if (isKeyRelease)
@@ -70,6 +109,10 @@ void TitleScene::UpdateSound()
 /// </summary>
 void TitleScene::Draw()
 {
+    // オブジェクト描画
+    stage->Draw();
+    shutterController->Draw();
+
     // UIの描画
     DrawUI();
 }
@@ -79,7 +122,7 @@ void TitleScene::Draw()
 /// </summary>
 void TitleScene::DrawUI()
 {
-    titleSceneUI.Draw();
+    titleSceneUI->Draw();
 }
 
 /// <summary>

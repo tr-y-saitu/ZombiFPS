@@ -143,7 +143,7 @@ void GameSceneUI::DrawPlayerMoney(Player& player)
 {
     char moneyString[256];
     snprintf(moneyString, sizeof(moneyString), "$:%d", player.GetMoney());
-    DrawStringToHandle(100, 800, moneyString, DebugFontColor, vhsJPLargeFontHandle);
+    DrawStringToHandle(1600, 800, moneyString, DebugFontColor, vhsJPLargeFontHandle);
 }
 
 /// <summary>

@@ -52,6 +52,11 @@ public:
     void Initialize();
 
     /// <summary>
+    /// タイトルシーンでの初期化
+    /// </summary>
+    void InitializeTitleScene();
+
+    /// <summary>
     /// シャッターの作成
     /// </summary>
     void CreateShutter();

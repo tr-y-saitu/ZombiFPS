@@ -28,12 +28,15 @@ SceneCamera::~SceneCamera()
 /// <summary>
 /// 初期化
 /// </summary>
-/// <param name="initializePosition">カメラの座標</param>
+/// <param name="initializeTargetPosition">カメラの座標</param>
 /// <param name="targetPosition">カメラの見ている座標</param>
-void SceneCamera::Initialize(VECTOR initializePosition, VECTOR targetPosition)
+void SceneCamera::Initialize(VECTOR initializePosition, VECTOR initializeTargetPosition)
 {
     // カメラ設定
     // initializePositionからtargetPositionを見る
+    cameraPosition = initializePosition;
+    targetPosition = initializeTargetPosition;
+
     SetCameraPositionAndTarget_UpVecY(initializePosition, targetPosition);
 }
 

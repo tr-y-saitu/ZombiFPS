@@ -8,6 +8,11 @@ class Enemy;
 class ShutterController;
 class SoundManager;
 class EffectManager;
+class SceneCamera;
+class CollisionManager;
+class ImageDataManager;
+class ModelDataManager;
+
 
 /// <summary>
 /// タイトルシーン
@@ -60,20 +65,35 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
+    static constexpr VECTOR InitializeCameraPosition        = { -1.0f,10.0f,8.0f };   // 初期化時のカメラ座標
+    static constexpr VECTOR InitializeCameraTargetPosition  = { -10.0f,5.0f,-10.0f };   // 初期時のカメラの視点座標
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
+    // リソース管理クラス
+    ImageDataManager*   imageDataManager;   // 画像データ
+    ModelDataManager*   modelDataManager;  // モデルデータ
+
+    // 当たり判定
+    // FIXME:Enemyの動作で強制的に使用するため、
+    //       当たり判定をせずともクラスの参照は持つ必要がある
+    CollisionManager*   collisionManager;   // 当たり判定クラス
+
     // 演出関連
     SoundManager*       soundManager;       // 音管理クラスのアドレス
     EffectManager*      effectManager;      // エフェクト管理クラス
 
     // オブジェクト関連
     Stage*              stage;              // ステージ
+    ShutterController*  shutterController;  // シャッター
     Enemy*              enemy;              // エネミー
 
+    // カメラ
+    SceneCamera*        sceneCamera;
+
     // UI
-    TitleSceneUI        titleSceneUI;       // タイトルシーン用のUI
+    TitleSceneUI*       titleSceneUI;       // タイトルシーン用のUI
 
     // 入力関係
     Input*              input;              // 入力判定処理

@@ -29,6 +29,11 @@ public:
     void Initialize();
 
     /// <summary>
+    /// タイトルシーンでの初期化
+    /// </summary>
+    void InitializeTitleScene();
+
+    /// <summary>
     /// 終了時処理
     /// </summary>
     void Finalize();

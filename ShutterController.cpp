@@ -46,6 +46,21 @@ void ShutterController::Initialize()
 }
 
 /// <summary>
+/// タイトルシーンでの初期化
+/// </summary>
+void ShutterController::InitializeTitleScene()
+{
+    // 初期化用データの作成
+    CreateInitializeData();
+
+    // シャッターの初期化
+    for (int i = 0; i < shutterList.size(); i++)
+    {
+        shutterList[i]->InitializeTitleScene(shutterInitializeDataList[i]);
+    }
+}
+
+/// <summary>
 /// シャッターの作成
 /// </summary>
 void ShutterController::CreateShutter()
