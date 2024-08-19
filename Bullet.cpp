@@ -45,6 +45,8 @@ void Bullet::Initialize(BulletInitializeData initializeData)
     penetratingPower    = initializeData.penetratingPower;
     getMoney            = 0;
     activeFrameCount    = ActiveFrameCount;
+
+    // すでに接触したオブジェクトのリストを初期化
     hitterList.clear();
 }
 
@@ -128,4 +130,22 @@ void Bullet::OnHit(CollisionData hitObjectData)
     default:
         break;
     }
+}
+
+/// <summary>
+/// 選択したオブジェクトをすでに接触しているかを確認する
+/// </summary>
+/// <param name="hitObjectAddress">接触済みか調べるオブジェクトのアドレス</param>
+/// <returns>１度でも接触していたら:true  それ以外は:false</returns>
+bool Bullet::IsObjectHit(HitObjectAddress* hitObjectAddress)
+{
+    //当たったオブジェクトのListに引数のHitObjectAddressが格納されてたらtrue
+    for (int i = 0; i < hitterList.size(); i++)
+    {
+        if (hitterList[i].objectAddress == hitObjectAddress)
+        {
+            return true;
+        }
+    }
+    return false;
 }

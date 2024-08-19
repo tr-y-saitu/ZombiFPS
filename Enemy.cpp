@@ -154,9 +154,11 @@ void Enemy::OnHit(CollisionData hitObjectData)
     float distance;
     float radiusSum;
     float penetrationDepth;
+
+    // 弾丸のすでに接触しているオブジェクトについての情報を確認する
     Bullet* tempBullet = (Bullet*)hitObjectData.objectAddress;
     
-
+    // オブジェクトごとに処理
     switch (hitObjectData.tag)
     {
     case ObjectTag::Bullet: // 弾丸と当たった時
@@ -164,7 +166,7 @@ void Enemy::OnHit(CollisionData hitObjectData)
         // すでに当たったオブジェクトどうかを確認
         if (tempBullet != nullptr)
         {
-            if (tempBullet->CheckHitObject((HitObjectAddress*)this))
+            if (tempBullet->IsObjectHit((HitObjectAddress*)this))
             {
                 return;
             }
@@ -252,6 +254,7 @@ void Enemy::UpdateCollisionData()
     // 体力
     collisionData.objectHP = hitPoints;
 
+    // 自身のアドレス
     collisionData.objectAddress = this;
 }
 
