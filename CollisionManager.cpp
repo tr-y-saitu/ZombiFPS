@@ -76,6 +76,16 @@ void CollisionManager::Update()
     {
         for (int j = 0; j < collisionDataList.size(); j++)
         {
+            // 当たり判定を消してほしい場合
+            if (!collisionDataList[i]->isCollisionActive)
+            {
+                collisionDataList.erase(collisionDataList.begin() + i);
+
+                // 削除後の要素が次にチェックされるため、インデックスを調整
+                i--;
+            }
+
+
             // 同じオブジェクト間の当たり判定をスキップ
             if (i == j)
             {
@@ -140,14 +150,7 @@ void CollisionManager::Update()
                 }
             }
 
-            // 当たり判定を消してほしい場合
-            if (!collisionDataList[i]->isCollisionActive)
-            {
-                collisionDataList.erase(collisionDataList.begin() + i);
-
-                // 削除後の要素が次にチェックされるため、インデックスを調整
-                i--;
-            }
+            
         }
     }
 }

@@ -28,7 +28,7 @@ Player::Player()
     , shootFireRateCount            (0)
     , isHitEnemyAttack              (false)
     , runAnimationCount             (0)
-    , runAnimationFactor        (0.0f)
+    , runAnimationFactor            (0.0f)
     , reloadAnimationCount          (0)
     , reloadAnimationFactor         (0.0f)
     , reloadTimer                   (0)
@@ -50,12 +50,6 @@ Player::Player()
     equippedGun             = new SubmachineGun();
     playerCamera            = new PlayerCamera();
     currentState            = new PlayerIdleState(modelHandle, animationData);
-
-    // 当たった後の関数をコリジョンマネージャーに渡す
-    collisionData.onHit = std::bind(&Player::OnHitObject, this, std::placeholders::_1);
-
-    // 当たり判定に必要なデータを渡す
-    collisionManager->RegisterCollisionData(&collisionData);
 }
 
 /// <summary>
@@ -63,6 +57,7 @@ Player::Player()
 /// </summary>
 Player::~Player()
 {
+    collisionData.isCollisionActive = false;
     delete(bulletObjectPools);
     delete(equippedGun);
     delete(currentState);
@@ -110,6 +105,15 @@ void Player::Initialize()
     animationData.previousAnimationCount    = previousAnimationCount;
     animationData.previousPlayAnimation     = previousPlayAnimation;
     animationData.animationFactor           = 0.0f;
+
+    // 当たった後の関数をコリジョンマネージャーに渡す
+    collisionData.onHit = std::bind(&Player::OnHitObject, this, std::placeholders::_1);
+
+    // 当たり判定をしてほしいか
+    collisionData.isCollisionActive = true;
+
+    // 当たり判定に必要なデータを渡す
+    collisionManager->RegisterCollisionData(&collisionData);
 
     // 当たり判定情報更新
     UpdateCollisionData();
@@ -328,7 +332,6 @@ void Player::OnHitObject(CollisionData hitObjectData)
 /// </summary>
 void Player::UpdateCollisionData()
 {
-    collisionData.isCollisionActive = true;                 // 当たり判定をしてほしいか
     collisionData.tag               = ObjectTag::Player;    // プレイヤーである
     collisionData.centerPosition    = position;             // プレイヤーの当たり判定用の座標
     collisionData.radius            = HitBoxRadius;         // プレイヤー当たり判定用の半径

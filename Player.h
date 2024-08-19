@@ -139,6 +139,7 @@ public:
     const int GetInteractionCost()const { return interactionCost; }
     const GunType GetCurrentGunType()const { return currentGunType; }
     const ReloadState GetReloadState()const { return reloadState; }
+    const float GetHitPoint()const { return hitPoint; }
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //

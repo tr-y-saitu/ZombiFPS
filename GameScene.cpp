@@ -16,6 +16,7 @@
 #include "IncomeDouble.h"
 #include "GameSceneUI.h"
 #include "GameScene.h"
+#include "ResultScene.h"
 
 
 
@@ -104,6 +105,12 @@ SceneBase* GameScene::UpdateScene()
     gameSceneUI->Update();                                          // UIの更新
 
     UpdateEffekseer3D();                                            // エフェクト更新
+
+    // プレイヤーのHPがゼロ以下になった場合シーンを切り替える
+    if (player->GetHitPoint() < 0)
+    {
+        return new ResultScene();
+    }
 
     // 現状のシーンを返す
     return this;

@@ -1,5 +1,6 @@
 ﻿#include "ResultScene.h"
 #include "ResultSceneUI.h"
+#include "TitleScene.h"
 
 /// <summary>
 /// コンストラクタ
@@ -33,6 +34,12 @@ SceneBase* ResultScene::UpdateScene()
 
     // オブジェクト更新
     resultSceneUI->Update();     // UIの更新
+
+    // キーを入力したらシーン切り替え
+    if (1)
+    {
+        return new TitleScene();
+    }
 
     // 現状のシーンを返す
     return this;

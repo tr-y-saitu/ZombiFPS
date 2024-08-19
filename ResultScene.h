@@ -53,6 +53,7 @@ public:
 private:
     // 定数
 
+
     // 変数
     ResultSceneUI* resultSceneUI;        // リザルトシーン用のUI
 
