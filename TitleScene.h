@@ -4,7 +4,7 @@
 
 class Input;
 class Stage;
-class Enemy;
+class EnemyGroup;
 class ShutterController;
 class SoundManager;
 class EffectManager;
@@ -87,7 +87,7 @@ private:
     // オブジェクト関連
     Stage*              stage;              // ステージ
     ShutterController*  shutterController;  // シャッター
-    Enemy*              enemy;              // エネミー
+    EnemyGroup*         enemy;              // エネミー
 
     // カメラ
     SceneCamera*        sceneCamera;

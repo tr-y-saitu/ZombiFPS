@@ -35,7 +35,10 @@ Enemy::Enemy()
 /// </summary>
 Enemy::~Enemy()
 {
+    // モデルハンドルの削除
     MV1DeleteModel(modelHandle);
+
+    collisionData.isCollisionActive = false;
 }
 
 /// <summary>
@@ -84,6 +87,39 @@ void Enemy::Initialize()
 
     // 自身のアドレスを初期化する
     collisionData.objectAddress = nullptr;
+}
+
+/// <summary>
+/// タイトルシーンでの初期化
+/// </summary>
+void Enemy::InitializeTitleScene()
+{
+    // モデルハンドルを取得
+    modelHandle = modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ModelDataType::EnemyModelData);
+
+    // モデルサイズを再設定
+    MV1SetScale(modelHandle, EnemyScale);
+
+    // 初期状態でエネミーが向くべき方向はＸ軸方向
+    targetMoveDirection = VGet(1.0f, 0.0f, 0.0f);
+
+    // アニメーション関係
+    currentPlayAnimation = -1;
+    previousPlayAnimation = -1;
+    animationBlendRate = 1.0f;
+
+    // アニメーション設定
+    PlayAnimation(AnimationType::Run);
+
+    // 初期化時にいる部屋を設定
+    previousRoom.roomNumber = Pathfinding::Center1;
+    roomEntryState = Pathfinding::MovingToNextRoom;
+
+    // ステータス
+    hitPoints = InitializeHitPoints;
+
+    // 死亡してからの経過フレーム数を初期化
+    deathFrameCount = 0;
 }
 
 /// <summary>
@@ -240,22 +276,26 @@ void Enemy::OnHitAttack(CollisionData hitObjectData)
 /// </summary>
 void Enemy::UpdateCollisionData()
 {
-    // タグを設定
-    collisionData.tag = ObjectTag::EnemyBoby;
+    // 当たり判定を行って欲しい場合のみ実行
+    if (collisionData.isCollisionActive)
+    {
+        // タグを設定
+        collisionData.tag = ObjectTag::EnemyBoby;
 
-    // 座標をもとにカプセルを作成
-    collisionData.startPosition = VAdd(position, CapsulePositionOffset);
-    collisionData.endPosition = position;
-    collisionData.centerPosition = position;
+        // 座標をもとにカプセルを作成
+        collisionData.startPosition = VAdd(position, CapsulePositionOffset);
+        collisionData.endPosition = position;
+        collisionData.centerPosition = position;
 
-    // カプセルの半径を登録
-    collisionData.radius = CollisionRadius;
+        // カプセルの半径を登録
+        collisionData.radius = CollisionRadius;
 
-    // 体力
-    collisionData.objectHP = hitPoints;
+        // 体力
+        collisionData.objectHP = hitPoints;
 
-    // 自身のアドレス
-    collisionData.objectAddress = this;
+        // 自身のアドレス
+        collisionData.objectAddress = this;
+    }
 }
 
 /// <summary>
@@ -263,12 +303,16 @@ void Enemy::UpdateCollisionData()
 /// </summary>
 void Enemy::UpdateAttackCollisionData()
 {
-    attackCollisionData.centerPosition      = position;                 // 座標
-    attackCollisionData.centerPosition.y    = 4.5f;                     // Y座標をプレイヤーに合わせる
+    // 当たり判定を行って欲しい場合のみ実行
+    if (attackCollisionData.isCollisionActive)
+    {
+        attackCollisionData.centerPosition      = position;                 // 座標
+        attackCollisionData.centerPosition.y    = 4.5f;                     // Y座標をプレイヤーに合わせる
 
-    attackCollisionData.tag                 = ObjectTag::EnemyAttack;   // エネミーの攻撃である
-    attackCollisionData.radius              = AttackCollisionRadius;    // 攻撃の当たり判定の半径
-    attackCollisionData.attackPower         = AttackPower;              // 攻撃力
+        attackCollisionData.tag                 = ObjectTag::EnemyAttack;   // エネミーの攻撃である
+        attackCollisionData.radius              = AttackCollisionRadius;    // 攻撃の当たり判定の半径
+        attackCollisionData.attackPower         = AttackPower;              // 攻撃力
+    }
 }
 
 /// <summary>

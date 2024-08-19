@@ -12,9 +12,6 @@ EnemyGroup::EnemyGroup()
 
     // ゾンビを生成
     enemys.push_back(new Enemy());
-
-    // 初期化
-    Initialize();
 }
 
 /// <summary>
@@ -40,6 +37,18 @@ void EnemyGroup::Initialize()
     for (int i = 0; i < enemys.size(); i++)
     {
         enemys[i]->Initialize();
+    }
+}
+
+/// <summary>
+/// タイトルシーンでの初期化
+/// </summary>
+void EnemyGroup::InitializeTitleScene()
+{
+    // エネミーの数だけ初期化
+    for (int i = 0; i < enemys.size(); i++)
+    {
+        enemys[i]->InitializeTitleScene();
     }
 }
 

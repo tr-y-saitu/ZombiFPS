@@ -7,7 +7,7 @@
 #include "CollisionData.h"
 #include "Stage.h"
 #include "ShutterController.h"
-#include "Enemy.h"
+#include "EnemyGroup.h"
 #include "SceneCamera.h"
 #include "Input.h"
 #include "ImageDataManager.h"
@@ -35,6 +35,7 @@ TitleScene::TitleScene()
     // オブジェクト関連
     stage               = new Stage();
     shutterController   = new ShutterController();
+    enemy               = new EnemyGroup();
 
     // カメラ
     sceneCamera         = new SceneCamera();
@@ -56,6 +57,7 @@ TitleScene::~TitleScene()
     delete(sceneCamera);
     delete(titleSceneUI);
     delete(shutterController);
+    delete(enemy);
 }
 
 /// <summary>
@@ -66,6 +68,7 @@ void TitleScene::Initialize()
     stage->InitializeTitleScene();
     sceneCamera->Initialize(InitializeCameraPosition, InitializeCameraTargetPosition);
     shutterController->InitializeTitleScene();
+    enemy->InitializeTitleScene();
 }
 
 /// <summary>
@@ -80,6 +83,7 @@ SceneBase* TitleScene::UpdateScene()
     // オブジェクト更新
     shutterController->Update();        // シャッター
     sceneCamera->UpdateTitleScene();    // カメラ
+    enemy->Update(VGet(0,0,0),*stage); // エネミー
     titleSceneUI->Update();             // UI
 
     // スペースキーが入力されたらシーン推移
@@ -111,6 +115,7 @@ void TitleScene::Draw()
 {
     // オブジェクト描画
     stage->Draw();
+    enemy->Draw(VGet(0,0,0));
     shutterController->Draw();
 
     // UIの描画

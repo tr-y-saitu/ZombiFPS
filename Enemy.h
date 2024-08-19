@@ -67,6 +67,11 @@ public:
     void Initialize();
 
     /// <summary>
+    /// タイトルシーンでの初期化
+    /// </summary>
+    void InitializeTitleScene();
+
+    /// <summary>
     /// 更新
     /// </summary>
     /// <param name="targetPosition">目標座標</param>
