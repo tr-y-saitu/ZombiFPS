@@ -1,10 +1,12 @@
 ﻿#include "ResultScene.h"
+#include "ResultSceneUI.h"
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
 ResultScene::ResultScene()
 {
+    resultSceneUI = new ResultSceneUI();
 }
 
 /// <summary>
@@ -30,7 +32,7 @@ SceneBase* ResultScene::UpdateScene()
 {
 
     // オブジェクト更新
-    resultSceneUI.Update();     // UIの更新
+    resultSceneUI->Update();     // UIの更新
 
     // 現状のシーンを返す
     return this;
@@ -49,7 +51,7 @@ void ResultScene::Draw()
 /// </summary>
 void ResultScene::DrawUI()
 {
-    resultSceneUI.Draw();
+    resultSceneUI->Draw();
 }
 
 /// <summary>

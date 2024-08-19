@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "SceneBase.h"
-#include "ResultSceneUI.h"
+
+class ResultSceneUI;
 
 /// <summary>
 /// リザルトシーン
@@ -53,7 +54,7 @@ private:
     // 定数
 
     // 変数
-    ResultSceneUI resultSceneUI;        // リザルトシーン用のUI
+    ResultSceneUI* resultSceneUI;        // リザルトシーン用のUI
 
 };
 
