@@ -1,15 +1,13 @@
 ﻿#include "Common.h"
 #include "TitleSceneUI.h"
 #include "ImageDataManager.h"
-#include <ctime>
-#include <iomanip>
-#include <sstream>
-
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
 TitleSceneUI::TitleSceneUI()
+    : isVisibleKeyInfomation        (false)
+    , keyInfomationPreviousTime     (GetNowCount())
 {
     imageDataManager = ImageDataManager::GetInstance();
 
@@ -29,8 +27,13 @@ TitleSceneUI::~TitleSceneUI()
 /// </summary>
 void TitleSceneUI::Initialize()
 {
-    vhsFilterImageHandle = imageDataManager->GetImageHandle(ImageDataManager::VHSFiltersImageData);
-    recImageHandle = imageDataManager->GetImageHandle(ImageDataManager::RECImageData);
+    // フォントを作成
+    vhsTitleFontHandle = CreateFontToHandle("VCR OSD Mono", 300, 2, DX_FONTTYPE_EDGE,true);
+
+    // モデルハンドルを取得
+    vhsFilterImageHandle    = imageDataManager->GetImageHandle(ImageDataManager::VHSFiltersImageData);
+    recImageHandle          = imageDataManager->GetImageHandle(ImageDataManager::RECImageData);
+    titleLogo               = imageDataManager->GetImageHandle(ImageDataManager::TitleLogo);
 }
 
 /// <summary>
@@ -58,8 +61,11 @@ void TitleSceneUI::Draw()
 /// </summary>
 void TitleSceneUI::DrawVHSInformation()
 {
+    // タイトルロゴを描画
+    DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, DefaultExpansion, DefaultAngle, titleLogo, true);
+
     // VHS風のフィルターを描画
-    DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, 1, 0, vhsFilterImageHandle, true);
+    DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, DefaultExpansion, DefaultAngle , vhsFilterImageHandle, true);
 
     // 録画文字を描画
     DrawRotaGraph(150, 100, 1, 0, recImageHandle, true);
@@ -67,6 +73,8 @@ void TitleSceneUI::DrawVHSInformation()
     // 現在時刻を描画
     DrawCurrentTime();
 
+    // キー入力指示を描画
+    DrawBlinkingTextKeyInfomation();
 }
 
 /// <summary>
@@ -85,7 +93,25 @@ void TitleSceneUI::DrawCurrentTime()
     strftime(timeString, sizeof(timeString), "%Y-%m-%d %H:%M:%S", &localTime);
 
     // 時刻を描画
-    DrawFormatStringToHandle(1400, 50, GetColor(200, 200, 200), vhsSmallFontHandle, "%s", timeString);
+    DrawFormatStringToHandle(1400, 50, FontColorVHS, vhsSmallFontHandle, "%s", timeString);
+}
 
+/// <summary>
+/// キー入力文字を点滅描画させる
+/// </summary>
+void TitleSceneUI::DrawBlinkingTextKeyInfomation()
+{
+    int currentTime = GetNowCount();
 
+    if (currentTime - keyInfomationPreviousTime >= KeyInformationTextBlinkInterval)
+    {
+        isVisibleKeyInfomation = !isVisibleKeyInfomation;   // 表示フラグを反転
+        keyInfomationPreviousTime = currentTime;            // 前回表示した時間を更新
+    }
+
+    // 文字を描画
+    if (isVisibleKeyInfomation)
+    {
+        DrawStringCenterScreen("ｷｰｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ", KeyInformationTextPositionY, FontColorVHS, vhsJPLargeFontHandle);
+    }
 }

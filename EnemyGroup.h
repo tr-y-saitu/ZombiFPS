@@ -57,6 +57,8 @@ public:
 
     // Getter
     const bool GetIsActive()const { return isActive; }
+    const Pathfinding::Room GetCurrentRoom();
+    const VECTOR GetPosition();
 
     // Setter
     void SetCollisionDataIsActive(bool set);

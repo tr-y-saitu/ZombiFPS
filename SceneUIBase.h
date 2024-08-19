@@ -46,6 +46,7 @@ protected:
     //---------------------------------------------------------------------------------//
     static constexpr int OutlastFontSize        = 250;  // アウトラストフォントのサイズ
     static constexpr int OutlastFontThickness   = 2;    // アウトラストフォントの太さ
+    const int            FontColorVHS           = GetColor(200, 200, 200);  // VHS風のフォントカラー
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //

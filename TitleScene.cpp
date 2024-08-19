@@ -65,10 +65,14 @@ TitleScene::~TitleScene()
 /// </summary>
 void TitleScene::Initialize()
 {
+    // オブジェクトの初期化関数を呼ぶ
     stage->InitializeTitleScene();
     sceneCamera->Initialize(InitializeCameraPosition, InitializeCameraTargetPosition);
     shutterController->InitializeTitleScene();
     enemy->InitializeTitleScene();
+
+    // 初期化
+    enemyTargetPosition = Pathfinding::East4RoomCenterPosition;
 }
 
 /// <summary>
@@ -81,10 +85,11 @@ SceneBase* TitleScene::UpdateScene()
     UpdateKeyState();
 
     // オブジェクト更新
-    shutterController->Update();        // シャッター
-    sceneCamera->UpdateTitleScene();    // カメラ
-    enemy->Update(VGet(0,0,0),*stage); // エネミー
-    titleSceneUI->Update();             // UI
+    shutterController->Update();                            // シャッター
+    sceneCamera->UpdateTitleScene(enemy->GetPosition());    // カメラ
+    enemy->Update(enemyTargetPosition,*stage);              // エネミー
+    UpdateEnemy();                                          // エネミーの更新
+    titleSceneUI->Update();                                 // UI
 
     // スペースキーが入力されたらシーン推移
     if (isKeyRelease)
@@ -115,7 +120,7 @@ void TitleScene::Draw()
 {
     // オブジェクト描画
     stage->Draw();
-    enemy->Draw(VGet(0,0,0));
+    enemy->Draw(enemyTargetPosition);
     shutterController->Draw();
 
     // UIの描画
@@ -161,3 +166,24 @@ void TitleScene::UpdateKeyState()
         isPreviousKeyOn = false;  // このフレームでキーは押されなかった
     }
 }
+
+/// <summary>
+/// エネミーの更新
+/// </summary>
+void TitleScene::UpdateEnemy()
+{
+    // エネミーがEast4とWest4を行き来するように処理
+
+    // East4にたどり着いたら
+    if (enemy->GetCurrentRoom().roomNumber == Pathfinding::RoomNumber::East4)
+    {
+        enemyTargetPosition = Pathfinding::West4RoomCenterPosition;
+    }
+
+    // West4にたどり着いたら
+    if (enemy->GetCurrentRoom().roomNumber == Pathfinding::RoomNumber::West4)
+    {
+        enemyTargetPosition = Pathfinding::East4RoomCenterPosition;
+    }
+}
+

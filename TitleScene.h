@@ -62,6 +62,13 @@ public:
     void UpdateKeyState();
 
 private:
+    /// <summary>
+    /// エネミーの更新
+    /// </summary>
+    void UpdateEnemy();
+
+    
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
@@ -85,9 +92,10 @@ private:
     EffectManager*      effectManager;      // エフェクト管理クラス
 
     // オブジェクト関連
-    Stage*              stage;              // ステージ
-    ShutterController*  shutterController;  // シャッター
-    EnemyGroup*         enemy;              // エネミー
+    Stage*              stage;                  // ステージ
+    ShutterController*  shutterController;      // シャッター
+    EnemyGroup*         enemy;                  // エネミー
+    VECTOR              enemyTargetPosition;    // エネミーが目指す移動座標
 
     // カメラ
     SceneCamera*        sceneCamera;

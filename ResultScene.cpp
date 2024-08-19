@@ -5,7 +5,6 @@
 /// </summary>
 ResultScene::ResultScene()
 {
-    resultSceneUI = ResultSceneUI();
 }
 
 /// <summary>

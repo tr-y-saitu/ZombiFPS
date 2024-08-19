@@ -119,6 +119,26 @@ public:
     /// <param name="vector2">座標２</param>
     /// <returns>二つの座標の距離</returns>
     float GetDistance3D(const VECTOR position1, const VECTOR position2);
+
+    //---------------------------------------------------------------------------------//
+    //                                      定数                                       //
+    //---------------------------------------------------------------------------------//
+    // 部屋情報
+    // 西部屋
+    static constexpr VECTOR West1RoomCenterPosition                 = { -45.0f,  4.5f,  45.0f };    // 西１番部屋の中心座標
+    static constexpr VECTOR West2RoomCenterPosition                 = { -45.0f,  4.5f,  18.0f };    // 西２番部屋の中心座標
+    static constexpr VECTOR West3RoomCenterPosition                 = { -45.0f,  4.5f,  -5.0f };    // 西３番部屋の中心座標
+    static constexpr VECTOR West4RoomCenterPosition                 = { -48.0f,  4.5f, -35.0f };    // 西４番部屋の中心座標
+    // 中央部屋
+    static constexpr VECTOR Center1RoomCenterPosition               = { -12.0f,  4.5f,  58.0f };    // 中央１番部屋の中心座標
+    static constexpr VECTOR Center2RoomCenterPosition               = {  -9.0f,  4.5f,  -5.0f };    // 中央２番部屋の中心座標
+    static constexpr VECTOR Center3RoomCenterPosition               = { -12.0f,  4.5f, -47.0f };    // 中央３番部屋の中心座標
+    static constexpr VECTOR Center4RoomCenterPosition               = { -12.0f,  4.5f, -83.0f };    // 中央４番部屋の中心座標
+    // 東部屋
+    static constexpr VECTOR East1RoomCenterPosition                 = {  25.0f,  4.5f,  25.0f };     // 東１番部屋の中心座標
+    static constexpr VECTOR East2RoomCenterPosition                 = {  45.0f,  4.5f,  -5.0f };     // 東２番部屋の中心座標
+    static constexpr VECTOR East3RoomCenterPosition                 = {  22.0f,  4.5f, -35.0f };     // 東３番部屋の中心座標
+    static constexpr VECTOR East4RoomCenterPosition                 = {  50.0f,  4.5f, -35.0f };     // 東４番部屋の中心座標
     
 private:
     //---------------------------------------------------------------------------------//
@@ -126,6 +146,7 @@ private:
     //---------------------------------------------------------------------------------//
     static constexpr int    RoomTotalNumber                         = 12;       // 部屋の総数
     static constexpr float  RoomCenterDistance                      = 3.6f;     // この範囲なら部屋の中心とみなす
+
     // デバッグ
     static constexpr float  DebugRoomCenterPositionSphereRadius     = 0.7f;     // デバッグ用の球体の半径
     static constexpr int    DebugRoomCenterPositionSphereDivision   = 8;        // 球を形成するポリゴンの細かさ

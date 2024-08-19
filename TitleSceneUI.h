@@ -45,11 +45,17 @@ private:
     /// </summary>
     void DrawCurrentTime();
 
+    /// <summary>
+    /// キー入力文字を点滅描画させる
+    /// </summary>
+    void DrawBlinkingTextKeyInfomation();
+
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
-
+    static constexpr int KeyInformationTextBlinkInterval    = 500;  // 文字の点滅間隔
+    static constexpr int KeyInformationTextPositionY        = 800;  // 「ｷｰｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ」の描画Y位置
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
@@ -60,7 +66,11 @@ private:
     // ハンドル
     int vhsFilterImageHandle;       // VHS風のフィルター画像
     int recImageHandle;             // 録画風REC画像
+    int vhsTitleFontHandle;         // VHS風のタイトル用フォントハンドル
+    int titleLogo;                  // タイトルロゴ画像
 
     // ステータス
+    bool isVisibleKeyInfomation;    // キー入力文字が表示されているかどうか
+    int  keyInfomationPreviousTime; // キー入力文字が前回表示された時間
 };
 

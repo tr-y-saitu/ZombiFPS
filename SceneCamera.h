@@ -26,7 +26,7 @@ public:
     /// <summary>
     /// タイトルシーンでのカメラ更新
     /// </summary>
-    void UpdateTitleScene();
+    void UpdateTitleScene(VECTOR targetPosition);
 
     /// <summary>
     /// リザルトシーンでのカメラ更新

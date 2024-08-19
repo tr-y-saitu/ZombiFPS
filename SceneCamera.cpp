@@ -43,7 +43,7 @@ void SceneCamera::Initialize(VECTOR initializePosition, VECTOR initializeTargetP
 /// <summary>
 /// 更新
 /// </summary>
-void SceneCamera::UpdateTitleScene()
+void SceneCamera::UpdateTitleScene(VECTOR targetPosition)
 {
     // DXライブラリのカメラとEffekseerのカメラを同期する。
     Effekseer_Sync3DSetting();
