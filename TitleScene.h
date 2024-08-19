@@ -2,6 +2,13 @@
 #include "SceneBase.h"
 #include "TitleSceneUI.h"
 
+class Input;
+class Stage;
+class Enemy;
+class ShutterController;
+class SoundManager;
+class EffectManager;
+
 /// <summary>
 /// タイトルシーン
 /// </summary>
@@ -50,15 +57,28 @@ public:
     void UpdateKeyState();
 
 private:
-    // 定数
+    //---------------------------------------------------------------------------------//
+    //                                      定数                                       //
+    //---------------------------------------------------------------------------------//
 
-    // 変数
-    TitleSceneUI titleSceneUI;          // タイトルシーン用のUI
+    //---------------------------------------------------------------------------------//
+    //                                      変数                                       //
+    //---------------------------------------------------------------------------------//
+    // 演出関連
+    SoundManager*       soundManager;       // 音管理クラスのアドレス
+    EffectManager*      effectManager;      // エフェクト管理クラス
 
+    // オブジェクト関連
+    Stage*              stage;              // ステージ
+    Enemy*              enemy;              // エネミー
+
+    // UI
+    TitleSceneUI        titleSceneUI;       // タイトルシーン用のUI
 
     // 入力関係
-    bool    isKeyOn;                    // キー入力されたか
-    bool    isKeyRelease;               // キー入力が離れたか
-    bool    isPreviousKeyOn;            // 前フレームでキー入力があったか
+    Input*              input;              // 入力判定処理
+    bool                isKeyOn;            // キー入力されたか
+    bool                isKeyRelease;       // キー入力が離れたか
+    bool                isPreviousKeyOn;    // 前フレームでキー入力があったか
 };
 

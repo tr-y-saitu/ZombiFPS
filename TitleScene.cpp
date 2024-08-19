@@ -37,9 +37,6 @@ void TitleScene::Initialize()
 /// <returns>次のシーンのポインタ</returns>
 SceneBase* TitleScene::UpdateScene()
 {
-    // テスト描画
-    DrawString(0, 0, "Title", GetColor(255, 255, 255), true);
-
     // キー入力の更新
     UpdateKeyState();
 

@@ -27,5 +27,6 @@ void TitleSceneUI::Update()
 /// </summary>
 void TitleSceneUI::Draw()
 {
-
+    // テスト描画
+    DrawString(0, 0, "Title", GetColor(255, 255, 255), true);
 }
