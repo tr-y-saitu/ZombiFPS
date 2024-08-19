@@ -45,6 +45,7 @@ void Bullet::Initialize(BulletInitializeData initializeData)
     penetratingPower    = initializeData.penetratingPower;
     getMoney            = 0;
     activeFrameCount    = ActiveFrameCount;
+    hitterList.clear();
 }
 
 /// <summary>
@@ -96,6 +97,7 @@ void Bullet::UpdateCollisionData()
     collisionData.lineStartPosition     = lineStartPosition;
     collisionData.lineEndPosition       = position;
     collisionData.bulletPower           = power;
+    collisionData.objectAddress         = this;                 // 自身のアドレスを初期化する
 
     // 当たり判定に必要なデータを渡す
     collisionManager->RegisterCollisionData(&collisionData);
@@ -119,6 +121,7 @@ void Bullet::OnHit(CollisionData hitObjectData)
         {
             getMoney = +20;  // それ以外の場合は20ポイント
         }
+        hitterList.push_back(hitObjectData);
 
         break;
 

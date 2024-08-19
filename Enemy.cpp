@@ -5,6 +5,7 @@
 #include "EffectManager.h"
 #include "Stage.h"
 #include "Calculation.h"
+#include "Bullet.h"
 
 /// <summary>
 /// コンストラクタ
@@ -80,6 +81,9 @@ void Enemy::Initialize()
 
     // 当たり判定に必要なデータを渡す
     collisionManager->RegisterCollisionData(&collisionData);
+
+    // 自身のアドレスを初期化する
+    collisionData.objectAddress = nullptr;
 }
 
 /// <summary>
@@ -150,10 +154,22 @@ void Enemy::OnHit(CollisionData hitObjectData)
     float distance;
     float radiusSum;
     float penetrationDepth;
+    Bullet* tempBullet = (Bullet*)hitObjectData.objectAddress;
+    
 
     switch (hitObjectData.tag)
     {
     case ObjectTag::Bullet: // 弾丸と当たった時
+
+        // すでに当たったオブジェクトどうかを確認
+        if (tempBullet != nullptr)
+        {
+            if (tempBullet->CheckHitObject((HitObjectAddress*)this))
+            {
+                return;
+            }
+        }
+
         // HPを減少
         hitPoints -= hitObjectData.bulletPower;
 
@@ -161,7 +177,8 @@ void Enemy::OnHit(CollisionData hitObjectData)
         //soundManager->PlaySoundListSE(SoundManager::EnemyHitSE);
 
         // 当たった時の血しぶきエフェクトを再生
-        effectManager->PlayBloodSplatterEffect(position);
+        VECTOR effectPlayPosition = VAdd(position, BloodEffectOffset);
+        effectManager->PlayBloodSplatterEffect(effectPlayPosition);
 
         break;
 
@@ -174,7 +191,7 @@ void Enemy::OnHit(CollisionData hitObjectData)
         //// y座標は変更しなくていいので０に修正する
         //VECTOR correctedTargetPosition = VGet(hitObjectData.centerPosition.x, 0.0f, hitObjectData.centerPosition.z);
 
-        //// エネミーも同じように修正
+        //// エネミーも同じように修正 
         //VECTOR correctedEnemyPosition = VGet(position.x, 0.0f, position.z);
 
         //// 修正した座標からボスからプレイヤーの向きのベクトルを計算
@@ -234,6 +251,8 @@ void Enemy::UpdateCollisionData()
 
     // 体力
     collisionData.objectHP = hitPoints;
+
+    collisionData.objectAddress = this;
 }
 
 /// <summary>

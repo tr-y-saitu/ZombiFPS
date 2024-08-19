@@ -48,6 +48,7 @@ EffectManager::EffectManager()
 /// デストラクタ
 /// </summary>
 EffectManager::~EffectManager()
+
 {
     // エフェクトリソースを削除する。(Effekseer終了時に破棄されるので削除しなくてもいい)
 }
@@ -59,7 +60,7 @@ void EffectManager::LoadEffect()
 {
     // エフェクトのロード
     muzzleFlashEffectHandle = LoadEffekseerEffect("Data/Effect/Gun/MuzzleFlashEffect.efk",0.1f);
-    bloodSplatterEffectHandle = LoadEffekseerEffect("Data/Effect/Gun/blood.efk");
+    bloodSplatterEffectHandle = LoadEffekseerEffect("Data/Effect/Gun/BloodEffect.efk",0.5f);
 
     // エフェクトリストに書き込み
     effectList[MuzzleFlashEffect] = muzzleFlashEffectHandle;
@@ -190,7 +191,32 @@ void EffectManager::PlayMuzzleFlashEffect(VECTOR playPosition)
 /// <param name="playPosition">再生座標</param>
 void EffectManager::PlayBloodSplatterEffect(VECTOR playPosition)
 {
+    // エフェクトの再生数
+    int effectPlayCount = 0;
+
+    // 現在再生中の血しぶきエフェクトを数える
+    for (int i = 0; i < playingList.size(); i++)
+    {
+        if (playingList[i] == bloodSplatterEffectHandle)
+        {
+            if (IsEffekseer3DEffectPlaying(playingList[i]))
+            {
+                effectPlayCount++;
+            }
+        }
+    }
+
+    // 同時に再生できる血しぶきエフェクトを制限
+    if (effectPlayCount >= 1)
+    {
+        return;
+    }
+
+    // 再生処理
     playingEffectHandle = PlayEffekseer3DEffect(bloodSplatterEffectHandle);
     playingList.push_back(playingEffectHandle);
     SetPosPlayingEffekseer3DEffect(playingEffectHandle, playPosition.x, playPosition.y, playPosition.z);
+
+    // 再生速度の変更
+    SetSpeedPlayingEffekseer3DEffect(playingEffectHandle, 4.0f);
 }

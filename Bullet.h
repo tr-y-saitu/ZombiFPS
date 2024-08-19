@@ -3,11 +3,12 @@
 #include "CollisionData.h"
 
 class CollisionManager;
+class HitObjectAddress;
 
 /// <summary>
 /// 銃弾
 /// </summary>
-class Bullet
+class Bullet: public HitObjectAddress
 {
 public:
     /// <summary>
@@ -60,6 +61,24 @@ public:
     /// </summary>
     /// <param name="hitObjectData">オブジェクトのデータ</param>
     void OnHit(CollisionData hitObjectData);
+
+
+    bool IsObjectHit(HitObjectAddress* hitObjectAddress);
+
+    bool IsObjectHit(HitObjectAddress* hitObjectAddress)
+    {
+        //当たったオブジェクトのListに引数のHitObjectAddressが格納されてたらtrue
+        for (int i = 0; i < hitterList.size(); i++)
+        {
+            if (hitterList[i].objectAddress == hitObjectAddress)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    vector<CollisionData> hitterList;
 
     // ゲッター、セッター
     const bool GetIsActive()const { return isActive; }

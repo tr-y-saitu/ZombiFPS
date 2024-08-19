@@ -7,6 +7,11 @@ struct LineCollisionData;
 struct SphereCollisionData;
 struct CapsuleCollisionData;
 
+class HitObjectAddress
+{
+
+};
+
 /// <summary>
 /// オブジェクトの種別
 /// </summary>
@@ -54,4 +59,7 @@ struct CollisionData
 
     std::function<void(CollisionData)> onHit;   // 当たった時に行われる処理
     bool        isCollisionActive;              // 当たり判定を適用させたいかどうか
+
+    HitObjectAddress* objectAddress;
 };
+
