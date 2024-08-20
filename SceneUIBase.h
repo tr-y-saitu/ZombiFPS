@@ -53,6 +53,13 @@ public:
     void DrawStringCenterScreen(const char* string, int drawPositionY, int uiColor, int fontHandle = 0);
 
 protected:
+    /// <summary>
+    /// ２次元四角形当たり判定
+    /// </summary>
+    /// <param name="data1">四角形１</param>
+    /// <param name="data2">四角形２</param>
+    bool IsCollision2Box(ImageUIData data1, ImageUIData data2);
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//

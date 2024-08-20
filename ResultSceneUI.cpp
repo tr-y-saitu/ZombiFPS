@@ -9,6 +9,7 @@
 ResultSceneUI::ResultSceneUI()
     : isVisibleKeyInfomation        (false)
     , keyInfomationPreviousTime     (GetNowCount())
+    , nextState                     (SceneBase::SceneState::Same)
 {
     // 画像管理クラス
     imageDataManager = ImageDataManager::GetInstance();
@@ -42,6 +43,31 @@ void ResultSceneUI::Initialize()
     checkKeyFrameBlack          = imageDataManager->GetImageHandle(ImageDataManager::WindowsKeyBlack);
     checkKeyFrameDefaults       = imageDataManager->GetImageHandle(ImageDataManager::WindowsKeyDefaults);
     mouseCursorImageHandel      = imageDataManager->GetImageHandle(ImageDataManager::MouseCursorImageData);
+
+    // 画像データを取得
+    // マウスカーソル
+    mouseCursorData.imageHandle                 = imageDataManager->GetImageHandle(ImageDataManager::MouseCursorImageData);
+    GetGraphSizeF(mouseCursorData.imageHandle, &mouseCursorData.width, &mouseCursorData.height);
+    mouseCursorData.centerPosition.x = MouseCursorInitializePositionX;
+    mouseCursorData.centerPosition.y = MouseCursorInitializePositionY;
+
+    // キーフレームブラック
+    yesKeyFrameData.imageHandle = checkKeyFrameDefaults;
+    GetGraphSizeF(yesKeyFrameData.imageHandle, &yesKeyFrameData.width, &yesKeyFrameData.height);
+    yesKeyFrameData.centerPosition.x = YesKeyFrameDrawPositionX;
+    yesKeyFrameData.centerPosition.y = YesKeyFrameDrawPositionY;
+
+    // キーフレームデフォルト
+    noKeyFrameData.imageHandle = checkKeyFrameDefaults;
+    GetGraphSizeF(noKeyFrameData.imageHandle, &noKeyFrameData.width, &noKeyFrameData.height);
+    noKeyFrameData.centerPosition.x = NoKeyFrameDrawPositionX;
+    noKeyFrameData.centerPosition.y = NoKeyFrameDrawPositionY;
+
+    // 閉じるボタン
+    scoreBoardCloseButtonRedData.imageHandle    = imageDataManager->GetImageHandle(ImageDataManager::WindowsCloseButtonRed);
+    GetGraphSizeF(scoreBoardCloseButtonRedData.imageHandle, &scoreBoardCloseButtonRedData.width, &scoreBoardCloseButtonRedData.height);
+    scoreBoardCloseButtonRedData.centerPosition.x = ScoreBoardCloseButtonRedDrawPositionX;
+    scoreBoardCloseButtonRedData.centerPosition.y = ScoreBoardCloseButtonRedDrawPositionY;
 }
 
 /// <summary>
@@ -58,9 +84,6 @@ void ResultSceneUI::Update()
 /// </summary>
 void ResultSceneUI::Draw()
 {
-    // キー入力指示を描画
-    DrawBlinkingTextKeyInfomation();
-
     // スコアボードの描画
     DrawScoreBoard();
 }
@@ -81,7 +104,7 @@ void ResultSceneUI::DrawBlinkingTextKeyInfomation()
     // 文字を描画
     if (isVisibleKeyInfomation)
     {
-        DrawStringCenterScreen("[Space]ｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ", KeyInformationTextPositionY, FontColorVHS, vhsJPLargeFontHandle);
+        DrawStringCenterScreen("[ｻｲﾁｮｳｾﾝｼﾏｽｶ?]", KeyInformationTextPositionY, FontColorVHS, vhsJPLargeFontHandle);
     }
 }
 
@@ -108,7 +131,8 @@ void ResultSceneUI::DrawScoreBoard()
     DrawKeyFrame();
 
     //「再挑戦しますか？」
-    DrawStringCenterScreen("[ｻｲﾁｮｳｾﾝｼﾏｽｶ?]", 720, FontColorBlack, vhsJPLargeFontHandle);
+    // キー入力指示を描画
+    DrawBlinkingTextKeyInfomation();
 
     // マウスカーソルの描画
     DrawMouse();
@@ -120,16 +144,59 @@ void ResultSceneUI::DrawScoreBoard()
 void ResultSceneUI::DrawKeyFrame()
 {
     // 閉じるボタン描画
-    DrawRotaGraph(1555, 215, DefaultExpansion, DefaultAngle, scoreBoardCloseButtonRed, true);
+    if (IsCollision2Box(mouseCursorData, scoreBoardCloseButtonRedData))
+    {
+        DrawRotaGraph(scoreBoardCloseButtonRedData.centerPosition.x, scoreBoardCloseButtonRedData.centerPosition.y,
+            DefaultExpansion, DefaultAngle, scoreBoardCloseButtonRed, true);
+
+        // 左クリックされたら
+        if (input->GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT)
+        {
+            // シーン切り替え指示を出す
+            nextState = SceneBase::SceneState::Title;
+        }
+    }
 
     // 入力キー描画「yes」
-    DrawRotaGraph(750, 850, DefaultExpansion, DefaultAngle, checkKeyFrameDefaults, true);
+    if (IsCollision2Box(mouseCursorData, yesKeyFrameData))
+    {
+        DrawRotaGraph(yesKeyFrameData.centerPosition.x,yesKeyFrameData.centerPosition.y,
+            DefaultExpansion, DefaultAngle, checkKeyFrameBlack, true);
+
+        // 左クリックされたら
+        if (input->GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT)
+        {
+            // シーン切り替え指示を出す
+            nextState = SceneBase::SceneState::Game;
+        }
+    }
+    else
+    {
+        DrawRotaGraph(yesKeyFrameData.centerPosition.x, yesKeyFrameData.centerPosition.y,
+            DefaultExpansion, DefaultAngle, checkKeyFrameDefaults, true);
+    }
     DrawStringToHandle(700, 820, "yes", FontColorBlack,vhsJPLargeFontHandle,true);
 
-    // 入力キー描画「no」
-    DrawRotaGraph(1200, 850, DefaultExpansion, DefaultAngle, checkKeyFrameDefaults, true);
-    DrawStringToHandle(1170, 820, "no", FontColorBlack, vhsJPLargeFontHandle, true);
 
+    // 入力キー描画「no」
+    if (IsCollision2Box(mouseCursorData, noKeyFrameData))
+    {
+        DrawRotaGraph(noKeyFrameData.centerPosition.x, noKeyFrameData.centerPosition.y,
+            DefaultExpansion, DefaultAngle, checkKeyFrameBlack, true);
+
+        // 左クリックされたら
+        if (input->GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT)
+        {
+            // シーン切り替え指示を出す
+            nextState = SceneBase::SceneState::Title;
+        }
+    }
+    else
+    {
+        DrawRotaGraph(noKeyFrameData.centerPosition.x, noKeyFrameData.centerPosition.y,
+            DefaultExpansion, DefaultAngle, checkKeyFrameDefaults, true);
+    }
+    DrawStringToHandle(1170, 820, "no", FontColorBlack, vhsJPLargeFontHandle, true);
 }
 
 /// <summary>
@@ -137,7 +204,11 @@ void ResultSceneUI::DrawKeyFrame()
 /// </summary>
 void ResultSceneUI::UpdateMouse()
 {
+    // マウスの更新
     input->UpdateMouseWithScreen();
+
+    // 当たり判定処理
+    UpdateCollision();
 }
 
 /// <summary>
@@ -145,17 +216,26 @@ void ResultSceneUI::UpdateMouse()
 /// </summary>
 void ResultSceneUI::DrawMouse()
 {
-    // マウスの位置にマウスカーソルを描画
+    // マウス位置を取得
     Input::MousePosition mousePosition = input->GetMousePosition();
-    DrawRotaGraph(mousePosition.x, mousePosition.y, DefaultExpansion, DefaultAngle, mouseCursorImageHandel, true);
+    mouseCursorData.centerPosition.x = mousePosition.x;
+    mouseCursorData.centerPosition.y = mousePosition.y;
+
+    // マウスの位置にマウスカーソルを描画
+    DrawRotaGraph(mouseCursorData.centerPosition.x, mouseCursorData.centerPosition.y,
+        DefaultExpansion, DefaultAngle, mouseCursorData.imageHandle, true);
 }
 
 /// <summary>
-/// ２次元四角形当たり判定
+/// 当たり判定の更新
 /// </summary>
-/// <param name="data1">四角形１</param>
-/// <param name="data2">四角形２</param>
-void ResultSceneUI::IsCollision2Box(ImageUIData data1, ImageUIData data2)
+void ResultSceneUI::UpdateCollision()
 {
-    
+    // マウスとオブジェクトの当たり判定を行う
+
+    // マウスとウィンドウ閉じるボタン
+    if (IsCollision2Box(mouseCursorData, scoreBoardCloseButtonRedData))
+    {
+        int i = 0;
+    }
 }

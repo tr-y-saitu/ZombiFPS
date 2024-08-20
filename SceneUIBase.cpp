@@ -91,3 +91,40 @@ void SceneUIBase::DrawStringCenterScreen(const char* string, int drawPositionY, 
         DrawFormatString(drawPositionX, drawPositionY, uiColor, string);
     }
 }
+
+/// <summary>
+/// ２次元四角形当たり判定
+/// </summary>
+/// <param name="data1">四角形１</param>
+/// <param name="data2">四角形２</param>
+bool SceneUIBase::IsCollision2Box(ImageUIData data1, ImageUIData data2)
+{
+    // どちらかの四角形が当たり判定を持たない場合は衝突しない
+    /*if (!data1.isCollisionActive || !data2.isCollisionActive)
+    {
+        return false;
+    }*/
+
+    // 四角形1の左、右、上、下の座標を計算
+    float data1Left = data1.centerPosition.x - data1.width / 2.0f;
+    float data1Right = data1.centerPosition.x + data1.width / 2.0f;
+    float data1Top = data1.centerPosition.y - data1.height / 2.0f;
+    float data1Bottom = data1.centerPosition.y + data1.height / 2.0f;
+
+    // 四角形2の左、右、上、下の座標を計算
+    float data2Left = data2.centerPosition.x - data2.width / 2.0f;
+    float data2Right = data2.centerPosition.x + data2.width / 2.0f;
+    float data2Top = data2.centerPosition.y - data2.height / 2.0f;
+    float data2Bottom = data2.centerPosition.y + data2.height / 2.0f;
+
+    // 軸平行境界ボックス(AABB)での衝突判定
+    // どれかの軸で完全に分離していれば衝突していない
+    if (data1Left > data2Right || data1Right < data2Left ||
+        data1Top > data2Bottom || data1Bottom < data2Top)
+    {
+        return false;
+    }
+
+    // どの軸でも分離していなければ衝突している
+    return true;
+}

@@ -1,9 +1,11 @@
 ﻿#pragma once
 #include "SceneUIBase.h"
+#include "SceneBase.h"
 
 class ImageDataManager;
 class Input;
 struct ImageUIData;
+
 
 /// <summary>
 /// リザルトシーンのUI
@@ -36,6 +38,9 @@ public:
     /// </summary>
     void Draw();
 
+    // ゲッター
+    const SceneBase::SceneState GetNextState()const { return nextState; }
+
 private:
     /// <summary>
     /// キー入力文字を点滅描画させる
@@ -63,18 +68,27 @@ private:
     void DrawMouse();
 
     /// <summary>
-    /// ２次元四角形当たり判定
+    /// 当たり判定の更新
     /// </summary>
-    /// <param name="data1">四角形１</param>
-    /// <param name="data2">四角形２</param>
-    void IsCollision2Box(ImageUIData data1,ImageUIData data2);
+    void UpdateCollision();
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     // テキスト「ｷｰｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ」
-    static constexpr int KeyInformationTextBlinkInterval    = 800;      // 文字の点滅間隔
-    static constexpr int KeyInformationTextPositionY        = 900;      // 「ｷｰｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ」の描画Y位置
+    static constexpr int    KeyInformationTextBlinkInterval     = 800;       // 文字の点滅間隔
+    static constexpr int    KeyInformationTextPositionY         = 900;       // 「ｷｰｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ」の描画Y位置
+    static constexpr float  MouseCursorInitializePositionX      = -1000;     // マウスカーソルの初期X座標
+    static constexpr float  MouseCursorInitializePositionY      = -1000;     // マウスカーソルの初期Y座標
+    // 閉じるボタン
+    static constexpr int    ScoreBoardCloseButtonRedDrawPositionX   = 1555; // 閉じるボタンX座標
+    static constexpr int    ScoreBoardCloseButtonRedDrawPositionY   = 215;  // 閉じるボタンY座標
+    // yesボタン
+    static constexpr float  YesKeyFrameDrawPositionX = 750;
+    static constexpr float  YesKeyFrameDrawPositionY = 850;
+    // noボタン
+    static constexpr float  NoKeyFrameDrawPositionX = 1200;
+    static constexpr float  NoKeyFrameDrawPositionY = 850;
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -88,6 +102,7 @@ private:
     // キー入力文字
     bool                isVisibleKeyInfomation;         // キー入力文字が表示されているかどうか
     int                 keyInfomationPreviousTime;      // キー入力文字が前回表示された時間
+    SceneBase::SceneState   nextState;                  // 次のステートの名前
 
     // 画像ハンドル
     int                 scoreBoardImageHandel;          // スコアボードの画像ハンドル
@@ -97,10 +112,10 @@ private:
     int                 mouseCursorImageHandel;         // マウスカーソルの画像ハンドル
 
     // 当たり判定情報
-    ImageUIData     mouseCursor;                    // マウスカーソル
-    ImageUIData     checkKeyFrameBlack;             // 赤色 キーフレーム
-    ImageUIData     checkKeyFrameDefaults;          // デフォルト キーフレーム
-    ImageUIData     scoreBoardCloseButtonRed;       // スコアボードを閉じるボタン
+    ImageUIData         mouseCursorData;                // マウスカーソル
+    ImageUIData         yesKeyFrameData;                // yes キーフレーム
+    ImageUIData         noKeyFrameData;                 // no  キーフレーム
+    ImageUIData         scoreBoardCloseButtonRedData;   // スコアボードを閉じるボタン
 };
 
 

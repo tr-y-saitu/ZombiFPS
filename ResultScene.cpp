@@ -9,6 +9,7 @@
 #include "Stage.h"
 #include "ShutterController.h"
 #include "SceneCamera.h"
+#include "GameScene.h"
 
 /// <summary>
 /// コンストラクタ
@@ -81,12 +82,20 @@ SceneBase* ResultScene::UpdateScene()
     UpdateEffect();
 
     // キーを入力したらシーン切り替え
-    if (isKeyRelease)
+    if (isKeyRelease || resultSceneUI->GetNextState() != SceneBase::SceneState::Same)
     {
         // キーは離れていません
         isKeyRelease = false;
-        
-        return new TitleScene();
+
+        // UIで指定されたシーンに推移
+        if (resultSceneUI->GetNextState() == SceneBase::SceneState::Title)
+        {
+            return new TitleScene();
+        }
+        else if (resultSceneUI->GetNextState() == SceneBase::SceneState::Game)
+        {
+            return new GameScene();
+        }
     }
 
     // 現状のシーンを返す

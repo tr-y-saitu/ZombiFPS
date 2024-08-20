@@ -7,6 +7,17 @@ class SceneBase
 {
 public:
     /// <summary>
+    /// シーンステート
+    /// </summary>
+    enum SceneState
+    {
+        Title,      // タイトル
+        Game,       // ゲーム
+        Result,     // リザルト
+        Same,       // 現在のシーン
+    };
+
+    /// <summary>
     /// コンストラクタ
     /// </summary>
     SceneBase();
