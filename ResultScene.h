@@ -2,6 +2,14 @@
 #include "SceneBase.h"
 
 class ResultSceneUI;
+class Input;
+class Stage;
+class ShutterController;
+class SoundManager;
+class EffectManager;
+class SceneCamera;
+class ImageDataManager;
+class ModelDataManager;
 
 /// <summary>
 /// リザルトシーン
@@ -51,11 +59,32 @@ public:
     void UpdateEffect();
 
 private:
-    // 定数
+    //---------------------------------------------------------------------------------//
+    //                                      定数                                       //
+    //---------------------------------------------------------------------------------//
 
 
-    // 変数
-    ResultSceneUI* resultSceneUI;        // リザルトシーン用のUI
+    //---------------------------------------------------------------------------------//
+    //                                      変数                                       //
+    //---------------------------------------------------------------------------------//
+    // 管理クラス
+    SoundManager*       soundManager;       // サウンド管理クラス
+    EffectManager*      effectManager;      // エフェクト管理クラス
+    ImageDataManager*   imageDataManager;   // 画像管理クラス
+    ModelDataManager*   modelDataManager;   // モデル管理クラス
+
+    // 入力情報
+    Input*              input;              // 入力判定
+
+    // オブジェクト
+    Stage*              stage;              // ステージ
+    ShutterController*  shutterController;  // シャッター
+
+    // カメラ
+    SceneCamera*        sceneCamera;        // シーンカメラ
+
+    // UI
+    ResultSceneUI*      resultSceneUI;      // リザルトシーン用のUI
 
 };
 

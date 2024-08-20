@@ -1,13 +1,38 @@
 ﻿#include "ResultScene.h"
 #include "ResultSceneUI.h"
 #include "TitleScene.h"
+#include "SoundManager.h"
+#include "EffectManager.h"
+#include "ImageDataManager.h"
+#include "ModelDataManager.h"
+#include "Input.h"
+#include "Stage.h"
+#include "ShutterController.h"
+#include "SceneCamera.h"
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
 ResultScene::ResultScene()
 {
-    resultSceneUI = new ResultSceneUI();
+    // 管理クラス
+    soundManager        = SoundManager::GetInstance();
+    effectManager       = EffectManager::GetInstance();
+    imageDataManager    = ImageDataManager::GetInstance();
+    modelDataManager    = ModelDataManager::GetInstance();
+
+    // 入力情報
+    input               = new Input();
+
+    // オブジェクト
+    stage               = new Stage();
+    shutterController   = new ShutterController();
+
+    // カメラ
+    sceneCamera         = new SceneCamera();
+
+    // UI
+    resultSceneUI       = new ResultSceneUI();
 }
 
 /// <summary>
@@ -15,6 +40,11 @@ ResultScene::ResultScene()
 /// </summary>
 ResultScene::~ResultScene()
 {
+    delete(input);
+    delete(stage);
+    delete(shutterController);
+    delete(sceneCamera);
+    delete(resultSceneUI);
 }
 
 /// <summary>
@@ -22,7 +52,9 @@ ResultScene::~ResultScene()
 /// </summary>
 void ResultScene::Initialize()
 {
-
+    stage->InitializeTitleScene();
+    shutterController->InitializeTitleScene();
+    sceneCamera->Initialize(VGet(0, 0, 0), VGet(10, 10, 10));
 }
 
 /// <summary>
@@ -31,9 +63,19 @@ void ResultScene::Initialize()
 /// <returns>次のシーンのポインタ</returns>
 SceneBase* ResultScene::UpdateScene()
 {
+    // 入力処理
+    input->Update();
 
     // オブジェクト更新
-    resultSceneUI->Update();     // UIの更新
+    shutterController->Update();
+    sceneCamera->UpdateResultScene();
+
+    // UI更新
+    resultSceneUI->Update();
+
+    // 演出更新
+    UpdateSound();
+    UpdateEffect();
 
     // キーを入力したらシーン切り替え
     if (1)
