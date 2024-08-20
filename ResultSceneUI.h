@@ -3,6 +3,7 @@
 
 class ImageDataManager;
 class Input;
+struct ImageUIData;
 
 /// <summary>
 /// リザルトシーンのUI
@@ -46,6 +47,27 @@ private:
     /// </summary>
     void DrawScoreBoard();
 
+    /// <summary>
+    /// キーフレームの描画
+    /// </summary>
+    void DrawKeyFrame();
+
+    /// <summary>
+    /// マウスの更新処理
+    /// </summary>
+    void UpdateMouse();
+
+    /// <summary>
+    /// マウスカーソルの描画
+    /// </summary>
+    void DrawMouse();
+
+    /// <summary>
+    /// ２次元四角形当たり判定
+    /// </summary>
+    /// <param name="data1">四角形１</param>
+    /// <param name="data2">四角形２</param>
+    void IsCollision2Box(ImageUIData data1,ImageUIData data2);
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -53,7 +75,6 @@ private:
     // テキスト「ｷｰｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ」
     static constexpr int KeyInformationTextBlinkInterval    = 800;      // 文字の点滅間隔
     static constexpr int KeyInformationTextPositionY        = 900;      // 「ｷｰｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ」の描画Y位置
-
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -74,6 +95,12 @@ private:
     int                 checkKeyFrameBlack;             // キーの入力画像(赤色)
     int                 checkKeyFrameDefaults;          // キーの入力画像(デフォルト)
     int                 mouseCursorImageHandel;         // マウスカーソルの画像ハンドル
+
+    // 当たり判定情報
+    ImageUIData     mouseCursor;                    // マウスカーソル
+    ImageUIData     checkKeyFrameBlack;             // 赤色 キーフレーム
+    ImageUIData     checkKeyFrameDefaults;          // デフォルト キーフレーム
+    ImageUIData     scoreBoardCloseButtonRed;       // スコアボードを閉じるボタン
 };
 
 

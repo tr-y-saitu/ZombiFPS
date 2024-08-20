@@ -9,6 +9,18 @@ class SceneUIBase
 {
 public:
     /// <summary>
+    /// UIで使用する画像の情報
+    /// </summary>
+    struct ImageUIData
+    {
+        int     imageHandle;        // 画像ハンドル
+        VECTOR  centerPosition;     // 画像を描画している中心座標
+        float   width;              // 画像の幅
+        float   height;             // 画像の高さ
+        bool    isCollisionActive;  // 当たり判定をしてほしいかどうか
+    };
+
+    /// <summary>
     /// コンストラクタ
     /// </summary>
     SceneUIBase();
@@ -47,6 +59,8 @@ protected:
     static constexpr int OutlastFontSize        = 250;  // アウトラストフォントのサイズ
     static constexpr int OutlastFontThickness   = 2;    // アウトラストフォントの太さ
     const int            FontColorVHS           = GetColor(200, 200, 200);  // VHS風のフォントカラー
+    const int            FontColorBlack         = GetColor(0, 0, 0);        // フォントカラー(黒)
+
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //

@@ -34,6 +34,11 @@ public:
     /// </summary>
     void UpdateMouse();
 
+    /// <summary>
+    /// マウスを自由に動かす更新
+    /// </summary>
+    void UpdateMouseWithScreen();
+
     // ゲッター
     int GetCurrentFrameInput() const { return currentFrameInput; }
     int GetNowNewFrameInput() const { return nowFrameNewInput; }

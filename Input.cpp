@@ -63,3 +63,16 @@ void Input::UpdateMouse()
     // スクリーン中央に固定
     SetMousePoint(ScreenWidthHalf, ScreenHeightHalf);
 }
+
+/// <summary>
+/// マウスを自由に動かす更新
+/// </summary>
+void Input::UpdateMouseWithScreen()
+{
+    // 入力更新
+    mouseCurrentFrameInput = GetMouseInput();               // クリック
+    GetMousePoint(&mousePosition.x, &mousePosition.y);      // カーソル
+
+    // 移動だけキー入力
+    currentFrameInput = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+}

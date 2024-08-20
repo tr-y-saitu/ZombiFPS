@@ -88,8 +88,8 @@ void ImageDataManager::ImageDataLoad()
     // リザルトシーン
     imageDataList[WindowsScoreNoTextImageData]  = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsScoreNoTextBig.png");
     imageDataList[WindowsCloseButtonRed]        = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsCloseButtonRedBig.png");
-    imageDataList[WindowsKeyBlack]              = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsKeyBlackBig.png");
-    imageDataList[WindowsKeyDefaults]           = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsKeyDefaultsBig.png");
+    imageDataList[WindowsKeyBlack]              = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsKeyBlack.png");
+    imageDataList[WindowsKeyDefaults]           = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsKeyDefaults.png");
     imageDataList[MouseCursorImageData]         = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/MouseCursor.png");
 }
 
