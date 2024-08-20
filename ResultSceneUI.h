@@ -75,20 +75,30 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
-    // テキスト「ｷｰｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ」
-    static constexpr int    KeyInformationTextBlinkInterval     = 800;       // 文字の点滅間隔
-    static constexpr int    KeyInformationTextPositionY         = 900;       // 「ｷｰｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ」の描画Y位置
+    // テキスト「ｻｲﾁｮｳｾﾝｼﾏｽｶ」
+    static constexpr int    KeyInformationTextBlinkInterval     = 600;       // 文字の点滅間隔
+    static constexpr int    KeyInformationTextPositionY         = 720;       // 「ｻｲﾁｮｳｾﾝｼﾏｽｶ」の描画Y位置
     static constexpr float  MouseCursorInitializePositionX      = -1000;     // マウスカーソルの初期X座標
     static constexpr float  MouseCursorInitializePositionY      = -1000;     // マウスカーソルの初期Y座標
     // 閉じるボタン
     static constexpr int    ScoreBoardCloseButtonRedDrawPositionX   = 1555; // 閉じるボタンX座標
     static constexpr int    ScoreBoardCloseButtonRedDrawPositionY   = 215;  // 閉じるボタンY座標
     // yesボタン
-    static constexpr float  YesKeyFrameDrawPositionX = 750;
-    static constexpr float  YesKeyFrameDrawPositionY = 850;
+    static constexpr float  YesKeyFrameDrawPositionX    = 750;  // yesのキーフレームのX座標
+    static constexpr float  YesKeyFrameDrawPositionY    = 850;  // yesのキーフレームのY座標
+    static constexpr int    YesTextDrawPositionX        = 700;  // yesのテキストのX座標
+    static constexpr int    YesTextDrawPositionY        = 820;  // yesのテキストのY座標
     // noボタン
-    static constexpr float  NoKeyFrameDrawPositionX = 1200;
-    static constexpr float  NoKeyFrameDrawPositionY = 850;
+    static constexpr float  NoKeyFrameDrawPositionX     = 1200; // noのキーフレームのX座標
+    static constexpr float  NoKeyFrameDrawPositionY     = 850;  // noのキーフレームのY座標
+    static constexpr int    NoTextDrawPositionX         = 1170; // noのテキストのX座標
+    static constexpr int    NoTextDrawPositionY         = 820;  // noのテキストのY座標
+    // スコア文字
+    static constexpr int    ScoreDrawPositionY          = 190;  // 「Score」の文字を描画するY座標
+    // スコア基準
+    static constexpr int    ScoreBaseDrawPositionY      = 300;  // スコアの基準を描画するY座標
+    // 現在のスコア
+    static constexpr int    NowScoreDrawPositionY       = 500;  // 現在のスコアを描画するY座標
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //

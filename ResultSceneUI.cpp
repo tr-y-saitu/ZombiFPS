@@ -104,7 +104,7 @@ void ResultSceneUI::DrawBlinkingTextKeyInfomation()
     // 文字を描画
     if (isVisibleKeyInfomation)
     {
-        DrawStringCenterScreen("[ｻｲﾁｮｳｾﾝｼﾏｽｶ?]", KeyInformationTextPositionY, FontColorVHS, vhsJPLargeFontHandle);
+        DrawStringCenterScreen("[ｻｲﾁｮｳｾﾝｼﾏｽｶ?]", KeyInformationTextPositionY, FontColorBlack, vhsJPLargeFontHandle);
     }
 }
 
@@ -117,15 +117,15 @@ void ResultSceneUI::DrawScoreBoard()
     DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, DefaultExpansion, DefaultAngle, scoreBoardImageHandel, true);
 
     // 文字を描画
-    DrawStringCenterScreen("Score", 190, FontColorVHS, vhsSmallFontHandle);
+    DrawStringCenterScreen("Score", ScoreDrawPositionY, FontColorVHS, vhsSmallFontHandle);
 
     // ハイスコア描画
 
     // スコア基準を描画
-    DrawStringCenterScreen("Score  /  Kills  /  Round", 300, FontColorBlack, vhsSmallFontHandle);
+    DrawStringCenterScreen("Score  /  Kills  /  Round", ScoreBaseDrawPositionY, FontColorBlack, vhsSmallFontHandle);
 
     // 現在のスコアを描画
-    DrawStringCenterScreen("2000  /  200  /  10", 500, FontColorBlack, vhsSmallFontHandle);
+    DrawStringCenterScreen("2000  /  200  /  10", NowScoreDrawPositionY, FontColorBlack, vhsSmallFontHandle);
 
     // キーフレームの描画
     DrawKeyFrame();
@@ -175,7 +175,8 @@ void ResultSceneUI::DrawKeyFrame()
         DrawRotaGraph(yesKeyFrameData.centerPosition.x, yesKeyFrameData.centerPosition.y,
             DefaultExpansion, DefaultAngle, checkKeyFrameDefaults, true);
     }
-    DrawStringToHandle(700, 820, "yes", FontColorBlack,vhsJPLargeFontHandle,true);
+    DrawStringToHandle(YesTextDrawPositionX, YesTextDrawPositionY,
+        "yes", FontColorBlack,vhsJPLargeFontHandle,true);
 
 
     // 入力キー描画「no」
@@ -196,7 +197,8 @@ void ResultSceneUI::DrawKeyFrame()
         DrawRotaGraph(noKeyFrameData.centerPosition.x, noKeyFrameData.centerPosition.y,
             DefaultExpansion, DefaultAngle, checkKeyFrameDefaults, true);
     }
-    DrawStringToHandle(1170, 820, "no", FontColorBlack, vhsJPLargeFontHandle, true);
+    DrawStringToHandle(NoTextDrawPositionX, NoTextDrawPositionY,
+        "no", FontColorBlack, vhsJPLargeFontHandle, true);
 }
 
 /// <summary>
