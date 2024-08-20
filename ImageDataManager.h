@@ -29,6 +29,8 @@ public:
         // VHS
         VHSFiltersImageData,    // VHSフィルター
         RECImageData,           // REC(録画)
+        VHSNoiseFilters150,     // VHS風ノイズ150%画像
+        VHSNoiseFilters200,     // VHS風ノイズ200%画像
 
         // タイトルシーン
         TitleLogo,              // タイトルロゴ

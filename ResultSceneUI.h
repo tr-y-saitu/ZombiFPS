@@ -68,6 +68,11 @@ private:
     void DrawMouse();
 
     /// <summary>
+    /// VHS風のノイズを描画
+    /// </summary>
+    void DrawVHSNoise();
+
+    /// <summary>
     /// 当たり判定の更新
     /// </summary>
     void UpdateCollision();
@@ -99,6 +104,8 @@ private:
     static constexpr int    ScoreBaseDrawPositionY      = 300;  // スコアの基準を描画するY座標
     // 現在のスコア
     static constexpr int    NowScoreDrawPositionY       = 500;  // 現在のスコアを描画するY座標
+    // VHS風のノイズ
+    static constexpr int    VHSNoiseFilterResponseRate  = 5;    // VHS風のノイズ画像を描画する周期
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -120,6 +127,9 @@ private:
     int                 checkKeyFrameBlack;             // キーの入力画像(赤色)
     int                 checkKeyFrameDefaults;          // キーの入力画像(デフォルト)
     int                 mouseCursorImageHandel;         // マウスカーソルの画像ハンドル
+    int                 vhsNoiseFilters150;             // VHS風ノイズ150%画像
+    int                 vhsNoiseFilters200;             // VHS風ノイズ200%画像
+    int                 vhsNoiseCounter;                // VHS風ノイズの描画カウンター
 
     // 当たり判定情報
     ImageUIData         mouseCursorData;                // マウスカーソル

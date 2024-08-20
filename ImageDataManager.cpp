@@ -78,6 +78,8 @@ void ImageDataManager::ImageDataLoad()
     // VHS
     imageDataList[VHSFiltersImageData]  = LoadGraph("Data/UI/Filter/VHSFileters10%.png");
     imageDataList[RECImageData]         = LoadGraph("Data/UI/GameScene/RECImg.png");
+    imageDataList[VHSNoiseFilters150]   = LoadGraph("Data/UI/Filter/VHS_Noise150%.png");
+    imageDataList[VHSNoiseFilters200]   = LoadGraph("Data/UI/Filter/VHS_Noise200%.png");
 
     // タイトルシーン
     imageDataList[TitleLogo]            = LoadGraph("Data/UI/TitleScene/TitleLogo.png");

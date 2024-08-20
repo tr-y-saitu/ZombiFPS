@@ -58,7 +58,7 @@ void ResultScene::Initialize()
 {
     stage->InitializeTitleScene();
     shutterController->InitializeTitleScene();
-    sceneCamera->Initialize(VGet(10, 10, 10), VGet(0, 0, 0));
+    sceneCamera->Initialize(CameraInitializePosition, CameraTargetInitializePosition);
 }
 
 /// <summary>

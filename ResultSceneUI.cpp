@@ -10,6 +10,7 @@ ResultSceneUI::ResultSceneUI()
     : isVisibleKeyInfomation        (false)
     , keyInfomationPreviousTime     (GetNowCount())
     , nextState                     (SceneBase::SceneState::Same)
+    , vhsNoiseCounter               (0)
 {
     // 画像管理クラス
     imageDataManager = ImageDataManager::GetInstance();
@@ -36,6 +37,7 @@ void ResultSceneUI::Initialize()
     // 初期化
     isVisibleKeyInfomation = false;
     keyInfomationPreviousTime = GetNowCount();
+    vhsNoiseCounter = 0;
 
     // 画像ハンドルの読み込み
     scoreBoardImageHandel       = imageDataManager->GetImageHandle(ImageDataManager::WindowsScoreNoTextImageData);
@@ -43,6 +45,8 @@ void ResultSceneUI::Initialize()
     checkKeyFrameBlack          = imageDataManager->GetImageHandle(ImageDataManager::WindowsKeyBlack);
     checkKeyFrameDefaults       = imageDataManager->GetImageHandle(ImageDataManager::WindowsKeyDefaults);
     mouseCursorImageHandel      = imageDataManager->GetImageHandle(ImageDataManager::MouseCursorImageData);
+    vhsNoiseFilters150          = imageDataManager->GetImageHandle(ImageDataManager::VHSNoiseFilters150);
+    vhsNoiseFilters200          = imageDataManager->GetImageHandle(ImageDataManager::VHSNoiseFilters200);
 
     // 画像データを取得
     // マウスカーソル
@@ -84,6 +88,9 @@ void ResultSceneUI::Update()
 /// </summary>
 void ResultSceneUI::Draw()
 {
+    // VHS風のノイズを描画
+    DrawVHSNoise();
+
     // スコアボードの描画
     DrawScoreBoard();
 }
@@ -226,6 +233,25 @@ void ResultSceneUI::DrawMouse()
     // マウスの位置にマウスカーソルを描画
     DrawRotaGraph(mouseCursorData.centerPosition.x, mouseCursorData.centerPosition.y,
         DefaultExpansion, DefaultAngle, mouseCursorData.imageHandle, true);
+}
+
+/// <summary>
+/// VHS風のノイズを描画
+/// </summary>
+void ResultSceneUI::DrawVHSNoise()
+{
+    // 交互にノイズ画像を描画
+    if (vhsNoiseCounter % VHSNoiseFilterResponseRate == 0)
+    {
+        DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, DefaultExpansion, DefaultAngle, vhsNoiseFilters150, true);
+    }
+    else
+    {
+        DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, DefaultExpansion, DefaultAngle, vhsNoiseFilters200, true);
+    }
+
+    // カウントを進める
+    vhsNoiseCounter++;
 }
 
 /// <summary>

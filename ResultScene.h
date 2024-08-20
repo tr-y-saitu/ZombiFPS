@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "Common.h"
 #include "SceneBase.h"
 
 class ResultSceneUI;
@@ -67,7 +68,8 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
-
+    static constexpr VECTOR CameraInitializePosition        = { -1.0f,10.0f,8.0f };     // 初期化時のカメラ座標
+    static constexpr VECTOR CameraTargetInitializePosition  = { -10.0f,5.0f,-10.0f };   // 初期化時のカメラ視点座標
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
