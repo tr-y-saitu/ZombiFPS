@@ -74,10 +74,23 @@ void ImageDataManager::ImageDataLoad()
     imageDataList[East2ImageData]       = LoadGraph("Data/UI/RoomNumber/East2.png");
     imageDataList[East3ImageData]       = LoadGraph("Data/UI/RoomNumber/East3.png");
     imageDataList[East4ImageData]       = LoadGraph("Data/UI/RoomNumber/East4.png");
+
+    // VHS
     imageDataList[VHSFiltersImageData]  = LoadGraph("Data/UI/Filter/VHSFileters10%.png");
-    imageDataList[CrosshairImageData]   = LoadGraph("Data/UI/GameScene/Crosshair.png");
     imageDataList[RECImageData]         = LoadGraph("Data/UI/GameScene/RECImg.png");
+
+    // タイトルシーン
     imageDataList[TitleLogo]            = LoadGraph("Data/UI/TitleScene/TitleLogo.png");
+
+    // ゲームシーン
+    imageDataList[CrosshairImageData]   = LoadGraph("Data/UI/GameScene/Crosshair.png");
+
+    // リザルトシーン
+    imageDataList[WindowsScoreNoTextImageData]  = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsScoreNoText.png");
+    imageDataList[WindowsCloseButtonRed]        = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsCloseButtonRed.png");
+    imageDataList[WindowsKeyBlack]              = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsKeyBlack.png");
+    imageDataList[WindowsKeyDefaults]           = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsKeyDefaults.png");
+    imageDataList[MouseCursorImageData]         = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/MouseCursor.png");
 }
 
 /// <summary>

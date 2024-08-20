@@ -12,6 +12,7 @@ public:
     /// </summary>
     enum ImageDataType
     {
+        // 部屋関係
         West1ImageData  ,       // 西の部屋１
         West2ImageData  ,       // 西の部屋２
         West3ImageData  ,       // 西の部屋３
@@ -24,10 +25,23 @@ public:
         East2ImageData  ,       // 東の部屋２
         East3ImageData  ,       // 東の部屋３
         East4ImageData  ,       // 東の部屋４
+
+        // VHS
         VHSFiltersImageData,    // VHSフィルター
-        CrosshairImageData,     // 銃のクロスヘア
         RECImageData,           // REC(録画)
+
+        // タイトルシーン
         TitleLogo,              // タイトルロゴ
+
+        // ゲームシーン
+        CrosshairImageData,     // 銃のクロスヘア
+
+        // リザルトシーン
+        WindowsScoreNoTextImageData,    // レトロウィンドウズ風スコアボード
+        WindowsCloseButtonRed,          // ウィンドウ閉じるボタン赤色
+        WindowsKeyBlack,                // 入力用のキーフレーム
+        WindowsKeyDefaults,             // 入力用のキーフレームのデフォルト
+        MouseCursorImageData,           // マウスカーソル
     };
 
     /// <summary>

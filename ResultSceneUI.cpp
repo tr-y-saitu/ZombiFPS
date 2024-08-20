@@ -1,6 +1,7 @@
 ﻿#include "Common.h"
 #include "ResultSceneUI.h"
 #include "ImageDataManager.h"
+#include "Input.h"
 
 /// <summary>
 /// コンストラクタ
@@ -11,6 +12,9 @@ ResultSceneUI::ResultSceneUI()
 {
     // 画像管理クラス
     imageDataManager = ImageDataManager::GetInstance();
+
+    // 入力処理
+    input = new Input();
 
     // 初期化
     Initialize();
@@ -28,7 +32,16 @@ ResultSceneUI::~ResultSceneUI()
 /// </summary>
 void ResultSceneUI::Initialize()
 {
+    // 初期化
+    isVisibleKeyInfomation = false;
+    keyInfomationPreviousTime = GetNowCount();
 
+    // 画像ハンドルの読み込み
+    scoreBoardImageHandel       = imageDataManager->GetImageHandle(ImageDataManager::WindowsScoreNoTextImageData);
+    scoreBoardCloseButtonRed    = imageDataManager->GetImageHandle(ImageDataManager::WindowsCloseButtonRed);
+    checkKeyFrameBlack          = imageDataManager->GetImageHandle(ImageDataManager::WindowsKeyBlack);
+    checkKeyFrameDefaults       = imageDataManager->GetImageHandle(ImageDataManager::WindowsKeyDefaults);
+    mouseCursorImageHandel      = imageDataManager->GetImageHandle(ImageDataManager::MouseCursorImageData);
 }
 
 /// <summary>
@@ -46,6 +59,9 @@ void ResultSceneUI::Draw()
 {
     // キー入力指示を描画
     DrawBlinkingTextKeyInfomation();
+
+    // スコアボードの描画
+    DrawScoreBoard();
 }
 
 /// <summary>
@@ -66,4 +82,13 @@ void ResultSceneUI::DrawBlinkingTextKeyInfomation()
     {
         DrawStringCenterScreen("[Space]ｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ", KeyInformationTextPositionY, FontColorVHS, vhsJPLargeFontHandle);
     }
+}
+
+/// <summary>
+/// スコアボードの描画
+/// </summary>
+void ResultSceneUI::DrawScoreBoard()
+{
+    // スコアボードの描画
+    DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, DefaultExpansion, DefaultAngle, scoreBoardImageHandel, true);
 }
