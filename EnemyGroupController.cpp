@@ -2,6 +2,7 @@
 #include "EnemyGroupController.h"
 #include "EnemyGroup.h"
 #include "SoundManager.h"
+#include "EnemyWaveController.h"
 
 
 /// <summary>
@@ -37,17 +38,12 @@ EnemyGroupController::~EnemyGroupController()
 /// </summary>
 void EnemyGroupController::Initialize()
 {
-    // エネミーグループの数だけ初期化
-    for (int i = 0; i < enemyGroup.size(); i++)
-    {
-        enemyGroup[i]->Initialize();
-    }
 }
 
 /// <summary>
 /// エネミーを作成する
 /// </summary>
-void EnemyGroupController::CreateEnemy()
+void EnemyGroupController::CreateEnemy(int currentWave)
 {
     // 未使用のエネミーをオブジェクトプールから取得
     EnemyGroup* enemy = enemyObjectPools->GetInactiveEnemy();
@@ -55,7 +51,7 @@ void EnemyGroupController::CreateEnemy()
     // 取得したエネミーがあるなら使用中に追加
     if (enemy != nullptr)
     {
-        enemy->Initialize();                    // 初期化
+        enemy->Initialize(currentWave);                    // 初期化
         enemy->SetCollisionDataIsActive(true);  // 当たり判定をアクティブにする
         activeEnemyGroup.push_back(enemy);      // エネミーの追加
     }
@@ -67,7 +63,8 @@ void EnemyGroupController::CreateEnemy()
 /// </summary>
 /// <param name="playerPosition">プレイヤー座標</param>
 /// <param name="stage">ステージ</param>
-void EnemyGroupController::Update(VECTOR playerPosition, Stage& stage, bool enemySpawnFlag)
+void EnemyGroupController::Update(VECTOR playerPosition, Stage& stage,
+    bool enemySpawnFlag, int currentWave)
 {
     // フレームカウントを進める
     frameCount++;
@@ -75,7 +72,7 @@ void EnemyGroupController::Update(VECTOR playerPosition, Stage& stage, bool enem
     // エネミー作成指示が出れば作成
     if (enemySpawnFlag)
     {
-        CreateEnemy();
+        CreateEnemy(currentWave);
     }
 
     // エネミーグループの数だけ更新

@@ -64,7 +64,7 @@ public:
     /// <summary>
     /// 初期化
     /// </summary>
-    void Initialize();
+    void Initialize(int currentWave);
 
     /// <summary>
     /// タイトルシーンでの初期化
@@ -191,6 +191,7 @@ private:
     static constexpr VECTOR ZeroVector              = { 0.0f,0.0f,0.0f };               // ゼロベクトル
     static constexpr VECTOR EnemyScale              = { 0.03f,0.03f,0.03f };            // プレイヤーのスケール
     static constexpr int    InitializeHitPoints     = 100;                              // 初期化時の体力
+    static constexpr int    HitPointsRate           = 4;                                // 体力の調整値
     static constexpr VECTOR InitializeDirection     = { 1.0f, 0.0f, 0.0f };             // 初期化時の移動方向
     static constexpr int    DeathInactiveFrame      = 150;                              // 死亡してからモデルを削除するまでのフレームカウント数
     static constexpr float  AttackRange             = 4.0f;                             // この範囲に入ったら攻撃を開始する

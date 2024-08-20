@@ -31,12 +31,12 @@ EnemyGroup::~EnemyGroup()
 /// <summary>
 /// 初期化
 /// </summary>
-void EnemyGroup::Initialize()
+void EnemyGroup::Initialize(int currentWave)
 {
     // エネミーの数だけ初期化
     for (int i = 0; i < enemys.size(); i++)
     {
-        enemys[i]->Initialize();
+        enemys[i]->Initialize(currentWave);
     }
 }
 

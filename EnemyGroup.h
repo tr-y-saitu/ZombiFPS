@@ -28,7 +28,7 @@ public:
     /// <summary>
     /// 初期化
     /// </summary>
-    void Initialize();
+    void Initialize(int currentWave);
 
     /// <summary>
     /// タイトルシーンでの初期化

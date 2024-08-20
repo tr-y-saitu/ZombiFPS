@@ -30,14 +30,15 @@ public:
     /// <summary>
     /// エネミーを作成する
     /// </summary>
-    void CreateEnemy();
+    void CreateEnemy(int currentWave);
 
     /// <summary>
     /// 更新
     /// </summary>
     /// <param name="playerPosition">プレイヤー座標</param>
     /// <param name="stage">ステージ</param>
-    void Update(VECTOR playerPosition, Stage& stage,bool enemySpawnFlag);
+    void Update(VECTOR playerPosition, Stage& stage,
+        bool enemySpawnFlag, int curretWave);
 
     /// <summary>
     /// 描画

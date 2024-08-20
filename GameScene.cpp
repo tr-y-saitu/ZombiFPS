@@ -99,7 +99,7 @@ SceneBase* GameScene::UpdateScene()
     input->Update();                                                // 入力処理
     player->Update(*input,*stage);                                  // プレイヤー
     enemyGroupController->Update(player->GetPosition(), *stage,
-        enemyWaveController->GetEnemySpawnFlag());                  // エネミーの集合体
+        enemyWaveController->GetEnemySpawnFlag(),enemyWaveController->GetCurrentWaveState());                  // エネミーの集合体
     enemyWaveController->Update(enemyGroupController->GetEnemyGroupSize());
     shutterController->Update();                                    // シャッター
     collisionManager->Update();                                     // 当たり判定処理

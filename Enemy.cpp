@@ -44,7 +44,7 @@ Enemy::~Enemy()
 /// <summary>
 /// 初期化
 /// </summary>
-void Enemy::Initialize()
+void Enemy::Initialize(int currentWave)
 {
     // モデルハンドルを取得
     modelHandle = modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ModelDataType::EnemyModelData);
@@ -73,7 +73,7 @@ void Enemy::Initialize()
     roomEntryState = Pathfinding::MovingToNextRoom;
 
     // ステータス
-    hitPoints = InitializeHitPoints;
+    hitPoints = (InitializeHitPoints * currentWave) / HitPointsRate;
 
     // 死亡してからの経過フレーム数を初期化
     deathFrameCount = 0;
