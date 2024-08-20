@@ -74,7 +74,7 @@ void Player::Initialize()
     position = VGet(0.0f, MoveLimitY, 0.0f);
     
     // モデルハンドルを取得
-    modelHandle = modelDataManager->GetOriginalModelHandle(ModelDataManager::ModelDataType::PlayerModelData);
+    modelHandle = modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ModelDataType::PlayerModelData);
 
     // モデルサイズを再設定
     MV1SetScale(modelHandle, PlayerScale);

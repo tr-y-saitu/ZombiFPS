@@ -59,6 +59,11 @@ public:
     void UpdateEffect();
 
 private:
+    /// <summary>
+    /// 入力更新
+    /// </summary>
+    void UpdateKeyState();
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
@@ -73,9 +78,6 @@ private:
     ImageDataManager*   imageDataManager;   // 画像管理クラス
     ModelDataManager*   modelDataManager;   // モデル管理クラス
 
-    // 入力情報
-    Input*              input;              // 入力判定
-
     // オブジェクト
     Stage*              stage;              // ステージ
     ShutterController*  shutterController;  // シャッター
@@ -86,6 +88,11 @@ private:
     // UI
     ResultSceneUI*      resultSceneUI;      // リザルトシーン用のUI
 
+    // 入力情報
+    Input*              input;              // 入力判定
+    bool                isKeyOn;            // キー入力されたか
+    bool                isKeyRelease;       // キー入力が離れたか
+    bool                isPreviousKeyOn;    // 前フレームでキー入力があったか
 };
 
 

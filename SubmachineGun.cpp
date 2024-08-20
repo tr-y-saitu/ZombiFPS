@@ -39,7 +39,7 @@ SubmachineGun::~SubmachineGun()
 void SubmachineGun::Initialize()
 {
     // モデルハンドルの読み込み
-    modelHandle = modelDataManager->GetOriginalModelHandle(
+    modelHandle = modelDataManager->GetDuplicatesModelHandle(
         ModelDataManager::ModelDataType::SubmachineGunModelData);
 
     // ステータスの初期化

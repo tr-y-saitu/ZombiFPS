@@ -14,6 +14,9 @@
 /// コンストラクタ
 /// </summary>
 ResultScene::ResultScene()
+    : isKeyOn           (false)
+    , isKeyRelease      (false)
+    , isPreviousKeyOn   (false)
 {
     // 管理クラス
     soundManager        = SoundManager::GetInstance();
@@ -54,7 +57,7 @@ void ResultScene::Initialize()
 {
     stage->InitializeTitleScene();
     shutterController->InitializeTitleScene();
-    sceneCamera->Initialize(VGet(0, 0, 0), VGet(10, 10, 10));
+    sceneCamera->Initialize(VGet(10, 10, 10), VGet(0, 0, 0));
 }
 
 /// <summary>
@@ -64,7 +67,7 @@ void ResultScene::Initialize()
 SceneBase* ResultScene::UpdateScene()
 {
     // 入力処理
-    input->Update();
+    UpdateKeyState();
 
     // オブジェクト更新
     shutterController->Update();
@@ -78,8 +81,11 @@ SceneBase* ResultScene::UpdateScene()
     UpdateEffect();
 
     // キーを入力したらシーン切り替え
-    if (1)
+    if (isKeyRelease)
     {
+        // キーは離れていません
+        isKeyRelease = false;
+        
         return new TitleScene();
     }
 
@@ -92,7 +98,13 @@ SceneBase* ResultScene::UpdateScene()
 /// </summary>
 void ResultScene::Draw()
 {
-    DrawUI();       // UIの描画
+    // オブジェクトの描画
+    stage->Draw();
+    shutterController->Draw();
+
+
+    // UIの描画
+    DrawUI();
 }
 
 /// <summary>
@@ -117,4 +129,36 @@ void ResultScene::UpdateSound()
 void ResultScene::UpdateEffect()
 {
 
+}
+
+/// <summary>
+/// 入力更新
+/// </summary>
+void ResultScene::UpdateKeyState()
+{
+    // キー入力すでにされている場合
+    if (isKeyOn)
+    {
+        if (CheckHitKey(KEY_INPUT_SPACE) == 0)
+        {
+            isKeyOn = false;          // キーが入力されていない
+            isKeyRelease = true;      // キーが離れた
+        }
+    }
+    else if (isPreviousKeyOn == false && CheckHitKey(KEY_INPUT_SPACE) == 1)
+    {
+        // キーは長押しされていない && 前フレームで入力なし && キーが押された
+        isKeyRelease = false;   // キーは離れていない
+        isKeyOn = true;         // キーが押された
+    }
+
+    // キー入力されたら
+    if (CheckHitKey(KEY_INPUT_SPACE) == 1)
+    {
+        isPreviousKeyOn = true;   // このフレームではキーが押された
+    }
+    else
+    {
+        isPreviousKeyOn = false;  // このフレームでキーは押されなかった
+    }
 }

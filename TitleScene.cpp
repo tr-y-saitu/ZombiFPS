@@ -12,6 +12,7 @@
 #include "Input.h"
 #include "ImageDataManager.h"
 #include "ModelDataManager.h"
+#include "Input.h"
 
 /// <summary>
 /// コンストラクタ
@@ -31,6 +32,9 @@ TitleScene::TitleScene()
     // 演出関連
     soundManager        = SoundManager::GetInstance();
     effectManager       = EffectManager::GetInstance();
+
+    // 入力関連
+    input               = new Input();
 
     // オブジェクト関連
     stage               = new Stage();
@@ -58,6 +62,7 @@ TitleScene::~TitleScene()
     delete(titleSceneUI);
     delete(shutterController);
     delete(enemy);
+    delete(input);
 }
 
 /// <summary>
@@ -83,6 +88,7 @@ SceneBase* TitleScene::UpdateScene()
 {
     // キー入力の更新
     UpdateKeyState();
+    input->Update();
 
     // オブジェクト更新
     shutterController->Update();                            // シャッター

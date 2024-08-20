@@ -55,7 +55,7 @@ private:
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     // テキスト「ｷｰｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ」
-    static constexpr int KeyInformationTextBlinkInterval    = 500;  // 文字の点滅間隔
+    static constexpr int KeyInformationTextBlinkInterval    = 800;  // 文字の点滅間隔
     static constexpr int KeyInformationTextPositionY        = 800;  // 「ｷｰｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ」の描画Y位置
     // 時刻
     static constexpr int VHSTimeDrawPositionX               = 1400; // 時刻の描画X位置

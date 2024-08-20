@@ -56,17 +56,16 @@ public:
     /// </summary>
     void DrawUI();
 
-    /// <summary>
-    /// 入力更新
-    /// </summary>
-    void UpdateKeyState();
-
 private:
     /// <summary>
     /// エネミーの更新
     /// </summary>
     void UpdateEnemy();
 
+    /// <summary>
+    /// 入力更新
+    /// </summary>
+    void UpdateKeyState();
     
 
     //---------------------------------------------------------------------------------//

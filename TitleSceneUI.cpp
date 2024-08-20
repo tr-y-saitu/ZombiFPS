@@ -110,6 +110,6 @@ void TitleSceneUI::DrawBlinkingTextKeyInfomation()
     // 文字を描画
     if (isVisibleKeyInfomation)
     {
-        DrawStringCenterScreen("ｷｰｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ", KeyInformationTextPositionY, FontColorVHS, vhsJPLargeFontHandle);
+        DrawStringCenterScreen("[Space]ｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ", KeyInformationTextPositionY, FontColorVHS, vhsJPLargeFontHandle);
     }
 }
