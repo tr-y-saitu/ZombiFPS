@@ -34,8 +34,16 @@ public:
     /// </summary>
     void Initialize();
 
-    // 当たり判定データの読み込み
+    /// <summary>
+    /// 当たり判定データの読み込み
+    /// </summary>
+    /// <param name="data"></param>
     static void RegisterCollisionData(CollisionData* data);
+
+    /// <summary>
+    /// 当たり判定データをすべて削除する
+    /// </summary>
+    static void ClearAllCollisionDataList();
 
     /// <summary>
     /// すべての当たり判定処理

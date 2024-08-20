@@ -14,14 +14,6 @@ Shutter::Shutter()
 {
     // 当たり判定管理クラスの参照をもらう
     collisionManager = CollisionManager::GetInstance();
-
-    // 当たった後の関数ポインタを渡す
-    collisionData.onHit = std::bind(&Shutter::OnHit, this, std::placeholders::_1);
-
-    // 生成時に当たり判定を開始してほしいので当たり判定をアクティブ化する
-    collisionData.isCollisionActive = true;
-
-    
 }
 
 /// <summary>
@@ -29,6 +21,7 @@ Shutter::Shutter()
 /// </summary>
 Shutter::~Shutter()
 {
+    collisionData.isCollisionActive = false;
 }
 
 /// <summary>
@@ -47,6 +40,12 @@ void Shutter::Initialize(ShutterController::ShutterInitializeData initializeData
 
     // モデルを回転させる
     MV1SetRotationMatrix(modelHandle, rotationMatrix);
+
+    // 当たった後の関数ポインタを渡す
+    collisionData.onHit = std::bind(&Shutter::OnHit, this, std::placeholders::_1);
+
+    // 生成時に当たり判定を開始してほしいので当たり判定をアクティブ化する
+    collisionData.isCollisionActive = true;
 
     // 当たり判定に必要なデータを渡す
     collisionManager->RegisterCollisionData(&collisionData);

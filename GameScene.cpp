@@ -72,6 +72,9 @@ GameScene::~GameScene()
     delete(maxAmmoItem);
     delete(incomeDoubleItem);
     delete(gameSceneUI);
+
+    // 当たり判定用データをすべて削除する
+    collisionManager->ClearAllCollisionDataList();
 }
 
 /// <summary>

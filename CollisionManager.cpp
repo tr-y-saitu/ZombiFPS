@@ -68,6 +68,15 @@ void CollisionManager::RegisterCollisionData(CollisionData* data)
 }
 
 /// <summary>
+/// 当たり判定データをすべて削除する
+/// </summary>
+void CollisionManager::ClearAllCollisionDataList()
+{
+    // 当たり判定用情報
+    collisionDataList.clear();
+}
+
+/// <summary>
 /// すべての当たり判定処理
 /// </summary>
 void CollisionManager::Update()
