@@ -52,7 +52,7 @@ private:
     //---------------------------------------------------------------------------------//
     // テキスト「ｷｰｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ」
     static constexpr int KeyInformationTextBlinkInterval    = 800;      // 文字の点滅間隔
-    static constexpr int KeyInformationTextPositionY        = 800;      // 「ｷｰｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ」の描画Y位置
+    static constexpr int KeyInformationTextPositionY        = 900;      // 「ｷｰｦﾆｭｳﾘｮｸｼﾃｸﾀﾞｻｲ」の描画Y位置
 
 
     //---------------------------------------------------------------------------------//

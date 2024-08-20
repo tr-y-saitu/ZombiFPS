@@ -86,10 +86,10 @@ void ImageDataManager::ImageDataLoad()
     imageDataList[CrosshairImageData]   = LoadGraph("Data/UI/GameScene/Crosshair.png");
 
     // リザルトシーン
-    imageDataList[WindowsScoreNoTextImageData]  = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsScoreNoText.png");
-    imageDataList[WindowsCloseButtonRed]        = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsCloseButtonRed.png");
-    imageDataList[WindowsKeyBlack]              = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsKeyBlack.png");
-    imageDataList[WindowsKeyDefaults]           = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsKeyDefaults.png");
+    imageDataList[WindowsScoreNoTextImageData]  = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsScoreNoTextBig.png");
+    imageDataList[WindowsCloseButtonRed]        = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsCloseButtonRedBig.png");
+    imageDataList[WindowsKeyBlack]              = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsKeyBlackBig.png");
+    imageDataList[WindowsKeyDefaults]           = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsKeyDefaultsBig.png");
     imageDataList[MouseCursorImageData]         = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/MouseCursor.png");
 }
 

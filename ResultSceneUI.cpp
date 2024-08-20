@@ -91,4 +91,17 @@ void ResultSceneUI::DrawScoreBoard()
 {
     // スコアボードの描画
     DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, DefaultExpansion, DefaultAngle, scoreBoardImageHandel, true);
+    // 文字を描画
+    DrawStringCenterScreen("Score", 100, FontColorVHS, vhsSmallFontHandle);
+    // ハイスコア描画
+
+
+
+
+    // 入力キー描画
+    DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, DefaultExpansion, DefaultAngle, checkKeyFrameDefaults, true);
+
+    // 閉じるボタン描画
+    DrawRotaGraph(1500, 100, DefaultExpansion, DefaultAngle, scoreBoardCloseButtonRed, true);
+
 }
