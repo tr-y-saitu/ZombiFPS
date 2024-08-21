@@ -53,7 +53,7 @@ public:
     /// <param name="playerPosition">プレイヤーの座標</param>
     /// <param name="stage">ステージ</param>
     /// <returns>そのエネミーが目指す座標</returns>
-    VECTOR UpdateEnemyPathfinding(VECTOR playerPosition, Enemy& enemy,Stage& stage);
+    VECTOR UpdateEnemyTargetPosition(VECTOR playerPosition, Enemy& enemy,Stage& stage);
 
     // Getter
     const bool GetIsActive()const { return isActive; }
