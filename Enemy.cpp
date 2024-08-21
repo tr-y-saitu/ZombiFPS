@@ -200,77 +200,103 @@ void Enemy::Draw()
 /// <param name="hitObjectData">オブジェクトのデータ</param>
 void Enemy::OnHit(CollisionData hitObjectData)
 {
+    // オブジェクトごとに処理
+    switch (hitObjectData.tag)
+    {
+    case ObjectTag::Bullet:
+
+        // 弾丸と当たった時の処理
+        OnHitBullet(hitObjectData);
+
+        break;
+
+    case ObjectTag::EnemyBoby:
+
+        // エネミーと当たった時
+        OnHitEnemyBody(hitObjectData);
+
+        break;
+
+    case ObjectTag::Player:
+
+        // プレイヤーと接触した時
+
+
+    default:
+        break;
+    }
+}
+
+/// <summary>
+/// 弾丸と接触した時の処理
+/// </summary>
+/// <param name="hitObjectData">当たったオブジェクトの情報</param>
+void Enemy::OnHitBullet(CollisionData hitObjectData)
+{
+    // 弾丸のすでに接触しているオブジェクトについての情報を確認する
+    Bullet* tempBullet = (Bullet*)hitObjectData.objectAddress;
+
+    // すでに当たったオブジェクトどうかを確認
+    if (tempBullet != nullptr)
+    {
+        if (tempBullet->IsObjectHit((HitObjectAddress*)this))
+        {
+            return;
+        }
+    }
+
+    // HPを減少
+    hitPoints -= hitObjectData.bulletPower;
+
+    // 当たった時の音を出す
+    soundManager->PlaySoundListSE(SoundManager::EnemyHitSE);
+
+    // 当たった時の血しぶきエフェクトを再生
+    VECTOR effectPlayPosition = VAdd(position, BloodEffectOffset);
+    effectManager->PlayBloodSplatterEffect(effectPlayPosition);
+}
+
+void Enemy::OnHitEnemyBody(CollisionData hitObjectData)
+{
+    // 押し出し処理を行う
+
     VECTOR direction;
     float distance;
     float radiusSum;
     float penetrationDepth;
 
-    // 弾丸のすでに接触しているオブジェクトについての情報を確認する
-    Bullet* tempBullet = (Bullet*)hitObjectData.objectAddress;
-    
-    // オブジェクトごとに処理
-    switch (hitObjectData.tag)
+    // 半径の合計
+    radiusSum = hitObjectData.radius + collisionData.radius;
+
+    // y座標は変更しなくていいので０に修正する
+    VECTOR correctedTargetPosition = VGet(hitObjectData.centerPosition.x, 0.0f, hitObjectData.centerPosition.z);
+
+    // エネミーも同じように修正 
+    VECTOR correctedEnemyPosition = VGet(position.x, 0.0f, position.z);
+
+    // ターゲットからエネミーへのベクトルを計算
+    VECTOR vectorToTarget = VSub(correctedEnemyPosition, correctedTargetPosition);
+
+    // ベクトルのサイズを計算
+    distance = VSize(vectorToTarget);
+
+    // エネミーとターゲットが重なっている場合のみ押し出しを行う
+    if (distance < radiusSum)
     {
-    case ObjectTag::Bullet: // 弾丸と当たった時
+        // 押し戻す距離の計算（penetration depth）
+        penetrationDepth = radiusSum - distance;
 
-        // すでに当たったオブジェクトどうかを確認
-        if (tempBullet != nullptr)
-        {
-            if (tempBullet->IsObjectHit((HitObjectAddress*)this))
-            {
-                return;
-            }
-        }
+        // ベクトルを正規化する
+        vectorToTarget = VNorm(vectorToTarget);
 
-        // HPを減少
-        hitPoints -= hitObjectData.bulletPower;
+        // 押し出す量（penetration depthに基づく）
+        VECTOR pushBackVector = VScale(vectorToTarget, penetrationDepth);
 
-        // 当たった時の音を出す
-        //soundManager->PlaySoundListSE(SoundManager::EnemyHitSE);
+        // 押し出しベクトルをエネミーの位置に加算
+        position = VAdd(position, pushBackVector);
 
-        // 当たった時の血しぶきエフェクトを再生
-        VECTOR effectPlayPosition = VAdd(position, BloodEffectOffset);
-        effectManager->PlayBloodSplatterEffect(effectPlayPosition);
-
-        break;
-
-    case ObjectTag::EnemyBoby:  // エネミーと当たった時
-        // 押し出し処理を行う
-
-        //// 半径の合計
-        //radiusSum = hitObjectData.radius + collisionData.radius;
-
-        //// y座標は変更しなくていいので０に修正する
-        //VECTOR correctedTargetPosition = VGet(hitObjectData.centerPosition.x, 0.0f, hitObjectData.centerPosition.z);
-
-        //// エネミーも同じように修正 
-        //VECTOR correctedEnemyPosition = VGet(position.x, 0.0f, position.z);
-
-        //// 修正した座標からボスからプレイヤーの向きのベクトルを計算
-        //VECTOR vectorToPlayer = VSub(correctedEnemyPosition, correctedTargetPosition);
-
-        //// ベクトルのサイズを計算
-        //distance = VSize(vectorToPlayer);
-
-        //// 押し戻す距離の計算
-        //distance = radiusSum - distance;
-
-        //// ベクトルを正規化する
-        //vectorToPlayer = VNorm(vectorToPlayer);
-
-        //// 押し出す量
-        //VECTOR pushBackVector = VScale(vectorToPlayer, distance);
-
-        //// 計算したベクトルからプレイヤーの位置を変更
-        //position = VAdd(position, pushBackVector);
-
-        //// モデルの位置も合わせて修正
-        //MV1SetPosition(modelHandle, position);
-
-        break;
-
-    default:
-        break;
+        // モデルの位置も合わせて修正
+        MV1SetPosition(modelHandle, position);
     }
 }
 

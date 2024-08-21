@@ -146,6 +146,18 @@ void CollisionManager::Update()
                     }
                 }
 
+                // プレイヤーとエネミーの体
+                if (data1.tag == ObjectTag::Player && data2.tag == ObjectTag::EnemyBoby)
+                {
+                    // 球どおしの当たり判定
+                    if(IsCollisionSphere(data1.endPosition,data1.radius,data2.centerPosition,data2.radius))
+                    {
+                        // 当たった後の関数を呼び出す
+                        data1.onHit(data2);
+                        data2.onHit(data1);
+                    }
+                }
+
                 // プレイヤーとシャッター
                 if (data1.tag == ObjectTag::Player && data2.tag == ObjectTag::Shutter)
                 {
@@ -157,9 +169,10 @@ void CollisionManager::Update()
                         data2.onHit(data1);
                     }
                 }
-            }
 
-            
+                
+
+            }
         }
     }
 }

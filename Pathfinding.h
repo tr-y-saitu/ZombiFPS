@@ -145,7 +145,7 @@ private:
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     static constexpr int    RoomTotalNumber                         = 12;       // 部屋の総数
-    static constexpr float  RoomCenterDistance                      = 3.6f;     // この範囲なら部屋の中心とみなす
+    static constexpr float  RoomCenterDistance                      = 4.0f;     // この範囲なら部屋の中心とみなす
 
     // デバッグ
     static constexpr float  DebugRoomCenterPositionSphereRadius     = 0.7f;     // デバッグ用の球体の半径

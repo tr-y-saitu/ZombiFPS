@@ -172,6 +172,16 @@ private:
     void OnHit(CollisionData hitObjectData);
 
     /// <summary>
+    /// 弾丸と接触した時の処理
+    /// </summary>
+    /// <param name="hitObjectData">当たったオブジェクトの情報</param>
+    void OnHitBullet(CollisionData hitObjectData);
+
+    void OnHitEnemyBody(CollisionData hitObjectData);
+
+    void OnHitPlayer(CollisionData hitObjectData);
+
+    /// <summary>
     /// 攻撃がオブジェクトと接触した時の処理
     /// </summary>
     /// <param name="hitObjectData"></param>
