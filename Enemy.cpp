@@ -396,16 +396,12 @@ void Enemy::UpdateCollisionData()
 /// </summary>
 void Enemy::UpdateAttackCollisionData()
 {
-    // 当たり判定を行って欲しい場合のみ実行
-    if (attackCollisionData.isCollisionActive)
-    {
-        attackCollisionData.centerPosition      = position;                 // 座標
-        attackCollisionData.centerPosition.y    = 4.5f;                     // Y座標をプレイヤーに合わせる
+    attackCollisionData.centerPosition      = position;                 // 座標
+    attackCollisionData.centerPosition.y    = 4.5f;                     // Y座標をプレイヤーに合わせる
 
-        attackCollisionData.tag                 = ObjectTag::EnemyAttack;   // エネミーの攻撃である
-        attackCollisionData.radius              = AttackCollisionRadius;    // 攻撃の当たり判定の半径
-        attackCollisionData.attackPower         = AttackPower;              // 攻撃力
-    }
+    attackCollisionData.tag                 = ObjectTag::EnemyAttack;   // エネミーの攻撃である
+    attackCollisionData.radius              = AttackCollisionRadius;    // 攻撃の当たり判定の半径
+    attackCollisionData.attackPower         = AttackPower;              // 攻撃力
 }
 
 /// <summary>
@@ -559,7 +555,7 @@ void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
         // 距離が近ければ攻撃する
         if (distance < AttackRange)
         {
-            if (currentState != State::Attack)
+            if (currentState != State::Attack && currentState != State::Death)
             {
                 // 攻撃アニメーション再生
                 PlayAnimation(AnimationType::Attack);
@@ -568,21 +564,20 @@ void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
                 currentState = State::Attack;
             }
         }
-        else if (currentState == State::Attack) // 攻撃アニメーションの終了判定
+        if (currentState == State::Attack) // 攻撃アニメーションの終了判定
         {
             // 再生しているアニメーションの総時間
-            float animationTotalTime = MV1GetAttachAnimTotalTime(modelHandle, currentPlayAnimation);
+            int animationTotalTime = MV1GetAttachAnimTotalTime(modelHandle, currentPlayAnimation);
 
             // 当たり判定を出現させる
-            if (currentAnimationCount >= animationTotalTime / 3 && !attackCollisionData.isCollisionActive)
+            if (currentAnimationCount == animationTotalTime / 3 && !attackCollisionData.isCollisionActive)
             {
                 // 攻撃当たり判定を行う
-                attackCollisionData.isCollisionActive = true;
+                UpdateAttackCollisionData();                    // 当たり判定情報の更新
+                attackCollisionData.isCollisionActive = true;   // 当たり判定をアクティブ化
                 collisionManager->RegisterCollisionData(&attackCollisionData);
             }
-
-            // 攻撃アニメーションが終了しているかチェック
-            if (currentAnimationCount >= animationTotalTime / 2)
+            if (currentAnimationCount >= animationTotalTime) // 攻撃アニメーションが終了しているかチェック
             {
                 // Runアニメーションに変更
                 PlayAnimation(AnimationType::Run);
