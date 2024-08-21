@@ -151,6 +151,7 @@ public:
     static constexpr VECTOR ReloadAnimationOffset       = { 0.0f,-1.0f,0.0f };      // リロードアニメーション再生時のずらし量
     static constexpr float  ReloadAnimationFactorSpeed  = 0.05f;                    // リロードアニメーションの再生速度
     static constexpr int    ReloadTimeFrame             = 60;                       // リロードに必要なフレーム数
+    static constexpr float  PlayerPositionYLimit        = 4.5f;                     // プレイヤーのY座標の固定値
 
 private:
     /// <summary>

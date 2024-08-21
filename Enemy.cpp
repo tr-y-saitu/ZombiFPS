@@ -7,6 +7,7 @@
 #include "Calculation.h"
 #include "Bullet.h"
 #include "Pathfinding.h"
+#include "Player.h"
 
 /// <summary>
 /// コンストラクタ
@@ -378,7 +379,7 @@ void Enemy::UpdateCollisionData()
         collisionData.startPosition = VAdd(position, CapsulePositionOffset);
         collisionData.endPosition = position;
         collisionData.centerPosition = position;
-        collisionData.centerPosition.y = 4.5f;      // 高さを合わせる
+        collisionData.centerPosition.y = Player::PlayerPositionYLimit;      // 高さを合わせる
 
         // カプセルの半径を登録
         collisionData.radius = CollisionRadius;
@@ -397,7 +398,7 @@ void Enemy::UpdateCollisionData()
 void Enemy::UpdateAttackCollisionData()
 {
     attackCollisionData.centerPosition      = position;                 // 座標
-    attackCollisionData.centerPosition.y    = 4.5f;                     // Y座標をプレイヤーに合わせる
+    attackCollisionData.centerPosition.y    = Player::PlayerPositionYLimit;                     // Y座標をプレイヤーに合わせる
 
     attackCollisionData.tag                 = ObjectTag::EnemyAttack;   // エネミーの攻撃である
     attackCollisionData.radius              = AttackCollisionRadius;    // 攻撃の当たり判定の半径
@@ -589,9 +590,7 @@ void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
                 attackCollisionData.isCollisionActive = false;
             }
         }
-
     }
-
 }
 
 /// <summary>
