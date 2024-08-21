@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Common.h"
 #include "CollisionData.h"
+#include "Pathfinding.h"
 
 
 class ModelDataManager;
@@ -64,7 +65,7 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    /// <param name="targetPosition">進べき座標</param>
+    /// <param name="targetPosition">目標座標</param>
     /// <param name="stage">ステージ</param>
     void Update(VECTOR targetPosition,Stage& stage);
 
@@ -77,6 +78,18 @@ public:
     /// 当たり判定に必要なデータの更新
     /// </summary>
     void UpdateCollisionData();
+
+    // Getter
+    const VECTOR GetPosition()const { return position; }
+    const Pathfinding::Room GetPreviousRoom()const { return previousRoom; }
+    const bool GetIsTouchingRoomCenter()const { return isTouchingRoomCenter; }
+    const Pathfinding::RoomEntryState GetRoomEntryState() const { return roomEntryState; }
+
+    // Setter
+    void SetPreviousRoom(Pathfinding::Room set) { previousRoom = set; }
+    void SetTargetNextPosition(VECTOR set) { targetNextPosition = set; }
+    void SetIsTouchingRoomCenter(bool set) { isTouchingRoomCenter = set; }
+    void SetRoomEntryState(Pathfinding::RoomEntryState set) { roomEntryState = set; }
 
 private:
     /// <summary>
@@ -139,7 +152,7 @@ private:
     static constexpr float  AngleSpeed              = 0.2f;                         // 角度変化速度
     static constexpr float  JumpPower               = 100.0f;                       // ジャンプ力
     static constexpr float  MoveLimitY              = 1.0f;                         // Y軸の移動制限
-    static constexpr VECTOR InitializePosition      = { 0.0f,MoveLimitY,0.0f };     // 初期化座標
+    static constexpr VECTOR InitializePosition      = { -45.0f,MoveLimitY,45.0f };  // 初期化座標
     static constexpr VECTOR ZeroVector              = { 0.0f,0.0f,0.0f };           // ゼロベクトル
     static constexpr VECTOR EnemyScale              = { 0.03f,0.03f,0.03f };        // プレイヤーのスケール
     static constexpr int    InitializeHitPoints     = 100;                          // 初期化時の体力
@@ -175,6 +188,12 @@ private:
     bool        currentFrameMove;           // そのフレームで動いたかどうか
     State       state;                      // 状態
     int         hitPoints;                  // 体力
+
+    // 線形探索用
+    Pathfinding::Room previousRoom;                 // 以前いた部屋
+    VECTOR      targetNextPosition;                 // 線形探索を行った結果、次に移動したい座標
+    bool        isTouchingRoomCenter;               // 今いる部屋の中心座標に接触したか
+    Pathfinding::RoomEntryState roomEntryState;     // 部屋に対して何を行っている状態か
 
     // 当たり判定用
     CollisionData           collisionData;          // 当たり判定用情報

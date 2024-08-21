@@ -15,6 +15,8 @@ Enemy::Enemy()
     , currentJumpPower          (0.0f)
     , state                     (State::Idle)
     , position                  (InitializePosition)
+    , targetNextPosition        (InitializePosition)
+    , isTouchingRoomCenter      (false)
 {
     modelDataManager = ModelDataManager::GetInstance();
     collisionManager = CollisionManager::GetInstance();
@@ -60,11 +62,17 @@ void Enemy::Initialize()
 
     // 当たり判定用情報更新
     UpdateCollisionData();
+
+    // 初期化時にいる部屋を設定
+    previousRoom.roomNumber = Pathfinding::Center1;
+    roomEntryState = Pathfinding::MovingToNextRoom;
 }
 
 /// <summary>
 /// 更新
 /// </summary>
+/// <param name="targetPosition">目標座標</param>
+/// <param name="stage">ステージ</param>
 void Enemy::Update(VECTOR targetPosition,Stage& stage)
 {
     // ルートフレームのＺ軸方向の移動パラメータを無効にする
@@ -72,7 +80,7 @@ void Enemy::Update(VECTOR targetPosition,Stage& stage)
 
     // 移動
     UpdateMoveVector(targetPosition);
-    Move(ZeroVector, stage);
+    Move(targetMoveDirection, stage);
 
     // 回転制御
     UpdateAngle();
@@ -97,7 +105,7 @@ void Enemy::Draw()
 
     // カプセル型の当たり判定描画
     DrawCapsule3D(collisionData.startPosition, collisionData.endPosition,
-        collisionData.radius, PolygonDetail, DebugPolygonColor, DebugPolygonColor, false);
+        collisionData.radius, PolygonDetail, DebugPolygonColorRed, DebugPolygonColorRed, false);
 
     // 自身のHPを描画
     DrawFormatString(DebugHitPointDrawX, DebugHitPointDrawY,
@@ -184,31 +192,16 @@ void Enemy::DisableRootFrameZMove()
 void Enemy::UpdateMoveVector(VECTOR targetPosition)
 {
     // ターゲット座標から現在の位置への方向ベクトルを計算
-    targetMoveDirection = VSub(targetPosition, position);
+    VECTOR direction = VSub(targetPosition, position);
 
-    VECTOR upMoveVector;            // ターゲット座標へ向かうベクトル
-    VECTOR leftMoveVector;          // 左方向の移動ベクトル
-    VECTOR currentFrameMoveVector;  // このフレームでの移動ベクトル
-
-    // ターゲットの位置からエネミーの位置への方向ベクトルを計算
-    upMoveVector = VSub(targetPosition, position);
-    upMoveVector.y = 0.0f;  // Y軸方向へは移動しないため初期化
+    // Y軸方向の移動は無視
+    direction.y = 0.0f;
 
     // 方向ベクトルを正規化
-    upMoveVector = VNorm(upMoveVector);
+    direction = VNorm(direction);
 
-    // 左方向の移動ベクトル
-    leftMoveVector = VCross(upMoveVector, VGet(0.0f, 1.0f, 0.0f));
-    leftMoveVector = VNorm(leftMoveVector);
-
-    // このフレームでの移動ベクトルを初期化
-    currentFrameMoveVector = ZeroVector;
-
-    // ターゲットへ直接向かう移動ベクトルを加算
-    currentFrameMoveVector = VAdd(currentFrameMoveVector, upMoveVector);
-
-    // 座標を更新
-    position = VAdd(position, VScale(currentFrameMoveVector, MoveSpeed));
+    // 移動ベクトルを更新
+    targetMoveDirection = direction;
 }
 
 /// <summary>
@@ -218,20 +211,9 @@ void Enemy::UpdateMoveVector(VECTOR targetPosition)
 /// <param name="stage">ステージ</param>
 void Enemy::Move(const VECTOR& MoveVector, Stage& stage)
 {
-    // HACK: 移動距離が0.01未満で微妙に移動していた場合はじんわり移動してバグる
-    // x軸かy軸方向に 0.01f 以上移動した場合は「移動した」フラグを１にする
-    if (fabs(MoveVector.x) > 0.01f || fabs(MoveVector.z) > 0.01f)
-    {
-        currentFrameMove = true;
-    }
-    else
-    {
-        currentFrameMove = false;
-    }
-
     // 当たり判定をして、新しい座標を保存する
     VECTOR oldPosition = position;                      // 移動前の座標
-    VECTOR nextPosition = VAdd(position, MoveVector);   // 移動後の座標
+    VECTOR nextPosition = VAdd(position, VScale(MoveVector, MoveSpeed));   // 移動後の座標
 
     // ステージとの当たり判定処理
     position = stage.IsHitCollisionEnemy(*this, nextPosition, MoveVector);

@@ -167,6 +167,7 @@ private:
     /// <param name="type">アニメーションの種類</param>
     void PlayAnimation(AnimationType type);
 
+    /// <summary>
     /// 銃を撃つ
     /// </summary>
     /// <param name="input">入力情報</param>

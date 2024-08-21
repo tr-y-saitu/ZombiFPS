@@ -92,8 +92,9 @@ void CollisionManager::Update()
                 }
             }
 
-            // 球体とカプセル
+            // カプセルとカプセル
 
+            // 球体とカプセル
 
             // カプセルとライン
 
@@ -102,6 +103,9 @@ void CollisionManager::Update()
             if (!collisionDataList[i]->isCollisionActive)
             {
                 collisionDataList.erase(collisionDataList.begin() + i);
+
+                // 削除後の要素が次にチェックされるため、インデックスを調整
+                i--;
             }
         }
     }

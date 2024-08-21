@@ -7,7 +7,13 @@
 /// </summary>
 EnemyGroup::EnemyGroup()
 {
+    // 線形探索クラス
+    pathfinding = new Pathfinding();
+
+    // ゾンビを生成
     enemys.push_back(new Enemy());
+
+    // 初期化
     Initialize();
 }
 
@@ -21,6 +27,8 @@ EnemyGroup::~EnemyGroup()
     {
         delete(enemys[i]);
     }
+
+    delete(pathfinding);
 }
 
 /// <summary>
@@ -38,23 +46,78 @@ void EnemyGroup::Initialize()
 /// <summary>
 /// 更新
 /// </summary>
-void EnemyGroup::Update(VECTOR targetPosition, Stage& stage)
+/// <param name="playerPosition">プレイヤーの座標</param>
+/// <param name="stage">ステージ</param>
+void EnemyGroup::Update(VECTOR playerPosition, Stage& stage)
 {
-    // エネミーの数だけ更新
+    // 線形探索の更新
+    // プレイヤーの位置する部屋を取得
+    Pathfinding::Room playerRoom = pathfinding->GetCurrentRoom(playerPosition, playerPreviousRoom);
+
     for (int i = 0; i < enemys.size(); i++)
     {
-        enemys[i]->Update(targetPosition,stage);
+        VECTOR enemyTargetPosition = UpdateEnemyTargetPosition(playerPosition, *enemys[i], stage);
+
+        // エネミーの更新
+        enemys[i]->Update(enemyTargetPosition,stage);
     }
 }
 
 /// <summary>
 /// 描画
 /// </summary>
-void EnemyGroup::Draw()
+void EnemyGroup::Draw(VECTOR playerPosition)
 {
     // エネミーの数だけ描画
     for (int i = 0; i < enemys.size(); i++)
     {
         enemys[i]->Draw();
     }
+
+    // 線形探索用に区切った部屋を描画
+    pathfinding->Draw();
+
+    // プレイヤーの位置する部屋を描画
+    Pathfinding::Room playerRoom = pathfinding->GetCurrentRoom(playerPosition, playerPreviousRoom);
+    DrawFormatString(100, 500, DebugFontColor, "PlayerRoom:%d", playerRoom.roomNumber);
+}
+
+/// <summary>
+/// エネミーの線形探索の更新
+/// </summary>
+/// <param name="playerPosition">プレイヤーの座標</param>
+/// <param name="stage">ステージ</param>
+/// <returns>そのエネミーが目指す座標</returns>
+VECTOR EnemyGroup::UpdateEnemyTargetPosition(VECTOR playerPosition,Enemy& enemy, Stage& stage)
+{
+    // 線形探索の更新
+    VECTOR enemyTargetPosition = playerPosition; // エネミーが目指す座標
+    
+    // プレイヤーの位置する部屋を取得
+    Pathfinding::Room playerRoom = pathfinding->GetCurrentRoom(playerPosition, playerPreviousRoom);
+
+    // そのエネミーが度超え行けばよいかが帰ってくる
+    Pathfinding::Room enemyTargetRoom;  // エネミーが目指す部屋
+
+    // 線形探索開始
+    enemyTargetRoom = pathfinding->FindRoomPathToPlayer(playerRoom, enemy);
+
+    // プレイヤーとエネミーの今いる部屋を取得
+    Pathfinding::Room enemyPreviousRoom = enemy.GetPreviousRoom();
+    Pathfinding::Room enemyRoom = pathfinding->GetCurrentRoom(enemy.GetPosition(), enemyPreviousRoom);
+
+    // エネミーの部屋とプレイヤーの部屋が一致した場合
+    if (playerRoom.roomNumber == enemyRoom.roomNumber)
+    {
+        // プレイヤーの座標を目指す
+        enemyTargetPosition = playerPosition;
+    }
+    else
+    {
+        // 次の部屋の中心座標を目指す
+        enemyTargetPosition = enemyTargetRoom.centerPosition;
+    }
+
+    // エネミーが目指す座標
+    return enemyTargetPosition;
 }
