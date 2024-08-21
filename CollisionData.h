@@ -25,6 +25,7 @@ enum class ObjectTag : int
     RoomCenter,     // 部屋の中心
     EnemyAttack,    // エネミーの攻撃
     Shutter,        // シャッター
+    AmmoBox,        // 弾薬補充箱
 };
 
 /// <summary>

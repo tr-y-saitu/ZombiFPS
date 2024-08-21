@@ -17,7 +17,7 @@
 #include "GameSceneUI.h"
 #include "GameScene.h"
 #include "ResultScene.h"
-
+#include "AmmoBox.h"
 
 
 /// <summary>
@@ -47,6 +47,7 @@ GameScene::GameScene()
     enemyGroupController    = new EnemyGroupController();
     enemyWaveController     = new EnemyWaveController();
     shutterController       = new ShutterController();
+    ammoBox                 = new AmmoBox();
 
     // アイテム関連
     maxAmmoItem             = new MaxAmmo();
@@ -70,6 +71,7 @@ GameScene::~GameScene()
     delete(enemyWaveController);
     delete(shutterController);
     delete(maxAmmoItem);
+    delete(ammoBox);
     delete(incomeDoubleItem);
     delete(gameSceneUI);
 
@@ -87,6 +89,7 @@ void GameScene::Initialize()
     enemyGroupController->Initialize();
     enemyWaveController->Initialize();
     shutterController->Initialize();
+    ammoBox->Initialize();
 }
 
 /// <summary>
@@ -102,6 +105,7 @@ SceneBase* GameScene::UpdateScene()
         enemyWaveController->GetEnemySpawnFlag(),enemyWaveController->GetCurrentWaveState());                  // エネミーの集合体
     enemyWaveController->Update(enemyGroupController->GetEnemyGroupSize());
     shutterController->Update();                                    // シャッター
+    ammoBox->Update();                                              // 弾薬補充箱
     collisionManager->Update();                                     // 当たり判定処理
     effectManager->Update();                                        // エフェクト管理クラス更新
     UpdateSound();                                                  // 音の更新
@@ -129,6 +133,7 @@ void GameScene::Draw()
     enemyGroupController->Draw(player->GetPosition());       // エネミーの集合体
     enemyWaveController->Draw();        // エネミーウェーブ
     shutterController->Draw();          // シャッター
+    ammoBox->Draw();                    // 弾薬補充箱
     DrawEffekseer3D();                  // 3Dエフェクト描画
     DrawUI();                           // UIの描画
 }

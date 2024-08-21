@@ -17,6 +17,7 @@ class EnemyWaveController;
 class EnemyObjectPools;
 class ShutterController;
 class MaxAmmo;
+class AmmoBox;
 class IncomeDouble;
 class GameSceneUI;
 
@@ -90,6 +91,7 @@ private:
     Stage*                  stage;                  // ステージ
     Player*                 player;                 // プレイヤー
     ShutterController*      shutterController;      // シャッター管理
+    AmmoBox*                ammoBox;                // 弾薬補充箱
     
     // エネミー関連
     EnemyGroupController*   enemyGroupController;   // エネミーの群れ

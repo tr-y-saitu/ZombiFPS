@@ -67,6 +67,9 @@ void ModelDataManager::ModelDataLoad()
     // シャッター
     modelDataList[ShutterModelData]         = MV1LoadModel("Data/Object/ShutterMini.mv1");
 
+    // 弾薬補充箱
+    modelDataList[AmmoBox]                  = MV1LoadModel("Data/Stage/AmmoBox/AmmoBox.mv1");
+
     // キャラクター
     modelDataList[PlayerModelData]          = MV1LoadModel("Data/Player/playerAnimationFixed.mv1");
     modelDataList[EnemyModelData]           = MV1LoadModel("Data/Enemy/EenmyModelZombie.mv1");

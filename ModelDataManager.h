@@ -19,6 +19,9 @@ public:
         // シャッター
         ShutterModelData,           // シャッターモデル
 
+        // 弾薬箱
+        AmmoBox,                    // 弾薬補充箱
+
         // キャラクター
         PlayerModelData,            // プレイヤーモデル
         EnemyModelData,             // エネミーモデル
