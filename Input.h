@@ -54,6 +54,7 @@ private:
     // 変数
     int     currentFrameInput;      // 現在のフレームで押されていボタン
     int     nowFrameNewInput;       // 現在のフレームで新たに入力されたボタン
+    int     previousFrameInput;     // 前のフレームで入力されたボタン
     MousePosition mousePosition;    // マウスの座標
     int     mouseCurrentFrameInput; // 現在のフレームで押されたボタン
     int     mouseNowFrameInput;     // 現在のフレームで新たに入力されたマウスボタン

@@ -455,7 +455,7 @@ void Player::UpdateInteract(const Input& input)
         break;
     case Player::InteractLocationState::Shutter:
         // 所持金があるかつ、インタラクトキーが入力されていれば
-        if (input.GetCurrentFrameInput() & PAD_INPUT_1 || CheckHitKey(KEY_INPUT_F)
+        if (input.GetNowNewFrameInput() & PAD_INPUT_1 || CheckHitKey(KEY_INPUT_F)
             && interactionCost <= money)
         {
             isInteracted = true;        // インタラクトしている
