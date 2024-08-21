@@ -6,6 +6,7 @@
 #include "Stage.h"
 #include "Calculation.h"
 #include "Bullet.h"
+#include "Pathfinding.h"
 
 /// <summary>
 /// コンストラクタ
@@ -68,9 +69,20 @@ void Enemy::Initialize(int currentWave)
     UpdateAttackCollisionData();    // 攻撃用の当たり判定
 
     // 初期化時にいる部屋を設定
-    previousRoom.roomNumber = Pathfinding::Center1;
-    currentRoom.roomNumber = previousRoom.roomNumber;
-    roomEntryState = Pathfinding::MovingToNextRoom;
+    previousRoom.roomNumber = Pathfinding::Center2;
+    currentRoom.roomNumber  = previousRoom.roomNumber;
+    roomEntryState          = Pathfinding::MovingToNextRoom;
+
+    // スポーン位置を設定
+    int spawnRoom = GetRand(SpawnRandomRange);
+    if (spawnRoom == SpawnCetenr1)
+    {
+        position = SpawnPositionCenter1;    // Center１でスポーン
+    }
+    else if (spawnRoom == SpawnWest4)
+    {
+        position = SpawnPositionWest4;      // West4でスポーン
+    }
 
     // ステータス
     hitPoints = (InitializeHitPoints * currentWave) / HitPointsRate;

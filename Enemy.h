@@ -52,6 +52,15 @@ public:
     };
 
     /// <summary>
+    /// 出現場所
+    /// </summary>
+    enum SpawnRoom
+    {
+        SpawnCetenr1,       // Center1で沸く
+        SpawnWest4,         // West4で沸く
+    };
+
+    /// <summary>
     /// コンストラクタ
     /// </summary>
     Enemy();
@@ -210,6 +219,10 @@ private:
     static constexpr float  AnimationBlendSpeed     = 0.1f;                             // アニメーションのブレンド率変化速度
     // エフェクト
     static constexpr VECTOR BloodEffectOffset       = { 0.0f, 4.5f, 0.0f };             // 血しぶきエフェクトのずらし量
+    // スポーン
+    static constexpr int    SpawnRandomRange        = 1;                                // 沸き位置の乱数の範囲
+    static constexpr VECTOR SpawnPositionCenter1    = { -12.0f,  1.0f,  58.0f };        // 沸き位置Center1
+    static constexpr VECTOR SpawnPositionWest4      = { -48.0f,  1.0f, -35.0f };        // 沸き位置West4
     // デバッグ
     static constexpr int    DebugHitPointDrawX      = 0;                                // デバッグ時のHP表示X座標
     static constexpr int    DebugHitPointDrawY      = 100;                              // デバッグ時のHP表示Y座標
