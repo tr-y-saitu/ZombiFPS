@@ -56,7 +56,7 @@ void EnemyGroup::Update(VECTOR playerPosition, Stage& stage)
 
     for (int i = 0; i < enemys.size(); i++)
     {
-        VECTOR enemyTargetPosition = UpdateEnemyPathfinding(playerPosition, *enemys[i], stage);
+        VECTOR enemyTargetPosition = UpdateEnemyTargetPosition(playerPosition, *enemys[i], stage);
 
         // エネミーの更新
         enemys[i]->Update(enemyTargetPosition,stage);
@@ -94,7 +94,7 @@ void EnemyGroup::Draw(VECTOR playerPosition)
 /// <param name="playerPosition">プレイヤーの座標</param>
 /// <param name="stage">ステージ</param>
 /// <returns>そのエネミーが目指す座標</returns>
-VECTOR EnemyGroup::UpdateEnemyPathfinding(VECTOR playerPosition,Enemy& enemy, Stage& stage)
+VECTOR EnemyGroup::UpdateEnemyTargetPosition(VECTOR playerPosition,Enemy& enemy, Stage& stage)
 {
     // 線形探索の更新
     VECTOR enemyTargetPosition = playerPosition; // エネミーが目指す座標
