@@ -168,17 +168,25 @@ private:
     /// <summary>
     /// オブジェクトと接触した時の処理
     /// </summary>
-    /// <param name="hitObjectData">オブジェクトのデータ</param>
+    /// <param name="hitObjectData">接触したオブジェクトの情報</param>
     void OnHit(CollisionData hitObjectData);
 
     /// <summary>
     /// 弾丸と接触した時の処理
     /// </summary>
-    /// <param name="hitObjectData">当たったオブジェクトの情報</param>
+    /// <param name="hitObjectData">接触したオブジェクトの情報</param>
     void OnHitBullet(CollisionData hitObjectData);
 
+    /// <summary>
+    /// エネミーの胴体と接触した時の処理
+    /// </summary>
+    /// <param name="hitObjectData">接触したオブジェクトの情報</param>
     void OnHitEnemyBody(CollisionData hitObjectData);
 
+    /// <summary>
+    /// プレイヤーと接触した時の処理
+    /// </summary>
+    /// <param name="hitObjectData">接触したオブジェクトの情報</param>
     void OnHitPlayer(CollisionData hitObjectData);
 
     /// <summary>
@@ -213,11 +221,11 @@ private:
     static constexpr int    HitPointsRate           = 4;                                // 体力の調整値
     static constexpr VECTOR InitializeDirection     = { 1.0f, 0.0f, 0.0f };             // 初期化時の移動方向
     static constexpr int    DeathInactiveFrame      = 150;                              // 死亡してからモデルを削除するまでのフレームカウント数
-    static constexpr float  AttackRange             = 4.0f;                             // この範囲に入ったら攻撃を開始する
     // 当たり判定
     static constexpr float  CollisionRadius         = 1.0f;                             // 当たり判定用半径
     static constexpr VECTOR CapsulePositionOffset   = { 0.0f,4.0f,0.0f };               // カプセルの始点を作るためのずらし量
     static constexpr float  PolygonDetail           = 8.0f;                             // 描画するポリゴンの数
+    static constexpr float  AttackRange             = 5.0f;                             // この範囲に入ったら攻撃を開始する
     // 攻撃
     static constexpr float  AttackCollisionRadius   = 2.0f;                             // 攻撃の球型の当たり判定半径
     static constexpr float  AttackPower             = 10.0f;                            // 攻撃力

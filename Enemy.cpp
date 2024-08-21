@@ -220,7 +220,7 @@ void Enemy::OnHit(CollisionData hitObjectData)
     case ObjectTag::Player:
 
         // プレイヤーと接触した時
-
+        OnHitPlayer(hitObjectData);
 
     default:
         break;
@@ -256,7 +256,59 @@ void Enemy::OnHitBullet(CollisionData hitObjectData)
     effectManager->PlayBloodSplatterEffect(effectPlayPosition);
 }
 
+/// <summary>
+/// エネミーの胴体と接触した時の処理
+/// </summary>
+/// <param name="hitObjectData">接触したオブジェクトの情報</param>
 void Enemy::OnHitEnemyBody(CollisionData hitObjectData)
+{
+    // 押し出し処理を行う
+
+    VECTOR direction;
+    float distance;
+    float radiusSum;
+    float penetrationDepth;
+
+    // 半径の合計
+    radiusSum = hitObjectData.radius + collisionData.radius;
+
+    // y座標は変更しなくていいので０に修正する
+    VECTOR correctedTargetPosition = VGet(hitObjectData.centerPosition.x, 0.0f, hitObjectData.centerPosition.z);
+
+    // エネミーも同じように修正 
+    VECTOR correctedEnemyPosition = VGet(position.x, 0.0f, position.z);
+
+    // ターゲットからエネミーへのベクトルを計算
+    VECTOR vectorToTarget = VSub(correctedEnemyPosition, correctedTargetPosition);
+
+    // ベクトルのサイズを計算
+    distance = VSize(vectorToTarget);
+
+    // エネミーとターゲットが重なっている場合のみ押し出しを行う
+    if (distance < radiusSum)
+    {
+        // 押し戻す距離の計算（penetration depth）
+        penetrationDepth = radiusSum - distance;
+
+        // ベクトルを正規化する
+        vectorToTarget = VNorm(vectorToTarget);
+
+        // 押し出す量（penetration depthに基づく）
+        VECTOR pushBackVector = VScale(vectorToTarget, penetrationDepth);
+
+        // 押し出しベクトルをエネミーの位置に加算
+        position = VAdd(position, pushBackVector);
+
+        // モデルの位置も合わせて修正
+        MV1SetPosition(modelHandle, position);
+    }
+}
+
+/// <summary>
+/// プレイヤーと接触した時の処理
+/// </summary>
+/// <param name="hitObjectData">接触したオブジェクトの情報</param>
+void Enemy::OnHitPlayer(CollisionData hitObjectData)
 {
     // 押し出し処理を行う
 
@@ -326,6 +378,7 @@ void Enemy::UpdateCollisionData()
         collisionData.startPosition = VAdd(position, CapsulePositionOffset);
         collisionData.endPosition = position;
         collisionData.centerPosition = position;
+        collisionData.centerPosition.y = 4.5f;      // 高さを合わせる
 
         // カプセルの半径を登録
         collisionData.radius = CollisionRadius;
@@ -500,8 +553,8 @@ void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
     {
         // 距離を図る
         VECTOR playerPosition = targetPosition;
-        playerPosition.y = 1.0f;
-        float distance = Calculation::Distance3D(playerPosition, position);
+        playerPosition.y = 4.5f;
+        float distance = Calculation::Distance3D(playerPosition, collisionData.centerPosition);
 
         // 距離が近ければ攻撃する
         if (distance < AttackRange)
