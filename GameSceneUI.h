@@ -84,10 +84,17 @@ private:
     /// </summary>
     void DrawVHSInformation();
 
+    /// <summary>
+    /// オブジェクトのインタラクト費用を描画
+    /// </summary>
+    /// <param name="interactionCost">インタラクト費用</param>
+    void DrawInteractionCost(int interactionCost);
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
-
+    static constexpr int InteractLocationInfomationDrawPositionY    = 800;      // インタラクト情報の描画Y座標
+    static constexpr int InteractLocationCostDrawPositionY          = 900;      // インタラクトできるコスト描画Y座標
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //

@@ -281,49 +281,114 @@ void Player::OnHitFloor()
 /// <param name="hitObjectData"></param>
 void Player::OnHitObject(CollisionData hitObjectData)
 {
-    VECTOR difference;
-    float distance;
+    
     // 接触したオブジェクトごとに別の処理
     switch (hitObjectData.tag)
     {
-    case ObjectTag::EnemyAttack:    // エネミーの攻撃
-        // HPを減らす
-        hitPoint -= hitObjectData.attackPower;
+    case ObjectTag::EnemyAttack:
+        // エネミーの攻撃
+        OnHitEnemyAttack(hitObjectData);
 
         break;
 
-    case ObjectTag::Shutter:    // シャッター
-        // 実際の当たり判定に入っているか
+    case ObjectTag::Shutter:
+        // シャッター
+        OnHitShutter(hitObjectData);
 
-        // オブジェクトとの距離を計算
-        difference = VSub(position, hitObjectData.centerPosition);
-        distance = VSize(difference);
+        break;
 
-        // インタラクトの範囲に入っているか確認
-        if (distance <= hitObjectData.radius + collisionData.radius)
-        {
-            // 押し出し処理を行う
-            ProcessExtrusion(hitObjectData);
-
-            // シャッターのインタラクトの範囲に入っている
-            interactLocationState = InteractLocationState::Shutter;
-
-            // シャッターのインタラクトコストをもらう
-            interactionCost = hitObjectData.interactionCost;
-        }
-        else
-        {
-            // シャッターのインタラクトの範囲に入っている
-            interactLocationState = InteractLocationState::Shutter;
-
-            // シャッターのインタラクトコストをもらう
-            interactionCost = hitObjectData.interactionCost;
-        }
+    case ObjectTag::AmmoBox:
+        // 弾薬補充箱
+        OnHitAmmoBox(hitObjectData);
 
         break;
 
     default:
         break;
+    }
+}
+
+/// <summary>
+/// エネミーの攻撃と接触した際の処理
+/// </summary>
+/// <param name="hitObjectData">接触したオブジェクトの情報</param>
+void Player::OnHitEnemyAttack(CollisionData hitObjectData)
+{
+    // HPを減らす
+    hitPoint -= hitObjectData.attackPower;
+}
+
+/// <summary>
+/// シャッターと接触した際の処理
+/// </summary>
+/// <param name="hitObjectData">接触したオブジェクトの情報</param>
+void Player::OnHitShutter(CollisionData hitObjectData)
+{
+    // 実際の当たり判定に入っているか
+
+    VECTOR difference;
+    float  distance;
+
+    // オブジェクトとの距離を計算
+    difference  = VSub(position, hitObjectData.centerPosition);
+    distance    = VSize(difference);
+
+    // インタラクトの範囲に入っているか確認
+    if (distance <= hitObjectData.radius + collisionData.radius)
+    {
+        // 押し出し処理を行う
+        ProcessExtrusion(hitObjectData);
+
+        // シャッターのインタラクトの範囲に入っている
+        interactLocationState = InteractLocationState::Shutter;
+
+        // シャッターのインタラクトコストをもらう
+        interactionCost = hitObjectData.interactionCost;
+    }
+    else
+    {
+        // シャッターのインタラクトの範囲に入っている
+        interactLocationState = InteractLocationState::Shutter;
+
+        // シャッターのインタラクトコストをもらう
+        interactionCost = hitObjectData.interactionCost;
+    }
+}
+
+/// <summary>
+/// 弾薬補充箱と接触した際の処理
+/// </summary>
+/// <param name="hitObjectData">接触したオブジェクトの情報</param>
+void Player::OnHitAmmoBox(CollisionData hitObjectData)
+{
+    // 実際の当たり判定に入っているか
+
+    VECTOR difference;
+    float  distance;
+
+    // オブジェクトとの距離を計算
+    difference = VSub(position, hitObjectData.centerPosition);
+    distance = VSize(difference);
+
+    // インタラクトの範囲に入っているか確認
+    if (distance <= hitObjectData.radius + collisionData.radius)
+    {
+        // 押し出し処理を行う
+        ProcessExtrusion(hitObjectData);
+
+        // インタラクトの範囲に入っている
+        interactLocationState = InteractLocationState::AmmoBox;
+
+        // インタラクトコストをもらう
+        interactionCost = hitObjectData.interactionCost;
+    }
+    else
+    {
+        // インタラクトの範囲に入っている
+        interactLocationState = InteractLocationState::AmmoBox;
+
+        // インタラクトコストをもらう
+        interactionCost = hitObjectData.interactionCost;
     }
 }
 

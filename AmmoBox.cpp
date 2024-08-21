@@ -1,4 +1,5 @@
-﻿#include "AmmoBox.h"
+﻿#include "CollisionManager.h"
+#include "AmmoBox.h"
 #include "ModelDataManager.h"
 
 /// <summary>
@@ -26,11 +27,12 @@ void AmmoBox::Initialize()
 
     // 当たり判定用情報
     collisionData.tag               = ObjectTag::AmmoBox;
-    collisionData.centerPosition    = InitializePosition;
+    collisionData.centerPosition    = CollisionInitializePosition;
     collisionData.radius            = CollisionRadius;
     collisionData.interactRadius    = CollisionInteractRadius;
+    collisionData.interactionCost   = InteractCost;
 
-    // モデルデータマネージャーのインスタンスをもらう
+    // モデルデータマネージャーのアドレスをもらう
     modelDataManager = ModelDataManager::GetInstance();
 
     // モデルデータをもらう
@@ -38,6 +40,18 @@ void AmmoBox::Initialize()
 
     // スケールを設定
     MV1SetScale(modelHandle, InitializeScale);
+
+    // 当たり判定クラスのアドレスをもらう
+    collisionManager = CollisionManager::GetInstance();
+
+    // 当たり判定管理クラスに当たった後の関数のアドレスを渡す
+    collisionData.onHit = std::bind(&AmmoBox::OnHit, this, std::placeholders::_1);
+
+    // 当たり判定を開始する
+    collisionData.isCollisionActive = true;
+
+    // 当たり判定に必要なデータを管理クラスに渡す
+    collisionManager->RegisterCollisionData(&collisionData);
 }
 
 /// <summary>

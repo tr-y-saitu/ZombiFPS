@@ -208,6 +208,24 @@ private:
     void UpdateCollisionData();
 
     /// <summary>
+    /// エネミーの攻撃と接触した際の処理
+    /// </summary>
+    /// <param name="hitObjectData">接触したオブジェクトの情報</param>
+    void OnHitEnemyAttack(CollisionData hitObjectData);
+
+    /// <summary>
+    /// シャッターと接触した際の処理
+    /// </summary>
+    /// <param name="hitObjectData">接触したオブジェクトの情報</param>
+    void OnHitShutter(CollisionData hitObjectData);
+
+    /// <summary>
+    /// 弾薬補充箱と接触した際の処理
+    /// </summary>
+    /// <param name="hitObjectData">接触したオブジェクトの情報</param>
+    void OnHitAmmoBox(CollisionData hitObjectData);
+
+    /// <summary>
     /// 押し出し処理
     /// </summary>
     /// <param name="hitObjectData">接触したオブジェクト</param>

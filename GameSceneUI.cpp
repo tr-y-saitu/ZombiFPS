@@ -113,13 +113,13 @@ void GameSceneUI::DrawPlayerInteractState(Player& player)
         break;
 
     case Player::InteractLocationState::Shutter:
-        // シャッターの支払い料金を描画
+        // シャッター情報を描画
         char shutterInfo[256];
         snprintf(shutterInfo, sizeof(shutterInfo), "[F]ｷｰ ﾄﾞｱｦﾋﾗｸ");
         DrawStringCenterScreen(shutterInfo, 800, DebugFontColor, vhsJPLargeFontHandle);
-        char shutterCost[256];
-        snprintf(shutterCost, sizeof(shutterCost), "[ｺｽﾄ:%d]", player.GetInteractionCost());
-        DrawStringCenterScreen(shutterCost, 900, DebugFontColor, vhsJPLargeFontHandle);
+
+        // コストを描画
+        DrawInteractionCost(player.GetInteractionCost());
 
         break;
 
@@ -128,6 +128,13 @@ void GameSceneUI::DrawPlayerInteractState(Player& player)
         break;
 
     case Player::InteractLocationState::AmmoBox:
+        // 弾薬補充箱の情報を描画
+        char ammoBoxInfo[256];
+        snprintf(ammoBoxInfo, sizeof(ammoBoxInfo), "[F]ｷｰﾃﾞﾀﾞﾝﾔｸﾎｼﾞｭｳ");
+        DrawStringCenterScreen(ammoBoxInfo, 800, DebugFontColor, vhsJPLargeFontHandle);
+
+        // コストを描画
+        DrawInteractionCost(player.GetInteractionCost());
 
         break;
     default:
@@ -190,4 +197,18 @@ void GameSceneUI::DrawVHSInformation()
 
     // 録画文字を描画
     DrawRotaGraph(150, 100, 1, 0, recImageHandle, true);
+}
+
+/// <summary>
+/// オブジェクトのインタラクト費用を描画
+/// </summary>
+/// <param name="interactionCost">インタラクト費用</param>
+void GameSceneUI::DrawInteractionCost(int interactionCost)
+{
+    // 文字列に値を結合
+    char text[256];
+    snprintf(text, sizeof(text), "[ｺｽﾄ:%d]", interactionCost);
+
+    // 画面の中央に描画
+    DrawStringCenterScreen(text, InteractLocationCostDrawPositionY, DebugFontColor, vhsJPLargeFontHandle);
 }

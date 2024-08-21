@@ -86,8 +86,7 @@ void Bullet::Draw()
 {
     // デバッグ描画
     // カプセル型のラインを描画
-    DrawCapsule3D(lineStartPosition, position, HitBoxRadius,
-        PolygonDetail, DebugPolygonColorRed, DebugPolygonColorRed, false);
+    //DrawCapsule3D(lineStartPosition, position, HitBoxRadius,PolygonDetail, DebugPolygonColorRed, DebugPolygonColorRed, false);
 }
 
 /// <summary>
