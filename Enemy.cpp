@@ -578,7 +578,7 @@ void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
                 attackCollisionData.isCollisionActive = true;   // 当たり判定をアクティブ化
                 collisionManager->RegisterCollisionData(&attackCollisionData);
             }
-            if (currentAnimationCount >= animationTotalTime) // 攻撃アニメーションが終了しているかチェック
+            if (currentAnimationCount == animationTotalTime - 1) // 攻撃アニメーションが終了しているかチェック
             {
                 // Runアニメーションに変更
                 PlayAnimation(AnimationType::Run);
