@@ -92,7 +92,19 @@ void CollisionManager::Update()
                 }
             }
 
-            // カプセルとカプセル
+            // エネミーとエネミーの当たり判定(カプセルとカプセル)
+            if (data1.tag == ObjectTag::EnemyBoby && data2.tag == ObjectTag::EnemyBoby)
+            {
+                // カプセル同士の当たり判定処理
+                if (IsCollisionCapsuleCapsule(data1.startPosition,data1.endPosition,data1.radius,
+                    data2.startPosition,data2.endPosition,data2.radius))
+                {
+                    // 当たった時の関数を呼び出す
+                    data1.onHit(data2);
+                    data2.onHit(data1);
+                }
+
+            }
 
             // 球体とカプセル
 
@@ -180,4 +192,34 @@ bool CollisionManager::IsCollisionSphere(VECTOR position1, float radius1,
         return false;       // 当たってない
     }
 
+}
+
+/// <summary>
+/// カプセルとカプセルの当たり判定
+/// </summary>
+/// <param name="capsule1Start"></param>
+/// <param name="capsule1End"></param>
+/// <param name="capsule1Radius"></param>
+/// <param name="capsule2Start"></param>
+/// <param name="capsule2End"></param>
+/// <param name="capsule2Radius"></param>
+/// <returns></returns>
+bool CollisionManager::IsCollisionCapsuleCapsule(VECTOR capsule1Start, VECTOR capsule1End, float capsule1Radius,
+    VECTOR capsule2Start, VECTOR capsule2End, float capsule2Radius)
+{
+    // 当たったかどうか
+    bool isHit = false;
+
+    // カプセル間の最短距離を計算
+    float distance = Segment_Segment_MinLength(capsule1Start, capsule1End, capsule2Start, capsule2End);
+
+    // 最短距離が両カプセルの半径の和以下であれば衝突している
+    float combinedRadius = capsule1Radius + capsule2Radius;
+
+    if (distance <= combinedRadius * combinedRadius)
+    {
+        return true; // 当たっている
+    }
+
+    return isHit;
 }

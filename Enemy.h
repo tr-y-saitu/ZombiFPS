@@ -67,7 +67,7 @@ public:
     /// </summary>
     /// <param name="targetPosition">目標座標</param>
     /// <param name="stage">ステージ</param>
-    void Update(VECTOR targetPosition,Stage& stage);
+    void Update(VECTOR targetPosition, Stage& stage);
 
     /// <summary>
     /// 描画
@@ -84,6 +84,7 @@ public:
     const Pathfinding::Room GetPreviousRoom()const { return previousRoom; }
     const bool GetIsTouchingRoomCenter()const { return isTouchingRoomCenter; }
     const Pathfinding::RoomEntryState GetRoomEntryState() const { return roomEntryState; }
+    const bool GetIsActive()const { return isActive; }
 
     // Setter
     void SetPreviousRoom(Pathfinding::Room set) { previousRoom = set; }
@@ -188,6 +189,7 @@ private:
     bool        currentFrameMove;           // そのフレームで動いたかどうか
     State       state;                      // 状態
     int         hitPoints;                  // 体力
+    bool        isActive;           // 使用中かどうか
 
     // 線形探索用
     Pathfinding::Room previousRoom;                 // 以前いた部屋

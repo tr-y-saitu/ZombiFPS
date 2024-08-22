@@ -17,6 +17,7 @@ Enemy::Enemy()
     , position                  (InitializePosition)
     , targetNextPosition        (InitializePosition)
     , isTouchingRoomCenter      (false)
+    , isActive                  (true)
 {
     modelDataManager = ModelDataManager::GetInstance();
     collisionManager = CollisionManager::GetInstance();
@@ -118,12 +119,28 @@ void Enemy::Draw()
 /// <param name="hitObjectData">オブジェクトのデータ</param>
 void Enemy::OnHit(CollisionData hitObjectData)
 {
+    VECTOR direction;
+    float distance;
+    float radiusSum;
+    float penetrationDepth;
+
     switch (hitObjectData.tag)
     {
-    case ObjectTag::Bullet:
-
+    case ObjectTag::Bullet: // 弾丸と当たった時
         // HPを減少
         hitPoints -= hitObjectData.bulletPower;
+
+        break;
+
+    case ObjectTag::EnemyBoby:  // エネミーと当たった時
+        // 押し出し処理を行う
+        // 方向を計算
+
+        // 自分と相手の距離を図る
+
+        // 自分と相手の半径の合計
+
+        // めり込んだ分だけ押し戻す
 
         break;
 

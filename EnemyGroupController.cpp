@@ -1,4 +1,5 @@
-﻿#include "EnemyGroupController.h"
+﻿#include "EnemyObjectPools.h"
+#include "EnemyGroupController.h"
 #include "EnemyGroup.h"
 
 
@@ -7,8 +8,11 @@
 /// </summary>
 EnemyGroupController::EnemyGroupController()
 {
+    // エネミーのオブジェクトプール
+    enemyObjectPools = new EnemyObjectPools();
+
     // メモリ確保
-    for (int i = 0; i < TestEnmeyGroupNumber; i++)
+    for (int i = 0; i < TestEnemyGroupNumber; i++)
     {
         enemyGroup.push_back(new EnemyGroup());
     }
@@ -20,10 +24,12 @@ EnemyGroupController::EnemyGroupController()
 EnemyGroupController::~EnemyGroupController()
 {
     // メモリ解放
-    for (int i = 0; i < enemyGroup.size(); i++)
+    for (EnemyGroup* enemy : activeEnemyGroup)
     {
-        delete(enemyGroup[i]);
+        delete(enemy);
     }
+
+    delete(enemyObjectPools);
 }
 
 /// <summary>
@@ -39,17 +45,43 @@ void EnemyGroupController::Initialize()
 }
 
 /// <summary>
+/// エネミーを作成する
+/// </summary>
+void EnemyGroupController::CreateEnemy()
+{
+    // 未使用のエネミーをオブジェクトプールから取得
+    EnemyGroup* enemy = enemyObjectPools->GetInactiveEnemy();
+
+    // 取得したエネミーがあるなら使用中に追加
+    if (enemy != nullptr)
+    {
+        enemy->Initialize();            // 初期化
+        activeEnemyGroup.push_back(enemy);    // エネミーの追加
+    }
+
+}
+
+/// <summary>
 /// 更新
 /// </summary>
 /// <param name="playerPosition">プレイヤー座標</param>
 /// <param name="stage">ステージ</param>
-void EnemyGroupController::Update(VECTOR playerPosition, Stage& stage)
+void EnemyGroupController::Update(VECTOR playerPosition, Stage& stage, bool enemySpawnFlag)
 {
-    // エネミーグループの数だけ更新
-    for (int i = 0; i < enemyGroup.size(); i++)
+    // エネミー作成指示が出れば作成
+    if (enemySpawnFlag)
     {
-        enemyGroup[i]->Update(playerPosition, stage);
+        CreateEnemy();
     }
+
+    // エネミーグループの数だけ更新
+    for (auto& enemyGroup : activeEnemyGroup)
+    {
+        enemyGroup->Update(playerPosition, stage);
+    }
+
+    // 使い終わったエネミーがいればプールに返却する
+    enemyObjectPools->ReturnActiveEnemyInstance(activeEnemyGroup);
 }
 
 /// <summary>
@@ -57,9 +89,12 @@ void EnemyGroupController::Update(VECTOR playerPosition, Stage& stage)
 /// </summary>
 void EnemyGroupController::Draw(VECTOR playerPosition)
 {
-    // エネミーの数だけ描画
-    for (int i = 0; i < enemyGroup.size(); i++)
+    // エネミーグループの数だけ更新
+    for (auto& enemyGroup : activeEnemyGroup)
     {
-        enemyGroup[i]->Draw(playerPosition);
+        enemyGroup->Draw(playerPosition);
     }
+
+    // エネミーの総数を描画
+    DrawFormatString(100, 800, DebugFontColor, "EnemySize:%d", activeEnemyGroup.size());
 }

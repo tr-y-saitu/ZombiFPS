@@ -1,8 +1,7 @@
 ﻿#pragma once
-
-
 #include "Common.h"
 #include "Enemy.h"
+#include "EnemyGroup.h"
 
 class Enemy;
 
@@ -23,16 +22,33 @@ public:
     virtual ~EnemyObjectPools();
 
     /// <summary>
-    /// 初期化
+    /// 現在未使用のエネミーがあるかどうか調べる
     /// </summary>
-    void Initialize();
+    /// <returns>未使用のエネミーがある:true   ない:false</returns>
+    bool HasInactiveEnemyInstance();
+
+    /// <summary>
+    /// 未使用のエネミーのインスタンスを渡す
+    /// </summary>
+    /// <returns>未使用のエネミーがあればそのインスタンス　　無ければnullptr</returns>
+    EnemyGroup* GetInactiveEnemy();
+
+    /// <summary>
+    /// 使用中のリストから未使用リストにインスタンスを移動する
+    /// </summary>
+    /// <param name="activeEnemy">移動したい使用中のリストのアドレス</param>
+    void ReturnActiveEnemyInstance(list<EnemyGroup*>& activeEnemy);
 
 private:
-    // 定数
-    static constexpr int EnemyTotalNum = 100;   // エネミーの総合数
+    //---------------------------------------------------------------------------------//
+    //                                      定数                                       //
+    //---------------------------------------------------------------------------------//
+    static constexpr int EnemyTotalNumber = 100;   // エネミーの総合数
 
-    // 変数
-
+    //---------------------------------------------------------------------------------//
+    //                                      変数                                       //
+    //---------------------------------------------------------------------------------//
+    list<EnemyGroup*> inactiveEnemy;     // 未使用のエネミー
 
 };
 

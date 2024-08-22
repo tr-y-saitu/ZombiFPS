@@ -41,7 +41,6 @@ GameScene::GameScene()
     player                  = new Player();
     enemyGroupController    = new EnemyGroupController();
     enemyWaveController     = new EnemyWaveController();
-    enemyObjectPools        = new EnemyObjectPools();
 
     // アイテム関連
     maxAmmoItem             = new MaxAmmo();
@@ -63,7 +62,6 @@ GameScene::~GameScene()
     delete(player);
     delete(enemyGroupController);
     delete(enemyWaveController);
-    delete(enemyObjectPools);
     delete(maxAmmoItem);
     delete(incomeDoubleItem);
     delete(gameSceneUI);
@@ -77,6 +75,7 @@ void GameScene::Initialize()
     stage->Initialize();
     player->Initialize();
     enemyGroupController->Initialize();
+    enemyWaveController->Initialize();
 }
 
 /// <summary>
@@ -91,7 +90,9 @@ SceneBase* GameScene::UpdateScene()
     // オブジェクト更新
     input->Update();                                                // 入力処理
     player->Update(*input,*stage);                                  // プレイヤー
-    enemyGroupController->Update(player->GetPosition(), *stage);    // エネミーの集合体
+    enemyGroupController->Update(player->GetPosition(), *stage,
+        enemyWaveController->GetEnemySpawnFlag());    // エネミーの集合体
+    enemyWaveController->Update(enemyGroupController->GetEnemyGroupSize());
     collisionManager->Update();                                     // 当たり判定処理
     gameSceneUI->Update();                                          // UIの更新
 
@@ -107,6 +108,7 @@ void GameScene::Draw()
     stage->Draw();                      // ステージ
     player->Draw(*stage);               // プレイヤー
     enemyGroupController->Draw(player->GetPosition());       // エネミーの集合体
+    enemyWaveController->Draw();        // エネミーウェーブ
     DrawUI();                           // UIの描画
 }
 

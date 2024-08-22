@@ -61,6 +61,12 @@ void EnemyGroup::Update(VECTOR playerPosition, Stage& stage)
         // エネミーの更新
         enemys[i]->Update(enemyTargetPosition,stage);
     }
+
+    for (int i = 0; i < enemys.size(); i++)
+    {
+        // エネミーが使用中かを調べる
+        isActive = enemys[i]->GetIsActive();
+    }
 }
 
 /// <summary>

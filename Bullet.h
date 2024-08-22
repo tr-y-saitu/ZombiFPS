@@ -53,7 +53,7 @@ public:
     /// <summary>
     /// 当たり判定に必要なデータを更新する
     /// </summary>
-    void UpdataCollisionData();
+    void UpdateCollisionData();
 
     /// <summary>
     /// オブジェクトと接触した時の処理
