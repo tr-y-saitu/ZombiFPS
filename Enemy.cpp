@@ -188,11 +188,11 @@ void Enemy::Draw()
         DebugFontColor, "HP:%d", hitPoints);
 
     // 攻撃の当たり判定を描画する
-    if (attackCollisionData.isCollisionActive)
+    /*if (attackCollisionData.isCollisionActive)
     {
         DrawSphere3D(attackCollisionData.centerPosition, attackCollisionData.radius,
             DebugSphereDivision, DebugPolygonColorBlue, DebugPolygonColorBlue, true);
-    }
+    }*/
 }
 
 /// <summary>
