@@ -762,10 +762,10 @@ void Player::UpdateAngle()
     // FIXME:
     // ブレンダーでアニメーションを残したままモデルを回転し、
     // 保存する方法が分からないためプログラム上で実装
-    playerAngleY += HipUpPositionAngleY;
+    playerAngleY += HipShootHorizontalAngle;
 
     // 腰だめ角度に調整
-    cameraPitch += HipUpPositionAnglePitch;
+    cameraPitch += HipShootVerticalAngle;
 
     // 回転を行列に変換
     MATRIX matrixX = MGetRotX(cameraPitch);             // X軸回転

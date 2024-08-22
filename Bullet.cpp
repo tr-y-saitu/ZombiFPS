@@ -55,6 +55,11 @@ void Bullet::Initialize(BulletInitializeData initializeData)
 /// </summary>
 void Bullet::Update()
 {
+
+    //FIXME:エネミーのOnHit関数で獲得金額を上昇させるように変更する
+    //      この部分がない場合、獲得金額加算ができないため実装
+    //      プレイヤーにポイント加算の関数を作成し、その関数ポインタをエネミーに渡し、
+    //      エネミー側のOnHit関数で呼び出す形に変更する
     // 弾丸は１フレームのみ存在する
     if (activeFrameCount)
     {
