@@ -290,6 +290,7 @@ private:
     static constexpr VECTOR ZeroVector              = { 0.0f,0.0f,0.0f };           // ゼロベクトル
     static constexpr VECTOR PlayerScale             = { 0.05f,0.05f,0.05f };        // プレイヤーのスケール
     static constexpr float  InitializeHitPoint      = 50.0f;                        // プレイヤーの初期体力
+    static constexpr int    InitializeMoney         = 2000;                         // 最初の所持金
     // 当たり判定
     static constexpr float  HitBoxRadius            = 3.0f;                         // 自身の当たり判定
     static constexpr int    HitRewardAmount         = 10;                           // ヒットした時の獲得金額

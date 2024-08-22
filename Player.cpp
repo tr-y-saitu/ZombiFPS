@@ -96,7 +96,7 @@ void Player::Initialize()
     previousPlayAnimation = -1;
 
     // 所持金を初期化
-    money = 0;
+    money = InitializeMoney;
     
     // アニメーション設定
     PlayAnimation(AnimationType::Idle);
@@ -445,8 +445,15 @@ void Player::ProcessExtrusion(CollisionData hitObjectData)
 /// </summary>
 void Player::UpdateInteract(const Input& input)
 {
-    // インタラクトしているかどうかを初期化する
-    isInteracted = false;
+    // インタラクトエリア内か確認する
+    if (interactLocationState == InteractLocationState::None)
+    {
+        // インタラクトしているかどうかを初期化する
+        isInteracted = false;
+
+        // インタラクト更新は行わなくてよいので早期リターン
+        return;
+    }
 
     switch (interactLocationState)
     {
@@ -456,7 +463,7 @@ void Player::UpdateInteract(const Input& input)
     case Player::InteractLocationState::Shutter:
         // 所持金があるかつ、インタラクトキーが入力されていれば
         if (input.GetNowNewFrameInput() & PAD_INPUT_1 || CheckHitKey(KEY_INPUT_F)
-            && interactionCost <= money)
+            && interactionCost <= money && !isInteracted)
         {
             isInteracted = true;        // インタラクトしている
             money -= interactionCost;   // 所持金を支払う
@@ -469,7 +476,8 @@ void Player::UpdateInteract(const Input& input)
     case Player::InteractLocationState::AmmoBox:
 
         // 所持金があるかつ、インタラクトキーが入力されていれば
-        if (input.GetNowNewFrameInput() & KEY_INPUT_F && interactionCost <= money)
+        if (input.GetNowNewFrameInput() & KEY_INPUT_F || CheckHitKey(KEY_INPUT_F)
+            && interactionCost <= money && !isInteracted)
         {
             isInteracted = true;        // インタラクトしている
             money -= interactionCost;   // 所持金を支払う
@@ -481,6 +489,8 @@ void Player::UpdateInteract(const Input& input)
 
         break;
     default:
+
+
         break;
     }
 
