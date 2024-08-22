@@ -65,6 +65,7 @@ public:
     const int GetGunMaxAmmo()const { return gunMaxAmmo; }
     const int GetRewardMoney()const { return rewardMoney; }
     const int GetBackUpAmmo()const { return backUpAmmo; }
+    const int GetBackUpMaxAmmo()const { return backUpMaxAmmo; }
 
     // セッター
     void SetGunAmmo(int set) { gunAmmo = set; }
@@ -146,6 +147,7 @@ protected:
     int             gunMaxAmmo;                 // 銃の最大総弾数
     int             rewardMoney;                // 獲得した金額
     int             backUpAmmo;                 // 予備弾薬
+    int             backUpMaxAmmo;              // 予備弾薬の最大数
 
     // 弾丸
     Bullet::BulletInitializeData bulletData;    // 弾丸のデータ

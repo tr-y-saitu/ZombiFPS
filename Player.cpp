@@ -468,6 +468,18 @@ void Player::UpdateInteract(const Input& input)
         break;
     case Player::InteractLocationState::AmmoBox:
 
+        // 所持金があるかつ、インタラクトキーが入力されていれば
+        if (input.GetNowNewFrameInput() & KEY_INPUT_F && interactionCost <= money)
+        {
+            isInteracted = true;        // インタラクトしている
+            money -= interactionCost;   // 所持金を支払う
+
+            // 装備中の所持弾薬を最大まで補充する
+            int addAmmo = equippedGun->GetBackUpMaxAmmo();
+            equippedGun->SetBackUpAmmo(addAmmo);
+
+        }
+
         break;
     default:
         break;
