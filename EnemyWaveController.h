@@ -45,7 +45,7 @@ public:
     /// <summary>
     /// 更新
     /// </summary>
-    void Update(int activeEnemyNumber);
+    void Update(int activeEnemyCount);
 
     /// <summary>
     /// 描画
