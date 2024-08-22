@@ -242,7 +242,7 @@ void Enemy::OnHitBullet(CollisionData hitObjectData)
     {
         if (tempBullet->IsObjectHit((HitObjectAddress*)this))
         {
-            return;
+            return; // すでに接触済みなら早期リターン
         }
     }
 

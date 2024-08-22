@@ -55,6 +55,17 @@ void Bullet::Initialize(BulletInitializeData initializeData)
 /// </summary>
 void Bullet::Update()
 {
+    // 弾丸は１フレームのみ存在する
+    if (activeFrameCount)
+    {
+        activeFrameCount--;     // アクティブ数を数える
+    }
+    else
+    {
+        isActive = false;       // 未使用のプールに戻す
+    }
+
+
     // 移動量を計算
     VECTOR velocity = VScale(direction, speed);
 
@@ -67,9 +78,6 @@ void Bullet::Update()
 
     // 当たり判定に必要なデータを更新する
     UpdateCollisionData();
-
-    // 弾丸は１フレームのみ存在する
-    isActive = false;
 }
 
 /// <summary>
@@ -115,6 +123,8 @@ void Bullet::OnHit(CollisionData hitObjectData)
         {
             getMoney = +20;  // それ以外の場合は20ポイント
         }
+
+        // すでに当たったオブジェクトのリストを削除
         hitterList.push_back(hitObjectData);
 
         break;
