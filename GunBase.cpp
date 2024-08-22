@@ -8,6 +8,7 @@ GunBase::GunBase()
     , shotAnimationCount    (0)
     , reloadAnimationCount  (0)
     , rotationMatrix        (MGetIdent())
+    , powerUpWeapon         (false)
 {
 }
 

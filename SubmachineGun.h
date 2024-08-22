@@ -73,6 +73,11 @@ private:
     /// <returns>調整された自身のポジション</returns>
     VECTOR FixedReloadPosition(Player::State playerState);
 
+    /// <summary>
+    /// 武器強化時の初期化
+    /// </summary>
+    void InitializePowerUpWeapon();
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
@@ -89,7 +94,8 @@ private:
     static constexpr float  GunAccuracy             = 1.0f;         // 銃の精度(拡散度合い)
     static constexpr VECTOR InitializeScale         = { 0.07f,0.07f,0.07f };    // 初期化時のスケール
     static constexpr int    MaxBackUpAmmo           = 210;          // 銃の最大予備弾薬数
-
+    // 強化量
+    static constexpr float  GunPowerUpRate          = 3.0f;         // 武器強化率
     // ずらし量
     static constexpr VECTOR GunOffset = { 0.0f,0.5f,0.0f };         // 銃のプレイヤーの腕からのずらし量
 

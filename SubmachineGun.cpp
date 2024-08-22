@@ -85,6 +85,9 @@ void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR camer
 
     // 移動更新
     UpdateMove(setPosition, playerState);
+
+    // 武器強化指示が出れば強化
+    InitializePowerUpWeapon();
 }
 
 /// <summary>
@@ -178,12 +181,12 @@ VECTOR SubmachineGun::FixedReloadPosition(Player::State playerState)
 void SubmachineGun::InitializeBulletData(VECTOR cameraPosition, VECTOR targetPosition)
 {
     bulletData.lineStartPosition    = cameraPosition;           // カメラの座標
-    bulletData.lineEndPosition       = targetPosition;           // カメラの向いている座標
+    bulletData.lineEndPosition      = targetPosition;           // カメラの向いている座標
     bulletData.direction            = VNorm(VSub(targetPosition, cameraPosition));  // 弾丸の移動方向
     bulletData.position             = position;                 // 座標
-    bulletData.power                = BulletDamagePower;        // 威力
+    bulletData.power                = bulletDamagePower;        // 威力
     bulletData.speed                = BulletSpeed;              // 速度
-    bulletData.penetratingPower     = BulletPenetrationPower;   // 貫通力
+    bulletData.penetratingPower     = bulletPenetrationPower;   // 貫通力
 }
 
 /// <summary>
@@ -218,4 +221,24 @@ void SubmachineGun::UpdateShooting(VECTOR cameraPosition, VECTOR targetPosition)
 
 }
 
+/// <summary>
+/// 武器強化時の初期化
+/// </summary>
+void SubmachineGun::InitializePowerUpWeapon()
+{
+    // 武器強化指示が出た場合
+    if (powerUpWeapon)
+    {
+        // 各種武器性能を強化
+        bulletDamagePower       = bulletDamagePower * GunPowerUpRate;        // 威力
+        bulletPenetrationPower  = BulletPenetrationPower * GunPowerUpRate;   // 貫通力
+        recoil                  = GunRecoil / GunPowerUpRate;                // 反動
+        gunAmmo                 = GunMaxAmmo * GunPowerUpRate;               // 総弾数
+        gunMaxAmmo              = GunMaxAmmo * GunPowerUpRate;               // 銃の最大総弾数
+        backUpAmmo              = MaxBackUpAmmo * GunPowerUpRate;            // 予備弾薬数
+        backUpMaxAmmo           = MaxBackUpAmmo * GunPowerUpRate;            // 予備弾薬の最大数
 
+        // 強化済み
+        powerUpWeapon = false;
+    }
+}
