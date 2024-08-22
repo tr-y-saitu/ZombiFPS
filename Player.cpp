@@ -477,7 +477,6 @@ void Player::UpdateInteract(const Input& input)
             // 装備中の所持弾薬を最大まで補充する
             int addAmmo = equippedGun->GetBackUpMaxAmmo();
             equippedGun->SetBackUpAmmo(addAmmo);
-
         }
 
         break;
