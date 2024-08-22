@@ -80,36 +80,52 @@ void CollisionManager::Update()
             CollisionData data1 = *collisionDataList[i];
             CollisionData data2 = *collisionDataList[j];
 
-            // エネミーと弾丸の当たり判定(カプセル対線分の当たり判定)
-            if (data1.tag == ObjectTag::EnemyBoby && data2.tag == ObjectTag::Bullet)
+            // 当たり判定を行って欲しいか確認
+            if (data1.isCollisionActive && data2.isCollisionActive)
             {
-                if (IsCollisionCapsuleLine(data1.startPosition,data1.endPosition,data1.radius,
-                                            data2.lineStartPosition,data2.lineEndPosition))
+                // エネミーと弾丸の当たり判定(カプセル対線分の当たり判定)
+                if (data1.tag == ObjectTag::EnemyBoby && data2.tag == ObjectTag::Bullet)
                 {
-                    // 当たった時の関数を呼び出す
-                   data1.onHit(data2);
-                   data2.onHit(data1);
-                }
-            }
-
-            // エネミーとエネミーの当たり判定(カプセルとカプセル)
-            if (data1.tag == ObjectTag::EnemyBoby && data2.tag == ObjectTag::EnemyBoby)
-            {
-                // カプセル同士の当たり判定処理
-                if (IsCollisionCapsuleCapsule(data1.startPosition,data1.endPosition,data1.radius,
-                    data2.startPosition,data2.endPosition,data2.radius))
-                {
-                    // 当たった時の関数を呼び出す
-                    data1.onHit(data2);
-                    data2.onHit(data1);
+                    if (IsCollisionCapsuleLine(data1.startPosition,data1.endPosition,data1.radius,
+                                                data2.lineStartPosition,data2.lineEndPosition))
+                    {
+                        // 当たった時の関数を呼び出す
+                       data1.onHit(data2);
+                       data2.onHit(data1);
+                    }
                 }
 
+                // エネミーとエネミーの当たり判定(カプセルとカプセル)
+                if (data1.tag == ObjectTag::EnemyBoby && data2.tag == ObjectTag::EnemyBoby)
+                {
+                    // カプセル同士の当たり判定処理
+                    if (IsCollisionCapsuleCapsule(data1.startPosition,data1.endPosition,data1.radius,
+                        data2.startPosition,data2.endPosition,data2.radius))
+                    {
+                        // 当たった時の関数を呼び出す
+                        data1.onHit(data2);
+                        data2.onHit(data1);
+                    }
+
+                }
+
+                //プレイヤーとエネミーの攻撃
+                if (data1.tag == ObjectTag::Player && data2.tag == ObjectTag::EnemyAttack)
+                {
+                    // 球どおしの当たり判定
+                    if (IsCollisionSphere(data1.centerPosition, data1.radius, data2.centerPosition, data2.radius))
+                    {
+                        // 当たった後の関数を呼び出す
+                        data1.onHit(data2);
+                        data2.onHit(data1);
+                    }
+                }
+
+                // 球体とカプセル
+
+                // カプセルとライン
+
             }
-
-            // 球体とカプセル
-
-            // カプセルとライン
-
 
             // 当たり判定を消してほしい場合
             if (!collisionDataList[i]->isCollisionActive)

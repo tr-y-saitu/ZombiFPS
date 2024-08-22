@@ -63,6 +63,7 @@ public:
 
     // ゲッター、セッター
     const bool GetIsActive()const { return isActive; }
+    void SetCollisionDataIsActive(bool set) { collisionData.isCollisionActive = set; }
 
 private:
     //---------------------------------------------------------------------------------//

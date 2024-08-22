@@ -78,7 +78,7 @@ private:
     //---------------------------------------------------------------------------------//
     // ステータス
     // 弾丸
-    static constexpr float  BulletDamagePower       = 1.0f;         // 弾丸の威力
+    static constexpr float  BulletDamagePower       = 10.0f;        // 弾丸の威力
     static constexpr float  BulletPenetrationPower  = 1.0f;         // 弾丸の貫通力
     static constexpr float  BulletSpeed             = 100.0f;       // 弾丸の速度
     static constexpr VECTOR BulletDirection         = { 0,0,1 };    // 弾丸の移動方向

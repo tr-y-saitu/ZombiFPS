@@ -1,6 +1,6 @@
 ﻿#include "EnemyGroup.h"
 #include "Stage.h"
-
+#include"Calculation.h"
 
 /// <summary>
 /// コンストラクタ
@@ -56,10 +56,24 @@ void EnemyGroup::Update(VECTOR playerPosition, Stage& stage)
 
     for (int i = 0; i < enemys.size(); i++)
     {
+        // 線形探索
         VECTOR enemyTargetPosition = UpdateEnemyTargetPosition(playerPosition, *enemys[i], stage);
 
+        // ターゲットがプレイヤーか部屋の中心座標かチェック
+        float distance = Calculation::Distance3D(playerPosition, enemyTargetPosition);
+        ObjectTag tag;
+
+        if (distance < 1.0f)
+        {
+            tag = ObjectTag::Player;
+        }
+        else
+        {
+            tag = ObjectTag::RoomCenter;
+        }
+
         // エネミーの更新
-        enemys[i]->Update(enemyTargetPosition,stage);
+        enemys[i]->Update(enemyTargetPosition,stage, tag);
     }
 
     for (int i = 0; i < enemys.size(); i++)
@@ -126,4 +140,16 @@ VECTOR EnemyGroup::UpdateEnemyTargetPosition(VECTOR playerPosition,Enemy& enemy,
 
     // エネミーが目指す座標
     return enemyTargetPosition;
+}
+
+/// <summary>
+/// エネミーグループ内のエネミーのコリジョンデータを使用するかどうかを設定する
+/// </summary>
+/// <param name="set">使用したいかどうか</param>
+void EnemyGroup::SetCollisionDataIsActive(bool set)
+{
+    for (int i = 0; i < enemys.size(); i++)
+    {
+        enemys[i]->SetCollisionDataIsActive(set);
+    }
 }

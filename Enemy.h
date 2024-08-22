@@ -23,6 +23,7 @@ public:
         Walk,       // 歩き
         Run,        // 走り
         Attack,     // 攻撃
+        Death,      // 死亡
     };
 
     /// <summary>
@@ -67,7 +68,7 @@ public:
     /// </summary>
     /// <param name="targetPosition">目標座標</param>
     /// <param name="stage">ステージ</param>
-    void Update(VECTOR targetPosition, Stage& stage);
+    void Update(VECTOR targetPosition, Stage& stage, ObjectTag targetTag);
 
     /// <summary>
     /// 描画
@@ -78,6 +79,11 @@ public:
     /// 当たり判定に必要なデータの更新
     /// </summary>
     void UpdateCollisionData();
+
+    /// <summary>
+    /// 攻撃の当たり判定に必要なデータの更新
+    /// </summary>
+    void UpdateAttackCollisionData();
 
     // Getter
     const VECTOR GetPosition()const { return position; }
@@ -91,6 +97,7 @@ public:
     void SetTargetNextPosition(VECTOR set) { targetNextPosition = set; }
     void SetIsTouchingRoomCenter(bool set) { isTouchingRoomCenter = set; }
     void SetRoomEntryState(Pathfinding::RoomEntryState set) { roomEntryState = set; }
+    void SetCollisionDataIsActive(bool set) { collisionData.isCollisionActive = set; }
 
 private:
     /// <summary>
@@ -145,6 +152,23 @@ private:
     /// <param name="hitObjectData">オブジェクトのデータ</param>
     void OnHit(CollisionData hitObjectData);
 
+    /// <summary>
+    /// 攻撃がオブジェクトと接触した時の処理
+    /// </summary>
+    /// <param name="hitObjectData"></param>
+    void OnHitAttack(CollisionData hitObjectData);
+
+    /// <summary>
+    /// 死んだかどうかチェックし、死んだ後の更新
+    /// </summary>
+    void UpdateDead();
+
+    /// <summary>
+    /// 攻撃の更新
+    /// </summary>
+    /// <param name="playerPosition">プレイヤーの座標</param>
+    void UpdateAttack(VECTOR targetPosition, ObjectTag targetTag);
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
@@ -158,10 +182,15 @@ private:
     static constexpr VECTOR EnemyScale              = { 0.03f,0.03f,0.03f };        // プレイヤーのスケール
     static constexpr int    InitializeHitPoints     = 100;                          // 初期化時の体力
     static constexpr VECTOR InitializeDirection     = { 1.0f, 0.0f, 0.0f };         // 初期化時の移動方向
+    static constexpr int    DeathInactiveFrame      = 150;                          // 死亡してからモデルを削除するまでのフレームカウント数
+    static constexpr float  AttackRange             = 4.0f;                         // この範囲に入ったら攻撃を開始する
     // 当たり判定
     static constexpr float  CollisionRadius         = 1.0f;                         // 当たり判定用半径
     static constexpr VECTOR CapsulePositionOffset   = { 0.0f,4.0f,0.0f };           // カプセルの始点を作るためのずらし量
     static constexpr float  PolygonDetail           = 8.0f;                         // 描画するポリゴンの数
+    // 攻撃
+    static constexpr float  AttackCollisionRadius   = 2.0f;                         // 攻撃の球型の当たり判定半径
+    static constexpr float  AttackPower             = 10.0f;                        // 攻撃力
     // 重力関係
     static constexpr float  Gravity                 = 3.0f;                         // 重力
     static constexpr float  FallUpPower             = 20.0f;                        // 足を踏み外した時のジャンプ力
@@ -187,9 +216,10 @@ private:
     int         modelHandle;                // モデルハンドル
     int         shadowHandle;               // 影画像ハンドル
     bool        currentFrameMove;           // そのフレームで動いたかどうか
-    State       state;                      // 状態
+    State       currentState;               // 状態
     int         hitPoints;                  // 体力
-    bool        isActive;           // 使用中かどうか
+    bool        isActive;                   // 使用中かどうか
+    int         deathFrameCount;            // 死亡してから何フレーム経過するか
 
     // 線形探索用
     Pathfinding::Room previousRoom;                 // 以前いた部屋
@@ -199,6 +229,8 @@ private:
 
     // 当たり判定用
     CollisionData           collisionData;          // 当たり判定用情報
+    CollisionData           attackCollisionData;    // 攻撃時の当たり判定情報
+
 
     // アニメーション情報
     int         currentPlayAnimation;       // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )

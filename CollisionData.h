@@ -12,11 +12,13 @@ struct CapsuleCollisionData;
 /// </summary>
 enum class ObjectTag : int
 {
-    Player,     // プレイヤー
-    Enemy,      // エネミー
-    EnemyHead,  // エネミーの頭
-    EnemyBoby,  // エネミーの胴体
-    Bullet,     // 弾丸
+    Player,         // プレイヤー
+    Enemy,          // エネミー
+    EnemyHead,      // エネミーの頭
+    EnemyBoby,      // エネミーの胴体
+    Bullet,         // 弾丸
+    RoomCenter,     // 部屋の中心
+    EnemyAttack,    // エネミーの攻撃
 };
 
 /// <summary>
@@ -27,6 +29,7 @@ struct CollisionData
     ObjectTag   tag;                    // このオブジェクトが何なのかのタグ(Player、Enemy、Bullet）
     // 球用
     VECTOR      centerPosition;         // 球の中心座標
+    float       attackPower;            // このオブジェクトの攻撃力
 
     // カプセル用
     VECTOR      startPosition;          // カプセルを形成し始める座標

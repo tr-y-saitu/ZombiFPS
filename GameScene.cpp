@@ -84,9 +84,6 @@ void GameScene::Initialize()
 /// <returns>次のシーンのポインタ</returns>
 SceneBase* GameScene::UpdateScene()
 {
-    // テスト描画
-    DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene", true);
-
     // オブジェクト更新
     input->Update();                                                // 入力処理
     player->Update(*input,*stage);                                  // プレイヤー

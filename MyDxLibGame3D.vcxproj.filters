@@ -143,6 +143,9 @@
     <Filter Include="ZombiFPS\GameObject\Player\Gun\Bullet\BulletObjectPools">
       <UniqueIdentifier>{6cce4b7e-0999-4229-8afb-83e0eb06ca6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ZombiFPS\System\Calculation">
+      <UniqueIdentifier>{e5e7b9c8-1775-4cf8-b012-8c5f2bf33226}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -297,6 +300,9 @@
     </ClCompile>
     <ClCompile Include="PlayerReloadState.cpp">
       <Filter>ZombiFPS\GameObject\Player\PlayerState\Status</Filter>
+    </ClCompile>
+    <ClCompile Include="Calculation.cpp">
+      <Filter>ZombiFPS\System\Calculation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -455,6 +461,9 @@
     </ClInclude>
     <ClInclude Include="CollisionData.h">
       <Filter>ZombiFPS\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Calculation.h">
+      <Filter>ZombiFPS\System\Calculation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

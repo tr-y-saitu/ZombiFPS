@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "ModelDataManager.h"
 #include "Stage.h"
+#include "Calculation.h"
 
 /// <summary>
 /// コンストラクタ
@@ -13,24 +14,18 @@ Enemy::Enemy()
     , animationBlendRate        (1.0f)
     , targetMoveDirection       (InitializeDirection)
     , currentJumpPower          (0.0f)
-    , state                     (State::Idle)
+    , currentState              (State::Run)
     , position                  (InitializePosition)
     , targetNextPosition        (InitializePosition)
     , isTouchingRoomCenter      (false)
     , isActive                  (true)
+    , deathFrameCount           (0)
 {
     modelDataManager = ModelDataManager::GetInstance();
     collisionManager = CollisionManager::GetInstance();
 
     // 初期化
-    Initialize();
-
-    // 自身のOnHit関数をもとに新しい引数を持った関数を作成
-    // std::bind(&名前空間::関数名,その関数のある参照,引数の数だけプレースホルダーが増える)
-    collisionData.onHit = std::bind(&Enemy::OnHit, this, std::placeholders::_1);
-
-    // 当たり判定に必要なデータを渡す
-    collisionManager->RegisterCollisionData(&collisionData);
+    //Initialize();
 }
 
 /// <summary>
@@ -55,18 +50,35 @@ void Enemy::Initialize()
     // 初期状態でエネミーが向くべき方向はＸ軸方向
     targetMoveDirection = VGet(1.0f, 0.0f, 0.0f);
 
-    // 初期状態ではアニメーションはアタッチされていないにする
+    // アニメーション関係
     currentPlayAnimation = -1;
+    previousPlayAnimation = -1;
+    animationBlendRate = 1.0f;
 
     // アニメーション設定
     PlayAnimation(AnimationType::Run);
 
     // 当たり判定用情報更新
-    UpdateCollisionData();
+    UpdateCollisionData();          // 自身の当たり判定
+    UpdateAttackCollisionData();    // 攻撃用の当たり判定
 
     // 初期化時にいる部屋を設定
     previousRoom.roomNumber = Pathfinding::Center1;
     roomEntryState = Pathfinding::MovingToNextRoom;
+
+    // ステータス
+    hitPoints = InitializeHitPoints;
+
+    // 死亡してからの経過フレーム数を初期化
+    deathFrameCount = 0;
+
+    // 自身のOnHit関数をもとに新しい引数を持った関数を作成
+    // std::bind(&名前空間::関数名,その関数のある参照,引数の数だけプレースホルダーが増える)
+    collisionData.onHit = std::bind(&Enemy::OnHit, this, std::placeholders::_1);                // 胴体
+    attackCollisionData.onHit = std::bind(&Enemy::OnHitAttack, this, std::placeholders::_1);    // 攻撃
+
+    // 当たり判定に必要なデータを渡す
+    collisionManager->RegisterCollisionData(&collisionData);
 }
 
 /// <summary>
@@ -74,7 +86,7 @@ void Enemy::Initialize()
 /// </summary>
 /// <param name="targetPosition">目標座標</param>
 /// <param name="stage">ステージ</param>
-void Enemy::Update(VECTOR targetPosition,Stage& stage)
+void Enemy::Update(VECTOR targetPosition,Stage& stage,ObjectTag targetTag)
 {
     // ルートフレームのＺ軸方向の移動パラメータを無効にする
     DisableRootFrameZMove();
@@ -86,6 +98,12 @@ void Enemy::Update(VECTOR targetPosition,Stage& stage)
     // 回転制御
     UpdateAngle();
 
+    // 死んだかどうかのチェック
+    UpdateDead();
+
+    // 攻撃の更新
+    UpdateAttack(targetPosition,targetTag);
+
     // アニメーション更新
     UpdateAnimation();
 
@@ -94,6 +112,7 @@ void Enemy::Update(VECTOR targetPosition,Stage& stage)
 
     // 当たり判定用情報更新
     UpdateCollisionData();
+    UpdateAttackCollisionData();
 }
 
 /// <summary>
@@ -111,6 +130,13 @@ void Enemy::Draw()
     // 自身のHPを描画
     DrawFormatString(DebugHitPointDrawX, DebugHitPointDrawY,
         DebugFontColor, "HP:%d", hitPoints);
+
+    // 攻撃の当たり判定を描画する
+    if (attackCollisionData.isCollisionActive)
+    {
+        DrawSphere3D(attackCollisionData.centerPosition, attackCollisionData.radius,
+            DebugSphereDivision, DebugPolygonColorBlue, DebugPolygonColorBlue, true);
+    }
 }
 
 /// <summary>
@@ -134,13 +160,6 @@ void Enemy::OnHit(CollisionData hitObjectData)
 
     case ObjectTag::EnemyBoby:  // エネミーと当たった時
         // 押し出し処理を行う
-        // 方向を計算
-
-        // 自分と相手の距離を図る
-
-        // 自分と相手の半径の合計
-
-        // めり込んだ分だけ押し戻す
 
         break;
 
@@ -149,22 +168,46 @@ void Enemy::OnHit(CollisionData hitObjectData)
     }
 }
 
+/// <summary>
+/// 攻撃がオブジェクトと接触した時の処理
+/// </summary>
+/// <param name="hitObjectData"></param>
+void Enemy::OnHitAttack(CollisionData hitObjectData)
+{
+    if (hitObjectData.tag == ObjectTag::Player)
+    {
+        attackCollisionData.isCollisionActive = false;  // 非アクティブ化
+    }
+}
+
 /// 当たり判定に必要なデータの更新
 /// </summary>
 void Enemy::UpdateCollisionData()
 {
-    // 当たり判定を行う
-    collisionData.isCollisionActive = true;
-
     // タグを設定
     collisionData.tag = ObjectTag::EnemyBoby;
 
     // 座標をもとにカプセルを作成
     collisionData.startPosition = VAdd(position, CapsulePositionOffset);
     collisionData.endPosition = position;
+    collisionData.centerPosition = position;
 
     // カプセルの半径を登録
     collisionData.radius = CollisionRadius;
+}
+
+/// <summary>
+/// 攻撃の当たり判定に必要なデータの更新
+/// </summary>
+void Enemy::UpdateAttackCollisionData()
+{
+
+    attackCollisionData.centerPosition      = position;                 // 座標
+    attackCollisionData.centerPosition.y    = 4.5f;                     // Y座標をプレイヤーに合わせる
+
+    attackCollisionData.tag                 = ObjectTag::EnemyAttack;   // エネミーの攻撃である
+    attackCollisionData.radius              = AttackCollisionRadius;    // 攻撃の当たり判定の半径
+    attackCollisionData.attackPower         = AttackPower;              // 攻撃力
 }
 
 /// <summary>
@@ -228,21 +271,25 @@ void Enemy::UpdateMoveVector(VECTOR targetPosition)
 /// <param name="stage">ステージ</param>
 void Enemy::Move(const VECTOR& MoveVector, Stage& stage)
 {
-    // 当たり判定をして、新しい座標を保存する
-    VECTOR oldPosition = position;                      // 移動前の座標
-    VECTOR nextPosition = VAdd(position, VScale(MoveVector, MoveSpeed));   // 移動後の座標
-
-    // ステージとの当たり判定処理
-    position = stage.IsHitCollisionEnemy(*this, nextPosition, MoveVector);
-
-    // 床より少し高くする
-    if (position.y <= MoveLimitY)
+    // 死亡していたら無視
+    if (currentState != State::Death)
     {
-        position.y = MoveLimitY;
-    }
+        // 当たり判定をして、新しい座標を保存する
+        VECTOR oldPosition = position;                      // 移動前の座標
+        VECTOR nextPosition = VAdd(position, VScale(MoveVector, MoveSpeed));   // 移動後の座標
 
-    // 座標の更新
-    MV1SetPosition(modelHandle, position);
+        // ステージとの当たり判定処理
+        position = stage.IsHitCollisionEnemy(*this, nextPosition, MoveVector);
+
+        // 床より少し高くする
+        if (position.y <= MoveLimitY)
+        {
+            position.y = MoveLimitY;
+        }
+
+        // 座標の更新
+        MV1SetPosition(modelHandle, position);
+    }
 }
 
 /// <summary>
@@ -263,6 +310,92 @@ void Enemy::UpdateAngle()
 
     // モデルを回転
     MV1SetFrameUserLocalMatrix(modelHandle, 0, rotation);
+}
+
+/// <summary>
+/// 死んだかどうかチェックし、死んだ後の更新
+/// </summary>
+void Enemy::UpdateDead()
+{
+    // HPがゼロになった場合
+    if (hitPoints < 0)
+    {
+        // 現在のアニメーションが Death でない場合のみ再生
+        if (currentState != State::Death)
+        {
+            // 死亡アニメーションを再生
+            PlayAnimation(AnimationType::Death);
+
+            // 現在のステート更新
+            currentState = State::Death;
+        }
+
+        // 死んでからのフレーム数をカウント
+        deathFrameCount++;
+
+        // 死亡してから一定フレームが経過した場合は削除する
+        if (deathFrameCount > DeathInactiveFrame)
+        {
+            isActive = false;
+        }
+    }
+}
+
+/// <summary>
+/// 攻撃の更新
+/// </summary>
+/// <param name="playerPosition">ターゲットの座標</param>
+void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
+{
+    // プレイヤーとエネミーとの距離を図る
+    if (targetTag == ObjectTag::Player)
+    {
+        // 距離を図る
+        VECTOR playerPosition = targetPosition;
+        playerPosition.y = 1.0f;
+        float distance = Calculation::Distance3D(playerPosition, position);
+
+        // 距離が近ければ攻撃する
+        if (distance < AttackRange)
+        {
+            if (currentState != State::Attack)
+            {
+                // 攻撃アニメーション再生
+                PlayAnimation(AnimationType::Attack);
+
+                // 現在のステート更新
+                currentState = State::Attack;
+            }
+        }
+        else if (currentState == State::Attack) // 攻撃アニメーションの終了判定
+        {
+            // 再生しているアニメーションの総時間
+            float animationTotalTime = MV1GetAttachAnimTotalTime(modelHandle, currentPlayAnimation);
+
+            // 当たり判定を出現させる
+            if (currentAnimationCount >= animationTotalTime / 3 && !attackCollisionData.isCollisionActive)
+            {
+                // 攻撃当たり判定を行う
+                attackCollisionData.isCollisionActive = true;
+                collisionManager->RegisterCollisionData(&attackCollisionData);
+            }
+
+            // 攻撃アニメーションが終了しているかチェック
+            if (currentAnimationCount >= animationTotalTime / 2)
+            {
+                // Runアニメーションに変更
+                PlayAnimation(AnimationType::Run);
+
+                // 現在のステートをRunに更新
+                currentState = State::Run;
+
+                // 攻撃アニメーションが終了したら当たり判定も消す
+                attackCollisionData.isCollisionActive = false;
+            }
+        }
+
+    }
+
 }
 
 /// <summary>

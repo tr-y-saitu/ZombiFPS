@@ -72,6 +72,9 @@ void EnemyObjectPools::ReturnActiveEnemyInstance(list<EnemyGroup*>& activeEnemy)
         // エネミーが使用中出ない場合、未使用リストに移動する
         if (!enemy->GetIsActive())
         {
+            // エネミーの当たり判定を非アクティブ化する
+            enemy->SetCollisionDataIsActive(false);
+
             // エネミーを未使用リストに移動
             inactiveEnemy.splice(inactiveEnemy.end(), activeEnemy, it++);
         }
