@@ -20,6 +20,7 @@ class MaxAmmo;
 class AmmoBox;
 class IncomeDouble;
 class GameSceneUI;
+class GunPowerUpMachine;
 
 class Enemy;
 
@@ -92,6 +93,7 @@ private:
     Player*                 player;                 // プレイヤー
     ShutterController*      shutterController;      // シャッター管理
     AmmoBox*                ammoBox;                // 弾薬補充箱
+    GunPowerUpMachine*      gunPowerUpMachine;      // 銃強化マシン
     
     // エネミー関連
     EnemyGroupController*   enemyGroupController;   // エネミーの群れ

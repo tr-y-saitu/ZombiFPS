@@ -123,10 +123,6 @@ void GameSceneUI::DrawPlayerInteractState(Player& player)
 
         break;
 
-    case Player::InteractLocationState::PowerUpMachine:
-
-        break;
-
     case Player::InteractLocationState::AmmoBox:
         // 弾薬補充箱の情報を描画
         char ammoBoxInfo[256];
@@ -137,6 +133,18 @@ void GameSceneUI::DrawPlayerInteractState(Player& player)
         DrawInteractionCost(player.GetInteractionCost());
 
         break;
+
+    case Player::InteractLocationState::GunPowerUpMachine:
+        // 武器強化マシンの情報を描画
+        char gunPowerUpMachineInfo[256];
+        snprintf(gunPowerUpMachineInfo, sizeof(gunPowerUpMachineInfo), "[F]ｷｰﾃﾞﾌﾞｷｦｷｮｳｶ");
+        DrawStringCenterScreen(gunPowerUpMachineInfo, 800, DebugFontColor, vhsJPLargeFontHandle);
+
+        // コストを描画
+        DrawInteractionCost(player.GetInteractionCost());
+
+        break;
+
     default:
         break;
     }

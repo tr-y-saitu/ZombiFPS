@@ -218,9 +218,6 @@ void Player::Draw(const Stage& stage)
     case Player::InteractLocationState::Shutter:
         DrawString(1200, 100, "InteractLocationState::Shutter", DebugFontColor, true);
         break;
-    case Player::InteractLocationState::PowerUpMachine:
-        DrawString(1200, 100, "InteractLocationState::PowerUpMachine", DebugFontColor, true);
-        break;
     case Player::InteractLocationState::AmmoBox:
         DrawString(1200, 100, "InteractLocationState::AmmoBox", DebugFontColor, true);
         break;
@@ -284,7 +281,6 @@ void Player::OnHitFloor()
 /// <param name="hitObjectData"></param>
 void Player::OnHitObject(CollisionData hitObjectData)
 {
-    
     // 接触したオブジェクトごとに別の処理
     switch (hitObjectData.tag)
     {
@@ -303,6 +299,12 @@ void Player::OnHitObject(CollisionData hitObjectData)
     case ObjectTag::AmmoBox:
         // 弾薬補充箱
         OnHitAmmoBox(hitObjectData);
+
+        break;
+
+    case ObjectTag::GunPowerUpMachine:
+        // 銃強化マシン
+        OnHitGunPowerUpMachine(hitObjectData);
 
         break;
 
@@ -389,6 +391,43 @@ void Player::OnHitAmmoBox(CollisionData hitObjectData)
     {
         // インタラクトの範囲に入っている
         interactLocationState = InteractLocationState::AmmoBox;
+
+        // インタラクトコストをもらう
+        interactionCost = hitObjectData.interactionCost;
+    }
+}
+
+/// <summary>
+/// 銃強化マシンと接触した時の処理
+/// </summary>
+/// <param name="hitObjectData">接触したオブジェクトの情報</param>
+void Player::OnHitGunPowerUpMachine(CollisionData hitObjectData)
+{
+    // 実際の当たり判定に入っているか
+
+    VECTOR difference;
+    float  distance;
+
+    // オブジェクトとの距離を計算
+    difference = VSub(position, hitObjectData.centerPosition);
+    distance = VSize(difference);
+
+    // インタラクトの範囲に入っているか確認
+    if (distance <= hitObjectData.radius + collisionData.radius)
+    {
+        // 押し出し処理を行う
+        ProcessExtrusion(hitObjectData);
+
+        // インタラクトの範囲に入っている
+        interactLocationState = InteractLocationState::GunPowerUpMachine;
+
+        // インタラクトコストをもらう
+        interactionCost = hitObjectData.interactionCost;
+    }
+    else
+    {
+        // インタラクトの範囲に入っている
+        interactLocationState = InteractLocationState::GunPowerUpMachine;
 
         // インタラクトコストをもらう
         interactionCost = hitObjectData.interactionCost;
@@ -490,13 +529,9 @@ void Player::UpdateInteract(const Input& input)
             // シャッターの上がる音を再生
             soundManager->PlaySoundListSE(SoundManager::ShutterOpenSE);
         }
-
         break;
-    case Player::InteractLocationState::PowerUpMachine:
 
-        break;
     case Player::InteractLocationState::AmmoBox:
-
         // 所持金があるかつ、インタラクトキーが入力されていれば
         if (canInteract && !isInteracted)
         {
@@ -507,6 +542,19 @@ void Player::UpdateInteract(const Input& input)
             // 装備中の所持弾薬を最大まで補充する
             int addAmmo = equippedGun->GetBackUpMaxAmmo();
             equippedGun->SetBackUpAmmo(addAmmo);
+        }
+        break;
+
+    case Player::InteractLocationState::GunPowerUpMachine:
+        // 所持金があるかつ、インタラクトキーが入力されていれば
+        if (canInteract && !isInteracted)
+        {
+            isInteracted = true;        // インタラクトしている
+            money -= interactionCost;   // 所持金を支払う
+            moneyUsed = true;           // お金を支払った
+
+            // 装備中の武器を強化する
+
         }
 
         break;

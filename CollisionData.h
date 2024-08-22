@@ -17,15 +17,17 @@ class HitObjectAddress
 /// </summary>
 enum class ObjectTag : int
 {
-    Player,         // プレイヤー
-    Enemy,          // エネミー
-    EnemyHead,      // エネミーの頭
-    EnemyBoby,      // エネミーの胴体
-    Bullet,         // 弾丸
-    RoomCenter,     // 部屋の中心
-    EnemyAttack,    // エネミーの攻撃
-    Shutter,        // シャッター
-    AmmoBox,        // 弾薬補充箱
+    Player,                 // プレイヤー
+    Enemy,                  // エネミー
+    EnemyHead,              // エネミーの頭
+    EnemyBoby,              // エネミーの胴体
+    Bullet,                 // 弾丸
+    RoomCenter,             // 部屋の中心
+    EnemyAttack,            // エネミーの攻撃
+    Shutter,                // シャッター
+    AmmoBox,                // 弾薬補充箱
+    GunPowerUpMachine,      // 銃強化マシン
+    PlayerPowerUpMachine,   // プレイヤー強化マシン
 };
 
 /// <summary>

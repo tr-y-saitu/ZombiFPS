@@ -18,6 +18,7 @@
 #include "GameScene.h"
 #include "ResultScene.h"
 #include "AmmoBox.h"
+#include "GunPowerUpMachine.h"
 
 
 /// <summary>
@@ -48,6 +49,7 @@ GameScene::GameScene()
     enemyWaveController     = new EnemyWaveController();
     shutterController       = new ShutterController();
     ammoBox                 = new AmmoBox();
+    gunPowerUpMachine       = new GunPowerUpMachine();
 
     // アイテム関連
     maxAmmoItem             = new MaxAmmo();
@@ -72,6 +74,7 @@ GameScene::~GameScene()
     delete(shutterController);
     delete(maxAmmoItem);
     delete(ammoBox);
+    delete(gunPowerUpMachine);
     delete(incomeDoubleItem);
     delete(gameSceneUI);
 
@@ -90,6 +93,7 @@ void GameScene::Initialize()
     enemyWaveController->Initialize();
     shutterController->Initialize();
     ammoBox->Initialize();
+    gunPowerUpMachine->Initialize();
 }
 
 /// <summary>
@@ -106,6 +110,7 @@ SceneBase* GameScene::UpdateScene()
     enemyWaveController->Update(enemyGroupController->GetEnemyGroupSize());
     shutterController->Update();                                    // シャッター
     ammoBox->Update();                                              // 弾薬補充箱
+    gunPowerUpMachine->Update();                                    // 銃強化マシン
     collisionManager->Update();                                     // 当たり判定処理
     effectManager->Update();                                        // エフェクト管理クラス更新
     UpdateSound();                                                  // 音の更新
@@ -134,6 +139,7 @@ void GameScene::Draw()
     enemyWaveController->Draw();        // エネミーウェーブ
     shutterController->Draw();          // シャッター
     ammoBox->Draw();                    // 弾薬補充箱
+    gunPowerUpMachine->Draw();          // 銃強化マシン
     DrawEffekseer3D();                  // 3Dエフェクト描画
     DrawUI();                           // UIの描画
 }

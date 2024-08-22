@@ -63,10 +63,11 @@ public:
     /// </summary>
     enum class InteractLocationState : int
     {
-        None,           // どこにもアクセスできない
-        Shutter,        // シャッターにアクセルできる
-        PowerUpMachine, // パワーアップマシンにアクセスできる
-        AmmoBox,        // 弾薬補給エリアにアクセスできる
+        None,                   // どこにもアクセスできない
+        Shutter,                // シャッターにアクセスできる
+        AmmoBox,                // 弾薬補給エリアにアクセスできる
+        GunPowerUpMachine,      // 銃強化マシンにアクセスできる
+        PlayerPowerUpMachine,   // プレイヤー強化マシンにアクセスできる
     };
 
     /// <summary>
@@ -227,6 +228,12 @@ private:
     void OnHitAmmoBox(CollisionData hitObjectData);
 
     /// <summary>
+    /// 銃強化マシンと接触した時の処理
+    /// </summary>
+    /// <param name="hitObjectData">接触したオブジェクトの情報</param>
+    void OnHitGunPowerUpMachine(CollisionData hitObjectData);
+
+    /// <summary>
     /// 押し出し処理
     /// </summary>
     /// <param name="hitObjectData">接触したオブジェクト</param>
@@ -291,7 +298,7 @@ private:
     static constexpr VECTOR ZeroVector              = { 0.0f,0.0f,0.0f };           // ゼロベクトル
     static constexpr VECTOR PlayerScale             = { 0.05f,0.05f,0.05f };        // プレイヤーのスケール
     static constexpr float  InitializeHitPoint      = 50.0f;                        // プレイヤーの初期体力
-    static constexpr int    InitializeMoney         = 2000;                         // 最初の所持金
+    static constexpr int    InitializeMoney         = 20000;                         // 最初の所持金
     // 当たり判定
     static constexpr float  HitBoxRadius            = 3.0f;                         // 自身の当たり判定
     static constexpr int    HitRewardAmount         = 10;                           // ヒットした時の獲得金額
