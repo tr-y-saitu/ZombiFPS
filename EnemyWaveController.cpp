@@ -34,10 +34,10 @@ void EnemyWaveController::Initialize()
 /// <summary>
 /// 更新
 /// </summary>
-void EnemyWaveController::Update(int activeEnemyNumber)
+void EnemyWaveController::Update(int activeEnemyCount)
 {
     // 現在使用中のエネミーがいない場合ウェーブを進める
-    if (activeEnemyNumber == 0)
+    if (activeEnemyCount == 0)
     {
         // 次のウェーブに進む
         currentWaveState = static_cast<WaveState>(static_cast<int>(currentWaveState) + 1);
@@ -52,29 +52,31 @@ void EnemyWaveController::Update(int activeEnemyNumber)
     // 現在のウェーブの経過時間を計測
     waveElapsedTime = GetNowCount() - waveStartTime;
 
+    // エネミーが出現可能か確認 //
+    
     // レスポンス時間ごとにエネミー出現フラグを立てる
-    if (GetNowCount() - lastEnemySpawnTime >= EnemySpawnResponseTime * 1000)
+    bool isSpawnTime = GetNowCount() - lastEnemySpawnTime >= EnemySpawnResponseTime * 1000;
+
+    // 現在のウェーブで出現できるエネミーの数を越えていなければ
+    bool isLimitSpawnCountInWave = (currentWaveState * EnemySpawnRate) < currentWaveSpawnCount;
+
+    // 一度に存在できるエネミーの総数を越えていなければ
+    bool isLimitSpawnCount = activeEnemyCount > EnemySpawnLimit;
+
+    // すべて可能であればエネミーは出現できる
+    bool canSpawnEnemy = isSpawnTime && !isLimitSpawnCountInWave && !isLimitSpawnCount && !enemySpawnFlag;
+
+    // エネミーを出現させる処理
+    if (canSpawnEnemy)
     {
-        // 現在のウェーブで出現できるエネミーの数を越えていなければ
-        if ((currentWaveState * EnemySpawnRate) >= currentWaveSpawnCount)
-        {
-            // 一度に存在できるエネミーの総数を越えていなければ
-            if (activeEnemyNumber < EnemySpawnLimit)
-            {
-                // エネミーを出現させる処理
-                if (!enemySpawnFlag)
-                {
-                    // 最後のエネミー出現時間を更新
-                    lastEnemySpawnTime = GetNowCount();
+        // 最後のエネミー出現時間を更新
+        lastEnemySpawnTime = GetNowCount();
 
-                    // 出現フラグを設定
-                    enemySpawnFlag = true;
+        // 出現フラグを設定
+        enemySpawnFlag = true;
 
-                    // このウェーブで出したエネミーの数を数える
-                    currentWaveSpawnCount++;
-                }
-            }
-        }
+        // このウェーブで出したエネミーの数を数える
+        currentWaveSpawnCount++;
     }
     else
     {
