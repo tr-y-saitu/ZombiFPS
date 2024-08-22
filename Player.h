@@ -13,6 +13,7 @@ class ModelDataManager;
 class BulletObjectPools;
 struct AnimationData;
 class EffectManager;
+class SoundManager;
 
 /// <summary>
 /// プレイヤー
@@ -310,8 +311,9 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
-    // エフェクト管理
+    // 演出管理
     EffectManager*          effectManager;              // エフェクト管理クラス
+    SoundManager*           soundManager;               // 音管理クラス
 
     // ロード関係
     ModelDataManager*       modelDataManager;           // モデルデータマネージャー
@@ -330,6 +332,7 @@ private:
     bool                    isHitEnemyAttack;           // エネミーの攻撃を受けている
     float                   hitPoint;                   // 体力
     int                     money;                      // 所持金
+    int                     previousMoney;              // 前フレームの所持金
     InteractLocationState   interactLocationState;      // どのオブジェクトにアクセスできる状態であるか
     bool                    isInteracted;               // インタラクトを行ったかどうか
     int                     interactionCost;            // インタラクトしたオブジェクトの支払いコスト

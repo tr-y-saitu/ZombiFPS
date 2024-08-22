@@ -14,6 +14,7 @@
 #include "BattleRifle.h"
 #include "SubmachineGun.h"
 #include "BulletObjectPools.h"
+#include "SoundManager.h"
 
 
 /// <summary>
@@ -42,6 +43,7 @@ Player::Player()
 {
     collisionManager        = CollisionManager::GetInstance();
     modelDataManager        = ModelDataManager::GetInstance();
+    soundManager            = SoundManager::GetInstance();
     effectManager           = EffectManager::GetInstance();
 
     // 初期化
@@ -97,6 +99,7 @@ void Player::Initialize()
 
     // 所持金を初期化
     money = InitializeMoney;
+    previousMoney = money;
     
     // アニメーション設定
     PlayAnimation(AnimationType::Idle);
@@ -445,6 +448,9 @@ void Player::ProcessExtrusion(CollisionData hitObjectData)
 /// </summary>
 void Player::UpdateInteract(const Input& input)
 {
+    // 前フレームのお金を更新
+    previousMoney = money;
+
     // インタラクトエリア内か確認する
     if (interactLocationState == InteractLocationState::None)
     {
@@ -455,18 +461,34 @@ void Player::UpdateInteract(const Input& input)
         return;
     }
 
+    // お金を使用したかを示すフラグ
+    bool moneyUsed = false; 
+
+    // インタラクトキーが入力されているか
+    bool enteredInteractKey = (input.GetNowNewFrameInput() & PAD_INPUT_1 || CheckHitKey(KEY_INPUT_F));
+
+    // インタラクトできる所持金があるかどうか
+    bool canPay = interactionCost <= money;
+
+    // インタラクトするかどうか
+    bool canInteract = enteredInteractKey && canPay;
+
     switch (interactLocationState)
     {
     case Player::InteractLocationState::None:
+
         // 処理なし
         break;
     case Player::InteractLocationState::Shutter:
         // 所持金があるかつ、インタラクトキーが入力されていれば
-        if (input.GetNowNewFrameInput() & PAD_INPUT_1 || CheckHitKey(KEY_INPUT_F)
-            && interactionCost <= money && !isInteracted)
+        if (canInteract && !isInteracted)
         {
             isInteracted = true;        // インタラクトしている
             money -= interactionCost;   // 所持金を支払う
+            moneyUsed = true;           // お金を支払った
+
+            // シャッターの上がる音を再生
+            soundManager->PlaySoundListSE(SoundManager::ShutterOpenSE);
         }
 
         break;
@@ -476,11 +498,11 @@ void Player::UpdateInteract(const Input& input)
     case Player::InteractLocationState::AmmoBox:
 
         // 所持金があるかつ、インタラクトキーが入力されていれば
-        if (input.GetNowNewFrameInput() & KEY_INPUT_F || CheckHitKey(KEY_INPUT_F)
-            && interactionCost <= money && !isInteracted)
+        if (canInteract && !isInteracted)
         {
             isInteracted = true;        // インタラクトしている
             money -= interactionCost;   // 所持金を支払う
+            moneyUsed = true;           // お金を支払った
 
             // 装備中の所持弾薬を最大まで補充する
             int addAmmo = equippedGun->GetBackUpMaxAmmo();
@@ -490,8 +512,13 @@ void Player::UpdateInteract(const Input& input)
         break;
     default:
 
-
         break;
+    }
+
+    // 前フレームからお金が減って入ればサウンド再生
+    if (moneyUsed)
+    {
+        soundManager->PlaySoundListSE(SoundManager::MoneyUseSE);
     }
 
     // 状態を初期化する
