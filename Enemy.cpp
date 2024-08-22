@@ -161,36 +161,6 @@ void Enemy::OnHit(CollisionData hitObjectData)
     case ObjectTag::EnemyBoby:  // エネミーと当たった時
         // 押し出し処理を行う
 
-        //// 半径の合計
-        //radiusSum = hitObjectData.radius + collisionData.radius;
-
-        //// y座標は変更しなくていいので０に修正する
-        //VECTOR correctedTargetPosition = VGet(hitObjectData.centerPosition.x, 0.0f, hitObjectData.centerPosition.z);
-
-        //// エネミーも同じように修正
-        //VECTOR correctedEnemyPosition = VGet(position.x, 0.0f, position.z);
-
-        //// 修正した座標からボスからプレイヤーの向きのベクトルを計算
-        //VECTOR vectorToPlayer = VSub(correctedEnemyPosition, correctedTargetPosition);
-
-        //// ベクトルのサイズを計算
-        //distance = VSize(vectorToPlayer);
-
-        //// 押し戻す距離の計算
-        //distance = radiusSum - distance;
-
-        //// ベクトルを正規化する
-        //vectorToPlayer = VNorm(vectorToPlayer);
-
-        //// 押し出す量
-        //VECTOR pushBackVector = VScale(vectorToPlayer, distance);
-
-        //// 計算したベクトルからプレイヤーの位置を変更
-        //position = VAdd(position, pushBackVector);
-
-        //// モデルの位置も合わせて修正
-        //MV1SetPosition(modelHandle, position);
-
         break;
 
     default:
