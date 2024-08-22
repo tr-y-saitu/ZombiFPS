@@ -87,8 +87,6 @@ private:
     static constexpr float  HitBoxRadius            = 0.05f;                // デバッグ時の当たり判定を描画するための半径
     static constexpr float  PolygonDetail           = 8.0f;                 // 描画するポリゴンの数
     const int               DebugPolygonColorRed    = GetColor(255, 0, 0);  // デバッグ時の当たり判定ポリゴンの色
-    // ステータス
-    static constexpr int    ActiveFrameCount        = 1;                    // 弾丸がアクティブであるフレーム数
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
