@@ -194,6 +194,9 @@ void Enemy::UpdateCollisionData()
 
     // カプセルの半径を登録
     collisionData.radius = CollisionRadius;
+
+    // 体力
+    collisionData.objectHP = hitPoints;
 }
 
 /// <summary>
@@ -201,7 +204,6 @@ void Enemy::UpdateCollisionData()
 /// </summary>
 void Enemy::UpdateAttackCollisionData()
 {
-
     attackCollisionData.centerPosition      = position;                 // 座標
     attackCollisionData.centerPosition.y    = 4.5f;                     // Y座標をプレイヤーに合わせる
 
@@ -320,6 +322,9 @@ void Enemy::UpdateDead()
     // HPがゼロになった場合
     if (hitPoints < 0)
     {
+        // 当たり判定を非アクティブ化する
+        collisionData.isCollisionActive = false;
+
         // 現在のアニメーションが Death でない場合のみ再生
         if (currentState != State::Death)
         {

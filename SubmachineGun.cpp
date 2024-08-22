@@ -55,7 +55,9 @@ void SubmachineGun::Initialize()
     fireRate                = GunFireRate;
     recoil                  = GunRecoil;
     accuracy                = GunAccuracy;
-    positionOffsetAmount = VGet(0, 0.5, -1);
+    positionOffsetAmount    = VGet(0, 0.5, -1);
+    gunAmmo                 = GunMaxAmmo;           // 総弾数
+    gunMaxAmmo              = GunMaxAmmo;           // 銃の最大総弾数
 
     // スケールを調整
     MV1SetScale(modelHandle, InitializeScale);
@@ -171,7 +173,7 @@ VECTOR SubmachineGun::FixedReloadPosition(Player::State playerState)
 void SubmachineGun::InitializeBulletData(VECTOR cameraPosition, VECTOR targetPosition)
 {
     bulletData.lineStartPosition    = cameraPosition;           // カメラの座標
-    bulletData.lineEndPosiion       = targetPosition;           // カメラの向いている座標
+    bulletData.lineEndPosition       = targetPosition;           // カメラの向いている座標
     bulletData.direction            = VNorm(VSub(targetPosition, cameraPosition));  // 弾丸の移動方向
     bulletData.position             = position;                 // 座標
     bulletData.power                = BulletDamagePower;        // 威力
@@ -205,8 +207,10 @@ void SubmachineGun::UpdateShooting(VECTOR cameraPosition, VECTOR targetPosition)
     // 現在使用中の弾丸の更新
     for (auto it = activeBullet.begin(); it != activeBullet.end(); ++it)
     {
-        (*it)->Update();
+        (*it)->Update();                    // 更新
+        rewardMoney += (*it)->GetMoney();   // 取得した金額
     }
+
 }
 
 

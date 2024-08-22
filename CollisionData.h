@@ -26,7 +26,9 @@ enum class ObjectTag : int
 /// </summary>
 struct CollisionData
 {
+    // タグ
     ObjectTag   tag;                    // このオブジェクトが何なのかのタグ(Player、Enemy、Bullet）
+
     // 球用
     VECTOR      centerPosition;         // 球の中心座標
     float       attackPower;            // このオブジェクトの攻撃力
@@ -41,6 +43,8 @@ struct CollisionData
     VECTOR      lineEndPosition;        // 線の終点
     int         bulletPower;            // 弾丸の威力
 
+    // ステータス
+    int         objectHP;               // オブジェクトの体力
 
     std::function<void(CollisionData)> onHit;   // 当たった時に行われる処理
     bool        isCollisionActive;              // 当たり判定を適用させたいかどうか

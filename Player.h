@@ -108,6 +108,8 @@ public:
     State GetState() const { return state; }
     float GetCurrentJumpPower() const { return currentJumpPower; }
     const MATRIX GetRotationMatrix()const { return rotationMatrix; }
+    const int GetEquippedGunAmmo();
+    const int GetMoney()const { return money; }
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -224,6 +226,7 @@ private:
     static constexpr float  InitializeHitPoint      = 50.0f;                        // プレイヤーの初期体力
     // 当たり判定
     static constexpr float  HitBoxRadius            = 3.0f;                         // 自身の当たり判定
+    static constexpr int    HitRewardAmount         = 10;                           // ヒットした時の獲得金額
     // 重力関係
     static constexpr float  Gravity                 = 3.0f;                         // 重力
     static constexpr float  FallUpPower             = 20.0f;                        // 足を踏み外した時のジャンプ力
@@ -231,8 +234,8 @@ private:
     static constexpr float  PlayAnimationSpeed      = 0.5f;                         // アニメーション速度
     static constexpr float  AnimationBlendSpeed     = 0.1f;                         // アニメーションのブレンド率変化速度
     // 腰だめ時
-    static constexpr float  HipUpPositionAngleY     = 170.0f * DX_PI_F / 180.0f;    // 水平回転用：腰だめの位置に調整するために回転させるY軸回転度(ラジアン)
-    static constexpr float  HipUpPositionANglePitch = 20.0f * DX_PI_F / 180.0f;     // 垂直回転用：腰だめの位置に調整するために回転させる水平方向からの角度(ラジアン)
+    static constexpr float  HipShootHorizontalAngle     = 170.0f * DX_PI_F / 180.0f;    // 水平回転用：腰だめの位置に調整するために回転させるY軸回転度(ラジアン)
+    static constexpr float  HipShootVerticalAngle = 20.0f * DX_PI_F / 180.0f;     // 垂直回転用：腰だめの位置に調整するために回転させる水平方向からの角度(ラジアン)
     // デバッグ
     static constexpr int    DebugPositionDrawX      = 100;                          // 座標情報を描画するX位置
     static constexpr int    DebugPositionDrawY      = 0;                            // 座標情報を描画するY位置
@@ -255,6 +258,7 @@ private:
     int                 shootFireRateCount; // 銃の連射力をカウント
     bool                isHitEnemyAttack;   // エネミーの攻撃を受けている
     float               hitPoint;           // 体力
+    int                 money;              // 所持金
 
     // 移動状態
     VECTOR      position;                   // 座標

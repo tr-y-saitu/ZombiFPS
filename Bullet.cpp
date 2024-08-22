@@ -11,6 +11,7 @@ Bullet::Bullet()
     , speed             (0)
     , penetratingPower  (0)
     , isActive          (true)
+    , getMoney          (0)
 {
     // 当たり判定をするかどうか
     collisionData.isCollisionActive = true;
@@ -36,12 +37,14 @@ void Bullet::Initialize(BulletInitializeData initializeData)
     // 弾丸は初期化する時点で使用中になるのでtrue
     isActive            = true;
     lineStartPosition   = initializeData.lineStartPosition;
-    lineEndPosition     = initializeData.lineEndPosiion;
+    lineEndPosition     = initializeData.lineEndPosition;
     position            = initializeData.position;
     direction           = initializeData.direction;
     power               = initializeData.power;
     speed               = initializeData.speed;
     penetratingPower    = initializeData.penetratingPower;
+    getMoney            = 0;
+    activeFrameCount    = ActiveFrameCount;
 }
 
 /// <summary>
@@ -49,6 +52,21 @@ void Bullet::Initialize(BulletInitializeData initializeData)
 /// </summary>
 void Bullet::Update()
 {
+
+    //FIXME:エネミーのOnHit関数で獲得金額を上昇させるように変更する
+    //      この部分がない場合、獲得金額加算ができないため実装
+    //      プレイヤーにポイント加算の関数を作成し、その関数ポインタをエネミーに渡し、
+    //      エネミー側のOnHit関数で呼び出す形に変更する
+    // 弾丸は１フレームのみ存在する
+    if (activeFrameCount)
+    {
+        activeFrameCount--;     // アクティブ数を数える
+    }
+    else
+    {
+        isActive = false;       // 未使用のプールに戻す
+    }
+
     // 移動量を計算
     VECTOR velocity = VScale(direction, speed);
 
@@ -61,9 +79,6 @@ void Bullet::Update()
 
     // 当たり判定に必要なデータを更新する
     UpdateCollisionData();
-
-    // 弾丸は１フレームのみ存在する
-    isActive = false;                           // 未使用のプールに戻す
 }
 
 /// <summary>
@@ -97,5 +112,22 @@ void Bullet::UpdateCollisionData()
 /// <param name="hitObjectData">オブジェクトのデータ</param>
 void Bullet::OnHit(CollisionData hitObjectData)
 {
-    // 処理なし
+    switch (hitObjectData.tag)
+    {
+    case ObjectTag::EnemyBoby:
+        // 残りHPがこの一撃で0以下になる場合
+        if (hitObjectData.objectHP - power <= 0)
+        {
+            getMoney = +50;  // あと一撃で倒せる場合は50ポイント
+        }
+        else
+        {
+            getMoney = +20;  // それ以外の場合は20ポイント
+        }
+
+        break;
+
+    default:
+        break;
+    }
 }

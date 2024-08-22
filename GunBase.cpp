@@ -59,8 +59,8 @@ void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch,Player::State 
     float gunAngleY = atan2f(cameraForward.x, cameraForward.z);
 
     // 腰だめの角度に修正
-    gunAngleY   -= HipUpPositionAngleY;         // 水平方向回転度
-    cameraPitch += HipUpPositionANglePitch;     // 垂直方向回転度
+    gunAngleY   -= HipShootHorizontalAngle;         // 水平方向回転度
+    cameraPitch += HipShootVerticalAngle;     // 垂直方向回転度
 
     // 回転行列に変更
     MATRIX rotationX = MGetRotX(-cameraPitch);
@@ -111,7 +111,7 @@ void GunBase::FixedGunPosition(VECTOR setPosition, VECTOR cameraForwardVector)
     VECTOR velocity = VNorm(horizonDirection);
 
     // ずらし量を計算
-    VECTOR offset = VScale(velocity, HipUpPositionOffsetScale);
+    VECTOR offset = VScale(velocity, HipShootOffsetScale);
     position = VAdd(position, offset);
 
     // 座標を設定

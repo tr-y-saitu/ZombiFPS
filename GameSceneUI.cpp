@@ -1,4 +1,5 @@
 ﻿#include "GameSceneUI.h"
+#include "Player.h"
 
 /// <summary>
 /// コンストラクタ
@@ -22,7 +23,14 @@ void GameSceneUI::Update()
 
 }
 
-void GameSceneUI::Draw()
+/// <summary>
+/// 描画
+/// </summary>
+void GameSceneUI::Draw(Player& player)
 {
+    // 銃の総弾数
+    DrawFormatString(500, 800, DebugFontColor, "Ammo:%d", player.GetEquippedGunAmmo());
 
+    // プレイヤーの所持金
+    DrawFormatString(500, 900, DebugFontColor, "Money:%d", player.GetMoney());
 }

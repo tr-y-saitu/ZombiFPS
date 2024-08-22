@@ -76,6 +76,12 @@ void CollisionManager::Update()
     {
         for (int j = 0; j < collisionDataList.size(); j++)
         {
+            // 同じオブジェクト間の当たり判定をスキップ
+            if (i == j)
+            {
+                continue;
+            }
+
             // どのタイプの当たり判定を行うか調べる
             CollisionData data1 = *collisionDataList[i];
             CollisionData data2 = *collisionDataList[j];

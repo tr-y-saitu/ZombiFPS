@@ -32,6 +32,7 @@ Player::Player()
     , reloadAnimationFactor         (0.0f)
     , reloadTimer                   (0)
     , hitPoint                      (InitializeHitPoint)
+    , money                         (0)
 {
     collisionManager        = CollisionManager::GetInstance();
     modelDataManager        = ModelDataManager::GetInstance();
@@ -89,6 +90,9 @@ void Player::Initialize()
     // 初期状態ではアニメーションはアタッチされていないにする
     currentPlayAnimation = -1;
     previousPlayAnimation = -1;
+
+    // 所持金を初期化
+    money = 0;
     
     // アニメーション設定
     PlayAnimation(AnimationType::Idle);
@@ -524,10 +528,10 @@ void Player::UpdateAngle()
     // FIXME:
     // ブレンダーでアニメーションを残したままモデルを回転し、
     // 保存する方法が分からないためプログラム上で実装
-    playerAngleY += HipUpPositionAngleY;
+    playerAngleY += HipShootHorizontalAngle;
 
     // 腰だめ角度に調整
-    cameraPitch += HipUpPositionANglePitch;
+    cameraPitch += HipShootVerticalAngle;
 
     // 回転を行列に変換
     MATRIX matrixX = MGetRotX(cameraPitch);             // X軸回転
@@ -597,8 +601,8 @@ void Player::PlayAnimation(AnimationType type)
 /// <param name="input">入力情報</param>
 void Player::UpdateShootingEquippedWeapon(const Input& input)
 {
-    // 左クリックされたら射撃する
-    if (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT)
+    // 左クリックされたら射撃する,銃の総弾数があれば
+    if (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT && equippedGun->GetGunAmmo() > 0)
     {
         // 連射力カウントを進める
         shootFireRateCount++;
@@ -625,6 +629,11 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
 
             // 連射力カウントをリセット
             shootFireRateCount = 0;
+
+            // 銃の総弾数を減らす
+            int currentAmmo = equippedGun->GetGunAmmo();
+            currentAmmo--;
+            equippedGun->SetGunAmmo(currentAmmo);
         }
     }
     else
@@ -638,6 +647,9 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
 
     // 使い終わった弾丸があれば返却する
     DeactivateBulletReturn();
+
+    // 獲得金額を加算
+    money = equippedGun->GetRewardMoney();
 }
 
 /// <summary>
@@ -665,6 +677,7 @@ void Player::UpdateReload(const Input& input)
         {
             isReload = false;   // リロードをやめる
             reloadTimer = 0;    // タイマーをリセット
+            equippedGun->SetGunAmmo(equippedGun->GetGunMaxAmmo());  // 銃の最大総弾数まで回復
         }
     }
 }
@@ -783,4 +796,13 @@ void Player::ChangeState(State newState)
     default:
         break;
     }
+}
+
+/// <summary>
+/// 現在装備中の銃の総弾数を返す
+/// </summary>
+/// <returns>装備中の銃の残弾数</returns>
+const int Player::GetEquippedGunAmmo()
+{
+    return  equippedGun->GetGunAmmo();
 }
