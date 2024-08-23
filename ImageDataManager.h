@@ -38,6 +38,9 @@ public:
         // ゲームシーン
         CrosshairImageData,     // 銃のクロスヘア
 
+        // 銃
+        MP5PowerUpTexture,      // MP5の強化後の武器テクスチャ
+
         // リザルトシーン
         WindowsScoreNoTextImageData,    // レトロウィンドウズ風スコアボード
         WindowsCloseButtonRed,          // ウィンドウ閉じるボタン赤色

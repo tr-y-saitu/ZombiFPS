@@ -4,6 +4,7 @@
 class GunStateBase;
 class Bullet;
 class ModelDataManager;
+class ImageDataManager;
 class BulletObjectPools;
 
 /// <summary>
@@ -103,6 +104,7 @@ private:
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
     ModelDataManager*       modelDataManager;       // モデルデータ読み込み用クラスのアドレス
+    ImageDataManager*       imageDataManager;       // 画像データ読み込み用クラスのアドレス
     float                   runAnimationFactor;     // 走りアニメーション再生時の適応率
     float                   reloadAnimationFactor;  // リロードアニメーションの再生時の適応率
 };

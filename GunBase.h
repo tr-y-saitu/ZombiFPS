@@ -137,6 +137,7 @@ protected:
     //---------------------------------------------------------------------------------//
     // ステータス
     int             modelHandle;                // モデルハンドル
+    int             powerUpTextureHandle;       // 武器強化時のテクスチャハンドル
     VECTOR          position;                   // 座標
     VECTOR          positionOffsetAmount;       // 座標をずらす量
     MATRIX          rotationMatrix;             // モデルの回転行列

@@ -2,6 +2,7 @@
 #include "Bullet.h"
 #include "GunStateBase.h"
 #include "ModelDataManager.h"
+#include "ImageDataManager.h"
 #include "GunIdleState.h"
 #include "GunReloadState.h"
 #include "GunRunState.h"
@@ -15,6 +16,7 @@ SubmachineGun::SubmachineGun()
     , reloadAnimationFactor     (0.0f)
 {
     modelDataManager = ModelDataManager::GetInstance();
+    imageDataManager = ImageDataManager::GetInstance();
     Initialize();
 }
 
@@ -63,6 +65,9 @@ void SubmachineGun::Initialize()
 
     // スケールを調整
     MV1SetScale(modelHandle, InitializeScale);
+
+    // 武器強化時のテクスチャハンドルをもらう
+    powerUpTextureHandle = imageDataManager->GetImageHandle(ImageDataManager::MP5PowerUpTexture);
 }
 
 /// <summary>
@@ -237,6 +242,11 @@ void SubmachineGun::InitializePowerUpWeapon()
         gunMaxAmmo              = GunMaxAmmo * GunPowerUpRate;               // 銃の最大総弾数
         backUpAmmo              = MaxBackUpAmmo * GunPowerUpRate;            // 予備弾薬数
         backUpMaxAmmo           = MaxBackUpAmmo * GunPowerUpRate;            // 予備弾薬の最大数
+
+        // テクスチャを張り替える
+        MV1SetTextureGraphHandle(modelHandle, 0, powerUpTextureHandle, true);
+
+        // エフェクトを再生する
 
         // 強化済み
         powerUpWeapon = false;
