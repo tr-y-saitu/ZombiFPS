@@ -938,8 +938,11 @@ void Player::PlayAnimation(AnimationType type)
 /// <param name="input">入力情報</param>
 void Player::UpdateShootingEquippedWeapon(const Input& input)
 {
-    // 左クリックされたら射撃する,銃の総弾数があれば
-    if (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT && equippedGun->GetGunAmmo() > 0)
+    // 左クリック入力、銃の総弾数がある、リロード注出ない場合射撃可能
+    bool canShooting = (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT && equippedGun->GetGunAmmo() > 0 && !isReload);
+
+    // 射撃出来れば
+    if (canShooting)
     {
         // 連射力カウントを進める
         shootFireRateCount++;
