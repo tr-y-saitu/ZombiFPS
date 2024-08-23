@@ -79,6 +79,11 @@ private:
     /// </summary>
     void InitializePowerUpWeapon();
 
+    /// <summary>
+    /// 武器強化時のモデルマテリアルの更新
+    /// </summary>
+    void UpdatePowerUpGunMaterial();
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
@@ -95,8 +100,11 @@ private:
     static constexpr float  GunAccuracy             = 1.0f;         // 銃の精度(拡散度合い)
     static constexpr VECTOR InitializeScale         = { 0.07f,0.07f,0.07f };    // 初期化時のスケール
     static constexpr int    MaxBackUpAmmo           = 210;          // 銃の最大予備弾薬数
-    // 強化量
+    // 強化時
     static constexpr float  GunPowerUpRate          = 3.0f;         // 武器強化率
+    static constexpr float  MaximumEmissive = 0.9f;     // 最大発光量
+    static constexpr float  MinimumEmissive = 0.4f;     // 最小発光量
+    static constexpr float  EmissiveSpeed   = 0.005f;   // 発光量の変化スピード
     // ずらし量
     static constexpr VECTOR GunOffset = { 0.0f,0.5f,0.0f };         // 銃のプレイヤーの腕からのずらし量
 
@@ -107,5 +115,10 @@ private:
     ImageDataManager*       imageDataManager;       // 画像データ読み込み用クラスのアドレス
     float                   runAnimationFactor;     // 走りアニメーション再生時の適応率
     float                   reloadAnimationFactor;  // リロードアニメーションの再生時の適応率
+
+    // 強化時
+    bool    isEmissiveIncreasing;   // 発光量上昇中であるかどうか
+    float     emissiveIntensity;      // 現在の発光量
+
 };
 

@@ -14,6 +14,8 @@
 SubmachineGun::SubmachineGun()
     : runAnimationFactor        (0.0f)
     , reloadAnimationFactor     (0.0f)
+    , isEmissiveIncreasing      (false)
+    , emissiveIntensity         (MinimumEmissive)
 {
     modelDataManager = ModelDataManager::GetInstance();
     imageDataManager = ImageDataManager::GetInstance();
@@ -93,6 +95,9 @@ void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR camer
 
     // 武器強化指示が出れば強化
     InitializePowerUpWeapon();
+
+    // 武器強化時のマテリアル更新
+    UpdatePowerUpGunMaterial();
 }
 
 /// <summary>
@@ -234,6 +239,9 @@ void SubmachineGun::InitializePowerUpWeapon()
     // 武器強化指示が出た場合
     if (powerUpWeapon)
     {
+        // パワーアップした状態である
+        gunPowerUpState = GunPowerUpState::FirstUpGraeded;
+
         // 各種武器性能を強化
         bulletDamagePower       = bulletDamagePower * GunPowerUpRate;        // 威力
         bulletPenetrationPower  = BulletPenetrationPower * GunPowerUpRate;   // 貫通力
@@ -251,4 +259,42 @@ void SubmachineGun::InitializePowerUpWeapon()
         // 強化済み
         powerUpWeapon = false;
     }
+}
+
+/// <summary>
+/// 武器強化時のモデルマテリアルの更新
+/// </summary>
+void SubmachineGun::UpdatePowerUpGunMaterial()
+{
+    // 強化済みか確認
+    if (!(gunPowerUpState == GunPowerUpState::None))
+    {
+        // エミッシブカラー(自然発光)の値を変更する
+
+        // 上昇
+        if (isEmissiveIncreasing)
+        {
+            emissiveIntensity += EmissiveSpeed; // 発光量を増加
+            if (emissiveIntensity >= MaximumEmissive)
+            {
+                emissiveIntensity = MaximumEmissive;
+                isEmissiveIncreasing = false;   // 降下に切り替える
+            }
+        }
+        else
+        {
+            emissiveIntensity -= EmissiveSpeed;
+            if (emissiveIntensity <= MinimumEmissive)
+            {
+                emissiveIntensity = MinimumEmissive;
+                isEmissiveIncreasing = true;    // 上昇に切り替える
+            }
+        }
+
+        // エミッシブカラー(自然発光)の値を更新
+        VECTOR emissiveColor = VGet(emissiveIntensity, emissiveIntensity, emissiveIntensity);
+        MV1SetMaterialEmiColor(modelHandle, 0,
+            GetColorF(emissiveColor.x, emissiveColor.y, emissiveColor.z,1.0f));
+    }
+
 }

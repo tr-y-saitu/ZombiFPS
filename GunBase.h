@@ -25,6 +25,15 @@ public:
     };
 
     /// <summary>
+    /// 銃の強化状態
+    /// </summary>
+    enum class GunPowerUpState : int
+    {
+        None,               // 強化されていない
+        FirstUpGraeded,     // １回目の強化
+    };
+
+    /// <summary>
     /// コンストラクタ
     /// </summary>
     GunBase();
@@ -137,7 +146,6 @@ protected:
     //---------------------------------------------------------------------------------//
     // ステータス
     int             modelHandle;                // モデルハンドル
-    int             powerUpTextureHandle;       // 武器強化時のテクスチャハンドル
     VECTOR          position;                   // 座標
     VECTOR          positionOffsetAmount;       // 座標をずらす量
     MATRIX          rotationMatrix;             // モデルの回転行列
@@ -151,7 +159,12 @@ protected:
     int             rewardMoney;                // 獲得した金額
     int             backUpAmmo;                 // 予備弾薬
     int             backUpMaxAmmo;              // 予備弾薬の最大数
+
+    // 強化時
     bool            powerUpWeapon;              // 武器を強化するかどうかのフラグ
+    GunPowerUpState gunPowerUpState;            // 武器が強化されているかの状態
+    int             powerUpTextureHandle;       // 武器強化時のテクスチャハンドル
+
 
     // 弾丸
     Bullet::BulletInitializeData bulletData;    // 弾丸のデータ
