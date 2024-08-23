@@ -75,7 +75,7 @@ void ModelDataManager::ModelDataLoad()
     modelDataList[EnemyModelData]           = MV1LoadModel("Data/Enemy/EenmyModelZombie.mv1");
 
     // 銃
-    modelDataList[SubmachineGunModelData]   = MV1LoadModel("Data/Gun/MP5/MP5.mv1");
+    modelDataList[SubmachineGunModelData]   = MV1LoadModel("Data/Gun/MP5/MP5RDS.mv1");
     modelDataList[BattleRifleModelData]     = MV1LoadModel("Data/Gun/M14/M14.mv1");
     modelDataList[AssaultRifleModelData]    = MV1LoadModel("Data/Gun/AR15/AR15.mv1");
 }
