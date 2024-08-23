@@ -90,11 +90,17 @@ private:
     /// <param name="interactionCost">インタラクト費用</param>
     void DrawInteractionCost(int interactionCost);
 
+    /// <summary>
+    /// インタラクトできるオブジェクトのアイコンを描画
+    /// </summary>
+    void DrawInteractIcon();
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     static constexpr int InteractLocationInfomationDrawPositionY    = 800;      // インタラクト情報の描画Y座標
     static constexpr int InteractLocationCostDrawPositionY          = 900;      // インタラクトできるコスト描画Y座標
+    static constexpr VECTOR InteractIconDrawOffset = { 0.0f,1.0f,0.0f };        // インタラクトアイコンの描画位置のずらし量
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
@@ -105,6 +111,10 @@ private:
     int     vhsFilterImageHandle;   // VHSフィルター画像
     int     crosshairImageHandle;   // クロスヘア画像
     int     recImageHandle;         // REC画像
+
+    // アイコン
+    int     gunPowerUpMachineIconImageHandle;   // 銃強化マシンアイコン画像
+    int     ammoBoxIconImageHandle;             // 弾薬補充箱アイコン画像
 };
 
 

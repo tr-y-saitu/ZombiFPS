@@ -35,6 +35,11 @@ public:
     /// </summary>
     void Draw();
 
+    //---------------------------------------------------------------------------------//
+    //                                      定数                                       //
+    //---------------------------------------------------------------------------------//
+    static constexpr VECTOR InitializePosition = { -46.0f,4.5f,62.0f };    // 初期座標
+
 private:
     /// <summary>
     /// オブジェクトと接触した時の処理
@@ -45,7 +50,6 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
-    static constexpr VECTOR InitializePosition          = { -46.0f,4.5f,62.0f };    // 初期座標
     static constexpr float  CollisionRadius             = 2;                        // 当たり判定半径
     static constexpr float  CollisionInteractRadius     = 10;                       // インタラクトできる半径
     static constexpr VECTOR CollisionInitializePosition = InitializePosition;       // 当たり判定座標

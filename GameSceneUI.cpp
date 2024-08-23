@@ -1,6 +1,8 @@
 ﻿#include "GameSceneUI.h"
 #include "Player.h"
 #include "ImageDataManager.h"
+#include "GunPowerUpMachine.h"
+#include "AmmoBox.h"
 
 /// <summary>
 /// コンストラクタ
@@ -27,9 +29,11 @@ GameSceneUI::~GameSceneUI()
 void GameSceneUI::Initialize()
 {
     // 画像ハンドルの取得
-    vhsFilterImageHandle    = imageDataManager->GetImageHandle(ImageDataManager::VHSFiltersImageData);
-    crosshairImageHandle    = imageDataManager->GetImageHandle(ImageDataManager::CrosshairImageData);
-    recImageHandle          = imageDataManager->GetImageHandle(ImageDataManager::RECImageData);
+    vhsFilterImageHandle                = imageDataManager->GetImageHandle(ImageDataManager::VHSFiltersImageData);
+    crosshairImageHandle                = imageDataManager->GetImageHandle(ImageDataManager::CrosshairImageData);
+    recImageHandle                      = imageDataManager->GetImageHandle(ImageDataManager::RECImageData);
+    gunPowerUpMachineIconImageHandle    = imageDataManager->GetImageHandle(ImageDataManager::IconGunPowerUpMachine);
+    ammoBoxIconImageHandle              = imageDataManager->GetImageHandle(ImageDataManager::IconAmmoBox);
 }
 
 /// <summary>
@@ -53,6 +57,9 @@ void GameSceneUI::Draw(Player& player, int waveState)
 
     // プレイヤーの情報を描画
     DrawPlayerInformation(player);
+
+    // インタラクトオブジェクトのアイコンの描画
+    DrawInteractIcon();
 }
 
 /// <summary>
@@ -219,4 +226,16 @@ void GameSceneUI::DrawInteractionCost(int interactionCost)
 
     // 画面の中央に描画
     DrawStringCenterScreen(text, InteractLocationCostDrawPositionY, DebugFontColor, vhsJPLargeFontHandle);
+}
+
+/// <summary>
+/// インタラクトできるオブジェクトのアイコンを描画
+/// </summary>
+void GameSceneUI::DrawInteractIcon()
+{
+    // 弾薬補充箱
+
+
+    // 銃強化マシン
+
 }
