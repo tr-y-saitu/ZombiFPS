@@ -85,6 +85,11 @@ public:
     /// 上下角度のみこの関数で更新
     void UpdateCameraPitch();
 
+    /// <summary>
+    /// 視野角の更新
+    /// </summary>
+    void UpdateFov(Player::AimState playerAimState);
+
     // ゲッター
     const VECTOR& GetCameraPosition() const { return cameraPosition; }
     const VECTOR& GetTargetPosition() const { return targetPosition; }
@@ -112,6 +117,14 @@ private:
     static constexpr float  LeftOffset                  = -0.5f;    // 腰だめの位置を再現するために左にずらす量
     static constexpr float  BackOffset                  = -2.0f;    // 腰だめの位置を再現するために後ろにずらす量
     static constexpr float  ViewTargetShiftLeftOffset   = -0.5f;    // 腰だめの位置に調整するためのターゲットの視点ずらし量
+    // 視野角
+    static constexpr float  AimFov                      = 40.0f * DX_PI_F / 180.f;  // エイム時の視野角
+    static constexpr float  HipShootFov                 = 60.0f * DX_PI_F / 180.f;  // 腰だめ時の視野角
+    static constexpr float  FovChangeSpeed              = 2.0f * DX_PI_F / 180.f;   // 視野角の変更スピード
+    // MEMO:現在の視野角と、目標の視野角をfloatで表しているが、
+    //      目標の視野角に到達した場合の[＝]等号式で表したいが誤差があり無理なので
+    //      絶対値を利用してその誤差をどこまで許容するかの値
+    static constexpr float  FovMargin                   = 0.01f * DX_PI_F / 180.0f;
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
@@ -123,5 +136,9 @@ private:
     VECTOR  cameraPosition;         // カメラ自身の座標
     VECTOR  cameraForwardVector;    // カメラの前方向ベクトル
     VECTOR  cameraRightVector;      // カメラの右方向ベクトル（プレイヤーを右に配置するために使用）
+
+    // カメラ視野角
+    float   currentFov;             // 現在の視野角
+    float   targetFov;              // 目標の視野角
 };
 

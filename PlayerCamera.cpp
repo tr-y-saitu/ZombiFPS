@@ -13,6 +13,8 @@ PlayerCamera::PlayerCamera()
     , targetPosition        (VGet(0,0,0))
     , cameraPosition        (VGet(0,0,0))
     , cameraRightVector     (VGet(0,0,0))
+    , currentFov            (HipShootFov)
+    , targetFov             (HipShootFov)
 {
     // 描画範囲の設定
     SetCameraNearFar(CameraNearClip, CameraFarClip);
@@ -70,12 +72,7 @@ void PlayerCamera::Update(const Input& input, VECTOR setPosition,
     // カメラの右方向ベクトルを更新
     UpdateCameraRightVector();
 
-    if (playerAimState == Player::AimState::Start || playerAimState == Player::AimState::End)
-    {
-        VECTOR horizontalDirection = VGet(cameraForwardVector.x, 0.0f, cameraForwardVector.z);
-        targetPosition = horizontalDirection; 
-    }
-
+    // カメラの座標調整
     if (playerAimState == Player::AimState::Now)
     {
         // エイムの位置にカメラを移動させる
@@ -87,6 +84,8 @@ void PlayerCamera::Update(const Input& input, VECTOR setPosition,
         UpdateHipUpPosition(setPosition);
     }
 
+    // 視野角の更新
+    UpdateFov(playerAimState);
 
     // カメラのピッチ角度計算
     UpdateCameraPitch();
@@ -335,6 +334,10 @@ void PlayerCamera::UpdateHipUpPosition(VECTOR setPosition)
 
     // カメラの視点を更新
     targetPosition = VAdd(targetPosition, leftOffset);
+
+    // 視野角を設定する
+    //SetupCamera_Perspective(65.0f * DX_PI_F / 180.0f);
+    targetFov = HipShootFov;
 }
 
 /// <summary>
@@ -343,9 +346,42 @@ void PlayerCamera::UpdateHipUpPosition(VECTOR setPosition)
 /// <param name="setPosition">基準となる座標</param>
 void PlayerCamera::UpdateAimPosition(VECTOR setPosition)
 {
-    // 高さを上げる
-    targetPosition = VAdd(setPosition, VGet(0, 1, 0));
+    // カメラの座標を少し後ろに配置
+    cameraPosition = VAdd(setPosition, VScale(cameraForwardVector, BackOffset));
 
+    // 視野角を設定する
+    //SetupCamera_Perspective(30.0f * DX_PI_F / 180.0f);
+    targetFov = AimFov;
+}
+
+/// <summary>
+/// 視野角の更新
+/// </summary>
+void PlayerCamera::UpdateFov(Player::AimState playerAimState)
+{
+    // 目標の視野角と現在の視野角が違う場合合わせる
+    if (fabs(currentFov - targetFov) > FovMargin)
+    {
+        if (currentFov > targetFov)
+        {
+            currentFov -= FovChangeSpeed;
+            if (currentFov < targetFov)
+            {
+                currentFov = targetFov;  // 終点調整
+            }
+        }
+        else if (currentFov < targetFov)
+        {
+            currentFov += FovChangeSpeed;
+            if (currentFov > targetFov)
+            {
+                currentFov = targetFov;  // 終点調整
+            }
+        }
+
+        // 視野角の設定
+        SetupCamera_Perspective(currentFov);
+    }
 }
 
 /// <summary>
@@ -374,3 +410,4 @@ void PlayerCamera::UpdateCameraPitch()
     //  そこからforwardVector.yまでどのくらいの角度があるかを計算する
     cameraPitch = atan2f(forwardVector.y, horizonLength);
 }
+
