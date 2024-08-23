@@ -230,24 +230,24 @@ void Player::Draw(const Stage& stage)
     //    break;
     //}
 
-    // エイムステートの実装
-    switch (currentAimState)
-    {
-    case Player::AimState::None:
-        DrawString(1200, 100, "AimState::None", DebugFontColor, true);
-        break;
-    case Player::AimState::Start:
-        DrawString(1200, 100, "AimState::Start", DebugFontColor, true);
-        break;
-    case Player::AimState::Now:
-        DrawString(1200, 100, "AimState::Now", DebugFontColor, true);
-        break;
-    case Player::AimState::End:
-        DrawString(1200, 100, "AimState::End", DebugFontColor, true);
-        break;
-    default:
-        break;
-    }
+    //// エイムステートの実装
+    //switch (currentAimState)
+    //{
+    //case Player::AimState::None:
+    //    DrawString(1200, 100, "AimState::None", DebugFontColor, true);
+    //    break;
+    //case Player::AimState::Start:
+    //    DrawString(1200, 100, "AimState::Start", DebugFontColor, true);
+    //    break;
+    //case Player::AimState::Now:
+    //    DrawString(1200, 100, "AimState::Now", DebugFontColor, true);
+    //    break;
+    //case Player::AimState::End:
+    //    DrawString(1200, 100, "AimState::End", DebugFontColor, true);
+    //    break;
+    //default:
+    //    break;
+    //}
 }
 
 /// <summary>
