@@ -81,11 +81,15 @@ void ImageDataManager::ImageDataLoad()
     imageDataList[VHSNoiseFilters150]   = LoadGraph("Data/UI/Filter/VHS_Noise150%.png");
     imageDataList[VHSNoiseFilters200]   = LoadGraph("Data/UI/Filter/VHS_Noise200%.png");
 
-    // タイトルシーン
-    imageDataList[TitleLogo]            = LoadGraph("Data/UI/TitleScene/TitleLogo.png");
-
     // 銃
     imageDataList[MP5PowerUpTexture] = LoadGraph("Data/Gun/MP5/MP5PowerUpTexture.png");
+
+    // アイコン
+    imageDataList[IconGunPowerUpMachine]= LoadGraph("Data/UI/GameScene/GunPowerUpMachineIconImage.png");
+    imageDataList[IconAmmoBox]          = LoadGraph("Data/UI/GameScene/AmmoBoxIconImage.png");
+
+    // タイトルシーン
+    imageDataList[TitleLogo]            = LoadGraph("Data/UI/TitleScene/TitleLogo.png");
 
     // ゲームシーン
     imageDataList[CrosshairImageData]   = LoadGraph("Data/UI/GameScene/Crosshair.png");

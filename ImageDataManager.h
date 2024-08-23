@@ -32,14 +32,18 @@ public:
         VHSNoiseFilters150,     // VHS風ノイズ150%画像
         VHSNoiseFilters200,     // VHS風ノイズ200%画像
 
+        // 銃
+        MP5PowerUpTexture,      // MP5の強化後の武器テクスチャ
+
+        // アイコン
+        IconGunPowerUpMachine,  // 銃強化マシンのアイコン
+        IconAmmoBox,            // 弾薬補充箱のアイコン
+
         // タイトルシーン
         TitleLogo,              // タイトルロゴ
 
         // ゲームシーン
         CrosshairImageData,     // 銃のクロスヘア
-
-        // 銃
-        MP5PowerUpTexture,      // MP5の強化後の武器テクスチャ
 
         // リザルトシーン
         WindowsScoreNoTextImageData,    // レトロウィンドウズ風スコアボード
