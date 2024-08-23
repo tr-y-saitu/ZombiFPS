@@ -74,7 +74,7 @@ protected:
     const int            FontColorBlack         = GetColor(0, 0, 0);        // フォントカラー(黒)
     // 時刻
     static constexpr int VHSTimeDrawPositionX = 1400; // 時刻の描画X位置
-    static constexpr int VHSTimeDrawPositionY = 50;   // 自国の描画Y位置
+    static constexpr int VHSTimeDrawPositionY = 50;   // 時刻の描画Y位置
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //

@@ -107,13 +107,19 @@ private:
     static constexpr int InteractLocationInfomationDrawPositionY    = 800;      // インタラクト情報の描画Y座標
     static constexpr int InteractLocationCostDrawPositionY          = 900;      // インタラクトできるコスト描画Y座標
     // 武器強化マシン
-    static constexpr VECTOR GunPowerUpMachineIconDrawOffset = { 0.0f,3.0f,0.0f };
+    static constexpr VECTOR GunPowerUpMachineIconDrawOffset         = { 0.0f,3.0f,0.0f };   // 武器強化マシンのアイコン描画ずらし量
+
     // 弾薬補充箱
-    static constexpr VECTOR AmmoBoxIconDrawOffset = { 0.0f,4.0f,0.0f };
+    static constexpr VECTOR AmmoBoxIconDrawOffset                   = { 0.0f,4.0f,0.0f };   // 弾薬補充箱のアイコンの描画ずらし量
+    static constexpr float  AmmoBoxIconDrawCenterXRate = 0.5f;
 
     // アイコン
-    const float FLOATING_AMPLITUDE = 0.5f; // 振幅
-    const float FLOATING_FREQUENCY = 0.05f; // 周期（フレームごとの変化量）
+    static constexpr float  IconOffsetRange         = 0.5f;     // アイコンのオフセットの振幅
+    static constexpr float  IconOffsetCycle         = 0.05f;    // アイコンのオフセットする周期（フレームごとの変化量）
+    static constexpr float  IconDrawCenterXRate     = 0.5f;     // 画像内の中心比率X
+    static constexpr float  IconDrawCenterYRate     = 0.0f;     // 画像内の中心比率Y
+    static constexpr float  IconSize                = 3.0f;     // アイコン描画サイズ
+    static constexpr float  IconAngle               = 0.0f;     // アイコンの描画角度
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
