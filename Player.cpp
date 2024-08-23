@@ -33,6 +33,9 @@ Player::Player()
     , reloadTimer                   (0)
     , hitPoint                      (InitializeHitPoint)
     , money                         (0)
+    , interactLocationState         (InteractLocationState::None)
+    , isInteracted                  (false)
+    , interactionCost               (0)
 {
     collisionManager        = CollisionManager::GetInstance();
     modelDataManager        = ModelDataManager::GetInstance();
@@ -133,6 +136,9 @@ void Player::Update(const Input& input, Stage& stage)
         playerCamera->GetTargetPosition(),playerCamera->GetCameraPosition(),
         playerCamera->GetCameraPitch(),state);
 
+    // インタラクトの更新
+    UpdateInteract(input);
+
     // プレイヤーカメラの更新
     UpdatePlayerCamera(input, stage);
 
@@ -185,6 +191,25 @@ void Player::Draw(const Stage& stage)
 
     // 体力の描画
     DrawFormatString(100, 400, DebugFontColor, "HP:%.1f", hitPoint);
+
+    // インタラクト状態の描画
+    switch (interactLocationState)
+    {
+    case Player::InteractLocationState::None:
+        DrawString(1200, 100, "InteractLocationState::None", DebugFontColor, true);
+        break;
+    case Player::InteractLocationState::Shutter:
+        DrawString(1200, 100, "InteractLocationState::Shutter", DebugFontColor, true);
+        break;
+    case Player::InteractLocationState::PowerUpMachine:
+        DrawString(1200, 100, "InteractLocationState::PowerUpMachine", DebugFontColor, true);
+        break;
+    case Player::InteractLocationState::AmmoBox:
+        DrawString(1200, 100, "InteractLocationState::AmmoBox", DebugFontColor, true);
+        break;
+    default:
+        break;
+    }
 }
 
 /// <summary>
@@ -242,11 +267,44 @@ void Player::OnHitFloor()
 /// <param name="hitObjectData"></param>
 void Player::OnHitObject(CollisionData hitObjectData)
 {
+    VECTOR difference;
+    float distance;
+    // 接触したオブジェクトごとに別の処理
     switch (hitObjectData.tag)
     {
     case ObjectTag::EnemyAttack:    // エネミーの攻撃
         // HPを減らす
         hitPoint -= hitObjectData.attackPower;
+
+        break;
+
+    case ObjectTag::Shutter:    // シャッター
+        // 実際の当たり判定に入っているか
+
+        // オブジェクトとの距離を計算
+        difference = VSub(position, hitObjectData.centerPosition);
+        distance = VSize(difference);
+
+        // インタラクトの範囲に入っているか確認
+        if (distance <= hitObjectData.radius + collisionData.radius)
+        {
+            // 押し出し処理を行う
+            ProcessExtrusion(hitObjectData);
+
+            // シャッターのインタラクトの範囲に入っている
+            interactLocationState = InteractLocationState::Shutter;
+
+            // シャッターのインタラクトコストをもらう
+            interactionCost = hitObjectData.interactionCost;
+        }
+        else
+        {
+            // シャッターのインタラクトの範囲に入っている
+            interactLocationState = InteractLocationState::Shutter;
+
+            // シャッターのインタラクトコストをもらう
+            interactionCost = hitObjectData.interactionCost;
+        }
 
         break;
 
@@ -264,6 +322,83 @@ void Player::UpdateCollisionData()
     collisionData.tag               = ObjectTag::Player;    // プレイヤーである
     collisionData.centerPosition    = position;             // プレイヤーの当たり判定用の座標
     collisionData.radius            = HitBoxRadius;         // プレイヤー当たり判定用の半径
+    collisionData.isInteracted      = isInteracted;         // オブジェクトにインタラクトするかどうか
+}
+
+/// <summary>
+/// 押し出し処理
+/// </summary>
+/// <param name="hitObjectData">接触したオブジェクト</param>
+void Player::ProcessExtrusion(CollisionData hitObjectData)
+{
+    // 半径の合計
+    float radiusSum = hitObjectData.radius + collisionData.radius;
+
+    // y座標は変更しなくていいので０に修正する
+    VECTOR correctedTargetPosition = VGet(hitObjectData.centerPosition.x, 0.0f, hitObjectData.centerPosition.z);
+
+    // エネミーも同じように修正
+    VECTOR correctedEnemyPosition = VGet(position.x, 0.0f, position.z);
+
+    // 修正した座標からボスからプレイヤーの向きのベクトルを計算
+    VECTOR vectorToPlayer = VSub(correctedEnemyPosition, correctedTargetPosition);
+
+    // ベクトルのサイズを計算
+    float distance = VSize(vectorToPlayer);
+
+    // 押し戻す距離の計算
+    distance = radiusSum - distance;
+
+    // ベクトルを正規化する
+    vectorToPlayer = VNorm(vectorToPlayer);
+
+    // 押し出す量
+    VECTOR pushBackVector = VScale(vectorToPlayer, distance);
+
+    // 計算したベクトルからプレイヤーの位置を変更
+    position = VAdd(position, pushBackVector);
+
+    // モデルの位置も合わせて修正
+    MV1SetPosition(modelHandle, position);
+}
+
+/// <summary>
+/// インタラクトの更新
+/// </summary>
+void Player::UpdateInteract(const Input& input)
+{
+    // インタラクトしているかどうかを初期化する
+    isInteracted = false;
+
+    switch (interactLocationState)
+    {
+    case Player::InteractLocationState::None:
+        // 処理なし
+        break;
+    case Player::InteractLocationState::Shutter:
+        // 所持金があるかつ、インタラクトキーが入力されていれば
+        if (input.GetCurrentFrameInput() & PAD_INPUT_1 || CheckHitKey(KEY_INPUT_F)
+            && interactionCost <= money)
+        {
+            isInteracted = true;        // インタラクトしている
+            money -= interactionCost;   // 所持金を支払う
+        }
+
+        break;
+    case Player::InteractLocationState::PowerUpMachine:
+
+        break;
+    case Player::InteractLocationState::AmmoBox:
+
+        break;
+    default:
+        break;
+    }
+
+    // 状態を初期化する
+    // HACK:interactLocationStateはOnHit関数内で変更しているのでこの関数の上で初期化すると
+    //      ステートが変更されないためこの位置
+    interactLocationState = InteractLocationState::None;
 }
 
 /// <summary>
@@ -649,7 +784,7 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
     DeactivateBulletReturn();
 
     // 獲得金額を加算
-    money = equippedGun->GetRewardMoney();
+    money += equippedGun->GetRewardMoney();
 }
 
 /// <summary>

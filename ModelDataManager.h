@@ -16,6 +16,9 @@ public:
         // ステージ
         StageModelData,             // ステージモデル
 
+        // シャッター
+        ShutterModelData,           // シャッターモデル
+
         // キャラクター
         PlayerModelData,            // プレイヤーモデル
         EnemyModelData,             // エネミーモデル

@@ -11,6 +11,7 @@
 #include "EnemyGroupController.h"
 #include "EnemyWaveController.h"
 #include "EnemyObjectPools.h"
+#include "ShutterController.h"
 #include "MaxAmmo.h"
 #include "IncomeDouble.h"
 #include "GameSceneUI.h"
@@ -41,6 +42,7 @@ GameScene::GameScene()
     player                  = new Player();
     enemyGroupController    = new EnemyGroupController();
     enemyWaveController     = new EnemyWaveController();
+    shutterController       = new ShutterController();
 
     // アイテム関連
     maxAmmoItem             = new MaxAmmo();
@@ -62,6 +64,7 @@ GameScene::~GameScene()
     delete(player);
     delete(enemyGroupController);
     delete(enemyWaveController);
+    delete(shutterController);
     delete(maxAmmoItem);
     delete(incomeDoubleItem);
     delete(gameSceneUI);
@@ -76,6 +79,7 @@ void GameScene::Initialize()
     player->Initialize();
     enemyGroupController->Initialize();
     enemyWaveController->Initialize();
+    shutterController->Initialize();
 }
 
 /// <summary>
@@ -90,6 +94,7 @@ SceneBase* GameScene::UpdateScene()
     enemyGroupController->Update(player->GetPosition(), *stage,
         enemyWaveController->GetEnemySpawnFlag());                  // エネミーの集合体
     enemyWaveController->Update(enemyGroupController->GetEnemyGroupSize());
+    shutterController->Update();                                    // シャッター
     collisionManager->Update();                                     // 当たり判定処理
     gameSceneUI->Update();                                          // UIの更新
 
@@ -106,6 +111,7 @@ void GameScene::Draw()
     player->Draw(*stage);               // プレイヤー
     enemyGroupController->Draw(player->GetPosition());       // エネミーの集合体
     enemyWaveController->Draw();        // エネミーウェーブ
+    shutterController->Draw();          // シャッター
     DrawUI();                           // UIの描画
 }
 

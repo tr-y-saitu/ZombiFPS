@@ -64,6 +64,9 @@ void ModelDataManager::ModelDataLoad()
     // ステージ
     modelDataList[StageModelData]           = MV1LoadModel("Data/Stage/BackroomsScaleMini.mv1");
 
+    // シャッター
+    modelDataList[ShutterModelData]         = MV1LoadModel("Data/Object/ShutterMini.mv1");
+
     // キャラクター
     modelDataList[PlayerModelData]          = MV1LoadModel("Data/Player/playerAnimationFixed.mv1");
     modelDataList[EnemyModelData]           = MV1LoadModel("Data/Enemy/EenmyModelZombie.mv1");

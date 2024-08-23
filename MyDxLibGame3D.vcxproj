@@ -66,6 +66,7 @@
     <ClCompile Include="SceneUIBase.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Shutter.cpp" />
+    <ClCompile Include="ShutterController.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="SubmachineGun.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="SceneUIBase.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Shutter.h" />
+    <ClInclude Include="ShutterController.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="SubmachineGun.h" />

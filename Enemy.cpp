@@ -23,9 +23,6 @@ Enemy::Enemy()
 {
     modelDataManager = ModelDataManager::GetInstance();
     collisionManager = CollisionManager::GetInstance();
-
-    // 初期化
-    //Initialize();
 }
 
 /// <summary>

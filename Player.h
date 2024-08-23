@@ -57,6 +57,17 @@ public:
     };
 
     /// <summary>
+    /// どのオブジェクトにアクセスできるかの状態
+    /// </summary>
+    enum class InteractLocationState : int
+    {
+        None,           // どこにもアクセスできない
+        Shutter,        // シャッターにアクセルできる
+        PowerUpMachine, // パワーアップマシンにアクセスできる
+        AmmoBox,        // 弾薬補給エリアにアクセスできる
+    };
+
+    /// <summary>
     /// コンストラクタ
     /// </summary>
     Player();
@@ -177,6 +188,18 @@ private:
     void UpdateCollisionData();
 
     /// <summary>
+    /// 押し出し処理
+    /// </summary>
+    /// <param name="hitObjectData">接触したオブジェクト</param>
+    void ProcessExtrusion(CollisionData hitObjectData);
+
+    /// <summary>
+    /// インタラクトの更新
+    /// </summary>
+    /// MEMO:シャッターや、強化マシンにアクセスできる場合の操作
+    void UpdateInteract(const Input& input);
+
+    /// <summary>
     /// アニメーションを新しく再生する
     /// </summary>
     /// <param name="type">アニメーションの種類</param>
@@ -251,14 +274,17 @@ private:
     CollisionData       collisionData;      // 当たり判定用情報
 
     // 基本情報
-    PlayerCamera*       playerCamera;       // プレイヤー専用のカメラ(FPS視点カメラ)
-    PlayerStateBase*    currentState;       // 現在のステート
-    GunBase*            equippedGun;        // 装備中の武器
-    BulletObjectPools*  bulletObjectPools;  // 弾丸のオブジェクトプール
-    int                 shootFireRateCount; // 銃の連射力をカウント
-    bool                isHitEnemyAttack;   // エネミーの攻撃を受けている
-    float               hitPoint;           // 体力
-    int                 money;              // 所持金
+    PlayerCamera*           playerCamera;               // プレイヤー専用のカメラ(FPS視点カメラ)
+    PlayerStateBase*        currentState;               // 現在のステート
+    GunBase*                equippedGun;                // 装備中の武器
+    BulletObjectPools*      bulletObjectPools;          // 弾丸のオブジェクトプール
+    int                     shootFireRateCount;         // 銃の連射力をカウント
+    bool                    isHitEnemyAttack;           // エネミーの攻撃を受けている
+    float                   hitPoint;                   // 体力
+    int                     money;                      // 所持金
+    InteractLocationState   interactLocationState;      // どのオブジェクトにアクセスできる状態であるか
+    bool                    isInteracted;               // インタラクトを行ったかどうか
+    int                     interactionCost;            // インタラクトしたオブジェクトの支払いコスト
 
     // 移動状態
     VECTOR      position;                   // 座標

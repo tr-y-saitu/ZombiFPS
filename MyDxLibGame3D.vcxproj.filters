@@ -146,6 +146,9 @@
     <Filter Include="ZombiFPS\System\Calculation">
       <UniqueIdentifier>{e5e7b9c8-1775-4cf8-b012-8c5f2bf33226}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ZombiFPS\GameObject\Stage\ShutterController">
+      <UniqueIdentifier>{b0b40def-d30f-461d-8d01-fbe78d612111}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -303,6 +306,9 @@
     </ClCompile>
     <ClCompile Include="Calculation.cpp">
       <Filter>ZombiFPS\System\Calculation</Filter>
+    </ClCompile>
+    <ClCompile Include="ShutterController.cpp">
+      <Filter>ZombiFPS\GameObject\Stage\ShutterController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -464,6 +470,9 @@
     </ClInclude>
     <ClInclude Include="Calculation.h">
       <Filter>ZombiFPS\System\Calculation</Filter>
+    </ClInclude>
+    <ClInclude Include="ShutterController.h">
+      <Filter>ZombiFPS\GameObject\Stage\ShutterController</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
