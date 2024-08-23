@@ -113,6 +113,6 @@ void EnemyWaveController::Update(int activeEnemyCount)
 void EnemyWaveController::Draw()
 {
     // 現在時間を描画
-    DrawFormatString(100, 600, DebugFontColor, "WaveTime:%d", waveElapsedTime / 1000);
-    DrawFormatString(100, 700, DebugFontColor, "CurrentWave:%d", (int)currentWaveState);
+    /*DrawFormatString(100, 600, DebugFontColor, "WaveTime:%d", waveElapsedTime / 1000);
+    DrawFormatString(100, 700, DebugFontColor, "CurrentWave:%d", (int)currentWaveState);*/
 }

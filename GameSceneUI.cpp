@@ -68,6 +68,9 @@ void GameSceneUI::Draw(Player& player, int waveState)
 /// <param name="player">プレイヤー</param>
 void GameSceneUI::DrawPlayerInformation(Player& player)
 {
+    // 現在時間の描画
+    DrawCurrentTime();
+
     // 銃の情報を描画
     DrawGunInformation(player);
 
@@ -236,12 +239,26 @@ void GameSceneUI::DrawInteractIcon()
     // アイコン画像をビルボードで描画 // 
 
     // 弾薬補充箱
-    VECTOR ammoBoxIconPosition = VAdd(AmmoBox::InitializePosition, InteractIconDrawOffset);
+    VECTOR ammoBoxIconPosition = VAdd(AmmoBox::InitializePosition, AmmoBoxIconDrawOffset);
+    ammoBoxIconPosition.y += UpdateIconOffset();
     DrawBillboard3D(ammoBoxIconPosition,
         0.5f, 0.0f, 3.0f, 0.0f, ammoBoxIconImageHandle, true);
 
     // 銃強化マシン
-    VECTOR gunMachinePosition = VAdd(GunPowerUpMachine::InitializePosition, InteractIconDrawOffset);
+    VECTOR gunMachinePosition = VAdd(GunPowerUpMachine::InitializePosition, GunPowerUpMachineIconDrawOffset);
+    gunMachinePosition.y += UpdateIconOffset();
     DrawBillboard3D(gunMachinePosition,
         0.5f, 0.0f, 3.0f, 0.0f, gunPowerUpMachineIconImageHandle, true);
+}
+
+/// <summary>
+/// アイコン画像のずらし量計算
+/// </summary>
+float GameSceneUI::UpdateIconOffset()
+{
+    // フレームカウントを更新
+    frameCount++;
+
+    // sinを使用し、0～1の値を返し続ける
+    return FLOATING_AMPLITUDE * sin(FLOATING_FREQUENCY * frameCount);
 }

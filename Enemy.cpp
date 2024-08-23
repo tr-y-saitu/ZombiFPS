@@ -180,12 +180,12 @@ void Enemy::Draw()
     MV1DrawModel(modelHandle);
 
     // カプセル型の当たり判定描画
-    DrawCapsule3D(collisionData.startPosition, collisionData.endPosition,
-        collisionData.radius, PolygonDetail, DebugPolygonColorRed, DebugPolygonColorRed, false);
+    /*DrawCapsule3D(collisionData.startPosition, collisionData.endPosition,
+        collisionData.radius, PolygonDetail, DebugPolygonColorRed, DebugPolygonColorRed, false);*/
 
     // 自身のHPを描画
-    DrawFormatString(DebugHitPointDrawX, DebugHitPointDrawY,
-        DebugFontColor, "HP:%d", hitPoints);
+    /*DrawFormatString(DebugHitPointDrawX, DebugHitPointDrawY,
+        DebugFontColor, "HP:%d", hitPoints);*/
 
     // 攻撃の当たり判定を描画する
     /*if (attackCollisionData.isCollisionActive)

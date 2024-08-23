@@ -71,13 +71,13 @@ void AmmoBox::Draw()
     // モデルの描画
     MV1DrawModel(modelHandle);
 
-    // デバッグ当たり判定の描画
-    DrawSphere3D(collisionData.centerPosition, collisionData.radius,
-        DebugSphereDivision, DebugPolygonColorBlue, DebugPolygonColorBlue, false);
+    //// デバッグ当たり判定の描画
+    //DrawSphere3D(collisionData.centerPosition, collisionData.radius,
+    //    DebugSphereDivision, DebugPolygonColorBlue, DebugPolygonColorBlue, false);
 
-    // デバッグシャッターにアクセルできる半径を描画
-    DrawSphere3D(collisionData.centerPosition, collisionData.interactRadius,
-        DebugSphereDivision, DebugPolygonColorRed, DebugPolygonColorRed, false);
+    //// デバッグシャッターにアクセルできる半径を描画
+    //DrawSphere3D(collisionData.centerPosition, collisionData.interactRadius,
+    //    DebugSphereDivision, DebugPolygonColorRed, DebugPolygonColorRed, false);
 }
 
 /// <summary>

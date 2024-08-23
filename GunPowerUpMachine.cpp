@@ -58,13 +58,13 @@ void GunPowerUpMachine::Update()
 /// </summary>
 void GunPowerUpMachine::Draw()
 {
-    // デバッグ当たり判定の描画
-    DrawSphere3D(collisionData.centerPosition, collisionData.radius,
-        DebugSphereDivision, DebugPolygonColorBlue, DebugPolygonColorBlue, false);
+    //// デバッグ当たり判定の描画
+    //DrawSphere3D(collisionData.centerPosition, collisionData.radius,
+    //    DebugSphereDivision, DebugPolygonColorBlue, DebugPolygonColorBlue, false);
 
-    // インタラクトできる半径を描画
-    DrawSphere3D(collisionData.centerPosition, collisionData.interactRadius,
-        DebugSphereDivision, DebugPolygonColorRed, DebugPolygonColorRed, false);
+    //// インタラクトできる半径を描画
+    //DrawSphere3D(collisionData.centerPosition, collisionData.interactRadius,
+    //    DebugSphereDivision, DebugPolygonColorRed, DebugPolygonColorRed, false);
 }
 
 /// <summary>

@@ -100,7 +100,7 @@ void EnemyGroupController::Draw(VECTOR playerPosition)
     }
 
     // エネミーの総数を描画
-    DrawFormatString(100, 800, DebugFontColor, "EnemySize:%d", activeEnemyGroup.size());
+    //DrawFormatString(100, 800, DebugFontColor, "EnemySize:%d", activeEnemyGroup.size());
 }
 
 /// <summary>

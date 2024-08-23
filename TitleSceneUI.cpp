@@ -75,26 +75,6 @@ void TitleSceneUI::DrawVHSInformation()
 }
 
 /// <summary>
-/// 現在時間の描画
-/// </summary>
-void TitleSceneUI::DrawCurrentTime()
-{
-    // 日付時刻
-    // 現在時刻を取得
-    time_t now = time(NULL);
-    tm localTime;
-    localtime_s(&localTime, &now);
-
-    // 時刻を文字列に変換
-    char timeString[256];
-    strftime(timeString, sizeof(timeString), "%Y-%m-%d %H:%M:%S", &localTime);
-
-    // 時刻を描画
-    DrawFormatStringToHandle(VHSTimeDrawPositionX, VHSTimeDrawPositionY, FontColorVHS,
-        vhsSmallFontHandle, "%s", timeString);
-}
-
-/// <summary>
 /// キー入力文字を点滅描画させる
 /// </summary>
 void TitleSceneUI::DrawBlinkingTextKeyInfomation()

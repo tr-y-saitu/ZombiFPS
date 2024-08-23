@@ -175,11 +175,11 @@ void Player::Draw(const Stage& stage)
 
     // デバッグ //
     // 座標描画
-    DrawFormatString(DebugPositionDrawX, DebugPositionDrawY,
-        DebugFontColor,"X:%f Y:%f Z:%f",position.x,position.y,position.z);
+    /*DrawFormatString(DebugPositionDrawX, DebugPositionDrawY,
+        DebugFontColor,"X:%f Y:%f Z:%f",position.x,position.y,position.z);*/
 
     // 現在ステートの描画
-    switch (state)
+    /*switch (state)
     {
     case Player::State::Idle:
         DrawString(100, 200, "Idle", DebugFontColor, true);
@@ -204,26 +204,26 @@ void Player::Draw(const Stage& stage)
         break;
     default:
         break;
-    }
+    }*/
 
-    // 体力の描画
-    DrawFormatString(100, 400, DebugFontColor, "HP:%.1f", hitPoint);
+    //// 体力の描画
+    //DrawFormatString(100, 400, DebugFontColor, "HP:%.1f", hitPoint);
 
-    // インタラクト状態の描画
-    switch (interactLocationState)
-    {
-    case Player::InteractLocationState::None:
-        DrawString(1200, 100, "InteractLocationState::None", DebugFontColor, true);
-        break;
-    case Player::InteractLocationState::Shutter:
-        DrawString(1200, 100, "InteractLocationState::Shutter", DebugFontColor, true);
-        break;
-    case Player::InteractLocationState::AmmoBox:
-        DrawString(1200, 100, "InteractLocationState::AmmoBox", DebugFontColor, true);
-        break;
-    default:
-        break;
-    }
+    //// インタラクト状態の描画
+    //switch (interactLocationState)
+    //{
+    //case Player::InteractLocationState::None:
+    //    DrawString(1200, 100, "InteractLocationState::None", DebugFontColor, true);
+    //    break;
+    //case Player::InteractLocationState::Shutter:
+    //    DrawString(1200, 100, "InteractLocationState::Shutter", DebugFontColor, true);
+    //    break;
+    //case Player::InteractLocationState::AmmoBox:
+    //    DrawString(1200, 100, "InteractLocationState::AmmoBox", DebugFontColor, true);
+    //    break;
+    //default:
+    //    break;
+    //}
 }
 
 /// <summary>

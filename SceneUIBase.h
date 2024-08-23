@@ -60,6 +60,11 @@ protected:
     /// <param name="data2">四角形２</param>
     bool IsCollision2Box(ImageUIData data1, ImageUIData data2);
 
+    /// <summary>
+    /// 現在時間の描画
+    /// </summary>
+    void DrawCurrentTime();
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
@@ -67,7 +72,9 @@ protected:
     static constexpr int OutlastFontThickness   = 2;    // アウトラストフォントの太さ
     const int            FontColorVHS           = GetColor(200, 200, 200);  // VHS風のフォントカラー
     const int            FontColorBlack         = GetColor(0, 0, 0);        // フォントカラー(黒)
-
+    // 時刻
+    static constexpr int VHSTimeDrawPositionX = 1400; // 時刻の描画X位置
+    static constexpr int VHSTimeDrawPositionY = 50;   // 自国の描画Y位置
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //

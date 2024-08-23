@@ -41,11 +41,6 @@ private:
     void DrawVHSInformation();
 
     /// <summary>
-    /// 現在時間の描画
-    /// </summary>
-    void DrawCurrentTime();
-
-    /// <summary>
     /// キー入力文字を点滅描画させる
     /// </summary>
     void DrawBlinkingTextKeyInfomation();

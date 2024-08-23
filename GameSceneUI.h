@@ -95,12 +95,25 @@ private:
     /// </summary>
     void DrawInteractIcon();
 
+    /// <summary>
+    /// アイコン画像のずらし量更新
+    /// </summary>
+    float UpdateIconOffset();
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
+    // 文字
     static constexpr int InteractLocationInfomationDrawPositionY    = 800;      // インタラクト情報の描画Y座標
     static constexpr int InteractLocationCostDrawPositionY          = 900;      // インタラクトできるコスト描画Y座標
-    static constexpr VECTOR InteractIconDrawOffset = { 0.0f,3.0f,0.0f };        // インタラクトアイコンの描画位置のずらし量
+    // 武器強化マシン
+    static constexpr VECTOR GunPowerUpMachineIconDrawOffset = { 0.0f,3.0f,0.0f };
+    // 弾薬補充箱
+    static constexpr VECTOR AmmoBoxIconDrawOffset = { 0.0f,4.0f,0.0f };
+
+    // アイコン
+    const float FLOATING_AMPLITUDE = 0.5f; // 振幅
+    const float FLOATING_FREQUENCY = 0.05f; // 周期（フレームごとの変化量）
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
@@ -113,6 +126,7 @@ private:
     int     recImageHandle;         // REC画像
 
     // アイコン
+    int     frameCount;                         // フレームカウント
     int     gunPowerUpMachineIconImageHandle;   // 銃強化マシンアイコン画像
     int     ammoBoxIconImageHandle;             // 弾薬補充箱アイコン画像
 };

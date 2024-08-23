@@ -85,8 +85,8 @@ void ImageDataManager::ImageDataLoad()
     imageDataList[MP5PowerUpTexture] = LoadGraph("Data/Gun/MP5/MP5PowerUpTexture.png");
 
     // アイコン
-    imageDataList[IconGunPowerUpMachine]= LoadGraph("Data/UI/GameScene/GunPowerUpMachineIconImage.png");
-    imageDataList[IconAmmoBox]          = LoadGraph("Data/UI/GameScene/AmmoBoxIconImage.png");
+    imageDataList[IconGunPowerUpMachine]= LoadGraph("Data/UI/GameScene/IconGunPowerUp.png");
+    imageDataList[IconAmmoBox]          = LoadGraph("Data/UI/GameScene/IconAmmoBox.png");
 
     // タイトルシーン
     imageDataList[TitleLogo]            = LoadGraph("Data/UI/TitleScene/TitleLogo.png");
