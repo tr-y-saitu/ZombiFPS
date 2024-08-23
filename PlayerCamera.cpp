@@ -70,7 +70,9 @@ void PlayerCamera::Update(const Input& input, VECTOR setPosition, const Stage& s
     UpdateCameraRightVector();
 
     // 腰だめの位置にカメラを移動させる
-    UpdateHipUpPosition(setPosition);
+    //UpdateHipUpPosition(setPosition);
+
+    UpdateAimPosition(setPosition);
 
     // カメラのピッチ角度計算
     UpdateCameraPitch();
@@ -310,6 +312,17 @@ void PlayerCamera::UpdateHipUpPosition(VECTOR setPosition)
 
     // カメラの視点を更新
     targetPosition = VAdd(targetPosition, leftOffset);
+}
+
+/// <summary>
+/// エイム時の位置に配置する(銃の覗き込み時)
+/// </summary>
+/// <param name="setPosition">基準となる座標</param>
+void PlayerCamera::UpdateAimPosition(VECTOR setPosition)
+{
+    // 高さを上げる
+    targetPosition = VAdd(setPosition, VGet(0, 1, 0));
+
 
 }
 

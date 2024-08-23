@@ -69,6 +69,12 @@ public:
     void UpdateHipUpPosition(VECTOR setPosition);
 
     /// <summary>
+    /// エイム時の位置に配置する(銃の覗き込み時)
+    /// </summary>
+    /// <param name="setPosition">基準となる座標</param>
+    void UpdateAimPosition(VECTOR setPosition);
+
+    /// <summary>
     /// カメラのピッチ角度を更新する
     /// </summary>
     /// HACK:

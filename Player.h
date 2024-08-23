@@ -82,6 +82,17 @@ public:
     };
 
     /// <summary>
+    /// エイムステート(覗き込み)
+    /// </summary>
+    enum class AimState : int
+    {
+        None,       // エイムしていない
+        Start,      // エイムを開始した
+        Now,        // エイム中
+        End,        // エイム終了
+    };
+
+    /// <summary>
     /// コンストラクタ
     /// </summary>
     Player();
@@ -258,6 +269,12 @@ private:
     void UpdateShootingEquippedWeapon(const Input& input);
 
     /// <summary>
+    /// 銃のエイム更新(覗き込み)
+    /// </summary>
+    /// <param name="input">入力情報</param>
+    void UpdateAimEquippedWeapon(const Input& input);
+
+    /// <summary>
     /// リロードの更新
     /// </summary>
     /// <param name="input">入力情報</param>
@@ -345,9 +362,14 @@ private:
     int                     interactionCost;            // インタラクトしたオブジェクトの支払いコスト
     State                   state;                      // 状態
     bool                    isShooting;                 // 発砲状態か
+
+    // リロード
     ReloadState             reloadState;                // リロードステート
     bool                    isReload;                   // リロード状態か
     int                     reloadTimer;                // リロードを完了するための時間
+
+    // エイム
+    AimState                aimState;                   // エイムの状態
 
     // 移動状態
     VECTOR      position;                   // 座標

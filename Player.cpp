@@ -40,6 +40,7 @@ Player::Player()
     , interactionCost               (0)
     , currentGunType                (GunType::SubmachineGun)
     , reloadState                   (ReloadState::None)
+    , aimState                      (AimState::None)
 {
     collisionManager        = CollisionManager::GetInstance();
     modelDataManager        = ModelDataManager::GetInstance();
@@ -968,6 +969,16 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
 
     // 獲得金額を加算
     money += equippedGun->GetRewardMoney();
+}
+
+/// <summary>
+/// 銃のエイム更新(覗き込み)
+/// </summary>
+/// <param name="input">入力情報</param>
+void Player::UpdateAimEquippedWeapon(const Input& input)
+{
+    // マウスの右クリックが入力されたら
+    
 }
 
 /// <summary>
