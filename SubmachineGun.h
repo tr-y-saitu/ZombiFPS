@@ -40,7 +40,7 @@ public:
     /// <param name="cameraVector">カメラの前ベクトル</param>
     /// <param name="cameraPitch">カメラの水平からの角度</param>
     void Update(VECTOR setPosition,VECTOR cameraVector, VECTOR cameraTargetVector,
-        VECTOR cameraPosition,float cameraPitch, Player::State);
+        VECTOR cameraPosition,float cameraPitch, Player::State, Player::AimState currentAimState);
 
     /// <summary>
     /// 描画

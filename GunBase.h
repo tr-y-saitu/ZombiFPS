@@ -57,7 +57,7 @@ public:
     /// 更新
     /// </summary>
     virtual void Update(VECTOR setPosition, VECTOR cameraVector,VECTOR cameraTargetVector,
-        VECTOR cameraPosition, float cameraPitch,Player::State) abstract;
+        VECTOR cameraPosition, float cameraPitch,Player::State,Player::AimState currentAimState) abstract;
 
     /// <summary>
     /// 描画
@@ -90,7 +90,8 @@ protected:
     /// <param name="setPosition">設定する座標</param>
     /// <param name="cameraForwardVector">カメラの前方向ベクトル</param>
     /// <param name="cameraPitch">設定する上下角度</param>
-    void UpdateGunPosition(VECTOR setPosition, VECTOR cameraForwardVector, float cameraPitch, Player::State playerState);
+    void UpdateGunPosition(VECTOR setPosition, VECTOR cameraForwardVector, float cameraPitch,
+        Player::State playerState,Player::AimState playerAimState);
 
     /// <summary>
     /// 移動の更新
@@ -104,7 +105,8 @@ protected:
     /// </summary>
     /// <param name="cameraForwardVector">カメラの前ベクトル</param>
     /// <param name="pitch">上下角度</param>
-    void UpdateAngle(VECTOR cameraForwardVector, float pitch, Player::State playerState);
+    void UpdateAngle(VECTOR cameraForwardVector, float pitch,
+        Player::State playerState,Player::AimState playerAimState);
 
     /// <summary>
     /// 銃の位置調整

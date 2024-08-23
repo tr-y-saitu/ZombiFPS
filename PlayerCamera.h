@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Common.h"
+#include "Player.h"
 
 class Input;
 class Player;
@@ -32,7 +33,8 @@ public:
     /// <param name="input">入力情報</param>
     /// <param name="setPostion">設定する座標</param>
     /// <param name="stage">ステージ</param>
-    void Update(const Input& input, VECTOR setPosition, const Stage& stage);
+    void Update(const Input& input, VECTOR setPosition,
+        const Stage& stage,Player::AimState playerAimState);
 
     /// <summary>
     /// カメラの角度を更新する
@@ -50,7 +52,7 @@ public:
     /// カメラ座標の修正
     /// </summary>
     /// <param name="stage">ステージ</param>
-    void FixCameraPosition(const Stage& stage,VECTOR setPosition);
+    void FixCameraPosition(const Stage& stage,VECTOR setPosition,Player::AimState playerAimState);
 
     /// <summary>
     /// カメラの前方向ベクトルを更新する

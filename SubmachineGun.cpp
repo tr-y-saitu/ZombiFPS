@@ -76,7 +76,7 @@ void SubmachineGun::Initialize()
 /// 更新
 /// </summary>
 void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR cameraTargetVector,
-     VECTOR cameraPosition, float cameraPitch, Player::State playerState)
+     VECTOR cameraPosition, float cameraPitch, Player::State playerState, Player::AimState currentAimState)
 {
     // 座標を更新
     position = VAdd(setPosition, GunOffset);
@@ -85,7 +85,7 @@ void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR camer
     rewardMoney = 0;
 
     // 銃の座標更新
-    UpdateGunPosition(setPosition, cameraVector, cameraPitch,playerState);
+    UpdateGunPosition(setPosition, cameraVector, cameraPitch,playerState,currentAimState);
 
     // 弾丸の更新
     UpdateShooting(cameraPosition,cameraTargetVector);
@@ -293,7 +293,7 @@ void SubmachineGun::UpdatePowerUpGunMaterial()
 
         // エミッシブカラー(自然発光)の値を更新
         VECTOR emissiveColor = VGet(emissiveIntensity, emissiveIntensity, emissiveIntensity);
-        MV1SetMaterialEmiColor(modelHandle, 0,
+        MV1SetMaterialEmiColor(modelHandle, 9,
             GetColorF(emissiveColor.x, emissiveColor.y, emissiveColor.z,1.0f));
     }
 

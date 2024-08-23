@@ -36,13 +36,14 @@ void GunBase::UpdateMove(VECTOR setPosition, Player::State playerState)
 /// <param name="setPosition">設定する座標</param>
 /// <param name="cameraForwardVector">カメラの前方向ベクトル</param>
 /// <param name="setPitch">設定する上下角度</param>
-void GunBase::UpdateGunPosition(VECTOR setPosition, VECTOR cameraForwardVector, float cameraPitch ,Player::State playerState)
+void GunBase::UpdateGunPosition(VECTOR setPosition, VECTOR cameraForwardVector, float cameraPitch ,
+    Player::State playerState, Player::AimState playerAimState)
 {
     // 座標をプレイヤーの腕に丁度良くずらす
     //FixedGunPosition(setPosition, cameraForwardVector);
 
     // 回転の更新
-    UpdateAngle(cameraForwardVector, cameraPitch,playerState);
+    UpdateAngle(cameraForwardVector, cameraPitch,playerState,playerAimState);
 }
 
 /// <summary>
@@ -50,7 +51,8 @@ void GunBase::UpdateGunPosition(VECTOR setPosition, VECTOR cameraForwardVector, 
 /// </summary>
 /// <param name="cameraForwardVector">カメラの前ベクトル</param>
 /// <param name="pitch">上下角度</param>
-void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch,Player::State playerState)
+void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch,
+    Player::State playerState, Player::AimState playerAimState)
 {
     // 銃モデルをプレイヤーカメラの回転率と同様に回転させる
     // プレイヤー専用カメラの方向を取得
@@ -60,9 +62,15 @@ void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch,Player::State 
     // モデルの水平方向回転値を計算
     float gunAngleY = atan2f(cameraForward.x, cameraForward.z);
 
-    // 腰だめの角度に修正
-    gunAngleY   -= HipShootHorizontalAngle;     // 水平方向回転度
-    //cameraPitch += HipShootVerticalAngle;       // 垂直方向回転度
+    // エイム中かどうか確認
+    if (!(playerAimState == Player::AimState::Now))
+    {
+        // 腰だめの角度に修正
+        gunAngleY   -= HipShootHorizontalAngle;     // 水平方向回転度
+
+        // 腰だめの位置に角度調整
+        cameraPitch += HipShootVerticalAngle;       // 垂直方向回転度
+    }
 
     // 回転行列に変更
     MATRIX rotationX = MGetRotX(-cameraPitch);

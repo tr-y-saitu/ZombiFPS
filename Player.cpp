@@ -40,7 +40,8 @@ Player::Player()
     , interactionCost               (0)
     , currentGunType                (GunType::SubmachineGun)
     , reloadState                   (ReloadState::None)
-    , aimState                      (AimState::None)
+    , currentAimState               (AimState::None)
+    , previousAimState              (AimState::None)
 {
     collisionManager        = CollisionManager::GetInstance();
     modelDataManager        = ModelDataManager::GetInstance();
@@ -141,6 +142,9 @@ void Player::Update(const Input& input, Stage& stage)
     // 射撃更新
     UpdateShootingEquippedWeapon(input);
 
+    // エイムの更新
+    UpdateAimEquippedWeapon(input);
+
     // リロード更新
     UpdateReload(input);
 
@@ -148,7 +152,7 @@ void Player::Update(const Input& input, Stage& stage)
     VECTOR pos = playerCamera->GetCameraForwardVector();
     equippedGun->Update(position, playerCamera->GetCameraForwardVector(),
         playerCamera->GetTargetPosition(),playerCamera->GetCameraPosition(),
-        playerCamera->GetCameraPitch(),state);
+        playerCamera->GetCameraPitch(),state,currentAimState);
 
     // インタラクトの更新
     UpdateInteract(input);
@@ -225,6 +229,25 @@ void Player::Draw(const Stage& stage)
     //default:
     //    break;
     //}
+
+    // エイムステートの実装
+    switch (currentAimState)
+    {
+    case Player::AimState::None:
+        DrawString(1200, 100, "AimState::None", DebugFontColor, true);
+        break;
+    case Player::AimState::Start:
+        DrawString(1200, 100, "AimState::Start", DebugFontColor, true);
+        break;
+    case Player::AimState::Now:
+        DrawString(1200, 100, "AimState::Now", DebugFontColor, true);
+        break;
+    case Player::AimState::End:
+        DrawString(1200, 100, "AimState::End", DebugFontColor, true);
+        break;
+    default:
+        break;
+    }
 }
 
 /// <summary>
@@ -234,7 +257,7 @@ void Player::Draw(const Stage& stage)
 /// <param name="stage">ステージ</param>
 void Player::UpdatePlayerCamera(const Input& input, Stage& stage)
 {
-    playerCamera->Update(input, position,stage);
+    playerCamera->Update(input, position,stage,currentAimState);
 }
 
 /// <summary>
@@ -977,8 +1000,35 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
 /// <param name="input">入力情報</param>
 void Player::UpdateAimEquippedWeapon(const Input& input)
 {
-    // マウスの右クリックが入力されたら
-    
+    // 右クリックされているか
+    bool aiming = (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_RIGHT);
+
+    // 現在のフレームのaimStateを設定
+    if (aiming)
+    {
+        if (previousAimState == AimState::None || previousAimState == AimState::End)
+        {
+            currentAimState = AimState::Start;
+        }
+        else if (previousAimState == AimState::Start || previousAimState == AimState::Now)
+        {
+            currentAimState = AimState::Now;
+        }
+    }
+    else
+    {
+        if (previousAimState == AimState::Start || previousAimState == AimState::Now)
+        {
+            currentAimState = AimState::End;
+        }
+        else
+        {
+            currentAimState = AimState::None;
+        }
+    }
+
+    // 前のフレームの状態を更新
+    previousAimState = currentAimState;
 }
 
 /// <summary>

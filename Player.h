@@ -369,7 +369,8 @@ private:
     int                     reloadTimer;                // リロードを完了するための時間
 
     // エイム
-    AimState                aimState;                   // エイムの状態
+    AimState                currentAimState;            // 現在のフレームのエイムの状態
+    AimState                previousAimState;           // 前のフレームでのエイム状態
 
     // 移動状態
     VECTOR      position;                   // 座標

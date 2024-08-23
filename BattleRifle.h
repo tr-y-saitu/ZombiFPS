@@ -35,7 +35,7 @@ public:
     /// 更新
     /// </summary>
     void Update(VECTOR setPosition, VECTOR cameraVector, VECTOR cameraTargetVector,
-        VECTOR cameraPosition, float cameraPitch, Player::State playerState) override;
+        VECTOR cameraPosition, float cameraPitch, Player::State playerState, Player::AimState currentAimState) override;
 
     /// <summary>
     /// 描画

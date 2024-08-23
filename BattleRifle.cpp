@@ -52,7 +52,7 @@ void BattleRifle::InitializeBulletData(VECTOR cameraPosition, VECTOR targetPosit
 /// 更新
 /// </summary>
 void BattleRifle:: Update(VECTOR setPosition, VECTOR cameraVector, VECTOR cameraTargetVector,
-    VECTOR cameraPosition, float cameraPitch, Player::State playerState)
+    VECTOR cameraPosition, float cameraPitch, Player::State playerState, Player::AimState currentAimState)
 {
     // 座標を更新
     position = setPosition;

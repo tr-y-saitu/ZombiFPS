@@ -52,7 +52,7 @@ void AssaultRifle::InitializeBulletData(VECTOR cameraPosition, VECTOR targetPosi
 /// 更新
 /// </summary>
 void AssaultRifle::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR cameraTargetVector,
-    VECTOR cameraPosition, float cameraPitch, Player::State playerState)
+    VECTOR cameraPosition, float cameraPitch, Player::State playerState, Player::AimState currentAimState)
 {
     // 座標を更新
     position = setPosition;

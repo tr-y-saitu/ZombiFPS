@@ -43,7 +43,8 @@ void PlayerCamera::Initialize()
 /// <param name="input">入力情報</param>
 /// <param name="setPostion">設定する座標</param>
 /// <param name="stage">ステージ</param>
-void PlayerCamera::Update(const Input& input, VECTOR setPosition, const Stage& stage)
+void PlayerCamera::Update(const Input& input, VECTOR setPosition,
+    const Stage& stage,Player::AimState playerAimState)
 {
     // DXライブラリのカメラとEffekseerのカメラを同期する。
     Effekseer_Sync3DSetting();
@@ -61,7 +62,7 @@ void PlayerCamera::Update(const Input& input, VECTOR setPosition, const Stage& s
     targetPosition = VAdd(setPosition, CameraPlayerTargetPosition);
 
     // カメラの座標を補正する
-    FixCameraPosition(stage,setPosition);
+    FixCameraPosition(stage,setPosition,playerAimState);
 
     // カメラの前方向ベクトルの更新
     UpdateCameraForwardVector();
@@ -69,10 +70,23 @@ void PlayerCamera::Update(const Input& input, VECTOR setPosition, const Stage& s
     // カメラの右方向ベクトルを更新
     UpdateCameraRightVector();
 
-    // 腰だめの位置にカメラを移動させる
-    //UpdateHipUpPosition(setPosition);
+    if (playerAimState == Player::AimState::Start || playerAimState == Player::AimState::End)
+    {
+        VECTOR horizontalDirection = VGet(cameraForwardVector.x, 0.0f, cameraForwardVector.z);
+        targetPosition = horizontalDirection; 
+    }
 
-    UpdateAimPosition(setPosition);
+    if (playerAimState == Player::AimState::Now)
+    {
+        // エイムの位置にカメラを移動させる
+        UpdateAimPosition(setPosition);
+    }
+    else
+    {
+        // 腰だめの位置にカメラを移動させる
+        UpdateHipUpPosition(setPosition);
+    }
+
 
     // カメラのピッチ角度計算
     UpdateCameraPitch();
@@ -196,7 +210,7 @@ void PlayerCamera::UpdateCameraAngleMouse(const Input& input)
 /// カメラ座標の修正
 /// </summary>
 /// <param name="stage">ステージ</param>
-void PlayerCamera::FixCameraPosition(const Stage& stage, VECTOR setPosition)
+void PlayerCamera::FixCameraPosition(const Stage& stage, VECTOR setPosition, Player::AimState playerAimState)
 {
     MATRIX rotateZ, rotateY;
     float cameraPlayerLength;
@@ -209,8 +223,17 @@ void PlayerCamera::FixCameraPosition(const Stage& stage, VECTOR setPosition)
     // 垂直方向の回転はＺ軸回転 )
     rotateZ = MGetRotZ(angleVertical);
 
-    // カメラからプレイヤーまでの初期距離をセット
-    cameraPlayerLength = ToPlayerLength;
+    // プレイヤーがエイム中か確認する
+    if (playerAimState == Player::AimState::Now)
+    {
+        // カメラからプレイヤーまでの距離を設定
+        cameraPlayerLength = 1.0f;
+    }
+    else
+    {
+        // カメラからプレイヤーまでの初期距離をセット
+        cameraPlayerLength = ToPlayerLength;
+    }
 
     // カメラの座標を算出
     // Ｘ軸にカメラとプレイヤーとの距離分だけ伸びたベクトルを
@@ -322,7 +345,6 @@ void PlayerCamera::UpdateAimPosition(VECTOR setPosition)
 {
     // 高さを上げる
     targetPosition = VAdd(setPosition, VGet(0, 1, 0));
-
 
 }
 
