@@ -233,9 +233,15 @@ void GameSceneUI::DrawInteractionCost(int interactionCost)
 /// </summary>
 void GameSceneUI::DrawInteractIcon()
 {
-    // 弾薬補充箱
+    // アイコン画像をビルボードで描画 // 
 
+    // 弾薬補充箱
+    VECTOR ammoBoxIconPosition = VAdd(AmmoBox::InitializePosition, InteractIconDrawOffset);
+    DrawBillboard3D(ammoBoxIconPosition,
+        0.5f, 0.0f, 3.0f, 0.0f, ammoBoxIconImageHandle, true);
 
     // 銃強化マシン
-
+    VECTOR gunMachinePosition = VAdd(GunPowerUpMachine::InitializePosition, InteractIconDrawOffset);
+    DrawBillboard3D(gunMachinePosition,
+        0.5f, 0.0f, 3.0f, 0.0f, gunPowerUpMachineIconImageHandle, true);
 }

@@ -100,7 +100,7 @@ private:
     //---------------------------------------------------------------------------------//
     static constexpr int InteractLocationInfomationDrawPositionY    = 800;      // インタラクト情報の描画Y座標
     static constexpr int InteractLocationCostDrawPositionY          = 900;      // インタラクトできるコスト描画Y座標
-    static constexpr VECTOR InteractIconDrawOffset = { 0.0f,1.0f,0.0f };        // インタラクトアイコンの描画位置のずらし量
+    static constexpr VECTOR InteractIconDrawOffset = { 0.0f,3.0f,0.0f };        // インタラクトアイコンの描画位置のずらし量
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
