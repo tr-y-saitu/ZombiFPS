@@ -75,6 +75,7 @@ void ShutterController::CreateShutter()
 /// <summary>
 /// シャッターの初期化用データの作成
 /// </summary>
+/// FIXME:定数をデータクラスにまとめて内容処理をforで回せるようにする
 void ShutterController::CreateInitializeData()
 {
     // シャッター１
