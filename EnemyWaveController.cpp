@@ -43,28 +43,57 @@ void EnemyWaveController::Update(int activeEnemyCount)
     // 現在時間を取得
     int currentTime = GetNowCount();
 
+    //// 現在使用中のエネミーがいない場合ウェーブを進める
+    //if (activeEnemyCount == 0 && canSwichWave)
+    //{
+    //    // ウェーブが切り替わるのを少し待つ
+    //    if (!isWaitingWaveChange)
+    //    {
+    //        // ウェーブ切り替え開始時間を記録
+    //        waveChangeStartTime = currentTime;
+    //        isWaitingWaveChange = true;
+    //    }
+    //    else if(currentTime - waveChangeStartTime >= EnemySpawnDelayMS)
+    //    {
+    //        // 次のウェーブに進む
+    //        currentWaveState = static_cast<WaveState>(static_cast<int>(currentWaveState) + 1);
+
+    //        // ウェーブ開始時間を更新
+    //        waveStartTime = GetNowCount();
+    //        lastEnemySpawnTime = waveStartTime;     // 最後のエネミー出現時間を更新
+    //        enemySpawnFlag = false;                 // 出現フラグをリセット
+    //        currentWaveSpawnCount = 0;              // このウェーブで出現させたエネミーの数をリセット
+    //        canSwichWave = false;                   // 連続でウェーブが変わらないようにする
+    //    }
+    //}
     // 現在使用中のエネミーがいない場合ウェーブを進める
-    if (activeEnemyCount == 0 && canSwichWave)
+    if (activeEnemyCount == 0)
     {
         // ウェーブが切り替わるのを少し待つ
         if (!isWaitingWaveChange)
         {
-            // ウェーブ切り替え開始時間を記録
             waveChangeStartTime = currentTime;
             isWaitingWaveChange = true;
         }
-        else if(currentTime - waveChangeStartTime >= EnemySpawnDelayMS)
+        else if (currentTime - waveChangeStartTime >= EnemySpawnDelayMS)
         {
             // 次のウェーブに進む
             currentWaveState = static_cast<WaveState>(static_cast<int>(currentWaveState) + 1);
+            waveEnemySpawnCount = static_cast<int>(currentWaveState) * EnemySpawnRate; // 次のウェーブのエネミー数を設定
 
             // ウェーブ開始時間を更新
             waveStartTime = GetNowCount();
-            lastEnemySpawnTime = waveStartTime;     // 最後のエネミー出現時間を更新
-            enemySpawnFlag = false;                 // 出現フラグをリセット
-            currentWaveSpawnCount = 0;              // このウェーブで出現させたエネミーの数をリセット
-            canSwichWave = false;                   // 連続でウェーブが変わらないようにする
+            lastEnemySpawnTime = waveStartTime; // 最後のエネミー出現時間を更新
+            enemySpawnFlag = false; // 出現フラグをリセット
+            currentWaveSpawnCount = 0; // このウェーブで出現させたエネミーの数をリセット
+            canSwichWave = false; // ウェーブ切り替えのフラグをリセット
+            isWaitingWaveChange = false; // ウェーブ切り替え待機状態をリセット
         }
+    }
+    else
+    {
+        // ウェーブ切り替えができる状態をリセット
+        canSwichWave = true;
     }
 
     // 現在のウェーブの経過時間を計測

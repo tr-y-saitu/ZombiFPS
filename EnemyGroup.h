@@ -62,6 +62,7 @@ public:
 
     // Setter
     void SetCollisionDataIsActive(bool set);
+    void SetIsActive(bool set);
 
 private:
     // 定数

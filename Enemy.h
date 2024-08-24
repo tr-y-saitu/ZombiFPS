@@ -117,6 +117,7 @@ public:
     void SetIsTouchingRoomCenter(bool set) { isTouchingRoomCenter = set; }
     void SetRoomEntryState(Pathfinding::RoomEntryState set) { roomEntryState = set; }
     void SetCollisionDataIsActive(bool set) { collisionData.isCollisionActive = set; }
+    void SetIsActive(bool set) { isActive = set; }
 
 private:
     /// <summary>

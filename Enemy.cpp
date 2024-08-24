@@ -30,6 +30,12 @@ Enemy::Enemy()
     collisionManager    = CollisionManager::GetInstance();
     soundManager        = SoundManager::GetInstance();
     effectManager       = EffectManager::GetInstance();
+
+    // モデルハンドルを取得
+    modelHandle = modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ModelDataType::EnemyModelData);
+
+    // モデルサイズを再設定
+    MV1SetScale(modelHandle, EnemyScale);
 }
 
 /// <summary>
@@ -48,11 +54,8 @@ Enemy::~Enemy()
 /// </summary>
 void Enemy::Initialize(int currentWave)
 {
-    // モデルハンドルを取得
-    modelHandle = modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ModelDataType::EnemyModelData);
-
-    // モデルサイズを再設定
-    MV1SetScale(modelHandle, EnemyScale);
+    // ステートを設定
+    currentState = State::Run;
 
     // 初期状態でエネミーが向くべき方向はＸ軸方向
     targetMoveDirection = VGet(1.0f, 0.0f, 0.0f);
@@ -101,6 +104,9 @@ void Enemy::Initialize(int currentWave)
 
     // 自身のアドレスを初期化する
     collisionData.objectAddress = nullptr;
+
+    // 初期化時に自身をアクティブにする
+    isActive = true;
 }
 
 /// <summary>

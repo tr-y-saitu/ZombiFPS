@@ -170,6 +170,18 @@ void EnemyGroup::SetCollisionDataIsActive(bool set)
 }
 
 /// <summary>
+/// エネミーグループ内のエネミーのアクティブであるかの変数を設定する
+/// </summary>
+/// <param name="set">アクティブであるかどうか</param>
+void EnemyGroup::SetIsActive(bool set)
+{
+    for (int i = 0; i < enemys.size(); i++)
+    {
+        enemys[i]->SetIsActive(set);
+    }
+}
+
+/// <summary>
 /// エネミーの現在の部屋を取得
 /// </summary>
 const Pathfinding::Room EnemyGroup::GetCurrentRoom()

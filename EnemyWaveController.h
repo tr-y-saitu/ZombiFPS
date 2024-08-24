@@ -61,7 +61,7 @@ private:
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     static constexpr int EnemySpawnLimit            = 15;       // 同時に存在できるエネミーの数
-    static constexpr int EnemySpawnResponseTime     = 2000;     // 敵の出現頻度
+    static constexpr int EnemySpawnResponseTime     = 1000;     // 敵の出現頻度
     static constexpr int EnemySpawnRate             = 5;        // 現在のウェーブにこの値を掛けてそのウェーブに出現するエネミーの数を決定する
     static constexpr int EnemySpawnDelayMS          = 5000;     // ウェーブが切り替わってからエネミーが出現するまでの時間
 

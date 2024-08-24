@@ -62,37 +62,38 @@ void ImageDataManager::DeleteInstance()
 void ImageDataManager::ImageDataLoad()
 {
     // 部屋番号
-    imageDataList[West1ImageData]       = LoadGraph("Data/UI/RoomNumber/West1.png");
-    imageDataList[West2ImageData]       = LoadGraph("Data/UI/RoomNumber/West2.png");
-    imageDataList[West3ImageData]       = LoadGraph("Data/UI/RoomNumber/West3.png");
-    imageDataList[West4ImageData]       = LoadGraph("Data/UI/RoomNumber/West4.png");
-    imageDataList[Center1ImageData]     = LoadGraph("Data/UI/RoomNumber/Center1.png");
-    imageDataList[Center2ImageData]     = LoadGraph("Data/UI/RoomNumber/Center2.png");
-    imageDataList[Center3ImageData]     = LoadGraph("Data/UI/RoomNumber/Center3.png");
-    imageDataList[Center4ImageData]     = LoadGraph("Data/UI/RoomNumber/Center4.png");
-    imageDataList[East1ImageData]       = LoadGraph("Data/UI/RoomNumber/East1.png");
-    imageDataList[East2ImageData]       = LoadGraph("Data/UI/RoomNumber/East2.png");
-    imageDataList[East3ImageData]       = LoadGraph("Data/UI/RoomNumber/East3.png");
-    imageDataList[East4ImageData]       = LoadGraph("Data/UI/RoomNumber/East4.png");
+    imageDataList[West1ImageData]               = LoadGraph("Data/UI/RoomNumber/West1.png");
+    imageDataList[West2ImageData]               = LoadGraph("Data/UI/RoomNumber/West2.png");
+    imageDataList[West3ImageData]               = LoadGraph("Data/UI/RoomNumber/West3.png");
+    imageDataList[West4ImageData]               = LoadGraph("Data/UI/RoomNumber/West4.png");
+    imageDataList[Center1ImageData]             = LoadGraph("Data/UI/RoomNumber/Center1.png");
+    imageDataList[Center2ImageData]             = LoadGraph("Data/UI/RoomNumber/Center2.png");
+    imageDataList[Center3ImageData]             = LoadGraph("Data/UI/RoomNumber/Center3.png");
+    imageDataList[Center4ImageData]             = LoadGraph("Data/UI/RoomNumber/Center4.png");
+    imageDataList[East1ImageData]               = LoadGraph("Data/UI/RoomNumber/East1.png");
+    imageDataList[East2ImageData]               = LoadGraph("Data/UI/RoomNumber/East2.png");
+    imageDataList[East3ImageData]               = LoadGraph("Data/UI/RoomNumber/East3.png");
+    imageDataList[East4ImageData]               = LoadGraph("Data/UI/RoomNumber/East4.png");
 
     // VHS
-    imageDataList[VHSFiltersImageData]  = LoadGraph("Data/UI/Filter/VHSFileters10%.png");
-    imageDataList[RECImageData]         = LoadGraph("Data/UI/GameScene/RECImg.png");
-    imageDataList[VHSNoiseFilters150]   = LoadGraph("Data/UI/Filter/VHS_Noise150%.png");
-    imageDataList[VHSNoiseFilters200]   = LoadGraph("Data/UI/Filter/VHS_Noise200%.png");
+    imageDataList[VHSFiltersImageData]          = LoadGraph("Data/UI/Filter/VHSFileters10%.png");
+    imageDataList[RECImageData]                 = LoadGraph("Data/UI/GameScene/RECImg.png");
+    imageDataList[VHSNoiseFilters150]           = LoadGraph("Data/UI/Filter/VHS_Noise150%.png");
+    imageDataList[VHSNoiseFilters200]           = LoadGraph("Data/UI/Filter/VHS_Noise200%.png");
 
     // 銃
-    imageDataList[MP5PowerUpTexture] = LoadGraph("Data/Gun/MP5/MP5PowerUpTexture.png");
+    imageDataList[MP5PowerUpTexture]            = LoadGraph("Data/Gun/MP5/MP5PowerUpTexture.png");
 
     // アイコン
-    imageDataList[IconGunPowerUpMachine]= LoadGraph("Data/UI/GameScene/IconGunPowerUp.png");
-    imageDataList[IconAmmoBox]          = LoadGraph("Data/UI/GameScene/IconAmmoBox.png");
+    imageDataList[IconGunPowerUpMachine]        = LoadGraph("Data/UI/GameScene/IconGunPowerUp.png");
+    imageDataList[IconAmmoBox]                  = LoadGraph("Data/UI/GameScene/IconAmmoBox.png");
 
     // タイトルシーン
-    imageDataList[TitleLogo]            = LoadGraph("Data/UI/TitleScene/TitleLogo.png");
+    imageDataList[TitleLogo]                    = LoadGraph("Data/UI/TitleScene/TitleLogo.png");
 
     // ゲームシーン
-    imageDataList[CrosshairImageData]   = LoadGraph("Data/UI/GameScene/Crosshair.png");
+    imageDataList[CrosshairImageData]           = LoadGraph("Data/UI/GameScene/Crosshair.png");
+    imageDataList[HitFilter]                    = LoadGraph("Data/UI/GameScene/HitFilter.png");
 
     // リザルトシーン
     imageDataList[WindowsScoreNoTextImageData]  = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsScoreNoTextBig.png");

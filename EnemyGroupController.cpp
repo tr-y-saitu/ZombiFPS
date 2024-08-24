@@ -51,11 +51,10 @@ void EnemyGroupController::CreateEnemy(int currentWave)
     // 取得したエネミーがあるなら使用中に追加
     if (enemy != nullptr)
     {
-        enemy->Initialize(currentWave);                    // 初期化
+        enemy->Initialize(currentWave);         // 初期化
         enemy->SetCollisionDataIsActive(true);  // 当たり判定をアクティブにする
         activeEnemyGroup.push_back(enemy);      // エネミーの追加
     }
-
 }
 
 /// <summary>

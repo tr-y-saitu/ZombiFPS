@@ -155,9 +155,10 @@ private:
     int     ammoBoxIconImageHandle;             // 弾薬補充箱アイコン画像
 
     // プレイヤーHP
-    float   previousHitPoint;   // 前フレームのヒットポイント
-    float   redBarWidth;        // 赤色のバーの幅
-    int     redBarAnimationFrame;   // 赤色ののアニメーションフレーム数
+    int     hitFilterImageHandle;       // 被弾時のフィルター画像
+    float   previousHitPoint;           // 前フレームのヒットポイント
+    float   redBarWidth;                // 赤色のバーの幅
+    int     redBarAnimationFrame;       // 赤色ののアニメーションフレーム数
 };
 
 

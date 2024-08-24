@@ -44,6 +44,7 @@ public:
 
         // ゲームシーン
         CrosshairImageData,     // 銃のクロスヘア
+        HitFilter,              // 被弾時のフィルター画像
 
         // リザルトシーン
         WindowsScoreNoTextImageData,    // レトロウィンドウズ風スコアボード

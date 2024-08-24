@@ -37,6 +37,7 @@ void GameSceneUI::Initialize()
     recImageHandle                      = imageDataManager->GetImageHandle(ImageDataManager::RECImageData);
     gunPowerUpMachineIconImageHandle    = imageDataManager->GetImageHandle(ImageDataManager::IconGunPowerUpMachine);
     ammoBoxIconImageHandle              = imageDataManager->GetImageHandle(ImageDataManager::IconAmmoBox);
+    hitFilterImageHandle                = imageDataManager->GetImageHandle(ImageDataManager::HitFilter);
 }
 
 /// <summary>
@@ -226,11 +227,11 @@ void GameSceneUI::DrawPlayerHitPoint(Player& player)
             GetColor(255, 0, 0), true);
 
         // 20フレーム後に徐々に現在のHP位置に移動
-        if (redBarAnimationFrame < 100)
+        if (redBarAnimationFrame < 20)
         {
             // アニメーションフレームを増加
             redBarAnimationFrame++;
-            float animationRatio = static_cast<float>(redBarAnimationFrame) / 100;
+            float animationRatio = static_cast<float>(redBarAnimationFrame) / 20;
             int currentRedBarWidth = static_cast<int>(redBarWidth * (1.0f - animationRatio));
 
             // 現在のHP位置に移動中の赤色バーを描画
@@ -246,8 +247,15 @@ void GameSceneUI::DrawPlayerHitPoint(Player& player)
         }
 
     }
+    // ヒット時のフィルター画像を描画
+    if (currentHitPoint != previousHitPoint && currentHitPoint < previousHitPoint)
+    {
+        DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, DefaultExpansion, DefaultAngle, hitFilterImageHandle, true);
+    }
+
     // 前回のヒットポイントを更新
     previousHitPoint = currentHitPoint;
+
 }
 
 /// <summary>
