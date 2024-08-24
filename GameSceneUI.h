@@ -125,18 +125,19 @@ private:
     static constexpr VECTOR AmmoBoxIconDrawOffset                   = { 0.0f,4.0f,0.0f };   // 弾薬補充箱のアイコンの描画ずらし量
     static constexpr float  AmmoBoxIconDrawCenterXRate = 0.5f;
     // アイコン
-    static constexpr float  IconOffsetRange         = 0.5f;     // アイコンのオフセットの振幅
-    static constexpr float  IconOffsetCycle         = 0.05f;    // アイコンのオフセットする周期（フレームごとの変化量）
-    static constexpr float  IconDrawCenterXRate     = 0.5f;     // 画像内の中心比率X
-    static constexpr float  IconDrawCenterYRate     = 0.0f;     // 画像内の中心比率Y
-    static constexpr float  IconSize                = 3.0f;     // アイコン描画サイズ
-    static constexpr float  IconAngle               = 0.0f;     // アイコンの描画角度
+    static constexpr float  IconOffsetRange                         = 0.5f;     // アイコンのオフセットの振幅
+    static constexpr float  IconOffsetCycle                         = 0.05f;    // アイコンのオフセットする周期（フレームごとの変化量）
+    static constexpr float  IconDrawCenterXRate                     = 0.5f;     // 画像内の中心比率X
+    static constexpr float  IconDrawCenterYRate                     = 0.0f;     // 画像内の中心比率Y
+    static constexpr float  IconSize                                = 3.0f;     // アイコン描画サイズ
+    static constexpr float  IconAngle                               = 0.0f;     // アイコンの描画角度
     // プレイヤー
-    static constexpr int    HitPointBarDrawPositionX    = 1600; // ヒットポイント描画X位置
-    static constexpr int    HitPointBarDrawPositionY    = 910;  // ヒットポイント描画Y位置
-    static constexpr int    HitPointBarMaxWidth         = 350;  // ヒットポイントバーの最大幅
-    static constexpr int    HitPointBarHeight           = 30;   // ヒットポイントバーの高さ
-    static constexpr int    HitPointBarFrameThickness   = 5;    // ヒットポイントバーの枠の太さ
+    static constexpr int    HitPointBarDrawPositionX                = 1600; // ヒットポイント描画X位置
+    static constexpr int    HitPointBarDrawPositionY                = 910;  // ヒットポイント描画Y位置
+    static constexpr int    HitPointBarMaxWidth                     = 350;  // ヒットポイントバーの最大幅
+    static constexpr int    HitPointBarHeight                       = 30;   // ヒットポイントバーの高さ
+    static constexpr int    HitPointBarFrameThickness               = 5;    // ヒットポイントバーの枠の太さ
+    const int               HitPointBarColor                        = GetColor(0, 255, 0);  // ヒットポイントバーの色
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
@@ -152,6 +153,11 @@ private:
     int     frameCount;                         // フレームカウント
     int     gunPowerUpMachineIconImageHandle;   // 銃強化マシンアイコン画像
     int     ammoBoxIconImageHandle;             // 弾薬補充箱アイコン画像
+
+    // プレイヤーHP
+    float   previousHitPoint;   // 前フレームのヒットポイント
+    float   redBarWidth;        // 赤色のバーの幅
+    int     redBarAnimationFrame;   // 赤色ののアニメーションフレーム数
 };
 
 

@@ -8,6 +8,9 @@
 /// コンストラクタ
 /// </summary>
 GameSceneUI::GameSceneUI()
+    : previousHitPoint      (0)
+    , redBarWidth           (0)
+    , redBarAnimationFrame  (0)
 {
     // 画像管理クラス
     imageDataManager = ImageDataManager::GetInstance();
@@ -189,10 +192,18 @@ void GameSceneUI::DrawPlayerMoney(Player& player)
 void GameSceneUI::DrawPlayerHitPoint(Player& player)
 {
     // プレイヤーのHPが現在何割なのか確認
+    float currentHitPoint = player.GetHitPoint();
     float hpRatio = player.GetHitPoint() / Player::HitPointMaxValue;
 
     // HP割合に応じてバーの幅を決定
     int barWidth = static_cast<int>(HitPointBarMaxWidth * hpRatio);
+
+    // 減ったHPの幅を計算
+    float lostHpRatio = (previousHitPoint - currentHitPoint) / Player::HitPointMaxValue;
+    redBarWidth = static_cast<int>(HitPointBarMaxWidth * lostHpRatio);
+
+    // 赤色バーの位置を計算
+    int redBarPositionX = HitPointBarDrawPositionX + barWidth;
 
     // ヒットポイントバーの枠を描画
     DrawBox(HitPointBarDrawPositionX - HitPointBarFrameThickness,
@@ -204,7 +215,39 @@ void GameSceneUI::DrawPlayerHitPoint(Player& player)
     // ヒットポイントをバーとして表示
     DrawBox(HitPointBarDrawPositionX, HitPointBarDrawPositionY,
         HitPointBarDrawPositionX + barWidth, HitPointBarDrawPositionY + HitPointBarHeight,
-        DebugFontColor, true);
+        HitPointBarColor, true);
+
+    // 赤色バーが存在する場合
+    if (redBarWidth > 0)
+    {
+        // 赤色バーを描画
+        DrawBox(redBarPositionX, HitPointBarDrawPositionY,
+            redBarPositionX + redBarWidth, HitPointBarDrawPositionY + HitPointBarHeight,
+            GetColor(255, 0, 0), true);
+
+        // 20フレーム後に徐々に現在のHP位置に移動
+        if (redBarAnimationFrame < 100)
+        {
+            // アニメーションフレームを増加
+            redBarAnimationFrame++;
+            float animationRatio = static_cast<float>(redBarAnimationFrame) / 100;
+            int currentRedBarWidth = static_cast<int>(redBarWidth * (1.0f - animationRatio));
+
+            // 現在のHP位置に移動中の赤色バーを描画
+            DrawBox(HitPointBarDrawPositionX + barWidth - currentRedBarWidth, HitPointBarDrawPositionY,
+                HitPointBarDrawPositionX + barWidth, HitPointBarDrawPositionY + HitPointBarHeight,
+                GetColor(255, 0, 0), true);
+        }
+        else
+        {
+            // アニメーションが完了したら赤色バーの幅をリセット
+            redBarWidth = 0;
+            redBarAnimationFrame = 0;
+        }
+
+    }
+    // 前回のヒットポイントを更新
+    previousHitPoint = currentHitPoint;
 }
 
 /// <summary>
