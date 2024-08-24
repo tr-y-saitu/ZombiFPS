@@ -373,7 +373,6 @@ void Player::UpdateHitPoint()
             hitPoint += HitPointRecoverySpeed;
         }
     }
-
 }
 
 /// <summary>

@@ -166,6 +166,7 @@ public:
     static constexpr float  ReloadAnimationFactorSpeed  = 0.05f;                    // リロードアニメーションの再生速度
     static constexpr int    ReloadTimeFrame             = 60;                       // リロードに必要なフレーム数
     static constexpr float  PlayerPositionYLimit        = 4.5f;                     // プレイヤーのY座標の固定値
+    static constexpr int    HitPointMaxValue            = 50;                       // プレイヤーの体力の最大値
 
 private:
     /// <summary>

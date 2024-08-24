@@ -68,6 +68,12 @@ private:
     void DrawPlayerMoney(Player& player);
 
     /// <summary>
+    /// プレイヤーのヒットポイントを描画
+    /// </summary>
+    /// <param name="player">プレイヤー</param>
+    void DrawPlayerHitPoint(Player& player);
+
+    /// <summary>
     /// プレイヤーの銃のクロスヘアの描画
     /// </summary>
     /// <param name="player">プレイヤー</param>
@@ -125,10 +131,16 @@ private:
     static constexpr float  IconDrawCenterYRate     = 0.0f;     // 画像内の中心比率Y
     static constexpr float  IconSize                = 3.0f;     // アイコン描画サイズ
     static constexpr float  IconAngle               = 0.0f;     // アイコンの描画角度
+    // プレイヤー
+    static constexpr int    HitPointBarDrawPositionX    = 1600; // ヒットポイント描画X位置
+    static constexpr int    HitPointBarDrawPositionY    = 910;  // ヒットポイント描画Y位置
+    static constexpr int    HitPointBarMaxWidth         = 350;  // ヒットポイントバーの最大幅
+    static constexpr int    HitPointBarHeight           = 30;   // ヒットポイントバーの高さ
+    static constexpr int    HitPointBarFrameThickness   = 5;    // ヒットポイントバーの枠の太さ
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
-    //---------------------------------------------------------------------------------//]
+    //---------------------------------------------------------------------------------//
     // 管理クラス
     ImageDataManager*   imageDataManager;   // 画像管理クラス
     

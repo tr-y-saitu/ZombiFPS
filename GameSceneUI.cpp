@@ -83,6 +83,9 @@ void GameSceneUI::DrawPlayerInformation(Player& player)
     // プレイヤーの装備中の銃の名称を描画
     DrawEquippedGunName(player);
 
+    // プレイヤーのヒットポイントを描画
+    DrawPlayerHitPoint(player);
+
     // 銃のクロスヘア描画
     DrawCrosshair(player);
 }
@@ -177,6 +180,31 @@ void GameSceneUI::DrawPlayerMoney(Player& player)
     char moneyString[256];
     snprintf(moneyString, sizeof(moneyString), "$:%d", player.GetMoney());
     DrawStringToHandle(1600, 800, moneyString, DebugFontColor, vhsJPLargeFontHandle);
+}
+
+/// <summary>
+/// プレイヤーのヒットポイントを描画
+/// </summary>
+/// <param name="player">プレイヤー</param>
+void GameSceneUI::DrawPlayerHitPoint(Player& player)
+{
+    // プレイヤーのHPが現在何割なのか確認
+    float hpRatio = player.GetHitPoint() / Player::HitPointMaxValue;
+
+    // HP割合に応じてバーの幅を決定
+    int barWidth = static_cast<int>(HitPointBarMaxWidth * hpRatio);
+
+    // ヒットポイントバーの枠を描画
+    DrawBox(HitPointBarDrawPositionX - HitPointBarFrameThickness,
+        HitPointBarDrawPositionY - HitPointBarFrameThickness,
+        HitPointBarDrawPositionX + HitPointBarMaxWidth + HitPointBarFrameThickness,
+        HitPointBarDrawPositionY + HitPointBarHeight + HitPointBarFrameThickness,
+        FontColorBlack, true);
+
+    // ヒットポイントをバーとして表示
+    DrawBox(HitPointBarDrawPositionX, HitPointBarDrawPositionY,
+        HitPointBarDrawPositionX + barWidth, HitPointBarDrawPositionY + HitPointBarHeight,
+        DebugFontColor, true);
 }
 
 /// <summary>
