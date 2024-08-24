@@ -956,6 +956,20 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
             // 弾丸の初期化用データを取得
             Bullet::BulletInitializeData initData = equippedGun->GetBulletInitializeData();
 
+            // 腰だめ時であれば弾丸をばらけさせる
+            if (!(currentAimState == AimState::Now))
+            {
+                // 銃の精度で弾丸の発射方向を決める
+                float bulletDirection = GetRand(equippedGun->GetAccuracy()) - (equippedGun->GetAccuracy() / 2);     // -2～2
+
+                // そのままだと値が大きいので割り算する
+                bulletDirection = bulletDirection * HipShootAccuracyRate;
+
+                // 弾丸の発射方向を決定する
+                initData.direction = VAdd(initData.direction,
+                    VGet(bulletDirection, bulletDirection, bulletDirection));
+            }
+
             // 未使用の弾丸をオブジェクトプールから取得
             Bullet* bullet = bulletObjectPools->GetInactiveBullet();
 

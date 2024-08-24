@@ -67,6 +67,7 @@ public:
     // ゲッター
     const VECTOR GetPosition()const { return position; }
     const int GetFireRate()const { return fireRate; }
+    const float GetAccuracy()const { return accuracy; }
     list<Bullet*>& GetActiveBullet() { return activeBullet; }
     const  int GetActiveBulletSize() const { return activeBullet.size(); }
     const Bullet::BulletInitializeData GetBulletInitializeData()const { return bulletData; }

@@ -326,8 +326,9 @@ private:
     static constexpr float  PlayAnimationSpeed      = 0.5f;                         // アニメーション速度
     static constexpr float  AnimationBlendSpeed     = 0.1f;                         // アニメーションのブレンド率変化速度
     // 腰だめ時
-    static constexpr float  HipShootHorizontalAngle     = 170.0f * DX_PI_F / 180.0f;    // 水平回転用：腰だめの位置に調整するために回転させるY軸回転度(ラジアン)
-    static constexpr float  HipShootVerticalAngle = 20.0f * DX_PI_F / 180.0f;     // 垂直回転用：腰だめの位置に調整するために回転させる水平方向からの角度(ラジアン)
+    static constexpr float  HipShootHorizontalAngle = 170.0f * DX_PI_F / 180.0f;    // 水平回転用：腰だめの位置に調整するために回転させるY軸回転度(ラジアン)
+    static constexpr float  HipShootVerticalAngle   = 20.0f * DX_PI_F / 180.0f;     // 垂直回転用：腰だめの位置に調整するために回転させる水平方向からの角度(ラジアン)
+    static constexpr float  HipShootAccuracyRate    = 0.05f;                        // 腰だめ時の精度の減算値
     // デバッグ
     static constexpr int    DebugPositionDrawX      = 100;                          // 座標情報を描画するX位置
     static constexpr int    DebugPositionDrawY      = 0;                            // 座標情報を描画するY位置

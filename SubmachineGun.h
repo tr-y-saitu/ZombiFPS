@@ -97,7 +97,7 @@ private:
     static constexpr int    GunMaxAmmo              = 30;           // 銃の総弾数
     static constexpr int    GunFireRate             = 5;            // 銃の連射力(このフレームに１回発射する)
     static constexpr float  GunRecoil               = 1.0f;         // 銃の反動
-    static constexpr float  GunAccuracy             = 1.0f;         // 銃の精度(拡散度合い)
+    static constexpr float  GunAccuracy             = 4.0f;         // 銃の精度(拡散度合い)
     static constexpr VECTOR InitializeScale         = { 0.07f,0.07f,0.07f };    // 初期化時のスケール
     static constexpr int    MaxBackUpAmmo           = 210;          // 銃の最大予備弾薬数
     // 強化時
