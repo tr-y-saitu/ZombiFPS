@@ -202,7 +202,7 @@ void PlayerCamera::UpdateCameraAngleMouse(const Input& input, Player::AimState p
     }
 
     // 垂直角度を更新
-    if (fabs(deltaY) * mouseSensitivity >= MouseInputDeadZoneMin)
+    if (fabs(deltaX) >= MouseInputDeadZoneMin / mouseSensitivity)
     {
         angleVertical -= deltaY * mouseSensitivity;
     }
@@ -438,7 +438,7 @@ void PlayerCamera::UpdateRecoil(bool isShooting, Player::AimState playerAimState
     if (isShooting)
     {
         // エイム中で無ければ
-        if (!(playerAimState == Player::AimState::Now))
+        if (!(playerAimState == Player::AimState::Now) && playerAimState == Player::AimState::None)
         {
             // 腰だめの反動値を加算
             angleVertical += HipShootRecoil;
