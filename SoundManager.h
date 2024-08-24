@@ -22,6 +22,7 @@ public:
         PlayerDamageSE,             // プレイヤーが攻撃を受けたときの音
         PlayerWalkingSE,            // プレイヤーが歩く音
         PlayerRunSE,                // プレイヤーが走る音
+        OnHitEnemyAttackSE,         // プレイヤーがエネミーの攻撃を受けたときの音
 
         // 銃
         AssaulRifleShootingSE,      // アサルトライフル発砲音
@@ -39,6 +40,7 @@ public:
         ZombieVoice1SE,             // ゾンビの声１
         ZombieVoice2SE,             // ゾンビの声２
         ZombieVoice3SE,             // ゾンビの声３
+        ZombieAttackSE,             // ゾンビの攻撃時の声
 
         // インタラクトオブジェクト
         RefillAmmoSE,               // 弾薬を補充した時の音
@@ -124,9 +126,15 @@ private:
     /// </summary>
     SoundManager();
 
+    //---------------------------------------------------------------------------------//
+    //                                      定数                                       //
+    //---------------------------------------------------------------------------------//
     static constexpr int    VolumeBGM   = 200;      // BGMの再生音量
     static constexpr int    VolumeSE    = 200;      // 効果音の再生音量
 
+    //---------------------------------------------------------------------------------//
+    //                                      変数                                       //
+    //---------------------------------------------------------------------------------//
     // 管理用
     static SoundManager*    soundManager;           // サウンドマネージャークラスのインスタンス
     int                     playingSoundHandle;     // 現在再生中のサウンド

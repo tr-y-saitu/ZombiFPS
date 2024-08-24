@@ -561,6 +561,9 @@ void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
                 // 攻撃アニメーション再生
                 PlayAnimation(AnimationType::Attack);
 
+                // 攻撃時のゾンビの声再生
+                soundManager->PlaySoundListSE(SoundManager::ZombieAttackSE);
+
                 // 現在のステート更新
                 currentState = State::Attack;
             }

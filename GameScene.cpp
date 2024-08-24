@@ -119,7 +119,7 @@ SceneBase* GameScene::UpdateScene()
     UpdateEffekseer3D();                                            // エフェクト更新
 
     // プレイヤーのHPがゼロ以下になった場合シーンを切り替える
-    if (player->GetHitPoint() < 0)
+    if (player->GetHitPoint() <= 0)
     {
         return new ResultScene();
     }

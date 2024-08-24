@@ -39,6 +39,7 @@ void SoundManager::LoadData()
     soundListSE[PlayerDamageSE]             = LoadSoundMem("");
     soundListSE[PlayerWalkingSE]            = LoadSoundMem("Data/Sound/SE/Player/PlayerWalkingSE.mp3");
     soundListSE[PlayerRunSE]                = LoadSoundMem("Data/Sound/SE/Player/PlayerRunSE.mp3");
+    soundListSE[OnHitEnemyAttackSE]         = LoadSoundMem("Data/Sound/SE/Player/OnHItEnemySE.mp3");
 
     // 銃
     soundListSE[SubmachineGunShootingSE]    = LoadSoundMem("Data/Sound/SE/Gun/SubmachineGunShootingSE1.mp3");
@@ -54,6 +55,7 @@ void SoundManager::LoadData()
     soundListSE[ZombieVoice1SE]             = LoadSoundMem("Data/Sound/SE/Zombie/ZombieVoice1SE.mp3");
     soundListSE[ZombieVoice2SE]             = LoadSoundMem("Data/Sound/SE/Zombie/ZombieVoice2SE.mp3");
     soundListSE[ZombieVoice3SE]             = LoadSoundMem("Data/Sound/SE/Zombie/ZombieVoice3SE.mp3");
+    soundListSE[ZombieAttackSE]             = LoadSoundMem("Data/Sound/SE/Zombie/ZonbieAttackSE.wav");
 
     // インタラクトオブジェクト
     soundListSE[RefillAmmoSE]               = LoadSoundMem("Data/Sound/SE/Object/RefillAmmo.mp3");

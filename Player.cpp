@@ -212,7 +212,7 @@ void Player::Draw(const Stage& stage)
     }*/
 
     //// 体力の描画
-    //DrawFormatString(100, 400, DebugFontColor, "HP:%.1f", hitPoint);
+    DrawFormatString(100, 400, DebugFontColor, "HP:%.1f", hitPoint);
 
     //// インタラクト状態の描画
     //switch (interactLocationState)
@@ -345,6 +345,9 @@ void Player::OnHitEnemyAttack(CollisionData hitObjectData)
 {
     // HPを減らす
     hitPoint -= hitObjectData.attackPower;
+
+    // エネミーの攻撃が当たった際の音を再生
+    soundManager->PlaySoundListSE(SoundManager::OnHitEnemyAttackSE);
 }
 
 /// <summary>
