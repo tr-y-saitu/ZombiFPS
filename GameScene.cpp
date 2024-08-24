@@ -157,6 +157,9 @@ void GameScene::DrawUI()
 /// </summary>
 void GameScene::UpdateSound()
 {
+    // ゲームシーンBGMを再生
+    soundManager->PlaySoundListBGM(SoundManager::GameSceneBGM);
+
     // プレイヤーのステートごとの音
     switch (player->GetState())
     {

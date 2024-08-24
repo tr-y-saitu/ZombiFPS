@@ -82,6 +82,9 @@ void Game::ChangeScene()
 
     // 次のシーンを初期化
     nextScene = NULL;
+
+    // 再生中の音をすべて停止
+    soundManager->StopAllSounds();
 }
 
 /// <summary>

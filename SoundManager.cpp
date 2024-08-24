@@ -63,12 +63,15 @@ void SoundManager::LoadData()
 
     // タイトルシーンBGM
     soundListBGM[TitleSceneBGM]             = LoadSoundMem("Data/Sound/BGM/SceneBGM/TitleSceneBGM.mp3");
+    ChangeVolumeSoundMem(VolumeBGM, soundListBGM[TitleSceneBGM]);
 
     // ゲームシーンBGM
     soundListBGM[GameSceneBGM]              = LoadSoundMem("Data/Sound/BGM/SceneBGM/GameSceneBGM.mp3");
+    ChangeVolumeSoundMem(VolumeBGM, soundListBGM[GameSceneBGM]);
 
     // リザルトシーンBGM
     soundListBGM[ResultSceneBGM]            = LoadSoundMem("Data/Sound/BGM/SceneBGM/ResultSceneBGM.mp3");
+    ChangeVolumeSoundMem(VolumeBGM, soundListBGM[ResultSceneBGM]);
 
     // プレイヤー
     soundListBGM[WalkingBGM]                = LoadSoundMem("Data/Sound/BGM/Player/WalkingBGM.mp3");

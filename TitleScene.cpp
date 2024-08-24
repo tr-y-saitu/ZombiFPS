@@ -95,6 +95,7 @@ SceneBase* TitleScene::UpdateScene()
     sceneCamera->UpdateTitleScene(enemy->GetPosition());    // カメラ
     enemy->Update(enemyTargetPosition,*stage);              // エネミー
     UpdateEnemy();                                          // エネミーの更新
+    UpdateSound();                                          // サウンド
     titleSceneUI->Update();                                 // UI
 
     // スペースキーが入力されたらシーン推移
@@ -116,7 +117,8 @@ SceneBase* TitleScene::UpdateScene()
 /// </summary>
 void TitleScene::UpdateSound()
 {
-
+    // タイトルシーンのBGMを再生
+    soundManager->PlaySoundListBGM(SoundManager::TitleSceneBGM);
 }
 
 /// <summary>

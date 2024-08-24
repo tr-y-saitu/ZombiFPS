@@ -124,6 +124,9 @@ private:
     /// </summary>
     SoundManager();
 
+    static constexpr int    VolumeBGM   = 200;      // BGMの再生音量
+    static constexpr int    VolumeSE    = 200;      // 効果音の再生音量
+
     // 管理用
     static SoundManager*    soundManager;           // サウンドマネージャークラスのインスタンス
     int                     playingSoundHandle;     // 現在再生中のサウンド

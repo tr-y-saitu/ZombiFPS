@@ -129,7 +129,8 @@ void ResultScene::DrawUI()
 /// </summary>
 void ResultScene::UpdateSound()
 {
-
+    // リザルトシーンBGMを再生
+    soundManager->PlaySoundListBGM(SoundManager::ResultSceneBGM);
 }
 
 /// <summary>
