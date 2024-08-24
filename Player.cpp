@@ -42,6 +42,7 @@ Player::Player()
     , reloadState                   (ReloadState::None)
     , currentAimState               (AimState::None)
     , previousAimState              (AimState::None)
+    , lastDamageFrame               (0)
 {
     collisionManager        = CollisionManager::GetInstance();
     modelDataManager        = ModelDataManager::GetInstance();
@@ -163,6 +164,9 @@ void Player::Update(const Input& input, Stage& stage)
     // 当たり判定用の情報を更新
     UpdateCollisionData();
 
+    // ヒットポイントの更新
+    UpdateHitPoint();
+
     // エフェクトを更新
     UpdateEffect();
 }
@@ -212,7 +216,7 @@ void Player::Draw(const Stage& stage)
     }*/
 
     //// 体力の描画
-    DrawFormatString(100, 400, DebugFontColor, "HP:%.1f", hitPoint);
+    DrawFormatString(100, 400, DebugFontColor, "HP:%.3f", hitPoint);
 
     //// インタラクト状態の描画
     //switch (interactLocationState)
@@ -348,6 +352,28 @@ void Player::OnHitEnemyAttack(CollisionData hitObjectData)
 
     // エネミーの攻撃が当たった際の音を再生
     soundManager->PlaySoundListSE(SoundManager::OnHitEnemyAttackSE);
+
+    // 最後にダメージを受けたフレームを初期化
+    lastDamageFrame = 0;
+}
+
+/// <summary>
+/// ヒットポイントの更新
+/// </summary>
+void Player::UpdateHitPoint()
+{
+    // 最後にダメージを受けたフレーム数をカウント
+    lastDamageFrame++;
+
+    // 最後に攻撃を受けたフレームから100フレーム経過したら回復開始
+    if (lastDamageFrame >= RecoveryWaitFrames)
+    {
+        if (hitPoint < MaxHitPoint)
+        {
+            hitPoint += HitPointRecoverySpeed;
+        }
+    }
+
 }
 
 /// <summary>

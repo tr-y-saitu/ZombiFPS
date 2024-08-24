@@ -228,6 +228,11 @@ private:
     void OnHitEnemyAttack(CollisionData hitObjectData);
 
     /// <summary>
+    /// ヒットポイントの更新
+    /// </summary>
+    void UpdateHitPoint();
+
+    /// <summary>
     /// シャッターと接触した際の処理
     /// </summary>
     /// <param name="hitObjectData">接触したオブジェクトの情報</param>
@@ -315,7 +320,6 @@ private:
     static constexpr float  MoveLimitY              = 4.5f;                         // Y軸の移動制限
     static constexpr VECTOR ZeroVector              = { 0.0f,0.0f,0.0f };           // ゼロベクトル
     static constexpr VECTOR PlayerScale             = { 0.05f,0.05f,0.05f };        // プレイヤーのスケール
-    static constexpr float  InitializeHitPoint      = 50.0f;                        // プレイヤーの初期体力
     static constexpr int    InitializeMoney         = 20000;                         // 最初の所持金
     // 当たり判定
     static constexpr float  HitBoxRadius            = 3.0f;                         // 自身の当たり判定
@@ -330,6 +334,11 @@ private:
     static constexpr float  HipShootHorizontalAngle = 170.0f * DX_PI_F / 180.0f;    // 水平回転用：腰だめの位置に調整するために回転させるY軸回転度(ラジアン)
     static constexpr float  HipShootVerticalAngle   = 20.0f * DX_PI_F / 180.0f;     // 垂直回転用：腰だめの位置に調整するために回転させる水平方向からの角度(ラジアン)
     static constexpr float  HipShootAccuracyRate    = 0.05f;                        // 腰だめ時の精度の減算値
+    // ヒットポイント
+    static constexpr float  InitializeHitPoint      = 50.0f;                        // プレイヤーの初期体力
+    static constexpr int    RecoveryWaitFrames      = 150;                          // 回復を開始する待機フレーム数
+    static constexpr int    MaxHitPoint             = 50;                           // ヒットポイントの最大値
+    static constexpr float  HitPointRecoverySpeed   = 0.1f;                         // ヒットポイントを回復する速度
     // デバッグ
     static constexpr int    DebugPositionDrawX      = 100;                          // 座標情報を描画するX位置
     static constexpr int    DebugPositionDrawY      = 0;                            // 座標情報を描画するY位置
@@ -364,6 +373,7 @@ private:
     int                     interactionCost;            // インタラクトしたオブジェクトの支払いコスト
     State                   state;                      // 状態
     bool                    isShooting;                 // 発砲状態か
+    int                     lastDamageFrame;            // 最後に攻撃を受けてから何フレーム経過したか
 
     // リロード
     ReloadState             reloadState;                // リロードステート
