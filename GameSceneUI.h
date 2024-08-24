@@ -104,15 +104,20 @@ private:
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     // 文字
-    static constexpr int InteractLocationInfomationDrawPositionY    = 800;      // インタラクト情報の描画Y座標
-    static constexpr int InteractLocationCostDrawPositionY          = 900;      // インタラクトできるコスト描画Y座標
+    static constexpr int    InteractLocationInfomationDrawPositionY = 800;      // インタラクト情報の描画Y座標
+    static constexpr int    InteractLocationCostDrawPositionY       = 900;      // インタラクトできるコスト描画Y座標
+    // ウェーブステート
+    static constexpr int    CurrentWaveStateDrawPositionX           = 100;      // 現在のウェーブステートの描画X位置
+    static constexpr int    CurrentWaveStateDrawPositionY           = 850;      // 現在のウェーブステートの描画Y位置
+    const int               CurrentWaveStateFontColor               = GetColor(200, 0, 0);  // 現在のウェーブステートの文字色
+    // 武器情報
+    static constexpr int    GunInformationDrawPositionX             = 1600;     // 銃の情報を描画するX座標
+    static constexpr int    GunInformationDrawPositionY             = 950;      // 銃の情報を描画するY座標
     // 武器強化マシン
     static constexpr VECTOR GunPowerUpMachineIconDrawOffset         = { 0.0f,3.0f,0.0f };   // 武器強化マシンのアイコン描画ずらし量
-
     // 弾薬補充箱
     static constexpr VECTOR AmmoBoxIconDrawOffset                   = { 0.0f,4.0f,0.0f };   // 弾薬補充箱のアイコンの描画ずらし量
     static constexpr float  AmmoBoxIconDrawCenterXRate = 0.5f;
-
     // アイコン
     static constexpr float  IconOffsetRange         = 0.5f;     // アイコンのオフセットの振幅
     static constexpr float  IconOffsetCycle         = 0.05f;    // アイコンのオフセットする周期（フレームごとの変化量）

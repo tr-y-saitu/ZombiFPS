@@ -95,7 +95,8 @@ void GameSceneUI::DrawWaveState(int waveState)
 {
     char waveStateString[256];
     sprintf_s(waveStateString, "%d", waveState++);
-    DrawStringToHandle(100, 850, waveStateString, GetColor(200,0,0), outlastFontHandle);
+    DrawStringToHandle(CurrentWaveStateDrawPositionX, CurrentWaveStateDrawPositionY,
+        waveStateString, CurrentWaveStateFontColor, outlastFontHandle);
 }
 
 /// <summary>
@@ -107,7 +108,8 @@ void GameSceneUI::DrawGunInformation(Player& player)
     // 銃の弾薬を描画
     char gunInfo[256];
     sprintf_s(gunInfo, "%d/%d", player.GetEquippedGunAmmo(), player.GetEquippedBackUpAmmo());
-    DrawStringToHandle(1600, 950, gunInfo, GetColor(200, 200, 200), vhsLargeFontHandle);
+    DrawStringToHandle(GunInformationDrawPositionX, GunInformationDrawPositionY,
+        gunInfo, FontColorVHS, vhsLargeFontHandle);
 
     // リロード中であるか
     if (player.GetIsReload())
