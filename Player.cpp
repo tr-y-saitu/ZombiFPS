@@ -257,7 +257,7 @@ void Player::Draw(const Stage& stage)
 /// <param name="stage">ステージ</param>
 void Player::UpdatePlayerCamera(const Input& input, Stage& stage)
 {
-    playerCamera->Update(input, position,stage,currentAimState);
+    playerCamera->Update(input, position,stage,currentAimState,isShooting);
 }
 
 /// <summary>

@@ -46,7 +46,7 @@ void PlayerCamera::Initialize()
 /// <param name="setPostion">設定する座標</param>
 /// <param name="stage">ステージ</param>
 void PlayerCamera::Update(const Input& input, VECTOR setPosition,
-    const Stage& stage,Player::AimState playerAimState)
+    const Stage& stage,Player::AimState playerAimState, bool isShooting)
 {
     // DXライブラリのカメラとEffekseerのカメラを同期する。
     Effekseer_Sync3DSetting();
@@ -89,6 +89,9 @@ void PlayerCamera::Update(const Input& input, VECTOR setPosition,
 
     // カメラのピッチ角度計算
     UpdateCameraPitch();
+
+    // リコイルの更新
+    UpdateRecoil(isShooting,playerAimState);
 
     // カメラの更新
     SetCameraPositionAndTarget_UpVecY(cameraPosition, targetPosition);
@@ -336,7 +339,6 @@ void PlayerCamera::UpdateHipUpPosition(VECTOR setPosition)
     targetPosition = VAdd(targetPosition, leftOffset);
 
     // 視野角を設定する
-    //SetupCamera_Perspective(65.0f * DX_PI_F / 180.0f);
     targetFov = HipShootFov;
 }
 
@@ -350,7 +352,6 @@ void PlayerCamera::UpdateAimPosition(VECTOR setPosition)
     cameraPosition = VAdd(setPosition, VScale(cameraForwardVector, BackOffset));
 
     // 視野角を設定する
-    //SetupCamera_Perspective(30.0f * DX_PI_F / 180.0f);
     targetFov = AimFov;
 }
 
@@ -411,3 +412,28 @@ void PlayerCamera::UpdateCameraPitch()
     cameraPitch = atan2f(forwardVector.y, horizonLength);
 }
 
+/// <summary>
+/// リコイルの更新
+/// </summary>
+/// <param name="isShooting">射撃中かどうか</param>
+/// <param name="playerAimState">プレイヤーのエイム状態</param>
+/// FIXME:現在銃固有の反動値で処理を行っていないため、
+/// 　    最終的に銃から反動の値をもらってくる
+void PlayerCamera::UpdateRecoil(bool isShooting, Player::AimState playerAimState)
+{
+    // 射撃中であれば
+    if (isShooting)
+    {
+        // エイム中で無ければ
+        if (!(playerAimState == Player::AimState::Now))
+        {
+            // 腰だめの反動値を加算
+            angleVertical += HipShootRecoil;
+        }
+        else
+        {
+            // エイム中は反動を軽減
+            angleVertical += AimShootRecoil;
+        }
+    }
+}

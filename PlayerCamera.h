@@ -34,7 +34,7 @@ public:
     /// <param name="setPostion">設定する座標</param>
     /// <param name="stage">ステージ</param>
     void Update(const Input& input, VECTOR setPosition,
-        const Stage& stage,Player::AimState playerAimState);
+        const Stage& stage,Player::AimState playerAimState,bool isShooting);
 
     /// <summary>
     /// カメラの角度を更新する
@@ -90,6 +90,13 @@ public:
     /// </summary>
     void UpdateFov(Player::AimState playerAimState);
 
+    /// <summary>
+    /// リコイルの更新
+    /// </summary>
+    /// <param name="isShooting">射撃中かどうか</param>
+    /// <param name="playerAimState">プレイヤーのエイム状態</param>
+    void UpdateRecoil(bool isShooting,Player::AimState playerAimState);
+
     // ゲッター
     const VECTOR& GetCameraPosition() const { return cameraPosition; }
     const VECTOR& GetTargetPosition() const { return targetPosition; }
@@ -125,6 +132,10 @@ private:
     //      目標の視野角に到達した場合の[＝]等号式で表したいが誤差があり無理なので
     //      絶対値を利用してその誤差をどこまで許容するかの値
     static constexpr float  FovMargin                   = 0.01f * DX_PI_F / 180.0f;
+
+    // 反動
+    static constexpr float  HipShootRecoil              = 0.01f;                    // 腰だめ時の銃の反動
+    static constexpr float  AimShootRecoil              = 0.005f;                   // エイム時の銃の反動
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
