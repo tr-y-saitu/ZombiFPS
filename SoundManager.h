@@ -32,11 +32,17 @@ public:
         EnemyHitSE,                 // エネミーに当たった時の音
         MissShootingSE,             // 弾丸が当たらなかった音
         DryFireSE,                  // マガジン内の弾丸がない状態でトリガーを引いた時の音
+        GunAimSE,                   // 銃を構える音
+        GunPowerUpShootSE,          // 銃が強化された際の発砲音
 
         // エネミー
         ZombieVoice1SE,             // ゾンビの声１
         ZombieVoice2SE,             // ゾンビの声２
         ZombieVoice3SE,             // ゾンビの声３
+
+        // インタラクトオブジェクト
+        RefillAmmoSE,               // 弾薬を補充した時の音
+        GunPowerUpSE,               // 銃を強化した時の音
     };
 
     /// <summary>
@@ -44,6 +50,15 @@ public:
     /// </summary>
     enum PlaySoundBGM
     {
+        // タイトル
+        TitleSceneBGM,          // タイトルシーンBGM
+
+        // ゲームシーン
+        GameSceneBGM,           // ゲームシーンBGM
+
+        // リザルトシーン
+        ResultSceneBGM,         // リザルトシーンBGM
+
         // プレイヤー
         WalkingBGM,              // 歩く音
         RunBGM,                  // 走る音

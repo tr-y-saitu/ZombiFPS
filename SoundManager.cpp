@@ -32,48 +32,47 @@ void SoundManager::LoadData()
     // SE ///////////////////////////
 
     // システム
-    int shutterOpenSE           = LoadSoundMem("Data/Sound/SE/System/ShutterOpenSE.mp3");
-    int moneyUseSE              = LoadSoundMem("Data/Sound/SE/System/MoneyUseSE.mp3");
-    soundListSE[ShutterOpenSE]  = shutterOpenSE;
-    soundListSE[MoneyUseSE]     = moneyUseSE;
+    soundListSE[ShutterOpenSE]              = LoadSoundMem("Data/Sound/SE/System/ShutterOpenSE.mp3");
+    soundListSE[MoneyUseSE]                 = LoadSoundMem("Data/Sound/SE/System/MoneyUseSE.mp3");
 
     // プレイヤー
-    int playerDamageSE              = LoadSoundMem("");
-    int playerWalkingSE             = LoadSoundMem("Data/Sound/SE/Player/PlayerWalkingSE.mp3");
-    int playerRunSE                 = LoadSoundMem("Data/Sound/SE/Player/PlayerRunSE.mp3");
-    soundListSE[PlayerDamageSE]     = playerDamageSE;
-    soundListSE[PlayerWalkingSE]    = playerWalkingSE;
-    soundListSE[PlayerRunSE]        = playerRunSE;
+    soundListSE[PlayerDamageSE]             = LoadSoundMem("");
+    soundListSE[PlayerWalkingSE]            = LoadSoundMem("Data/Sound/SE/Player/PlayerWalkingSE.mp3");
+    soundListSE[PlayerRunSE]                = LoadSoundMem("Data/Sound/SE/Player/PlayerRunSE.mp3");
 
     // 銃
-    int submachineGunShootingSE = LoadSoundMem("Data/Sound/SE/Gun/SubmachineGunShootingSE1.mp3");
-    int gunReloadStartSE        = LoadSoundMem("Data/Sound/SE/Gun/GunReloadStartSE.mp3");
-    int gunReloadEndSE          = LoadSoundMem("Data/Sound/SE/Gun/GunReloadEndSE.mp3");
-    int enemyHitSE              = LoadSoundMem("Data/Sound/SE/Gun/EnemyHitSE.mp3");
-    int missShootingSE          = LoadSoundMem("Data/Sound/SE/Gun/MissShootingSE.mp3");
-    int dryFireSE               = LoadSoundMem("Data/Sound/SE/Gun/DryFireSE.mp3");
-    soundListSE[SubmachineGunShootingSE]    = submachineGunShootingSE;
-    soundListSE[GunReloadStartSE]           = gunReloadStartSE;
-    soundListSE[GunReloadEndSE]             = gunReloadEndSE;
-    soundListSE[EnemyHitSE]                 = enemyHitSE;
-    soundListSE[MissShootingSE]             = missShootingSE;
-    soundListSE[DryFireSE]                  = dryFireSE;
+    soundListSE[SubmachineGunShootingSE]    = LoadSoundMem("Data/Sound/SE/Gun/SubmachineGunShootingSE1.mp3");
+    soundListSE[GunReloadStartSE]           = LoadSoundMem("Data/Sound/SE/Gun/GunReloadStartSE.mp3");
+    soundListSE[GunReloadEndSE]             = LoadSoundMem("Data/Sound/SE/Gun/GunReloadEndSE.mp3");
+    soundListSE[EnemyHitSE]                 = LoadSoundMem("Data/Sound/SE/Gun/EnemyHitSE.mp3");
+    soundListSE[MissShootingSE]             = LoadSoundMem("Data/Sound/SE/Gun/MissShootingSE.mp3");
+    soundListSE[DryFireSE]                  = LoadSoundMem("Data/Sound/SE/Gun/DryFireSE.mp3");
+    soundListSE[GunAimSE]                   = LoadSoundMem("Data/Sound/SE/Gun/GunAimSE.mp3");
+    soundListSE[GunPowerUpShootSE]          = LoadSoundMem("Data/Sound/SE/Gun/GunPowerUpShootSE.mp3");
 
     // ゾンビ
-    int zombieVoice1SE = LoadSoundMem("Data/Sound/SE/Zombie/ZombieVoice1SE.mp3");
-    int zombieVoice2SE = LoadSoundMem("Data/Sound/SE/Zombie/ZombieVoice2SE.mp3");
-    int zombieVoice3SE = LoadSoundMem("Data/Sound/SE/Zombie/ZombieVoice3SE.mp3");
-    soundListSE[ZombieVoice1SE] = zombieVoice1SE;
-    soundListSE[ZombieVoice2SE] = zombieVoice2SE;
-    soundListSE[ZombieVoice3SE] = zombieVoice3SE;
+    soundListSE[ZombieVoice1SE]             = LoadSoundMem("Data/Sound/SE/Zombie/ZombieVoice1SE.mp3");
+    soundListSE[ZombieVoice2SE]             = LoadSoundMem("Data/Sound/SE/Zombie/ZombieVoice2SE.mp3");
+    soundListSE[ZombieVoice3SE]             = LoadSoundMem("Data/Sound/SE/Zombie/ZombieVoice3SE.mp3");
+
+    // インタラクトオブジェクト
+    soundListSE[RefillAmmoSE] = LoadSoundMem("Data/Sound/SE/Object/RefillAmmo.mp3");
+    soundListSE[GunPowerUpSE] = LoadSoundMem("Data/Sound/SE/Object/GunPowerUpSE.mp3");
 
     // BGM ////////////////////////////////
 
+    // タイトルシーンBGM
+    soundListBGM[TitleSceneBGM]             = LoadSoundMem("Data/Sound/BGM/SceneBGM/TitleSceneBGM.mp3");
+
+    // ゲームシーンBGM
+    soundListBGM[GameSceneBGM]              = LoadSoundMem("Data/Sound/BGM/SceneBGM/GameSceneBGM.mp3");
+
+    // リザルトシーンBGM
+    soundListBGM[ResultSceneBGM]            = LoadSoundMem("Data/Sound/BGM/SceneBGM/ResultSceneBGM.mp3");
+
     // プレイヤー
-    int walkingBGM              = LoadSoundMem("Data/Sound/BGM/Player/WalkingBGM.mp3");
-    int runBGM                  = LoadSoundMem("Data/Sound/BGM/Player/RunBGM.mp3");
-    soundListBGM[WalkingBGM]    = walkingBGM;
-    soundListBGM[RunBGM]        = runBGM;
+    soundListBGM[WalkingBGM]                = LoadSoundMem("Data/Sound/BGM/Player/WalkingBGM.mp3");
+    soundListBGM[RunBGM]                    = LoadSoundMem("Data/Sound/BGM/Player/RunBGM.mp3");
 
 
 
