@@ -15,6 +15,7 @@ PlayerCamera::PlayerCamera()
     , cameraRightVector     (VGet(0,0,0))
     , currentFov            (HipShootFov)
     , targetFov             (HipShootFov)
+    , angleSpeed            (AngleSpeedHipShoot)
 {
     // 描画範囲の設定
     SetCameraNearFar(CameraNearClip, CameraFarClip);
@@ -54,7 +55,7 @@ void PlayerCamera::Update(const Input& input, VECTOR setPosition,
 
 #ifdef USE_MOUSE
     // マウスを使ってカメラの角度を更新
-    UpdateCameraAngleMouse(input);
+    UpdateCameraAngleMouse(input,playerAimState);
 #else
     // パッド、キーボード入力でカメラの角度を更新
     UpdateCameraAngle(input);
@@ -160,7 +161,7 @@ void PlayerCamera::UpdateCameraAngle(const Input& input)
 /// マウスでのカメラ角度更新
 /// </summary>
 /// <param name="input">入力更新情報</param>
-void PlayerCamera::UpdateCameraAngleMouse(const Input& input)
+void PlayerCamera::UpdateCameraAngleMouse(const Input& input, Player::AimState playerAimState)
 {
     // マウスカーソル位置の取得
     Input::MousePosition mousePosition = input.GetMousePosition();
@@ -170,7 +171,19 @@ void PlayerCamera::UpdateCameraAngleMouse(const Input& input)
     int deltaY = mousePosition.y - ScreenHeightHalf;
 
     // マウス感度を設定
-    float mouseSensitivity = input.MouseSensitivity;
+    float mouseSensitivity = 0.0f;
+
+    // エイム状態に合わせてマウス感度を設定
+    if (!(playerAimState == Player::AimState::Now))
+    {
+        // 腰だめ時の感度設定
+        mouseSensitivity = input.MouseSensitivityHipShoot;
+    }
+    else
+    {
+        // エイム時の感度設定
+        mouseSensitivity = input.MouseSensitivityAim;
+    }
 
     // 水平角度を更新
     if (fabs(deltaX) * mouseSensitivity >= MouseInputDeadZoneMin)

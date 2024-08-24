@@ -46,7 +46,7 @@ public:
     /// マウスでのカメラの角度更新
     /// </summary>
     /// <param name="input">入力更新情報</param>
-    void UpdateCameraAngleMouse(const Input& input);
+    void UpdateCameraAngleMouse(const Input& input,Player::AimState playerAimState);
 
     /// <summary>
     /// カメラ座標の修正
@@ -113,13 +113,15 @@ private:
     static constexpr float  CameraNearClip              = 0.1f;     // カメラのニアクリップ
     static constexpr float  CameraFarClip               = 200.0f;   // カメラのファークリップ
     static constexpr float  AngleSpeed                  = 0.05f;    // 旋回速度
+    static constexpr float  AngleSpeedHipShoot          = 0.005f;    // 腰だめ時のカメラ旋回速度
+    static constexpr float  AngleSpeedAim               = AngleSpeedHipShoot / 2;   // エイム時のカメラ旋回速度
     static constexpr float  CameraPlayerTargetHeight    = 1.0f;     // プレイヤー座標からどれだけ高い位置を注視点とするか
     static constexpr float  ToPlayerLength              = 4.0f;     // プレイヤーとの距離
     static constexpr float  CollisionSize               = 1.0f;     // カメラの当たり判定サイズ
     static constexpr float  AngleVerticalOffset         = 2.6f;     // 一定角度以上上を向かないようにするためのバフ値
     static constexpr float  AngleVerticalDonwOffset     = 1.4f;     // 下入力時に一定以上角度が下にならないようにするためのバフ値
     static constexpr VECTOR CameraPlayerTargetPosition  = { 0.0f,CameraPlayerTargetHeight,0.0f };    // カメラの注視点の座標
-    static constexpr float  MouseInputDeadZoneMin       = 0.009f;   // マウスの入力を受け付ける最小値
+    static constexpr float  MouseInputDeadZoneMin       = 0.0009f;   // マウスの入力を受け付ける最小値
     // 腰だめ
     static constexpr float  LeftOffset                  = -0.5f;    // 腰だめの位置を再現するために左にずらす量
     static constexpr float  BackOffset                  = -2.0f;    // 腰だめの位置を再現するために後ろにずらす量
@@ -143,6 +145,7 @@ private:
     float   angleHorizon;           // 水平角度
     float   angleVertical;          // 垂直角度
     float   cameraPitch;            // 上下の角度量
+    float   angleSpeed;             // カメラの旋回速度
     VECTOR  targetPosition;         // カメラが見る視点座標
     VECTOR  cameraPosition;         // カメラ自身の座標
     VECTOR  cameraForwardVector;    // カメラの前方向ベクトル

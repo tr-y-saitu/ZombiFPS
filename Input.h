@@ -47,8 +47,9 @@ public:
     int GetMouseNowFrameInput()const { return mouseNowFrameInput; }
 
     // 定数
-    static constexpr float MouseSensitivity = 0.003f;        // マウス感度
-
+    static constexpr float  MouseSensitivity            = 0.003f;        // マウス感度
+    static constexpr float  MouseSensitivityHipShoot    = 0.001f;                           // 腰だめ時のエイム感度
+    static constexpr float  MouseSensitivityAim         = MouseSensitivityHipShoot * 0.7f;     // エイム時のエイム感度
 private:
 
     // 変数
