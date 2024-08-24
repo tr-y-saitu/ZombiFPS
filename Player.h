@@ -141,6 +141,7 @@ public:
     const VECTOR& GetPosition() const { return position; }
     bool GetCurrentFrameMove() const { return currentFrameMove; }
     bool GetIsShooting()const { return isShooting; }
+    bool GetIsReload()const { return isReload; }
     State GetState() const { return state; }
     float GetCurrentJumpPower() const { return currentJumpPower; }
     const MATRIX GetRotationMatrix()const { return rotationMatrix; }

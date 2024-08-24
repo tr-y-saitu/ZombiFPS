@@ -108,6 +108,12 @@ void GameSceneUI::DrawGunInformation(Player& player)
     char gunInfo[256];
     sprintf_s(gunInfo, "%d/%d", player.GetEquippedGunAmmo(), player.GetEquippedBackUpAmmo());
     DrawStringToHandle(1600, 950, gunInfo, GetColor(200, 200, 200), vhsLargeFontHandle);
+
+    // リロード中であるか
+    if (player.GetIsReload())
+    {
+        DrawStringCenterScreen("ﾘﾛｰﾄﾞｼﾃｲﾏｽ", 600, DebugFontColor, vhsJPLargeFontHandle);
+    }
 }
 
 /// <summary>
