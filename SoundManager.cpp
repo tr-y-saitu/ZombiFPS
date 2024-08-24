@@ -56,8 +56,8 @@ void SoundManager::LoadData()
     soundListSE[ZombieVoice3SE]             = LoadSoundMem("Data/Sound/SE/Zombie/ZombieVoice3SE.mp3");
 
     // インタラクトオブジェクト
-    soundListSE[RefillAmmoSE] = LoadSoundMem("Data/Sound/SE/Object/RefillAmmo.mp3");
-    soundListSE[GunPowerUpSE] = LoadSoundMem("Data/Sound/SE/Object/GunPowerUpSE.mp3");
+    soundListSE[RefillAmmoSE]               = LoadSoundMem("Data/Sound/SE/Object/RefillAmmo.mp3");
+    soundListSE[GunPowerUpSE]               = LoadSoundMem("Data/Sound/SE/Object/GunPowerUpSE.mp3");
 
     // BGM ////////////////////////////////
 

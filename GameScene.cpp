@@ -177,12 +177,6 @@ void GameScene::UpdateSound()
         break;
     }
 
-    // 銃の発砲音
-    if (player->GetIsShooting())
-    {
-        soundManager->PlaySoundListSE(SoundManager::SubmachineGunShootingSE);
-    }
-
     // 空撃ち音
     if (input->GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT && !player->GetEquippedGunAmmo())
     {

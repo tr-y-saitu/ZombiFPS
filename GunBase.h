@@ -77,6 +77,7 @@ public:
     const int GetBackUpAmmo()const { return backUpAmmo; }
     const int GetBackUpMaxAmmo()const { return backUpMaxAmmo; }
     const bool GetPowerUpWeapon()const { return powerUpWeapon; }
+    const GunPowerUpState GetGunPowerUpState()const { return gunPowerUpState; }
 
     // セッター
     void SetGunAmmo(int set) { gunAmmo = set; }

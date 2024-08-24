@@ -569,6 +569,9 @@ void Player::UpdateInteract(const Input& input)
             // 装備中の所持弾薬を最大まで補充する
             int addAmmo = equippedGun->GetBackUpMaxAmmo();
             equippedGun->SetBackUpAmmo(addAmmo);
+
+            // 弾薬を補充する音を再生
+            soundManager->PlaySoundListSE(SoundManager::RefillAmmoSE);
         }
         break;
 
@@ -583,6 +586,9 @@ void Player::UpdateInteract(const Input& input)
 
             // 装備中の武器を強化する
             equippedGun->SetPowerUpWeapon(true);
+
+            // 武器を強化する音を再生
+            soundManager->PlaySoundListSE(SoundManager::GunPowerUpSE);
         }
 
         break;
@@ -953,6 +959,16 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
             // 発砲している
             isShooting = true;
 
+            // 銃の発砲音再生
+            if (equippedGun->GetGunPowerUpState() != GunBase::GunPowerUpState::None)
+            {
+                soundManager->PlaySoundListSE(SoundManager::GunPowerUpShootSE);
+            }
+            else
+            {
+                soundManager->PlaySoundListSE(SoundManager::SubmachineGunShootingSE);
+            }
+
             // 弾丸の初期化用データを取得
             Bullet::BulletInitializeData initData = equippedGun->GetBulletInitializeData();
 
@@ -1034,6 +1050,9 @@ void Player::UpdateAimEquippedWeapon(const Input& input)
     }
     else
     {
+        // エイム音を再生
+        soundManager->PlaySoundListSE(SoundManager::GunAimSE);
+
         if (previousAimState == AimState::Start || previousAimState == AimState::Now)
         {
             currentAimState = AimState::End;
