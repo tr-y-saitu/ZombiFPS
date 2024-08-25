@@ -74,6 +74,12 @@ private:
     void DrawPlayerHitPoint(Player& player);
 
     /// <summary>
+    /// リロード情報を描画
+    /// </summary>
+    /// <param name="player">プレイヤー</param>
+    void DrawReloadInfomation(Player& player);
+
+    /// <summary>
     /// プレイヤーの銃のクロスヘアの描画
     /// </summary>
     /// <param name="player">プレイヤー</param>
@@ -138,6 +144,9 @@ private:
     static constexpr int    HitPointBarHeight                       = 30;   // ヒットポイントバーの高さ
     static constexpr int    HitPointBarFrameThickness               = 5;    // ヒットポイントバーの枠の太さ
     const int               HitPointBarColor                        = GetColor(0, 255, 0);  // ヒットポイントバーの色
+    // リロード
+    static constexpr int    ReloadBarWidth                          = 500;  // リロード進行状態を知らせるバーの幅
+    static constexpr int    ReloadBarHeight                         = 40;   // リロード進行状態を知らせるバーの高さ
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //

@@ -92,6 +92,9 @@ void GameSceneUI::DrawPlayerInformation(Player& player)
 
     // 銃のクロスヘア描画
     DrawCrosshair(player);
+
+    // プレイヤーのリロード情報を描画
+    DrawReloadInfomation(player);
 }
 
 /// <summary>
@@ -117,12 +120,6 @@ void GameSceneUI::DrawGunInformation(Player& player)
     sprintf_s(gunInfo, "%d/%d", player.GetEquippedGunAmmo(), player.GetEquippedBackUpAmmo());
     DrawStringToHandle(GunInformationDrawPositionX, GunInformationDrawPositionY,
         gunInfo, FontColorVHS, vhsLargeFontHandle);
-
-    // リロード中であるか
-    if (player.GetIsReload())
-    {
-        DrawStringCenterScreen("ﾘﾛｰﾄﾞｼﾃｲﾏｽ", 600, DebugFontColor, vhsJPLargeFontHandle);
-    }
 }
 
 /// <summary>
@@ -256,6 +253,39 @@ void GameSceneUI::DrawPlayerHitPoint(Player& player)
     // 前回のヒットポイントを更新
     previousHitPoint = currentHitPoint;
 
+}
+
+/// <summary>
+/// リロード情報を描画
+/// </summary>
+/// <param name="player">プレイヤー</param>
+void  GameSceneUI::DrawReloadInfomation(Player& player)
+{
+    // リロード中であるか
+    if (player.GetIsReload())
+    {
+        // リロードの進行状況を取得
+        int reloadTime = player.GetReloadTime();               // 現在のリロードタイマーの値
+        int reloadTimeFrame = Player::ReloadTimeFrame;         // リロードに必要なフレーム数
+
+        // リロード進行状況の割合を計算
+        float reloadProgress = static_cast<float>(reloadTime) / reloadTimeFrame;
+
+        // リロードバーの描画
+        int barX = (ScreenWidth - ReloadBarWidth) / 2;      // 描画X位置
+        int barY = (ScreenHeight - ReloadBarHeight) / 2;    // 描画Y位置
+
+        // 現在のリロード進行状況に応じた描画するバーの幅
+        int progressBarWidth = static_cast<int>(ReloadBarWidth * reloadProgress);
+
+        // バーの背景（空の状態）
+        DrawBox(barX, barY, barX + ReloadBarWidth, barY + ReloadBarHeight, GetColor(0,0,0), TRUE); // 赤色の背景
+
+        // リロード進行中のバー（進捗を表す部分）
+        DrawBox(barX, barY, barX + progressBarWidth, barY + ReloadBarHeight, GetColor(200, 200, 200), TRUE); // 緑色の進捗バー
+
+        DrawStringCenterScreen("ﾘﾛｰﾄﾞｼﾃｲﾏｽ", 600, DebugFontColor, vhsJPLargeFontHandle);
+    }
 }
 
 /// <summary>

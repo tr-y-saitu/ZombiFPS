@@ -217,7 +217,7 @@ void Player::Draw(const Stage& stage)
     }*/
 
     //// 体力の描画
-    DrawFormatString(100, 400, DebugFontColor, "HP:%.3f", hitPoint);
+    //DrawFormatString(100, 400, DebugFontColor, "HP:%.3f", hitPoint);
 
     //// インタラクト状態の描画
     //switch (interactLocationState)

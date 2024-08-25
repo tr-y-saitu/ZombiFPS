@@ -153,6 +153,7 @@ public:
     const int GetInteractionCost()const { return interactionCost; }
     const GunType GetCurrentGunType()const { return currentGunType; }
     const ReloadState GetReloadState()const { return reloadState; }
+    const int GetReloadTime()const { return reloadTimer; }
     const float GetHitPoint()const { return hitPoint; }
     const int GetGameScore()const { return gameScore; }
 
