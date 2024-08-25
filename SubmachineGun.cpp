@@ -80,11 +80,6 @@ void SubmachineGun::Initialize()
 void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR cameraTargetVector,
      VECTOR cameraPosition, float cameraPitch, Player::State playerState, Player::AimState currentAimState)
 {
-    if (powerUpWeapon)
-    {
-        effectManager->PlayGunPowerUpEffect(position);
-    }
-
     // 座標を更新
     position = VAdd(setPosition, GunOffset);
 
@@ -105,7 +100,6 @@ void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR camer
 
     // 武器強化時のマテリアル更新
     UpdatePowerUpGunMaterial();
-
 }
 
 /// <summary>
