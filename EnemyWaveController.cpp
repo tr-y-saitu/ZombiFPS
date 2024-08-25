@@ -14,8 +14,11 @@ EnemyWaveController::EnemyWaveController()
     , waveChangeStartTime   (0)
     , isWaitingWaveChange   (false)
 {
+    // エネミーの出現データの初期化
+    InitializeSpawnData();
+
     // 現在のウェーブで出現するエネミーの数
-    waveEnemySpawnCount = currentWaveState * EnemySpawnRate;
+    waveEnemySpawnCount = waveEnemySpawnData[currentWaveState];
 }
 
 /// <summary>
@@ -36,36 +39,38 @@ void EnemyWaveController::Initialize()
 }
 
 /// <summary>
+/// エネミーの出現データの初期化
+/// </summary>
+void EnemyWaveController::InitializeSpawnData()
+{
+    waveEnemySpawnData[Wave1] = 5;
+    waveEnemySpawnData[Wave2] = 8;
+    waveEnemySpawnData[Wave3] = 10;
+    waveEnemySpawnData[Wave4] = 13;
+    waveEnemySpawnData[Wave5] = 14;
+    waveEnemySpawnData[Wave6] = 15;
+    waveEnemySpawnData[Wave7] = 17;
+    waveEnemySpawnData[Wave8] = 19;
+    waveEnemySpawnData[Wave9] = 20;
+    waveEnemySpawnData[Wave10] = 25;
+    waveEnemySpawnData[WaveEnd] = 0;
+    
+}
+
+/// <summary>
 /// 更新
 /// </summary>
+/// FIXME:
+/// 今まで出現したゾンビの数がオブジェクトプールの総数を上回ると、
+/// ゾンビのモデルの角度がバグるため、ゾンビの出現数を少なめに設定
+///
+/// TODO:
+/// バグの原因を特定する
 void EnemyWaveController::Update(int activeEnemyCount)
 {
     // 現在時間を取得
     int currentTime = GetNowCount();
 
-    //// 現在使用中のエネミーがいない場合ウェーブを進める
-    //if (activeEnemyCount == 0 && canSwichWave)
-    //{
-    //    // ウェーブが切り替わるのを少し待つ
-    //    if (!isWaitingWaveChange)
-    //    {
-    //        // ウェーブ切り替え開始時間を記録
-    //        waveChangeStartTime = currentTime;
-    //        isWaitingWaveChange = true;
-    //    }
-    //    else if(currentTime - waveChangeStartTime >= EnemySpawnDelayMS)
-    //    {
-    //        // 次のウェーブに進む
-    //        currentWaveState = static_cast<WaveState>(static_cast<int>(currentWaveState) + 1);
-
-    //        // ウェーブ開始時間を更新
-    //        waveStartTime = GetNowCount();
-    //        lastEnemySpawnTime = waveStartTime;     // 最後のエネミー出現時間を更新
-    //        enemySpawnFlag = false;                 // 出現フラグをリセット
-    //        currentWaveSpawnCount = 0;              // このウェーブで出現させたエネミーの数をリセット
-    //        canSwichWave = false;                   // 連続でウェーブが変わらないようにする
-    //    }
-    //}
     // 現在使用中のエネミーがいない場合ウェーブを進める
     if (activeEnemyCount == 0)
     {
@@ -79,15 +84,16 @@ void EnemyWaveController::Update(int activeEnemyCount)
         {
             // 次のウェーブに進む
             currentWaveState = static_cast<WaveState>(static_cast<int>(currentWaveState) + 1);
-            waveEnemySpawnCount = static_cast<int>(currentWaveState) * EnemySpawnRate; // 次のウェーブのエネミー数を設定
 
-            // ウェーブ開始時間を更新
-            waveStartTime = GetNowCount();
-            lastEnemySpawnTime = waveStartTime; // 最後のエネミー出現時間を更新
-            enemySpawnFlag = false; // 出現フラグをリセット
-            currentWaveSpawnCount = 0; // このウェーブで出現させたエネミーの数をリセット
-            canSwichWave = false; // ウェーブ切り替えのフラグをリセット
-            isWaitingWaveChange = false; // ウェーブ切り替え待機状態をリセット
+            // 次のウェーブのエネミーの総数を設定
+            waveEnemySpawnCount = waveEnemySpawnData[currentWaveState];
+
+            waveStartTime           = GetNowCount();    // ウェーブの開始時間を設定
+            lastEnemySpawnTime      = waveStartTime;    // 最後のエネミー出現時間を更新
+            enemySpawnFlag          = false;            // 出現フラグをリセット
+            currentWaveSpawnCount   = 0;                // このウェーブで出現させたエネミーの数をリセット
+            canSwichWave            = false;            // ウェーブ切り替えのフラグをリセット
+            isWaitingWaveChange     = false;            // ウェーブ切り替え待機状態をリセット
         }
     }
     else
@@ -105,7 +111,8 @@ void EnemyWaveController::Update(int activeEnemyCount)
     bool isSpawnTime = GetNowCount() - lastEnemySpawnTime >= EnemySpawnResponseTime;
 
     // 現在のウェーブで出現できるエネミーの数を越えていなければ
-    bool isLimitSpawnCountInWave = (currentWaveState * EnemySpawnRate) <= currentWaveSpawnCount;
+    bool isLimitSpawnCountInWave = waveEnemySpawnCount <= currentWaveSpawnCount;
+
 
     // 一度に存在できるエネミーの総数を越えていなければ
     bool isLimitSpawnCount = activeEnemyCount > EnemySpawnLimit;

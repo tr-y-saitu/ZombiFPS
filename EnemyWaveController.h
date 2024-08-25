@@ -57,6 +57,11 @@ public:
     const int GetCurrentWaveState()const { return currentWaveState; }
 
 private:
+    /// <summary>
+    /// エネミーの出現データの初期化
+    /// </summary>
+    void InitializeSpawnData();
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
@@ -78,6 +83,7 @@ private:
     bool        canSwichWave;           // ウェーブ切り替え可能かどうか
     int         waveChangeStartTime;    // ウェーブ切り替えの開始時間
     bool        isWaitingWaveChange;    // ウェーブ切り替え待機中かどうか
+    map<WaveState, int>  waveEnemySpawnData;    // エネミーの出現情報
 };
 
 
