@@ -284,7 +284,8 @@ void  GameSceneUI::DrawReloadInfomation(Player& player)
         // リロード進行中のバー（進捗を表す部分）
         DrawBox(barX, barY, barX + progressBarWidth, barY + ReloadBarHeight, GetColor(200, 200, 200), TRUE); // 緑色の進捗バー
 
-        DrawStringCenterScreen("ﾘﾛｰﾄﾞｼﾃｲﾏｽ", 600, DebugFontColor, vhsJPLargeFontHandle);
+        // リロード情報の描画
+        DrawStringCenterScreen("ﾘﾛｰﾄﾞｼﾃｲﾏｽ", ReloadInfomationDrawPositionY, DebugFontColor, vhsJPLargeFontHandle);
     }
 }
 
