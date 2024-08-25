@@ -48,7 +48,6 @@ EffectManager::EffectManager()
 /// デストラクタ
 /// </summary>
 EffectManager::~EffectManager()
-
 {
     // エフェクトリソースを削除する。(Effekseer終了時に破棄されるので削除しなくてもいい)
 }
@@ -59,8 +58,10 @@ EffectManager::~EffectManager()
 void EffectManager::LoadEffect()
 {
     // エフェクトのロード
-    muzzleFlashEffectHandle = LoadEffekseerEffect("Data/Effect/Gun/MuzzleFlashEffect.efk",0.1f);
-    bloodSplatterEffectHandle = LoadEffekseerEffect("Data/Effect/Gun/BloodEffect.efk",0.5f);
+    muzzleFlashEffectHandle         = LoadEffekseerEffect("Data/Effect/Gun/MuzzleFlashEffect.efk",0.1f);
+    bloodSplatterEffectHandle       = LoadEffekseerEffect("Data/Effect/Gun/BloodEffect.efk",0.5f);
+    powerUpMuzzleFlashEffectHandle  = LoadEffekseerEffect("Data/Effect/Gun/GunPowerUpShootEffect.efk",0.2f);
+    gunPowerUpEffectHandle          = LoadEffekseerEffect("Data/Effect/Gun/GunPowerUpEffect.efk",1.0f);
 
     // エフェクトリストに書き込み
     effectList[MuzzleFlashEffect] = muzzleFlashEffectHandle;
@@ -219,4 +220,33 @@ void EffectManager::PlayBloodSplatterEffect(VECTOR playPosition)
 
     // 再生速度の変更
     SetSpeedPlayingEffekseer3DEffect(playingEffectHandle, 4.0f);
+}
+
+/// <summary>
+/// 強化済みの銃のマズルフラッシュエフェクトを再生する
+/// </summary>
+/// <param name="playPosition">再生座標</param>
+void EffectManager::PlayGunPowerUpMuzzleFlashEffect(VECTOR playPosition)
+{
+    playingEffectHandle = PlayEffekseer3DEffect(powerUpMuzzleFlashEffectHandle);
+    playingList.push_back(playingEffectHandle);
+    SetPosPlayingEffekseer3DEffect(playingEffectHandle, playPosition.x, playPosition.y, playPosition.z);
+
+    // 再生速度の変更
+    SetSpeedPlayingEffekseer3DEffect(playingEffectHandle, 3.0f);
+}
+
+/// <summary>
+/// 銃が強化された時のエフェクトを再生する
+/// </summary>
+/// <param name="playPosition">再生座標</param>
+void EffectManager::PlayGunPowerUpEffect(VECTOR playPosition)
+{
+    // 座標を設定
+    SetPosPlayingEffekseer3DEffect(playingEffectHandle, playPosition.x, playPosition.y, playPosition.z);
+    playingEffectHandle = PlayEffekseer3DEffect(gunPowerUpEffectHandle);
+    playingList.push_back(playingEffectHandle);
+
+    // 再生速度の変更
+    SetSpeedPlayingEffekseer3DEffect(playingEffectHandle, 0.5f);
 }

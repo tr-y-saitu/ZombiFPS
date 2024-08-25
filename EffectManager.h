@@ -81,7 +81,7 @@ public:
     void PlayEffectList(EffectType effectType, VECTOR playPosition, VECTOR scale = { 1.0f,1.0f,1.0f });
 
     /// <summary>
-    /// マズルフラッシュえエフェクト再生
+    /// マズルフラッシュエフェクト再生
     /// </summary>
     /// <param name="playPosition">再生座標</param>
     void PlayMuzzleFlashEffect(VECTOR playPosition);
@@ -91,6 +91,18 @@ public:
     /// </summary>
     /// <param name="playPosition">再生座標</param>
     void PlayBloodSplatterEffect(VECTOR playPosition);
+
+    /// <summary>
+    /// 強化済みの銃のマズルフラッシュエフェクトを再生する
+    /// </summary>
+    /// <param name="playPosition">再生座標</param>
+    void PlayGunPowerUpMuzzleFlashEffect(VECTOR playPosition);
+
+    /// <summary>
+    /// 銃が強化された時のエフェクトを再生する
+    /// </summary>
+    /// <param name="playPosition">再生座標</param>
+    void PlayGunPowerUpEffect(VECTOR playPosition);
 
 private:
     /// <summary>
@@ -106,6 +118,8 @@ private:
 
     // ハンドル
     int muzzleFlashEffectHandle;        // マズルフラシュ
+    int powerUpMuzzleFlashEffectHandle; // 強化済みの銃のマズルフラッシュ
+    int gunPowerUpEffectHandle;         // 銃を強化した時のエフェクト
     int bloodSplatterEffectHandle;      // 血しぶき
     int explosionEffectHandle;          // 爆発
     int bulletRayEffectHandle;          // 弾道

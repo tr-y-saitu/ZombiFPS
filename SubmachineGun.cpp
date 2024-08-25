@@ -3,6 +3,7 @@
 #include "GunStateBase.h"
 #include "ModelDataManager.h"
 #include "ImageDataManager.h"
+#include "EffectManager.h"
 #include "GunIdleState.h"
 #include "GunReloadState.h"
 #include "GunRunState.h"
@@ -17,8 +18,9 @@ SubmachineGun::SubmachineGun()
     , isEmissiveIncreasing      (false)
     , emissiveIntensity         (MinimumEmissive)
 {
-    modelDataManager = ModelDataManager::GetInstance();
-    imageDataManager = ImageDataManager::GetInstance();
+    modelDataManager    = ModelDataManager::GetInstance();
+    imageDataManager    = ImageDataManager::GetInstance();
+    effectManager       = EffectManager::GetInstance();
     Initialize();
 }
 
@@ -78,6 +80,11 @@ void SubmachineGun::Initialize()
 void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR cameraTargetVector,
      VECTOR cameraPosition, float cameraPitch, Player::State playerState, Player::AimState currentAimState)
 {
+    if (powerUpWeapon)
+    {
+        effectManager->PlayGunPowerUpEffect(position);
+    }
+
     // 座標を更新
     position = VAdd(setPosition, GunOffset);
 
@@ -98,6 +105,7 @@ void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR camer
 
     // 武器強化時のマテリアル更新
     UpdatePowerUpGunMaterial();
+
 }
 
 /// <summary>
@@ -254,8 +262,6 @@ void SubmachineGun::InitializePowerUpWeapon()
         // テクスチャを張り替える
         MV1SetTextureGraphHandle(modelHandle, 0, powerUpTextureHandle, true);
 
-        // エフェクトを再生する
-
         // 強化済み
         powerUpWeapon = false;
     }
@@ -296,5 +302,4 @@ void SubmachineGun::UpdatePowerUpGunMaterial()
         MV1SetMaterialEmiColor(modelHandle, 9,
             GetColorF(emissiveColor.x, emissiveColor.y, emissiveColor.z,1.0f));
     }
-
 }

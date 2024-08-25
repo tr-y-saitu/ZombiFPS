@@ -1321,6 +1321,13 @@ void Player::UpdateEffect()
         VECTOR effectPosition = VAdd(gunPosition, VScale(cameraForwardVector, effectOffset));
 
         // エフェクトを再生
-        effectManager->PlayMuzzleFlashEffect(effectPosition);
+        if (equippedGun->GetGunPowerUpState() == GunBase::GunPowerUpState::None)
+        {
+            effectManager->PlayMuzzleFlashEffect(effectPosition);
+        }
+        else
+        {
+            effectManager->PlayGunPowerUpMuzzleFlashEffect(effectPosition);
+        }
     }
 }

@@ -6,6 +6,7 @@ class Bullet;
 class ModelDataManager;
 class ImageDataManager;
 class BulletObjectPools;
+class EffectManager;
 
 /// <summary>
 /// サブマシンガン
@@ -113,12 +114,13 @@ private:
     //---------------------------------------------------------------------------------//
     ModelDataManager*       modelDataManager;       // モデルデータ読み込み用クラスのアドレス
     ImageDataManager*       imageDataManager;       // 画像データ読み込み用クラスのアドレス
+    EffectManager*          effectManager;          // エフェクト管理クラス
     float                   runAnimationFactor;     // 走りアニメーション再生時の適応率
     float                   reloadAnimationFactor;  // リロードアニメーションの再生時の適応率
 
     // 強化時
     bool    isEmissiveIncreasing;   // 発光量上昇中であるかどうか
-    float     emissiveIntensity;      // 現在の発光量
+    float     emissiveIntensity;    // 現在の発光量
 
 };
 
