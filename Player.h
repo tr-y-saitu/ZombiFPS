@@ -154,6 +154,7 @@ public:
     const GunType GetCurrentGunType()const { return currentGunType; }
     const ReloadState GetReloadState()const { return reloadState; }
     const float GetHitPoint()const { return hitPoint; }
+    const int GetGameScore()const { return gameScore; }
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -375,6 +376,7 @@ private:
     State                   state;                      // 状態
     bool                    isShooting;                 // 発砲状態か
     int                     lastDamageFrame;            // 最後に攻撃を受けてから何フレーム経過したか
+    int                     gameScore;                  // ゲームスコア
 
     // リロード
     ReloadState             reloadState;                // リロードステート

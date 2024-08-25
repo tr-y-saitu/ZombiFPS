@@ -63,8 +63,10 @@ EnemyGroup* EnemyObjectPools::GetInactiveEnemy()
 /// 使用中のリストから未使用リストにインスタンスを移動する
 /// </summary>
 /// <param name="activeEnemy">移動したい使用中のリストのアドレス</param>
-void EnemyObjectPools::ReturnActiveEnemyInstance(list<EnemyGroup*>& activeEnemy)
+bool EnemyObjectPools::ReturnActiveEnemyInstance(list<EnemyGroup*>& activeEnemy)
 {
+    bool hasReturned = false;
+
     // 使用中のエネミーを調べる
     for (auto it = activeEnemy.begin(); it != activeEnemy.end();)
     {
@@ -78,6 +80,9 @@ void EnemyObjectPools::ReturnActiveEnemyInstance(list<EnemyGroup*>& activeEnemy)
 
             // エネミーを未使用リストに移動
             inactiveEnemy.splice(inactiveEnemy.end(), activeEnemy, it++);
+
+            // 未使用リストに変換した
+            hasReturned = true;
         }
         else
         {
@@ -85,4 +90,6 @@ void EnemyObjectPools::ReturnActiveEnemyInstance(list<EnemyGroup*>& activeEnemy)
             ++it;
         }
     }
+
+    return hasReturned;
 }

@@ -40,6 +40,40 @@ ResultScene::ResultScene()
 }
 
 /// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="score">スコア</param>
+/// <param name="killCount">エネミーを殺した数</param>
+/// <param name="waveCount">終了した時点でのウェーブ数</param>
+ResultScene::ResultScene(int setScore, int setKillCount, int setWaveCount)
+    : isKeyOn           (false)
+    , isKeyRelease      (false)
+    , isPreviousKeyOn   (false)
+    , score             (setScore)
+    , killCount         (setKillCount)
+    , waveCount         (setWaveCount)
+{
+    // 管理クラス
+    soundManager = SoundManager::GetInstance();
+    effectManager = EffectManager::GetInstance();
+    imageDataManager = ImageDataManager::GetInstance();
+    modelDataManager = ModelDataManager::GetInstance();
+
+    // 入力情報
+    input = new Input();
+
+    // オブジェクト
+    stage = new Stage();
+    shutterController = new ShutterController();
+
+    // カメラ
+    sceneCamera = new SceneCamera();
+
+    // UI
+    resultSceneUI = new ResultSceneUI(setScore,setKillCount,setWaveCount);
+}
+
+/// <summary>
 /// デストラクタ
 /// </summary>
 ResultScene::~ResultScene()

@@ -37,7 +37,7 @@ public:
     /// 使用中のリストから未使用リストにインスタンスを移動する
     /// </summary>
     /// <param name="activeEnemy">移動したい使用中のリストのアドレス</param>
-    void ReturnActiveEnemyInstance(list<EnemyGroup*>& activeEnemy);
+    bool ReturnActiveEnemyInstance(list<EnemyGroup*>& activeEnemy);
 
 private:
     //---------------------------------------------------------------------------------//

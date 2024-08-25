@@ -17,7 +17,15 @@ public:
     /// コンストラクタ
     /// </summary>
     ResultSceneUI();
-    
+
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    /// <param name="score">スコア</param>
+    /// <param name="killCount">エネミーを殺した数</param>
+    /// <param name="waveCount">終了した時点でのウェーブ数</param>
+    ResultSceneUI(int setScore, int setKillCount, int setWaveCount);
+
     /// <summary>
     /// デストラクタ
     /// </summary>
@@ -130,6 +138,11 @@ private:
     int                 vhsNoiseFilters150;             // VHS風ノイズ150%画像
     int                 vhsNoiseFilters200;             // VHS風ノイズ200%画像
     int                 vhsNoiseCounter;                // VHS風ノイズの描画カウンター
+
+    // スコア
+    int                 score;                          // スコア
+    int                 killCount;                      // エネミーを殺した数
+    int                 waveCount;                      // 最終ウェーブ数
 
     // 当たり判定情報
     ImageUIData         mouseCursorData;                // マウスカーソル

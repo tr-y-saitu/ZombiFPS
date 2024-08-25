@@ -23,6 +23,31 @@ ResultSceneUI::ResultSceneUI()
 }
 
 /// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="score">スコア</param>
+/// <param name="killCount">エネミーを殺した数</param>
+/// <param name="waveCount">終了した時点でのウェーブ数</param>
+ResultSceneUI::ResultSceneUI(int setScore, int setKillCount, int setWaveCount)
+    : isVisibleKeyInfomation        (false)
+    , keyInfomationPreviousTime     (GetNowCount())
+    , nextState                     (SceneBase::SceneState::Same)
+    , vhsNoiseCounter               (0)
+    , score                         (setScore)
+    , killCount                     (setKillCount)
+    , waveCount                     (setWaveCount)
+{
+    // 画像管理クラス
+    imageDataManager = ImageDataManager::GetInstance();
+
+    // 入力処理
+    input = new Input();
+
+    // 初期化
+    Initialize();
+}
+
+/// <summary>
 /// デストラクタ
 /// </summary>
 ResultSceneUI::~ResultSceneUI()
@@ -132,7 +157,9 @@ void ResultSceneUI::DrawScoreBoard()
     DrawStringCenterScreen("Score  /  Kills  /  Round", ScoreBaseDrawPositionY, FontColorBlack, vhsSmallFontHandle);
 
     // 現在のスコアを描画
-    DrawStringCenterScreen("2000  /  200  /  10", NowScoreDrawPositionY, FontColorBlack, vhsSmallFontHandle);
+    char scoreText[256];
+    snprintf(scoreText, sizeof(scoreText), "  %d  /  %d  /  %d  ", score, killCount, waveCount);
+    DrawStringCenterScreen(scoreText, NowScoreDrawPositionY, FontColorBlack, vhsSmallFontHandle);
 
     // キーフレームの描画
     DrawKeyFrame();

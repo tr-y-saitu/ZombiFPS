@@ -43,6 +43,7 @@ Player::Player()
     , currentAimState               (AimState::None)
     , previousAimState              (AimState::None)
     , lastDamageFrame               (0)
+    , gameScore                     (0)
 {
     collisionManager        = CollisionManager::GetInstance();
     modelDataManager        = ModelDataManager::GetInstance();
@@ -1053,6 +1054,9 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
 
     // 獲得金額を加算
     money += equippedGun->GetRewardMoney();
+
+    // スコアを上昇
+    gameScore += equippedGun->GetRewardMoney();
 }
 
 /// <summary>

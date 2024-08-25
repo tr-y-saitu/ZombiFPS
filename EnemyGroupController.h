@@ -47,6 +47,7 @@ public:
 
     // Getter
     const int GetEnemyGroupSize()const { return activeEnemyGroup.size(); }
+    const int GetEnemyKillCount()const { return enemyKillCount; }
 
 private:
     /// <summary>
@@ -67,6 +68,7 @@ private:
     list<EnemyGroup*>   activeEnemyGroup;   // 使用中のエネミーの集合体
     EnemyObjectPools*   enemyObjectPools;   // エネミーのオブジェクトプール
     int                 frameCount;         // フレームカウント
+    int                 enemyKillCount;     // エネミーを殺した数
 };
 
 

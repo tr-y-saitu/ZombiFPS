@@ -10,6 +10,7 @@
 /// </summary>
 EnemyGroupController::EnemyGroupController()
     : frameCount        (0)
+    , enemyKillCount    (0)
 {
     // 音管理クラスのインスタンスをもらう
     soundManager = SoundManager::GetInstance();
@@ -81,7 +82,7 @@ void EnemyGroupController::Update(VECTOR playerPosition, Stage& stage,
     }
 
     // 使い終わったエネミーがいればプールに返却する
-    enemyObjectPools->ReturnActiveEnemyInstance(activeEnemyGroup);
+    enemyKillCount += enemyObjectPools->ReturnActiveEnemyInstance(activeEnemyGroup);
 
     // 音の更新
     UpdateSound();
@@ -97,6 +98,9 @@ void EnemyGroupController::Draw(VECTOR playerPosition)
     {
         enemyGroup->Draw(playerPosition);
     }
+
+    // エネミーを殺した総数を描画
+    DrawFormatString(100, 800, DebugFontColor, "KillCount:%d", enemyKillCount);
 
     // エネミーの総数を描画
     //DrawFormatString(100, 800, DebugFontColor, "EnemySize:%d", activeEnemyGroup.size());

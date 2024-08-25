@@ -123,7 +123,9 @@ SceneBase* GameScene::UpdateScene()
     if (gameEnd)
     {
         // シーン切り替え
-        return new ResultScene();
+        return new ResultScene(player->GetGameScore(),
+            enemyGroupController->GetEnemyKillCount(),
+            enemyWaveController->GetCurrentWaveState());
     }
 
     // 現状のシーンを返す

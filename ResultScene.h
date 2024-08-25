@@ -24,6 +24,14 @@ public:
     ResultScene();
 
     /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    /// <param name="score">スコア</param>
+    /// <param name="killCount">エネミーを殺した数</param>
+    /// <param name="waveCount">終了した時点でのウェーブ数</param>
+    ResultScene(int setScore, int setKillCount, int setWaveCount);
+
+    /// <summary>
     /// デストラクタ
     /// </summary>
     virtual ~ResultScene();
@@ -95,6 +103,11 @@ private:
     bool                isKeyOn;            // キー入力されたか
     bool                isKeyRelease;       // キー入力が離れたか
     bool                isPreviousKeyOn;    // 前フレームでキー入力があったか
+
+    // スコア
+    int                 score;                          // スコア
+    int                 killCount;                      // エネミーを殺した数
+    int                 waveCount;                      // 最終ウェーブ数
 };
 
 
