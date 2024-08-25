@@ -118,9 +118,11 @@ SceneBase* GameScene::UpdateScene()
 
     UpdateEffekseer3D();                                            // エフェクト更新
 
-    // プレイヤーのHPがゼロ以下になった場合シーンを切り替える
-    if (player->GetHitPoint() <= 0)
+    // プレイヤーのHPがゼロ以下、最終ウェーブをクリアした場合
+    bool gameEnd = player->GetHitPoint() <= 0 || enemyWaveController->GetCurrentWaveState() == EnemyWaveController::WaveEnd;
+    if (gameEnd)
     {
+        // シーン切り替え
         return new ResultScene();
     }
 
