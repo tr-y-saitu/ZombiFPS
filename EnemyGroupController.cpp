@@ -100,7 +100,7 @@ void EnemyGroupController::Draw(VECTOR playerPosition)
     }
 
     // エネミーを殺した総数を描画
-    DrawFormatString(100, 800, DebugFontColor, "KillCount:%d", enemyKillCount);
+    //DrawFormatString(100, 800, DebugFontColor, "KillCount:%d", enemyKillCount);
 
     // エネミーの総数を描画
     //DrawFormatString(100, 800, DebugFontColor, "EnemySize:%d", activeEnemyGroup.size());
