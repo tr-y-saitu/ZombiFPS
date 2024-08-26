@@ -144,6 +144,9 @@ void Player::Update(const Input& input, Stage& stage)
     // 射撃更新
     UpdateShootingEquippedWeapon(input);
 
+    // 空撃ちの更新
+    UpdateDryFire(input);
+
     // エイムの更新
     UpdateAimEquippedWeapon(input);
 
@@ -1057,6 +1060,26 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
 
     // スコアを上昇
     gameScore += equippedGun->GetRewardMoney();
+}
+
+/// <summary>
+/// 銃の空撃ち
+/// </summary>
+/// <param name="input">入力情報</param>
+void Player::UpdateDryFire(const Input& input)
+{
+    // 空撃ち時,自動リロードさせる
+    if (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT && !equippedGun->GetGunAmmo())
+    {
+        // 空撃ち音再生
+        soundManager->PlaySoundListSE(SoundManager::DryFireSE);
+
+        // リロードしている
+        isReload = true;
+
+        // リロード開始
+        reloadState = ReloadState::Start;
+    }
 }
 
 /// <summary>

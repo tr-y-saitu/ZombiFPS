@@ -279,6 +279,12 @@ private:
     void UpdateShootingEquippedWeapon(const Input& input);
 
     /// <summary>
+    /// 銃の空撃ち
+    /// </summary>
+    /// <param name="input">入力情報</param>
+    void UpdateDryFire(const Input& input);
+
+    /// <summary>
     /// 銃のエイム更新(覗き込み)
     /// </summary>
     /// <param name="input">入力情報</param>

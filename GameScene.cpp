@@ -184,12 +184,6 @@ void GameScene::UpdateSound()
         break;
     }
 
-    // 空撃ち音
-    if (input->GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT && !player->GetEquippedGunAmmo())
-    {
-        soundManager->PlaySoundListSE(SoundManager::DryFireSE);
-    }
-
     // リロード音
     switch (player->GetReloadState())
     {
