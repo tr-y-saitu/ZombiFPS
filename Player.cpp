@@ -1118,7 +1118,7 @@ void Player::UpdateReload(const Input& input)
     }
 
     // 「R」が押されているかつ、予備弾薬数があればリロード
-    if (CheckHitKey(KEY_INPUT_R) && equippedGun->GetBackUpAmmo() > 0)
+    if (CheckHitKey(KEY_INPUT_R) && equippedGun->GetBackUpAmmo() > 0 && equippedGun->GetGunMaxAmmo() != equippedGun->GetGunAmmo())
     {
         // リロードしている
         isReload = true;
