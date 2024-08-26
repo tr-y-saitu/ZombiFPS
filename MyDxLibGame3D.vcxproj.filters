@@ -152,6 +152,9 @@
     <Filter Include="ZombiFPS\GameObject\AmmoBox">
       <UniqueIdentifier>{d951f414-5a62-4bf7-b90a-33b685c5a62b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ZombiFPS\GameObject\ShadowMap">
+      <UniqueIdentifier>{c0cfa84d-b185-4db0-80b5-27a76716ad76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -321,6 +324,9 @@
     </ClCompile>
     <ClCompile Include="TutorialSceneUI.cpp">
       <Filter>ZombiFPS\System\SceneUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowMap.cpp">
+      <Filter>ZombiFPS\GameObject\ShadowMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -494,6 +500,9 @@
     </ClInclude>
     <ClInclude Include="TutorialSceneUI.h">
       <Filter>ZombiFPS\System\SceneUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowMap.h">
+      <Filter>ZombiFPS\GameObject\ShadowMap</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

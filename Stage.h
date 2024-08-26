@@ -126,5 +126,7 @@ private:
     // シャッター(ドア)
     Shutter* shutter;                               // シャッター(ドア)
 
+    int shadowMapHandle;
+
 };
 

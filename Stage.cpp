@@ -8,6 +8,7 @@
 /// コンストラクタ
 /// </summary>
 Stage::Stage()
+    : shadowMapHandle       (-1)
 {
     // データマネージャーのアドレスを所持
     modelDataManager = ModelDataManager::GetInstance();
@@ -44,6 +45,30 @@ void Stage::Initialize()
     MV1SetupCollInfo(modelHandle, SelectCollisionEntire);
     
     isCreatedHitDim = false;
+
+
+    // シャドウマップ // 
+
+    // シャドウマップの作成
+    shadowMapHandle = MakeShadowMap(2048, 2048);
+
+    // シャドウマップに描画する範囲を設定
+    SetShadowMapDrawArea(shadowMapHandle, VGet(-400, -1, -400), VGet(400, 10, 400));
+
+    // ライトの方向を設定
+    SetLightDirection(VGet(0.5f, 0.5f, 0.5f));
+
+    // シャドウマップが想定するライトの方向もセット
+    SetShadowMapLightDirection(shadowMapHandle, VGet(0.5f, -0.5f, 0.5f));
+
+    // ステージモデル用のシャドウマップへの描画の準備
+    ShadowMap_DrawSetup(shadowMapHandle);
+
+    // ステージモデルに影を描画
+    MV1DrawModel(modelHandle);
+
+    // シャドウマップの描画終了
+    ShadowMap_DrawEnd();
 }
 
 /// <summary>
@@ -81,7 +106,14 @@ void Stage::Finalize()
 /// </summary>
 void Stage::Draw()
 {
-	MV1DrawModel(modelHandle);
+    // シャドウマップを使用する
+    SetUseShadowMap(0, shadowMapHandle);
+
+    // モデルの描画
+    MV1DrawModel(modelHandle);
+
+    // 描画のために使用するシャドウマップの設定を解除
+    SetUseShadowMap(0, -1);
 }
 
 /// <summary>
