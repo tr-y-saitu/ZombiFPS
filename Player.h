@@ -156,6 +156,7 @@ public:
     const int GetReloadTime()const { return reloadTimer; }
     const float GetHitPoint()const { return hitPoint; }
     const int GetGameScore()const { return gameScore; }
+    const AimState GetCurrentAimState()const { return currentAimState; }
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //

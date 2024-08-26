@@ -295,8 +295,12 @@ void  GameSceneUI::DrawReloadInfomation(Player& player)
 /// <param name="player">プレイヤー</param>
 void GameSceneUI::DrawCrosshair(Player& player)
 {
-    // クロスヘア描画
-    DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, 1, 0, crosshairImageHandle, true);
+    // エイム時は描画しない
+    if (player.GetCurrentAimState() == Player::AimState::None)
+    {
+        // クロスヘア描画
+        DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf, 1, 0, crosshairImageHandle, true);
+    }
 }
 
 /// <summary>
