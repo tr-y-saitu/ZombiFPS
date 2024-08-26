@@ -144,6 +144,8 @@ protected:
     static constexpr float  RecoilDistance              = 0.05f;                        // 銃を撃った時の反動の大きさ
     static constexpr float  RecoilDistanceLimit         = 1.0f;                         // 銃を撃った時の反動の大きさの最大値
     static constexpr int    RecoilCycle                 = 5;                            // 反動のサイクル
+    // 強化時
+    static constexpr int    PowerUpDamage               = 100;                          // 武器強化時の威力増加
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //

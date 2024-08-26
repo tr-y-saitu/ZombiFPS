@@ -245,13 +245,13 @@ void SubmachineGun::InitializePowerUpWeapon()
         gunPowerUpState = GunPowerUpState::FirstUpGraeded;
 
         // 各種武器性能を強化
-        bulletDamagePower       = bulletDamagePower * GunPowerUpRate;        // 威力
-        bulletPenetrationPower  = BulletPenetrationPower * GunPowerUpRate;   // 貫通力
-        recoil                  = GunRecoil / GunPowerUpRate;                // 反動
-        gunAmmo                 = GunMaxAmmo * GunPowerUpRate;               // 総弾数
-        gunMaxAmmo              = GunMaxAmmo * GunPowerUpRate;               // 銃の最大総弾数
-        backUpAmmo              = MaxBackUpAmmo * GunPowerUpRate;            // 予備弾薬数
-        backUpMaxAmmo           = MaxBackUpAmmo * GunPowerUpRate;            // 予備弾薬の最大数
+        bulletDamagePower       = (bulletDamagePower + PowerUpDamage) * GunPowerUpRate;     // 威力
+        bulletPenetrationPower  = BulletPenetrationPower * GunPowerUpRate;                  // 貫通力
+        recoil                  = GunRecoil / GunPowerUpRate;                               // 反動
+        gunAmmo                 = GunMaxAmmo * GunPowerUpRate;                              // 総弾数
+        gunMaxAmmo              = GunMaxAmmo * GunPowerUpRate;                              // 銃の最大総弾数
+        backUpAmmo              = MaxBackUpAmmo * GunPowerUpRate;                           // 予備弾薬数
+        backUpMaxAmmo           = MaxBackUpAmmo * GunPowerUpRate;                           // 予備弾薬の最大数
 
         // テクスチャを張り替える
         MV1SetTextureGraphHandle(modelHandle, 0, powerUpTextureHandle, true);
