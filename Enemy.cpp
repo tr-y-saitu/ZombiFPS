@@ -479,8 +479,12 @@ void Enemy::Move(const VECTOR& MoveVector, Stage& stage)
         VECTOR oldPosition = position;                      // 移動前の座標
         VECTOR nextPosition = VAdd(position, VScale(MoveVector, MoveSpeed));   // 移動後の座標
 
-        // ステージとの当たり判定処理
-        position = stage.IsHitCollisionEnemy(*this, nextPosition, MoveVector);
+        // 攻撃中は移動しない
+        if (currentState != State::Attack)
+        {
+            // ステージとの当たり判定処理
+            position = stage.IsHitCollisionEnemy(*this, nextPosition, MoveVector);
+        }
 
         // 床より少し高くする
         if (position.y <= MoveLimitY)
