@@ -91,6 +91,12 @@ void ImageDataManager::ImageDataLoad()
     // タイトルシーン
     imageDataList[TitleLogo]                    = LoadGraph("Data/UI/TitleScene/TitleLogo.png");
 
+    // チュートリアルシーン
+    imageDataList[MoveTutorialImageData]        = LoadGraph("Data/UI/TutorialScene/TutorialImage/TutorialImage1.png");
+    imageDataList[ShotTutorialImageData]        = LoadGraph("Data/UI/TutorialScene/TutorialImage/TutorialImage2.png");
+    imageDataList[InteractTutorialImageData]    = LoadGraph("Data/UI/TutorialScene/TutorialImage/TutorialImage3.png");
+    imageDataList[EnemyTutorialImageData]       = LoadGraph("Data/UI/TutorialScene/TutorialImage/TutorialImage4.png");
+
     // ゲームシーン
     imageDataList[CrosshairImageData]           = LoadGraph("Data/UI/GameScene/Crosshair.png");
     imageDataList[HitFilter]                    = LoadGraph("Data/UI/GameScene/HitFilter.png");

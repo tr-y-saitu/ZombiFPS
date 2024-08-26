@@ -73,6 +73,8 @@
     <ClCompile Include="SubmachineGun.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="TitleSceneUI.cpp" />
+    <ClCompile Include="TutorialScene.cpp" />
+    <ClCompile Include="TutorialSceneUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AmmoBox.h" />
@@ -130,6 +132,8 @@
     <ClInclude Include="SubmachineGun.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="TitleSceneUI.h" />
+    <ClInclude Include="TutorialScene.h" />
+    <ClInclude Include="TutorialSceneUI.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}</ProjectGuid>

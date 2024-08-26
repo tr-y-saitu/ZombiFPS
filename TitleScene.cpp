@@ -13,6 +13,7 @@
 #include "ImageDataManager.h"
 #include "ModelDataManager.h"
 #include "Input.h"
+#include "TutorialScene.h"
 
 /// <summary>
 /// コンストラクタ
@@ -104,8 +105,8 @@ SceneBase* TitleScene::UpdateScene()
         // キーは離れていません
         isKeyRelease = false;
 
-        // ゲームシーンに推移
-        return new GameScene();
+        // チュートリアルシーンに推移
+        return new TutorialScene();
     }
 
     // 現状のシーン

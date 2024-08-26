@@ -17,6 +17,7 @@ public:
         PUSH_SE,                    // ボタン入力音
         ShutterOpenSE,              // シャッターを開けたときの音
         MoneyUseSE,                 // お金を使った時の音
+        KeyStrokeSE,                // キーボードを入力した時の音
 
         // プレイヤー
         PlayerDamageSE,             // プレイヤーが攻撃を受けたときの音

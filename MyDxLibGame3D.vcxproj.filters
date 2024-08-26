@@ -316,6 +316,12 @@
     <ClCompile Include="AmmoBox.cpp">
       <Filter>ZombiFPS\GameObject\AmmoBox</Filter>
     </ClCompile>
+    <ClCompile Include="TutorialScene.cpp">
+      <Filter>ZombiFPS\System\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialSceneUI.cpp">
+      <Filter>ZombiFPS\System\SceneUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -482,6 +488,12 @@
     </ClInclude>
     <ClInclude Include="AmmoBox.h">
       <Filter>ZombiFPS\GameObject\AmmoBox</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialScene.h">
+      <Filter>ZombiFPS\System\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialSceneUI.h">
+      <Filter>ZombiFPS\System\SceneUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

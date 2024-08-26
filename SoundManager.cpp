@@ -34,6 +34,7 @@ void SoundManager::LoadData()
     // システム
     soundListSE[ShutterOpenSE]              = LoadSoundMem("Data/Sound/SE/System/ShutterOpenSE.mp3");
     soundListSE[MoneyUseSE]                 = LoadSoundMem("Data/Sound/SE/System/MoneyUseSE.mp3");
+    soundListSE[KeyStrokeSE]                = LoadSoundMem("Data/Sound/SE/System/KeystrokeSE.mp3");
 
     // プレイヤー
     soundListSE[PlayerDamageSE]             = LoadSoundMem("");

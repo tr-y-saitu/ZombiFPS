@@ -42,6 +42,12 @@ public:
         // タイトルシーン
         TitleLogo,              // タイトルロゴ
 
+        // チュートリアルシーン
+        MoveTutorialImageData,      // 移動チュートリアル画像
+        ShotTutorialImageData,      // 射撃チュートリアル画像
+        InteractTutorialImageData,  // インタラクト用チュートリアル画像
+        EnemyTutorialImageData,     // エネミーチュートリアル画像
+
         // ゲームシーン
         CrosshairImageData,     // 銃のクロスヘア
         HitFilter,              // 被弾時のフィルター画像
