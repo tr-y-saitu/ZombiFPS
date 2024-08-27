@@ -986,7 +986,7 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
         shootFireRateCount++;
 
         // 連射間隔に達した場合、発射
-        if (shootFireRateCount >= equippedGun->GetFireRate())
+        if (shootFireRateCount == 0 || shootFireRateCount >= equippedGun->GetFireRate())
         {
             // 発砲している
             isShooting = true;
