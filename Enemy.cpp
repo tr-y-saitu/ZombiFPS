@@ -556,7 +556,7 @@ void Enemy::UpdateDead()
 void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
 {
     // プレイヤーとエネミーとの距離を図る
-    if (targetTag == ObjectTag::Player)
+    if (targetTag == ObjectTag::Player || currentState == State::Attack)
     {
         // 距離を図る
         VECTOR playerPosition = targetPosition;
@@ -584,14 +584,14 @@ void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
             int animationTotalTime = MV1GetAttachAnimTotalTime(modelHandle, currentPlayAnimation);
 
             // 当たり判定を出現させる
-            if (currentAnimationCount == animationTotalTime / 3 && !attackCollisionData.isCollisionActive)
+            if ((int)currentAnimationCount == animationTotalTime / 3 && !attackCollisionData.isCollisionActive)
             {
                 // 攻撃当たり判定を行う
                 UpdateAttackCollisionData();                    // 当たり判定情報の更新
                 attackCollisionData.isCollisionActive = true;   // 当たり判定をアクティブ化
                 collisionManager->RegisterCollisionData(&attackCollisionData);
             }
-            if (currentAnimationCount == animationTotalTime - 1) // 攻撃アニメーションが終了しているかチェック
+            else if ((int)currentAnimationCount == animationTotalTime - 1) // 攻撃アニメーションが終了しているかチェック
             {
                 // Runアニメーションに変更
                 PlayAnimation(AnimationType::Run);
@@ -604,6 +604,7 @@ void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
             }
         }
     }
+    
 }
 
 /// <summary>

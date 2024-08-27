@@ -107,7 +107,7 @@ SceneBase* GameScene::UpdateScene()
     player->Update(*input,*stage);                                  // プレイヤー
     enemyGroupController->Update(player->GetPosition(), *stage,
         enemyWaveController->GetEnemySpawnFlag(),enemyWaveController->GetCurrentWaveState());                  // エネミーの集合体
-    //enemyWaveController->Update(enemyGroupController->GetEnemyGroupSize());
+    enemyWaveController->Update(enemyGroupController->GetEnemyGroupSize());
     shutterController->Update();                                    // シャッター
     ammoBox->Update();                                              // 弾薬補充箱
     gunPowerUpMachine->Update();                                    // 銃強化マシン
