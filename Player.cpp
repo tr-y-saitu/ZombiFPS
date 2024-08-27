@@ -1081,7 +1081,7 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
 void Player::UpdateDryFire(const Input& input)
 {
     // 空撃ち時,自動リロードさせる
-    if (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT && !equippedGun->GetGunAmmo())
+    if (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT && !equippedGun->GetGunAmmo() && equippedGun->GetBackUpAmmo() > 0)
     {
         // 空撃ち音再生
         soundManager->PlaySoundListSE(SoundManager::DryFireSE);
