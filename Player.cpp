@@ -976,8 +976,8 @@ void Player::PlayAnimation(AnimationType type)
 /// <param name="input">入力情報</param>
 void Player::UpdateShootingEquippedWeapon(const Input& input)
 {
-    // 左クリック入力、銃の総弾数がある、リロード注出ない場合射撃可能
-    bool canShooting = (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT && equippedGun->GetGunAmmo() > 0 && !isReload);
+    // 左クリック入力、銃の総弾数がある、リロード注出ない場合射撃可能、かつ走っていない
+    bool canShooting = (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT && equippedGun->GetGunAmmo() > 0 && !isReload && state != State::Run);
 
     // 射撃出来れば
     if (canShooting)
@@ -1203,45 +1203,77 @@ void Player::DeactivateBulletReturn()
 /// <param name="input">入力情報</param>
 void Player::TransitionInputState(const Input& input)
 {
-    // アイドル、歩き、走り、射撃、いずれかの状態か
+    // アイドル、歩き、走り、射撃、リロードの状態か
     bool isIdleWalkRun = (state == State::Idle || state == State::Walk || state == State::Run || state == State::Shot || state == State::Reload);
 
     // リロード中はステート移動できない
     if (isReload)
     {
-        // リロード
-        ChangeState(Player::State::Reload);
+        // リロード状態に遷移
+        ChangeState(State::Reload);
         return;
     }
-    else if(!pressMoveButton && !isShooting)   // 移動キーとショットボタンが押されていなければ
+
+    // エイム中でもアイドルまたはウォークには移行可能
+    if (currentAimState != AimState::None)
+    {
+        // 移動キーが押されている場合は歩き、押されていない場合はアイドル
+        if (pressMoveButton)
+        {
+            ChangeState(State::Walk);
+        }
+        else
+        {
+            ChangeState(State::Idle);
+        }
+        return;
+    }
+
+    // 射撃中でもアイドルまたはウォークには移行可能
+    if (isShooting)
+    {
+        // 移動キーが押されている場合は歩き、押されていない場合はアイドル
+        if (pressMoveButton)
+        {
+            ChangeState(State::Walk);
+        }
+        else
+        {
+            ChangeState(State::Idle);
+        }
+        return;
+    }
+
+    // 通常の移動キーとショットボタンの入力処理
+    if (!pressMoveButton && !isShooting)
     {
         // アイドル
         ChangeState(State::Idle);
     }
-    else if (isShooting)
+    else if (pressMoveButton && !CheckHitKey(KEY_INPUT_LSHIFT))
     {
-        // 発砲中
-        ChangeState(State::Shot);
+        // 走っていない場合は歩き
+        ChangeState(State::Walk);
     }
-    else if(isIdleWalkRun && CheckHitKey(KEY_INPUT_LSHIFT))
+    else if (pressMoveButton && CheckHitKey(KEY_INPUT_LSHIFT))
     {
-        // 走り
+        // シフトキーが押されている場合は走り
         ChangeState(State::Run);
     }
-    else if (isIdleWalkRun)
+
+    // 歩きステートから走りステートへの
+    if (state == State::Walk && CheckHitKey(KEY_INPUT_LSHIFT))
     {
-        // 歩き
-        ChangeState(State::Walk);
+        ChangeState(State::Run);
+        return;
     }
 
     // 攻撃を受けた場合
-    if (isIdleWalkRun)
+    if (isIdleWalkRun && isHitEnemyAttack)
     {
-        if (isHitEnemyAttack)
-        {
-            ChangeState(State::OnHitEnemy);
-        }
+        ChangeState(State::OnHitEnemy);
     }
+
 }
 
 /// <summary>
