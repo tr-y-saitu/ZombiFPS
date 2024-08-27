@@ -442,6 +442,12 @@ void Player::OnHitAmmoBox(CollisionData hitObjectData)
 
         // インタラクトコストをもらう
         interactionCost = hitObjectData.interactionCost;
+
+        // 武器が強化されていれば加算料金をもらう
+        if (equippedGun->GetGunPowerUpState() != GunBase::GunPowerUpState::None)
+        {
+            interactionCost = hitObjectData.interactionCost * GunBase::GunPowerUpCostIncreaseRate;
+        }
     }
     else
     {
@@ -450,6 +456,12 @@ void Player::OnHitAmmoBox(CollisionData hitObjectData)
 
         // インタラクトコストをもらう
         interactionCost = hitObjectData.interactionCost;
+
+        // 武器が強化されていれば加算料金をもらう
+        if (equippedGun->GetGunPowerUpState() != GunBase::GunPowerUpState::None)
+        {
+            interactionCost = hitObjectData.interactionCost * GunBase::GunPowerUpCostIncreaseRate;
+        }
     }
 }
 

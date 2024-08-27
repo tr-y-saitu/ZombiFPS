@@ -84,6 +84,11 @@ public:
     void SetBackUpAmmo(int set) { backUpAmmo = set; }
     void SetPowerUpWeapon(bool set) { powerUpWeapon = set; }
 
+    //---------------------------------------------------------------------------------//
+    //                                      定数                                       //
+    //---------------------------------------------------------------------------------//
+    static constexpr int    GunPowerUpCostIncreaseRate      = 5;        // 武器を強化した後の支払いコストの上昇率
+
 protected:
 
     /// <summary>
