@@ -136,7 +136,7 @@ private:
     static constexpr float  FovMargin                   = 0.01f * DX_PI_F / 180.0f;
 
     // 反動
-    static constexpr float  HipShootRecoil              = 0.01f;                    // 腰だめ時の銃の反動
+    static constexpr float  HipShootRecoil              = 0.005f;                   // 腰だめ時の銃の反動
     static constexpr float  AimShootRecoil              = 0.005f;                   // エイム時の銃の反動
 
     //---------------------------------------------------------------------------------//
