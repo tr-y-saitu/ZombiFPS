@@ -63,6 +63,12 @@ private:
     void DrawLowAmmoWarning();
 
     /// <summary>
+    /// 予備弾薬が少なくなった場合のアナウンス表示
+    /// </summary>
+    /// <param name="player">プレイヤー</param>
+    void DrawLowBackUpAmmoWarning(Player& player);
+
+    /// <summary>
     /// プレイヤーのインタラクトできるステート情報を描画する
     /// </summary>
     /// <param name="player">プレイヤー</param>

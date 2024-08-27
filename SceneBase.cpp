@@ -46,5 +46,5 @@ void SceneBase::InitializeFog()
     SetFogColor(50, 50, 50);
 
     // 霧の開始距離、終了距離を設定
-    SetFogStartEnd(0.0f, 75.0f);
+    SetFogStartEnd(0.0f, 50.0f);
 }

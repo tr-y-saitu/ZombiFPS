@@ -24,6 +24,7 @@ public:
         Wave8,          // ウェーブ８
         Wave9,          // ウェーブ９
         WaveEnd,        // ウェーブ終了
+        Result,         // リザルト
     };
 
     /// <summary>

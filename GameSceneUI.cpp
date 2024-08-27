@@ -163,7 +163,8 @@ void GameSceneUI::DrawGunInformation(Player& player)
     DrawStringToHandle(GunInformationDrawPositionX, GunInformationDrawPositionY,
         gunInfo, color, vhsLargeFontHandle);
 
-
+    // 予備弾薬が少なくなった時のアナウンス
+    DrawLowBackUpAmmoWarning(player);
 }
 
 /// <summary>
@@ -187,7 +188,25 @@ void GameSceneUI::DrawLowAmmoWarning()
         DrawStringCenterScreen("!!! No Ammo !!!", LowAmmoWarningTextDrawPositionY,
             GetColor(255,0,0), vhsLargeFontHandle);
     }
+}
 
+/// <summary>
+/// 予備弾薬が少なくなった場合のアナウンス表示
+/// </summary>
+/// <param name="player">プレイヤー</param>
+void GameSceneUI::DrawLowBackUpAmmoWarning(Player& player)
+{
+    // 予備弾薬数が少なくなった場合
+    if (player.GetEquippedBackUpAmmo() < 50)
+    {
+        // 弾薬箱のアイコンを描画
+        VECTOR ammoBoxPosition;
+
+        // ワールド座標からスクリーン座標へ変換
+        ammoBoxPosition = ConvWorldPosToScreenPos(AmmoBox::InitializePosition);
+
+        DrawRotaGraph(ammoBoxPosition.x, ammoBoxPosition.y, 1, 0, ammoBoxIconImageHandle, true);
+    }
 }
 
 /// <summary>
