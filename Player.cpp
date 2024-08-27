@@ -1346,6 +1346,15 @@ const int Player::GetEquippedGunAmmo()
 }
 
 /// <summary>
+/// 現在装備中の銃の総弾数の最大数を返す
+/// </summary>
+/// <returns></returns>
+const int Player::GetEquippedGunMaxAmmo()
+{
+    return equippedGun->GetGunMaxAmmo();
+}
+
+/// <summary>
 /// 現在の予備弾薬を返す
 /// </summary>
 /// <returns></returns>

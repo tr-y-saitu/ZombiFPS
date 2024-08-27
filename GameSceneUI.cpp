@@ -8,9 +8,11 @@
 /// コンストラクタ
 /// </summary>
 GameSceneUI::GameSceneUI()
-    : previousHitPoint      (0)
-    , redBarWidth           (0)
-    , redBarAnimationFrame  (0)
+    : previousHitPoint                  (0)
+    , redBarWidth                       (0)
+    , redBarAnimationFrame              (0)
+    , visibleAmmoLowWarningText         (false)
+    , ammoLowWarningTextPreviousTime    (0)
 {
     // 画像管理クラス
     imageDataManager = ImageDataManager::GetInstance();
@@ -117,9 +119,57 @@ void GameSceneUI::DrawGunInformation(Player& player)
 {
     // 銃の弾薬を描画
     char gunInfo[256];
+    int color = FontColorVHS;
+
+    // 総弾数が少ない場合、UIの色を変化させる
+    int currentAmmo = player.GetEquippedGunAmmo();
+    int maxAmmo     = player.GetEquippedGunMaxAmmo();
+
+    // 総弾数が残り少ない場合
+    if (currentAmmo <= AmmoLow)
+    {
+        // 総弾数が残り少ない場合「赤色」
+        color = GetColor(255, 0, 0);
+
+        // 残り少ないことを警告描画
+        DrawLowAmmoWarning();
+    }
+    else if (currentAmmo < (maxAmmo / AmmoHalfRate))
+    {
+        // 総弾数が半分なら「黄色」
+        color = GetColor(255, 255, 0);
+    }
+
+    // 総弾数を描画
     sprintf_s(gunInfo, "%d/%d", player.GetEquippedGunAmmo(), player.GetEquippedBackUpAmmo());
     DrawStringToHandle(GunInformationDrawPositionX, GunInformationDrawPositionY,
-        gunInfo, FontColorVHS, vhsLargeFontHandle);
+        gunInfo, color, vhsLargeFontHandle);
+
+
+}
+
+/// <summary>
+/// 残弾数が少なくなったことを警告描画する
+/// </summary>
+/// <param name="player">プレイヤー</param>
+void GameSceneUI::DrawLowAmmoWarning()
+{
+    // 現在時間取得
+    int currentTime = GetNowCount();
+
+    if (currentTime - ammoLowWarningTextPreviousTime >= LowAmmoWarningTextBlinkInterval)
+    {
+        visibleAmmoLowWarningText = !visibleAmmoLowWarningText;
+        ammoLowWarningTextPreviousTime = currentTime;
+    }
+
+    // 文字を描画
+    if (visibleAmmoLowWarningText)
+    {
+        DrawStringCenterScreen("!!! No Ammo !!!", LowAmmoWarningTextDrawPositionY,
+            GetColor(255,0,0), vhsLargeFontHandle);
+    }
+
 }
 
 /// <summary>

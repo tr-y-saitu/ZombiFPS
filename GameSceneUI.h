@@ -56,6 +56,12 @@ private:
     void DrawGunInformation(Player& player);
 
     /// <summary>
+    /// 残弾数が少なくなったことを警告描画する
+    /// </summary>
+    /// <param name="player">プレイヤー</param>
+    void DrawLowAmmoWarning();
+
+    /// <summary>
     /// プレイヤーのインタラクトできるステート情報を描画する
     /// </summary>
     /// <param name="player">プレイヤー</param>
@@ -125,6 +131,10 @@ private:
     // 武器情報
     static constexpr int    GunInformationDrawPositionX             = 1600;     // 銃の情報を描画するX座標
     static constexpr int    GunInformationDrawPositionY             = 950;      // 銃の情報を描画するY座標
+    static constexpr int    AmmoLow                                 = 5;        // 銃の総弾数が少ない
+    static constexpr int    AmmoHalfRate                            = 2;        // 銃の総弾数を半分にするための値
+    static constexpr int    LowAmmoWarningTextBlinkInterval         = 300;      // 銃の総弾数が少なくなった時の警告表示の点滅間隔
+    static constexpr int    LowAmmoWarningTextDrawPositionY         = 300;      // 銃の総弾数が少なくなった時の警告表示の描画Y位置
     // 武器強化マシン
     static constexpr VECTOR GunPowerUpMachineIconDrawOffset         = { 0.0f,3.0f,0.0f };   // 武器強化マシンのアイコン描画ずらし量
     // 弾薬補充箱
@@ -138,26 +148,26 @@ private:
     static constexpr float  IconSize                                = 3.0f;     // アイコン描画サイズ
     static constexpr float  IconAngle                               = 0.0f;     // アイコンの描画角度
     // プレイヤー
-    static constexpr int    HitPointBarDrawPositionX                = 1600; // ヒットポイント描画X位置
-    static constexpr int    HitPointBarDrawPositionY                = 910;  // ヒットポイント描画Y位置
-    static constexpr int    HitPointBarMaxWidth                     = 350;  // ヒットポイントバーの最大幅
-    static constexpr int    HitPointBarHeight                       = 30;   // ヒットポイントバーの高さ
-    static constexpr int    HitPointBarFrameThickness               = 5;    // ヒットポイントバーの枠の太さ
+    static constexpr int    HitPointBarDrawPositionX                = 1600;     // ヒットポイント描画X位置
+    static constexpr int    HitPointBarDrawPositionY                = 910;      // ヒットポイント描画Y位置
+    static constexpr int    HitPointBarMaxWidth                     = 350;      // ヒットポイントバーの最大幅
+    static constexpr int    HitPointBarHeight                       = 30;       // ヒットポイントバーの高さ
+    static constexpr int    HitPointBarFrameThickness               = 5;        // ヒットポイントバーの枠の太さ
     const int               HitPointBarColor                        = GetColor(0, 255, 0);  // ヒットポイントバーの色
     // リロード
-    static constexpr int    ReloadBarWidth                          = 500;  // リロード進行状態を知らせるバーの幅
-    static constexpr int    ReloadBarHeight                         = 40;   // リロード進行状態を知らせるバーの高さ
-    static constexpr int    ReloadInfomationDrawPositionY           = 600;  // リロード情報文字の描画Y位置
+    static constexpr int    ReloadBarWidth                          = 500;      // リロード進行状態を知らせるバーの幅
+    static constexpr int    ReloadBarHeight                         = 40;       // リロード進行状態を知らせるバーの高さ
+    static constexpr int    ReloadInfomationDrawPositionY           = 600;      // リロード情報文字の描画Y位置
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
     // 管理クラス
-    ImageDataManager*   imageDataManager;   // 画像管理クラス
+    ImageDataManager*   imageDataManager;       // 画像管理クラス
     
-    int     vhsFilterImageHandle;   // VHSフィルター画像
-    int     crosshairImageHandle;   // クロスヘア画像
-    int     recImageHandle;         // REC画像
+    int     vhsFilterImageHandle;               // VHSフィルター画像
+    int     crosshairImageHandle;               // クロスヘア画像
+    int     recImageHandle;                     // REC画像
 
     // アイコン
     int     frameCount;                         // フレームカウント
@@ -165,10 +175,14 @@ private:
     int     ammoBoxIconImageHandle;             // 弾薬補充箱アイコン画像
 
     // プレイヤーHP
-    int     hitFilterImageHandle;       // 被弾時のフィルター画像
-    float   previousHitPoint;           // 前フレームのヒットポイント
-    float   redBarWidth;                // 赤色のバーの幅
-    int     redBarAnimationFrame;       // 赤色ののアニメーションフレーム数
+    int     hitFilterImageHandle;               // 被弾時のフィルター画像
+    float   previousHitPoint;                   // 前フレームのヒットポイント
+    float   redBarWidth;                        // 赤色のバーの幅
+    int     redBarAnimationFrame;               // 赤色ののアニメーションフレーム数
+
+    // 総弾数警告
+    bool    visibleAmmoLowWarningText;          // 総弾数警告描画されているか
+    int     ammoLowWarningTextPreviousTime;     // 総弾数警告描画が前回表示していた時間
 };
 
 

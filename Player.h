@@ -146,6 +146,7 @@ public:
     float GetCurrentJumpPower() const { return currentJumpPower; }
     const MATRIX GetRotationMatrix()const { return rotationMatrix; }
     const int GetEquippedGunAmmo();
+    const int GetEquippedGunMaxAmmo();
     const int GetEquippedBackUpAmmo();
     const int GetMoney()const { return money; }
     const InteractLocationState GetInteractLocationState() { return interactLocationState; }
