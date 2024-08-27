@@ -54,10 +54,12 @@ TutorialScene::~TutorialScene()
 void TutorialScene::Initialize()
 {
     // 画像ハンドルの所得
-    tutorialImageHandleList[MoveTutorial]       = imageDataManager->GetImageHandle(ImageDataManager::MoveTutorialImageData);
-    tutorialImageHandleList[ShotTutorial]       = imageDataManager->GetImageHandle(ImageDataManager::ShotTutorialImageData);
-    tutorialImageHandleList[InteractTutorial]   = imageDataManager->GetImageHandle(ImageDataManager::InteractTutorialImageData);
-    tutorialImageHandleList[EnemyTutorial]      = imageDataManager->GetImageHandle(ImageDataManager::EnemyTutorialImageData);
+    tutorialImageHandleList[MoveTutorial]           = imageDataManager->GetImageHandle(ImageDataManager::MoveTutorialImageData);
+    tutorialImageHandleList[ShotTutorial]           = imageDataManager->GetImageHandle(ImageDataManager::ShotTutorialImageData);
+    tutorialImageHandleList[InteractTutorial]       = imageDataManager->GetImageHandle(ImageDataManager::InteractTutorialImageData);
+    tutorialImageHandleList[EnemyTutorial]          = imageDataManager->GetImageHandle(ImageDataManager::EnemyTutorialImageData);
+    tutorialImageHandleList[AmmoShutterTutorial]    = imageDataManager->GetImageHandle(ImageDataManager::AmmoShutterTutorialImageData);
+    tutorialImageHandleList[GunPowerUpTutorial]     = imageDataManager->GetImageHandle(ImageDataManager::GunPowerUpTutorialImageData);
 }
 
 /// <summary>
@@ -130,7 +132,7 @@ void TutorialScene::Draw()
 /// </summary>
 void TutorialScene::DrawUI()
 {
-    tutorialSceneUI->Draw();
+    tutorialSceneUI->Draw(currentTutorialState);
 }
 
 /// <summary>
@@ -164,3 +166,4 @@ void TutorialScene::UpdateKeyState()
         isPreviousKeyOn = false;  // このフレームでキーは押されなかった
     }
 }
+

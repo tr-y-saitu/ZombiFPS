@@ -23,11 +23,13 @@ public:
     /// </summary>
     enum TutorialState
     {
-        MoveTutorial,       // 移動チュートリアル
-        ShotTutorial,       // 射撃チュートリアル
-        InteractTutorial,   // インタラクトチュートリアル
-        EnemyTutorial,      // エネミーチュートリアル
-        TutorialEnd,        // チュートリアル終了
+        MoveTutorial,           // 移動チュートリアル
+        ShotTutorial,           // 射撃チュートリアル
+        InteractTutorial,       // インタラクトチュートリアル
+        EnemyTutorial,          // エネミーチュートリアル
+        AmmoShutterTutorial,    // 弾薬箱、シャッターチュートリアル
+        GunPowerUpTutorial,     // 銃の強化チュートリアル
+        TutorialEnd,            // チュートリアル終了
     };
 
     /// <summary>
@@ -81,23 +83,23 @@ private:
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
     // リソース管理クラス
-    ImageDataManager* imageDataManager;   // 画像データ
-    ModelDataManager* modelDataManager;  // モデルデータ
+    ImageDataManager*   imageDataManager;   // 画像データ
+    ModelDataManager*   modelDataManager;   // モデルデータ
 
     // 当たり判定
     // FIXME:Enemyの動作で強制的に使用するため、
     //       当たり判定をせずともクラスの参照は持つ必要がある
-    CollisionManager* collisionManager;   // 当たり判定クラス
+    CollisionManager*   collisionManager;   // 当たり判定クラス
 
     // 演出関連
-    SoundManager* soundManager;       // 音管理クラスのアドレス
-    EffectManager* effectManager;      // エフェクト管理クラス
+    SoundManager*       soundManager;       // 音管理クラスのアドレス
+    EffectManager*      effectManager;      // エフェクト管理クラス
 
     // カメラ
-    SceneCamera* sceneCamera;
+    SceneCamera*        sceneCamera;
 
     // UI
-    TutorialSceneUI* tutorialSceneUI;
+    TutorialSceneUI*    tutorialSceneUI;
 
     // 入力関係
     Input* input;              // 入力判定処理

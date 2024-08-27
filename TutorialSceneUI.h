@@ -32,7 +32,7 @@ public:
     /// <summary>
     /// 描画
     /// </summary>
-    void Draw();
+    void Draw(int currentTutorialState);
 
 private:
     //---------------------------------------------------------------------------------//

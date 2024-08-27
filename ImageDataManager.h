@@ -43,10 +43,12 @@ public:
         TitleLogo,              // タイトルロゴ
 
         // チュートリアルシーン
-        MoveTutorialImageData,      // 移動チュートリアル画像
-        ShotTutorialImageData,      // 射撃チュートリアル画像
-        InteractTutorialImageData,  // インタラクト用チュートリアル画像
-        EnemyTutorialImageData,     // エネミーチュートリアル画像
+        MoveTutorialImageData,          // 移動チュートリアル画像
+        ShotTutorialImageData,          // 射撃チュートリアル画像
+        InteractTutorialImageData,      // インタラクト用チュートリアル画像
+        EnemyTutorialImageData,         // エネミーチュートリアル画像
+        AmmoShutterTutorialImageData,   // 弾薬箱とシャッターのチュートリアル画像
+        GunPowerUpTutorialImageData,    // 銃強化マシンのチュートリアル画像
 
         // ゲームシーン
         CrosshairImageData,     // 銃のクロスヘア

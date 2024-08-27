@@ -1,5 +1,6 @@
 ﻿#include "TutorialSceneUI.h"
 #include "ImageDataManager.h"
+#include "TutorialScene.h"
 
 
 /// <summary>
@@ -36,6 +37,10 @@ void TutorialSceneUI::Update()
 /// <summary>
 /// 描画
 /// </summary>
-void TutorialSceneUI::Draw()
+void TutorialSceneUI::Draw(int currentTutorialState)
 {
+    // 現在のチュートリアルの進行状況を描画
+    char text[256];
+    snprintf(text, sizeof(text), "%d / %d", currentTutorialState, TutorialScene::TutorialState::TutorialEnd);
+    DrawFormatStringToHandle(200, 50, FontColorVHS, vhsJPLargeFontHandle, text);
 }

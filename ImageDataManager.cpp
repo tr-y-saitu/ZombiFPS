@@ -96,6 +96,8 @@ void ImageDataManager::ImageDataLoad()
     imageDataList[ShotTutorialImageData]        = LoadGraph("Data/UI/TutorialScene/TutorialImage/TutorialImage2.png");
     imageDataList[InteractTutorialImageData]    = LoadGraph("Data/UI/TutorialScene/TutorialImage/TutorialImage3.png");
     imageDataList[EnemyTutorialImageData]       = LoadGraph("Data/UI/TutorialScene/TutorialImage/TutorialImage4.png");
+    imageDataList[AmmoShutterTutorialImageData] = LoadGraph("Data/UI/TutorialScene/TutorialImage/TutorialImage5.png");
+    imageDataList[GunPowerUpTutorialImageData]  = LoadGraph("Data/UI/TutorialScene/TutorialImage/TutorialImage6.png");
 
     // ゲームシーン
     imageDataList[CrosshairImageData]           = LoadGraph("Data/UI/GameScene/Crosshair.png");
