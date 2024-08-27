@@ -89,7 +89,7 @@ void ImageDataManager::ImageDataLoad()
     imageDataList[IconAmmoBox]                  = LoadGraph("Data/UI/GameScene/IconAmmoBox.png");
 
     // タイトルシーン
-    imageDataList[TitleLogo]                    = LoadGraph("Data/UI/TitleScene/TitleLogo.png");
+    imageDataList[TitleLogo]                    = LoadGraph("Data/UI/TitleScene/TitleLogoEdge.png");
 
     // チュートリアルシーン
     imageDataList[MoveTutorialImageData]        = LoadGraph("Data/UI/TutorialScene/TutorialImage/TutorialImage1.png");
