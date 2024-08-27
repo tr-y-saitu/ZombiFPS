@@ -22,6 +22,9 @@ PlayerCamera::PlayerCamera()
 
     // カメラを設定
     SetCameraPositionAndTarget_UpVecY(cameraPosition, targetPosition);
+
+    // 視野角の設定
+    SetupCamera_Perspective(currentFov);
 }
 
 /// <summary>
