@@ -52,8 +52,7 @@ void EnemyWaveController::InitializeSpawnData()
     waveEnemySpawnData[Wave7] = 17;
     waveEnemySpawnData[Wave8] = 19;
     waveEnemySpawnData[Wave9] = 20;
-    waveEnemySpawnData[Wave10] = 25;
-    waveEnemySpawnData[WaveEnd] = 0;
+    waveEnemySpawnData[WaveEnd] = 25;
 }
 
 /// <summary>

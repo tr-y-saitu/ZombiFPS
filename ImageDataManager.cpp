@@ -75,6 +75,18 @@ void ImageDataManager::ImageDataLoad()
     imageDataList[East3ImageData]               = LoadGraph("Data/UI/RoomNumber/East3.png");
     imageDataList[East4ImageData]               = LoadGraph("Data/UI/RoomNumber/East4.png");
 
+    // ウェーブ
+    imageDataList[Wave1ImageData]               = LoadGraph("Data/UI/GameScene/Wave/Wave1.png");
+    imageDataList[Wave2ImageData]               = LoadGraph("Data/UI/GameScene/Wave/Wave2.png");
+    imageDataList[Wave3ImageData]               = LoadGraph("Data/UI/GameScene/Wave/Wave3.png");
+    imageDataList[Wave4ImageData]               = LoadGraph("Data/UI/GameScene/Wave/Wave4.png");
+    imageDataList[Wave5ImageData]               = LoadGraph("Data/UI/GameScene/Wave/Wave5.png");
+    imageDataList[Wave6ImageData]               = LoadGraph("Data/UI/GameScene/Wave/Wave6.png");
+    imageDataList[Wave7ImageData]               = LoadGraph("Data/UI/GameScene/Wave/Wave7.png");
+    imageDataList[Wave8ImageData]               = LoadGraph("Data/UI/GameScene/Wave/Wave8.png");
+    imageDataList[Wave9ImageData]               = LoadGraph("Data/UI/GameScene/Wave/Wave9.png");
+    imageDataList[WaveLastImageData]            = LoadGraph("Data/UI/GameScene/Wave/LastMini.png");
+
     // VHS
     imageDataList[VHSFiltersImageData]          = LoadGraph("Data/UI/Filter/VHSFileters10%.png");
     imageDataList[RECImageData]                 = LoadGraph("Data/UI/GameScene/RECImg.png");

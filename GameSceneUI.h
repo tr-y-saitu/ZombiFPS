@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "SceneUIBase.h"
+#include "EnemyWaveController.h"
 
 class ImageDataManager;
 class Player;
@@ -125,7 +126,7 @@ private:
     static constexpr int    InteractLocationInfomationDrawPositionY = 800;      // インタラクト情報の描画Y座標
     static constexpr int    InteractLocationCostDrawPositionY       = 900;      // インタラクトできるコスト描画Y座標
     // ウェーブステート
-    static constexpr int    CurrentWaveStateDrawPositionX           = 100;      // 現在のウェーブステートの描画X位置
+    static constexpr int    CurrentWaveStateDrawPositionX           = 150;      // 現在のウェーブステートの描画X位置
     static constexpr int    CurrentWaveStateDrawPositionY           = 850;      // 現在のウェーブステートの描画Y位置
     const int               CurrentWaveStateFontColor               = GetColor(200, 0, 0);  // 現在のウェーブステートの文字色
     // 武器情報
@@ -183,6 +184,9 @@ private:
     // 総弾数警告
     bool    visibleAmmoLowWarningText;          // 総弾数警告描画されているか
     int     ammoLowWarningTextPreviousTime;     // 総弾数警告描画が前回表示していた時間
+
+    // ウェーブ
+    map<EnemyWaveController::WaveState, int>  waveImageDataList;     // ウェーブの画像リスト
 };
 
 

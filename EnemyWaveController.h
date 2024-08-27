@@ -23,7 +23,6 @@ public:
         Wave7,          // ウェーブ７
         Wave8,          // ウェーブ８
         Wave9,          // ウェーブ９
-        Wave10,         // ウェーブ１０
         WaveEnd,        // ウェーブ終了
     };
 

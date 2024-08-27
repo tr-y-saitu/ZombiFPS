@@ -40,6 +40,19 @@ void GameSceneUI::Initialize()
     gunPowerUpMachineIconImageHandle    = imageDataManager->GetImageHandle(ImageDataManager::IconGunPowerUpMachine);
     ammoBoxIconImageHandle              = imageDataManager->GetImageHandle(ImageDataManager::IconAmmoBox);
     hitFilterImageHandle                = imageDataManager->GetImageHandle(ImageDataManager::HitFilter);
+
+    // ウェーブ画像の取得
+    waveImageDataList[EnemyWaveController::WaveState::Wave1]    = imageDataManager->GetImageHandle(ImageDataManager::Wave1ImageData);
+    waveImageDataList[EnemyWaveController::WaveState::Wave2]    = imageDataManager->GetImageHandle(ImageDataManager::Wave2ImageData);
+    waveImageDataList[EnemyWaveController::WaveState::Wave3]    = imageDataManager->GetImageHandle(ImageDataManager::Wave3ImageData);
+    waveImageDataList[EnemyWaveController::WaveState::Wave4]    = imageDataManager->GetImageHandle(ImageDataManager::Wave4ImageData);
+    waveImageDataList[EnemyWaveController::WaveState::Wave5]    = imageDataManager->GetImageHandle(ImageDataManager::Wave5ImageData);
+    waveImageDataList[EnemyWaveController::WaveState::Wave6]    = imageDataManager->GetImageHandle(ImageDataManager::Wave6ImageData);
+    waveImageDataList[EnemyWaveController::WaveState::Wave7]    = imageDataManager->GetImageHandle(ImageDataManager::Wave7ImageData);
+    waveImageDataList[EnemyWaveController::WaveState::Wave8]    = imageDataManager->GetImageHandle(ImageDataManager::Wave8ImageData);
+    waveImageDataList[EnemyWaveController::WaveState::Wave9]    = imageDataManager->GetImageHandle(ImageDataManager::Wave9ImageData);
+    waveImageDataList[EnemyWaveController::WaveState::WaveEnd]  = imageDataManager->GetImageHandle(ImageDataManager::WaveLastImageData);
+
 }
 
 /// <summary>
@@ -105,10 +118,15 @@ void GameSceneUI::DrawPlayerInformation(Player& player)
 /// <param name="waveState">現在のウェーブステート</param>
 void GameSceneUI::DrawWaveState(int waveState)
 {
-    char waveStateString[256];
+    /*char waveStateString[256];
     sprintf_s(waveStateString, "%d", waveState++);
     DrawStringToHandle(CurrentWaveStateDrawPositionX, CurrentWaveStateDrawPositionY,
-        waveStateString, CurrentWaveStateFontColor, outlastFontHandle);
+        waveStateString, CurrentWaveStateFontColor, outlastFontHandle);*/
+
+    // 現在のウェーブステートを描画
+    DrawGraph(CurrentWaveStateDrawPositionX, CurrentWaveStateDrawPositionY,
+        waveImageDataList[(EnemyWaveController::WaveState)waveState],
+        true);
 }
 
 /// <summary>

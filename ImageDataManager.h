@@ -26,6 +26,18 @@ public:
         East3ImageData  ,       // 東の部屋３
         East4ImageData  ,       // 東の部屋４
 
+        // ウェーブ
+        Wave1ImageData,         // ウェーブ１
+        Wave2ImageData,         // ウェーブ２
+        Wave3ImageData,         // ウェーブ３
+        Wave4ImageData,         // ウェーブ４
+        Wave5ImageData,         // ウェーブ５
+        Wave6ImageData,         // ウェーブ６
+        Wave7ImageData,         // ウェーブ７
+        Wave8ImageData,         // ウェーブ８
+        Wave9ImageData,         // ウェーブ９
+        WaveLastImageData,      // 最終ウェーブ
+
         // VHS
         VHSFiltersImageData,    // VHSフィルター
         RECImageData,           // REC(録画)
