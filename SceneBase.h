@@ -61,5 +61,10 @@ public:
 
 protected:
 
+    /// <summary>
+    /// 霧の初期化
+    /// </summary>
+    void InitializeFog();
+
 };
 

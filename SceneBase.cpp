@@ -6,6 +6,8 @@
 /// </summary>
 SceneBase::SceneBase()
 {
+    // 霧の初期化
+    InitializeFog();
 }
 
 /// <summary>
@@ -30,4 +32,19 @@ SceneBase* SceneBase::InitializeBase()
 void SceneBase::Initialize()
 {
 
+}
+
+/// <summary>
+/// 霧の初期化
+/// </summary>
+void SceneBase::InitializeFog()
+{
+    // 霧を有効化する
+    SetFogEnable(true);
+
+    // 霧の色を指定
+    SetFogColor(50, 50, 50);
+
+    // 霧の開始距離、終了距離を設定
+    SetFogStartEnd(0.0f, 75.0f);
 }
