@@ -146,6 +146,7 @@ protected:
     static constexpr int    RecoilCycle                 = 5;                            // 反動のサイクル
     // 強化時
     static constexpr int    PowerUpDamage               = 100;                          // 武器強化時の威力増加
+    static constexpr float  GunPowerUpRate              = 2.0f;                         // 武器強化率
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //

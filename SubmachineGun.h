@@ -102,10 +102,9 @@ private:
     static constexpr VECTOR InitializeScale         = { 0.07f,0.07f,0.07f };    // 初期化時のスケール
     static constexpr int    MaxBackUpAmmo           = 210;          // 銃の最大予備弾薬数
     // 強化時
-    static constexpr float  GunPowerUpRate          = 3.0f;         // 武器強化率
-    static constexpr float  MaximumEmissive = 0.9f;     // 最大発光量
-    static constexpr float  MinimumEmissive = 0.4f;     // 最小発光量
-    static constexpr float  EmissiveSpeed   = 0.005f;   // 発光量の変化スピード
+    static constexpr float  MaximumEmissive         = 0.9f;         // 最大発光量
+    static constexpr float  MinimumEmissive         = 0.4f;         // 最小発光量
+    static constexpr float  EmissiveSpeed           = 0.005f;       // 発光量の変化スピード
     // ずらし量
     static constexpr VECTOR GunOffset = { 0.0f,0.5f,0.0f };         // 銃のプレイヤーの腕からのずらし量
 
