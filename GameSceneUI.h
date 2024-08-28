@@ -173,6 +173,10 @@ private:
     static constexpr int    ReloadBarWidth                          = 500;      // リロード進行状態を知らせるバーの幅
     static constexpr int    ReloadBarHeight                         = 40;       // リロード進行状態を知らせるバーの高さ
     static constexpr int    ReloadInfomationDrawPositionY           = 600;      // リロード情報文字の描画Y位置
+    // バッドエンド
+    static constexpr float  BadEndTime                              = 6000.0f;  // バッドエンドを行う時間
+    static constexpr float  BadEndImageExpansionSpeed               = 1.0f;     // バッドエンド画像の拡大速度
+    static constexpr float  BadEndMaximumExpansion                  = 1.5f;     // バッドエンド画像の最大拡大率
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //

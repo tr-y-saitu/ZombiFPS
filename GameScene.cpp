@@ -32,6 +32,9 @@ GameScene::GameScene()
     // 乱数を初期化
     srand(unsigned int(time(nullptr)));
 
+    // ゲーム中である
+    gameEndState            = GameEndState::GameNow;
+
     // 入力処理
     input                   = new Input();
 
@@ -102,36 +105,41 @@ void GameScene::Initialize()
 /// <returns>次のシーンのポインタ</returns>
 SceneBase* GameScene::UpdateScene()
 {
-    // オブジェクト更新
-    input->Update();                                                // 入力処理
-    player->Update(*input,*stage);                                  // プレイヤー
-    enemyGroupController->Update(player->GetPosition(), *stage,
-        enemyWaveController->GetEnemySpawnFlag(),enemyWaveController->GetCurrentWaveState());                  // エネミーの集合体
-    enemyWaveController->Update(enemyGroupController->GetEnemyGroupSize());
-    shutterController->Update();                                    // シャッター
-    ammoBox->Update();                                              // 弾薬補充箱
-    gunPowerUpMachine->Update();                                    // 銃強化マシン
-    collisionManager->Update();                                     // 当たり判定処理
-    effectManager->Update();                                        // エフェクト管理クラス更新
-    UpdateSound();                                                  // 音の更新
-    gameSceneUI->Update();                                          // UIの更新
+    if (gameEndState == GameEndState::GameNow)
+    {
+        // オブジェクト更新
+        input->Update();                                                // 入力処理
+        player->Update(*input,*stage);                                  // プレイヤー
+        enemyGroupController->Update(player->GetPosition(), *stage,
+            enemyWaveController->GetEnemySpawnFlag(),enemyWaveController->GetCurrentWaveState());                  // エネミーの集合体
+        enemyWaveController->Update(enemyGroupController->GetEnemyGroupSize());
+        shutterController->Update();                                    // シャッター
+        ammoBox->Update();                                              // 弾薬補充箱
+        gunPowerUpMachine->Update();                                    // 銃強化マシン
+        collisionManager->Update();                                     // 当たり判定処理
+        effectManager->Update();                                        // エフェクト管理クラス更新
+        UpdateSound();                                                  // 音の更新
+        gameSceneUI->Update();                                          // UIの更新
 
-    UpdateEffekseer3D();                                            // エフェクト更新
+        UpdateEffekseer3D();                                            // エフェクト更新
+    }
 
     // プレイヤーのHPがゼロ以下、最終ウェーブをクリアした場合
     bool gameEnd = player->GetHitPoint() <= 0 || enemyWaveController->GetCurrentWaveState() == EnemyWaveController::Result;
-    if (gameEnd)
+    if (gameEnd && gameEndState != GameEndState::GameFinish)
     {
-        bool end = gameSceneUI->UpdateBadEnd();
+        // バッドエンド開始
+        gameEndState = GameEndState::BadEndStart;
 
-        if (end)
-        {
-            // シーン切り替え
-            return new ResultScene(player->GetGameScore(),
-                enemyGroupController->GetEnemyKillCount(),
-                enemyWaveController->GetCurrentWaveState());
+        
+    }
 
-        }
+    if (gameEndState == GameEndState::GameFinish)
+    {
+        // シーン切り替え
+        return new ResultScene(player->GetGameScore(),
+            enemyGroupController->GetEnemyKillCount(),
+            enemyWaveController->GetCurrentWaveState());
     }
 
     // 現状のシーンを返す
@@ -152,6 +160,12 @@ void GameScene::Draw()
     gunPowerUpMachine->Draw();          // 銃強化マシン
     DrawEffekseer3D();                  // 3Dエフェクト描画
     DrawUI();                           // UIの描画
+
+    // バッドエンド更新
+    if (gameEndState == GameEndState::BadEndStart)
+    {
+        UpdateBadEnd();
+    }
 }
 
 /// <summary>
@@ -225,19 +239,13 @@ void GameScene::UpdateEffect()
 /// <summary>
 /// バッドエンド更新
 /// </summary>
-bool GameScene::UpdateBadEnd()
+void GameScene::UpdateBadEnd()
 {
-    
+    bool nextState = false;
+    nextState = gameSceneUI->UpdateBadEnd();
 
-    return true;
-}
-
-/// <summary>
-/// グッドエンド更新
-/// </summary>
-bool GameScene::UpdateGoodEnd()
-{
-
-
-    return true;
+    if (nextState)
+    {
+        gameEndState = GameEndState::GameFinish;
+    }
 }

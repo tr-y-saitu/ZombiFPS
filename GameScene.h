@@ -30,6 +30,16 @@ class Enemy;
 class GameScene : public SceneBase
 {
 public:
+    enum class GameEndState : int
+    {
+        GameNow,            // ゲーム中
+        BadEndStart,        // バッドエンド開始
+        BadEndFinish,       // バッドエンド終了
+        GoodEndStart,       // グッドエンド開始
+        GoodEndFinish,      // グッドエンド終了
+        GameFinish,         // 演出終了
+    };
+
     /// <summary>
     /// コンストラクタ
     /// </summary>
@@ -75,14 +85,12 @@ private:
     /// <summary>
     /// バッドエンド演出更新
     /// </summary>
-    /// <returns>演出が終了したらtrue</returns>
-    bool UpdateBadEnd();
+    void UpdateBadEnd();
 
     /// <summary>
     /// グッドエンド演出更新
     /// </summary>
-    /// <returns>演出が終了したらtrue</returns>
-    bool UpdateGoodEnd();
+    void UpdateGoodEnd();
 
     // 定数
     static constexpr int GameSceneFontSize = 50;        // ゲームシーンのフォントサイズ
@@ -119,7 +127,8 @@ private:
     // UI関連
     GameSceneUI*            gameSceneUI;            // ゲームシーン用のUI
 
-
+    // ゲーム終了演出
+    GameEndState            gameEndState;           // ゲームの終了演出状態
 };
 
 

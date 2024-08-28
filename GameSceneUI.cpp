@@ -502,14 +502,18 @@ bool GameSceneUI::UpdateBadEnd()
     int elapsedTime = currentTime - badEndTimer;
 
     // 時間によって画像を拡大する
-    if (elapsedTime < 5000)
+    if (elapsedTime < BadEndTime)
     {
-        // 画像の拡大率を時間に応じて変化
-        badEndImageExpansion = 0.5f + (elapsedTime / 5000.0f);
+        // 最大拡大率を越えないようにする
+        if (badEndImageExpansion <= BadEndMaximumExpansion)
+        {
+            // 画像の拡大率を時間に応じて変化
+            badEndImageExpansion = BadEndImageExpansionSpeed + (elapsedTime / BadEndTime);
+        }
     }
     else
     {
-        // ５秒経過したら演出終了
+        // 終了時間を越えたら演出終了
         badEndFinished = true;
     }
 
