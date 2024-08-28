@@ -73,6 +73,10 @@ public:
         WindowsKeyDefaults,             // 入力用のキーフレームのデフォルト
         MouseCursorImageData,           // マウスカーソル
 
+        // クリアシーン
+        ClearSceneBackImageData,        // クリアシーンの背景画像
+        ClearSceneTextImageData,        // クリアシーンの文字画像
+
         // バッドエンド
         BadEndImageData,                // バッドエンド画像
     };

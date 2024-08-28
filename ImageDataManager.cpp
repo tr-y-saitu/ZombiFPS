@@ -122,6 +122,10 @@ void ImageDataManager::ImageDataLoad()
     imageDataList[WindowsKeyDefaults]           = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsKeyDefaults.png");
     imageDataList[MouseCursorImageData]         = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/MouseCursor.png");
 
+    // クリアシーン
+    imageDataList[ClearSceneBackImageData]      = LoadGraph("Data/UI/ClearScene/GoodEndBackImage.png");
+    imageDataList[ClearSceneTextImageData]      = LoadGraph("Data/UI/ClearScene/GoodEndTextImage.png");
+
     // バッドエンド
     imageDataList[BadEndImageData]              = LoadGraph("Data/UI/GameScene/BadEndImage.png");
 }
