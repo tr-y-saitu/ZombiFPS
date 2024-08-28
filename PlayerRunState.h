@@ -37,7 +37,7 @@ private:
     void UpdateOffsetValue() override;
 
     // アニメーション
-    static constexpr float  PlayAnimationSpeed      = 0.5f;     // アニメーション速度
+    static constexpr float  DefaultAnimationSpeed      = 0.5f;     // アニメーション速度
     static constexpr float  AnimationBlendSpeed     = 0.1f;     // アニメーションのブレンド率変化速度
     static constexpr float  RunAnimationSpeed       = 0.1f;     // 走るアニメーションの再生速度
     static constexpr VECTOR RunAnimationOffsetValue = { 0.0f,-0.5f,0.0f };  // 走りステート時のずらし量

@@ -25,6 +25,7 @@ Enemy::Enemy()
     , isTouchingRoomCenter      (false)
     , isActive                  (true)
     , deathFrameCount           (0)
+    , animationSpeed            (DefaultAnimationSpeed)
 {
     modelDataManager    = ModelDataManager::GetInstance();
     collisionManager    = CollisionManager::GetInstance();
@@ -66,7 +67,7 @@ void Enemy::Initialize(int currentWave)
     animationBlendRate = 1.0f;
 
     // アニメーション設定
-    PlayAnimation(AnimationType::Run);
+    PlayAnimation(AnimationType::Run, DefaultAnimationSpeed);
 
     // 当たり判定用情報更新
     UpdateCollisionData();          // 自身の当たり判定
@@ -129,7 +130,7 @@ void Enemy::InitializeTitleScene()
     animationBlendRate = 1.0f;
 
     // アニメーション設定
-    PlayAnimation(AnimationType::Run);
+    PlayAnimation(AnimationType::Run, DefaultAnimationSpeed);
 
     // 初期化時にいる部屋を設定
     previousRoom.roomNumber = Pathfinding::Center1;
@@ -532,7 +533,7 @@ void Enemy::UpdateDead()
         if (currentState != State::Death)
         {
             // 死亡アニメーションを再生
-            PlayAnimation(AnimationType::Death);
+            PlayAnimation(AnimationType::Death, DeadAnimationSpeed);
 
             // 現在のステート更新
             currentState = State::Death;
@@ -569,7 +570,7 @@ void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
             if (currentState != State::Attack && currentState != State::Death)
             {
                 // 攻撃アニメーション再生
-                PlayAnimation(AnimationType::Attack);
+                PlayAnimation(AnimationType::Attack, DefaultAnimationSpeed);
 
                 // 攻撃時のゾンビの声再生
                 soundManager->PlaySoundListSE(SoundManager::ZombieAttackSE);
@@ -594,7 +595,7 @@ void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
             else if ((int)currentAnimationCount == animationTotalTime - 1) // 攻撃アニメーションが終了しているかチェック
             {
                 // Runアニメーションに変更
-                PlayAnimation(AnimationType::Run);
+                PlayAnimation(AnimationType::Run, DefaultAnimationSpeed);
 
                 // 現在のステートをRunに更新
                 currentState = State::Run;
@@ -604,15 +605,18 @@ void Enemy::UpdateAttack(VECTOR targetPosition, ObjectTag targetTag)
             }
         }
     }
-    
 }
 
 /// <summary>
 /// アニメーションを新しく再生する
 /// </summary>
 /// <param name="type">アニメーションの種類</param>
-void Enemy::PlayAnimation(AnimationType type)
+/// <param name="setAnimationSpeed">アニメーションの再生速度</param>
+void Enemy::PlayAnimation(AnimationType type, float setAnimationSpeed)
 {
+    // アニメーション速度を再設定
+    animationSpeed = setAnimationSpeed;
+
     // HACK: 指定した番号のアニメーションをアタッチし、直前に再生していたアニメーションの情報をprevに移行している
     // 入れ替えを行うので、１つ前のモーションがが有効だったらデタッチする
     if (previousPlayAnimation != -1)
@@ -657,7 +661,7 @@ void Enemy::UpdateAnimation()
         animationTotalTime = MV1GetAttachAnimTotalTime(modelHandle, currentPlayAnimation);
 
         // 再生時間を進める
-        currentAnimationCount += PlayAnimationSpeed;
+        currentAnimationCount += animationSpeed;
 
         // 再生時間が総時間に到達していたら再生時間をループさせる
         if (currentAnimationCount >= animationTotalTime)
@@ -679,7 +683,7 @@ void Enemy::UpdateAnimation()
         animationTotalTime = MV1GetAttachAnimTotalTime(modelHandle, previousPlayAnimation);
 
         // 再生時間を進める
-        previousAnimationCount += PlayAnimationSpeed;
+        previousAnimationCount += animationSpeed;
 
         // 再生時間が総時間に到達していたら再生時間をループさせる
         if (previousAnimationCount > animationTotalTime)

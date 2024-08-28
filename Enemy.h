@@ -147,7 +147,8 @@ private:
     /// アニメーションを新しく再生する
     /// </summary>
     /// <param name="type">アニメーションの種類</param>
-    void PlayAnimation(AnimationType type);
+    /// <param name="setAnimationSpeed">アニメーションの再生速度</param>
+    void PlayAnimation(AnimationType type,float setAnimationSpeed);
 
     /// <summary>
     /// アニメーション処理
@@ -221,7 +222,7 @@ private:
     static constexpr int    InitializeHitPoints     = 100;                              // 初期化時の体力
     static constexpr int    HitPointsRate           = 4;                                // 体力の調整値
     static constexpr VECTOR InitializeDirection     = { 1.0f, 0.0f, 0.0f };             // 初期化時の移動方向
-    static constexpr int    DeathInactiveFrame      = 150;                              // 死亡してからモデルを削除するまでのフレームカウント数
+    static constexpr int    DeathInactiveFrame      = 100;                              // 死亡してからモデルを削除するまでのフレームカウント数
     // 当たり判定
     static constexpr float  CollisionRadius         = 1.0f;                             // 当たり判定用半径
     static constexpr VECTOR CapsulePositionOffset   = { 0.0f,4.0f,0.0f };               // カプセルの始点を作るためのずらし量
@@ -234,8 +235,9 @@ private:
     static constexpr float  Gravity                 = 3.0f;                             // 重力
     static constexpr float  FallUpPower             = 20.0f;                            // 足を踏み外した時のジャンプ力
     // アニメーション
-    static constexpr float  PlayAnimationSpeed      = 0.5f;                             // アニメーション速度
+    static constexpr float  DefaultAnimationSpeed   = 0.5f;                             // アニメーション速度
     static constexpr float  AnimationBlendSpeed     = 0.1f;                             // アニメーションのブレンド率変化速度
+    static constexpr float  DeadAnimationSpeed      = 0.75f;                            // 死亡アニメーションの再生速度
     // エフェクト
     static constexpr VECTOR BloodEffectOffset       = { 0.0f, 4.5f, 0.0f };             // 血しぶきエフェクトのずらし量
     // スポーン
@@ -286,6 +288,7 @@ private:
     int         previousPlayAnimation;      // 前の再生アニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
     float       previousAnimationCount;     // 前の再生アニメーションの再生時間
     float       animationBlendRate;         // 現在と過去のアニメーションのブレンド率
+    float       animationSpeed;             // アニメーションの再生速度
 
 };
 

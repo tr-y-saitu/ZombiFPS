@@ -32,7 +32,7 @@ public:
 private:
 
     // アニメーション
-    static constexpr float  PlayAnimationSpeed = 1.0f;      // アニメーション速度
+    static constexpr float  DefaultAnimationSpeed = 1.0f;      // アニメーション速度
     static constexpr float  AnimationBlendSpeed = 0.1f;     // アニメーションのブレンド率変化速度
 
 };

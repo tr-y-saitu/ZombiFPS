@@ -339,7 +339,7 @@ private:
     static constexpr float  Gravity                 = 3.0f;                         // 重力
     static constexpr float  FallUpPower             = 20.0f;                        // 足を踏み外した時のジャンプ力
     // アニメーション
-    static constexpr float  PlayAnimationSpeed      = 0.5f;                         // アニメーション速度
+    static constexpr float  DefaultAnimationSpeed      = 0.5f;                         // アニメーション速度
     static constexpr float  AnimationBlendSpeed     = 0.1f;                         // アニメーションのブレンド率変化速度
     // 腰だめ時
     static constexpr float  HipShootHorizontalAngle = 170.0f * DX_PI_F / 180.0f;    // 水平回転用：腰だめの位置に調整するために回転させるY軸回転度(ラジアン)

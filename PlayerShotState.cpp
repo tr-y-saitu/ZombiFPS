@@ -11,7 +11,7 @@ PlayerShotState::PlayerShotState()
 PlayerShotState::PlayerShotState(int& playerModelHandle, AnimationData previousStateData)
     : PlayerStateBase(playerModelHandle,previousStateData)
 {
-    playAnimationSpeed = PlayAnimationSpeed;
+    playAnimationSpeed = DefaultAnimationSpeed;
     animationBlendSpeed = AnimationBlendSpeed;
 
     // 新しいアニメーションを再生する

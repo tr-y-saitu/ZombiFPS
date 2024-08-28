@@ -409,7 +409,7 @@ void GameSceneUI::DrawEquippedGunName(Player& player)
         break;
 
     case Player::GunType::SubmachineGun:
-        DrawStringToHandle(1600, 850, "MP5", DebugFontColor, vhsJPLargeFontHandle);
+        DrawStringToHandle(1600, 850, "XP5", DebugFontColor, vhsJPLargeFontHandle);
         break;
     default:
         break;
