@@ -120,7 +120,6 @@ SceneBase* GameScene::UpdateScene()
         effectManager->Update();                                        // エフェクト管理クラス更新
         UpdateSound();                                                  // 音の更新
         gameSceneUI->Update();                                          // UIの更新
-
         UpdateEffekseer3D();                                            // エフェクト更新
     }
 
@@ -130,8 +129,6 @@ SceneBase* GameScene::UpdateScene()
     {
         // バッドエンド開始
         gameEndState = GameEndState::BadEndStart;
-
-        
     }
 
     if (gameEndState == GameEndState::GameFinish)
