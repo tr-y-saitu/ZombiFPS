@@ -24,6 +24,8 @@
     <ClCompile Include="BattleRifle.cpp" />
     <ClCompile Include="Boids.cpp" />
     <ClCompile Include="Calculation.cpp" />
+    <ClCompile Include="ClearScene.cpp" />
+    <ClCompile Include="ClearSceneUI.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyGroup.cpp" />
@@ -83,6 +85,8 @@
     <ClInclude Include="BattleRifle.h" />
     <ClInclude Include="Boids.h" />
     <ClInclude Include="Calculation.h" />
+    <ClInclude Include="ClearScene.h" />
+    <ClInclude Include="ClearSceneUI.h" />
     <ClInclude Include="CollisionData.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Enemy.h" />

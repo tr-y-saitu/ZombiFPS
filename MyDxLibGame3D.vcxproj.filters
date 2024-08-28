@@ -328,6 +328,12 @@
     <ClCompile Include="ShadowMap.cpp">
       <Filter>ZombiFPS\GameObject\ShadowMap</Filter>
     </ClCompile>
+    <ClCompile Include="ClearScene.cpp">
+      <Filter>ZombiFPS\System\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ClearSceneUI.cpp">
+      <Filter>ZombiFPS\System\SceneUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -503,6 +509,12 @@
     </ClInclude>
     <ClInclude Include="ShadowMap.h">
       <Filter>ZombiFPS\GameObject\ShadowMap</Filter>
+    </ClInclude>
+    <ClInclude Include="ClearScene.h">
+      <Filter>ZombiFPS\System\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ClearSceneUI.h">
+      <Filter>ZombiFPS\System\SceneUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

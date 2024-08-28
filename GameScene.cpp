@@ -17,6 +17,7 @@
 #include "GameSceneUI.h"
 #include "GameScene.h"
 #include "ResultScene.h"
+#include "ClearScene.h"
 #include "AmmoBox.h"
 #include "GunPowerUpMachine.h"
 
@@ -123,21 +124,33 @@ SceneBase* GameScene::UpdateScene()
         UpdateEffekseer3D();                                            // エフェクト更新
     }
 
-    // プレイヤーのHPがゼロ以下、最終ウェーブをクリアした場合
-    bool gameEnd = player->GetHitPoint() <= 0 || enemyWaveController->GetCurrentWaveState() == EnemyWaveController::Result;
-    if (gameEnd && gameEndState != GameEndState::GameFinish)
+    // 終了条件を決定
+    bool goodEnd    = enemyWaveController->GetCurrentWaveState() == EnemyWaveController::Result;
+    bool badEnd     = player->GetHitPoint() <= 0;
+
+    // バッドエンド
+    if (badEnd && gameEndState != GameEndState::GameFinish)
     {
         // バッドエンド開始
         gameEndState = GameEndState::BadEndStart;
     }
 
-    if (gameEndState == GameEndState::GameFinish)
+    // リザルトに推移
+    if (badEnd && gameEndState == GameEndState::GameFinish)
     {
         // シーン切り替え
         return new ResultScene(player->GetGameScore(),
             enemyGroupController->GetEnemyKillCount(),
             enemyWaveController->GetCurrentWaveState());
     }
+
+    // グッドエンド
+    if (goodEnd)
+    {
+        // クリアシーンに推移
+        return new ClearScene();
+    }
+
 
     // 現状のシーンを返す
     return this;

@@ -4,7 +4,6 @@
 
 class ImageDataManager;
 class Player;
-class ImageDataManager;
 
 /// <summary>
 /// ゲームシーンのUI
