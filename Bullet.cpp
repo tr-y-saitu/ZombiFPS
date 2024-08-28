@@ -122,7 +122,7 @@ void Bullet::OnHit(CollisionData hitObjectData)
         // 残りHPがこの一撃で0以下になる場合
         if (hitObjectData.objectHP - power <= 0)
         {
-            getMoney = +50;  // あと一撃で倒せる場合は50ポイント
+            getMoney = +100;  // あと一撃で倒せる場合は50ポイント
         }
         else
         {
