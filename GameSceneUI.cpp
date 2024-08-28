@@ -13,7 +13,7 @@ GameSceneUI::GameSceneUI()
     , redBarAnimationFrame              (0)
     , visibleAmmoLowWarningText         (false)
     , ammoLowWarningTextPreviousTime    (0)
-    , badEndImageExpansion              (0.5f)
+    , endImageExpansion              (0.5f)
 {
     // 画像管理クラス
     imageDataManager = ImageDataManager::GetInstance();
@@ -490,25 +490,25 @@ bool GameSceneUI::UpdateBadEnd()
     bool badEndFinished = false;
 
     // バッドエンド演出が開始されていない場合
-    if (!badEndStarted)
+    if (!endStarted)
     {
         // 開始時間を記録
-        badEndTimer = GetNowCount();    // 現在時間を取得
-        badEndStarted = true;
+        endTimer = GetNowCount();    // 現在時間を取得
+        endStarted = true;
     }
 
     // 経過時間を計測
     int currentTime = GetNowCount();
-    int elapsedTime = currentTime - badEndTimer;
+    int elapsedTime = currentTime - endTimer;
 
     // 時間によって画像を拡大する
     if (elapsedTime < BadEndTime)
     {
         // 最大拡大率を越えないようにする
-        if (badEndImageExpansion <= BadEndMaximumExpansion)
+        if (endImageExpansion <= BadEndMaximumExpansion)
         {
             // 画像の拡大率を時間に応じて変化
-            badEndImageExpansion = BadEndImageExpansionSpeed + (elapsedTime / BadEndTime);
+            endImageExpansion = BadEndImageExpansionSpeed + (elapsedTime / BadEndTime);
         }
     }
     else
@@ -519,9 +519,18 @@ bool GameSceneUI::UpdateBadEnd()
 
     // バッドエンド画像を描画する
     DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf,
-        badEndImageExpansion,
+        endImageExpansion,
         DefaultAngle, badEndImageHandle, true);
 
 
     return badEndFinished;
+}
+
+/// <summary>
+/// グッドエンドの演出更新
+/// </summary>
+/// <returns>演出が終了したかどうか</returns>
+bool GameSceneUI::UpdateGoodEnd()
+{
+    return 1;
 }

@@ -222,7 +222,7 @@ private:
     static constexpr int    InitializeHitPoints     = 100;                              // 初期化時の体力
     static constexpr int    HitPointsRate           = 4;                                // 体力の調整値
     static constexpr VECTOR InitializeDirection     = { 1.0f, 0.0f, 0.0f };             // 初期化時の移動方向
-    static constexpr int    DeathInactiveFrame      = 100;                              // 死亡してからモデルを削除するまでのフレームカウント数
+    static constexpr int    DeathInactiveFrame      = 75;                              // 死亡してからモデルを削除するまでのフレームカウント数
     // 当たり判定
     static constexpr float  CollisionRadius         = 1.0f;                             // 当たり判定用半径
     static constexpr VECTOR CapsulePositionOffset   = { 0.0f,4.0f,0.0f };               // カプセルの始点を作るためのずらし量
@@ -237,7 +237,7 @@ private:
     // アニメーション
     static constexpr float  DefaultAnimationSpeed   = 0.5f;                             // アニメーション速度
     static constexpr float  AnimationBlendSpeed     = 0.1f;                             // アニメーションのブレンド率変化速度
-    static constexpr float  DeadAnimationSpeed      = 0.75f;                            // 死亡アニメーションの再生速度
+    static constexpr float  DeadAnimationSpeed      = 1.0f;                            // 死亡アニメーションの再生速度
     // エフェクト
     static constexpr VECTOR BloodEffectOffset       = { 0.0f, 4.5f, 0.0f };             // 血しぶきエフェクトのずらし量
     // スポーン
