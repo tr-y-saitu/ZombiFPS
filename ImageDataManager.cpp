@@ -121,6 +121,9 @@ void ImageDataManager::ImageDataLoad()
     imageDataList[WindowsKeyBlack]              = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsKeyBlack.png");
     imageDataList[WindowsKeyDefaults]           = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/WindowsKeyDefaults.png");
     imageDataList[MouseCursorImageData]         = LoadGraph("Data/UI/ResultScene/RetroWindowsGUI/MouseCursor.png");
+
+    // バッドエンド
+    imageDataList[BadEndImageData]              = LoadGraph("Data/UI/GameScene/BadEndImage.png");
 }
 
 /// <summary>

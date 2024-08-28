@@ -13,6 +13,7 @@ GameSceneUI::GameSceneUI()
     , redBarAnimationFrame              (0)
     , visibleAmmoLowWarningText         (false)
     , ammoLowWarningTextPreviousTime    (0)
+    , badEndImageExpansion              (0.5f)
 {
     // 画像管理クラス
     imageDataManager = ImageDataManager::GetInstance();
@@ -40,6 +41,7 @@ void GameSceneUI::Initialize()
     gunPowerUpMachineIconImageHandle    = imageDataManager->GetImageHandle(ImageDataManager::IconGunPowerUpMachine);
     ammoBoxIconImageHandle              = imageDataManager->GetImageHandle(ImageDataManager::IconAmmoBox);
     hitFilterImageHandle                = imageDataManager->GetImageHandle(ImageDataManager::HitFilter);
+    badEndImageHandle                   = imageDataManager->GetImageHandle(ImageDataManager::BadEndImageData);
 
     // ウェーブ画像の取得
     waveImageDataList[EnemyWaveController::WaveState::Wave1]    = imageDataManager->GetImageHandle(ImageDataManager::Wave1ImageData);
@@ -477,4 +479,45 @@ float GameSceneUI::UpdateIconOffset()
 
     // sinを使用し、0～1の値を返し続ける
     return IconOffsetRange * sin(IconOffsetCycle * frameCount);
+}
+
+/// <summary>
+/// バッドエンドの演出更新
+/// </summary>
+/// <returns>演出が終了したかどうか</returns>
+bool GameSceneUI::UpdateBadEnd()
+{
+    bool badEndFinished = false;
+
+    // バッドエンド演出が開始されていない場合
+    if (!badEndStarted)
+    {
+        // 開始時間を記録
+        badEndTimer = GetNowCount();    // 現在時間を取得
+        badEndStarted = true;
+    }
+
+    // 経過時間を計測
+    int currentTime = GetNowCount();
+    int elapsedTime = currentTime - badEndTimer;
+
+    // 時間によって画像を拡大する
+    if (elapsedTime < 5000)
+    {
+        // 画像の拡大率を時間に応じて変化
+        badEndImageExpansion = 0.5f + (elapsedTime / 5000.0f);
+    }
+    else
+    {
+        // ５秒経過したら演出終了
+        badEndFinished = true;
+    }
+
+    // バッドエンド画像を描画する
+    DrawRotaGraph(ScreenWidthHalf, ScreenHeightHalf,
+        badEndImageExpansion,
+        DefaultAngle, badEndImageHandle, true);
+
+
+    return badEndFinished;
 }

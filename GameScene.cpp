@@ -122,10 +122,16 @@ SceneBase* GameScene::UpdateScene()
     bool gameEnd = player->GetHitPoint() <= 0 || enemyWaveController->GetCurrentWaveState() == EnemyWaveController::Result;
     if (gameEnd)
     {
-        // シーン切り替え
-        return new ResultScene(player->GetGameScore(),
-            enemyGroupController->GetEnemyKillCount(),
-            enemyWaveController->GetCurrentWaveState());
+        bool end = gameSceneUI->UpdateBadEnd();
+
+        if (end)
+        {
+            // シーン切り替え
+            return new ResultScene(player->GetGameScore(),
+                enemyGroupController->GetEnemyKillCount(),
+                enemyWaveController->GetCurrentWaveState());
+
+        }
     }
 
     // 現状のシーンを返す
@@ -214,4 +220,24 @@ void GameScene::UpdateSound()
 void GameScene::UpdateEffect()
 {
 
+}
+
+/// <summary>
+/// バッドエンド更新
+/// </summary>
+bool GameScene::UpdateBadEnd()
+{
+    
+
+    return true;
+}
+
+/// <summary>
+/// グッドエンド更新
+/// </summary>
+bool GameScene::UpdateGoodEnd()
+{
+
+
+    return true;
 }

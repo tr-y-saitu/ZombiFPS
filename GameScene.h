@@ -72,6 +72,18 @@ public:
     void UpdateEffect();
 
 private:
+    /// <summary>
+    /// バッドエンド演出更新
+    /// </summary>
+    /// <returns>演出が終了したらtrue</returns>
+    bool UpdateBadEnd();
+
+    /// <summary>
+    /// グッドエンド演出更新
+    /// </summary>
+    /// <returns>演出が終了したらtrue</returns>
+    bool UpdateGoodEnd();
+
     // 定数
     static constexpr int GameSceneFontSize = 50;        // ゲームシーンのフォントサイズ
 
@@ -105,7 +117,9 @@ private:
     IncomeDouble*           incomeDoubleItem;       // ポイント２倍アイテム
 
     // UI関連
-    GameSceneUI*        gameSceneUI;        // ゲームシーン用のUI
+    GameSceneUI*            gameSceneUI;            // ゲームシーン用のUI
+
+
 };
 
 

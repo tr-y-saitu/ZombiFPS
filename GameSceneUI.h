@@ -37,6 +37,12 @@ public:
     /// </summary>
     void Draw(Player& player,int waveState);
 
+    /// <summary>
+    /// バッドエンドの演出更新
+    /// </summary>
+    /// <returns>演出が終了したかどうか</returns>
+    bool UpdateBadEnd();
+
 private:
     /// <summary>
     /// プレイヤーの情報を描画
@@ -125,6 +131,8 @@ private:
     /// </summary>
     float UpdateIconOffset();
 
+    
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
@@ -193,6 +201,12 @@ private:
 
     // ウェーブ
     map<EnemyWaveController::WaveState, int>  waveImageDataList;     // ウェーブの画像リスト
+
+    // バッドエンド
+    int     badEndImageHandle;                  // バッドエンド画像
+    float   badEndImageExpansion;               // バッドエンド画像の拡大率
+    int     badEndTimer;                        // バッドエンド演出用計測時間
+    bool    badEndStarted;                      // バッドエンド演出が開始されたかどうか
 };
 
 

@@ -72,6 +72,9 @@ public:
         WindowsKeyBlack,                // 入力用のキーフレーム
         WindowsKeyDefaults,             // 入力用のキーフレームのデフォルト
         MouseCursorImageData,           // マウスカーソル
+
+        // バッドエンド
+        BadEndImageData,                // バッドエンド画像
     };
 
     /// <summary>
