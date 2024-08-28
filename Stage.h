@@ -106,7 +106,7 @@ private:
     static constexpr float  HitCollisionRadius          = 1.2f;         // ステージとの当たり判定を行う最短半径(これ以上小さいとめり込んだりする)
     // ステータス
     static constexpr VECTOR StageModelScale     = { 0.1,0.1,0.1 };      // ステージモデルのスケール
-
+    static constexpr float  PushBackOffset              = 0.1f;         // ステージとモデルを押し出す追加量
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //

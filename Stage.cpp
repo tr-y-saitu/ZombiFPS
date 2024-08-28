@@ -290,11 +290,12 @@ VECTOR Stage::CheckHitWithWall(Player& player, const VECTOR& CheckPosition)
                 vectorWallToPlayer = VNorm(vectorWallToPlayer);
 
                 // 押し出す量を
-                VECTOR pushBackVector = VScale(vectorWallToPlayer, distance);
+                VECTOR pushBackVector = VScale(vectorWallToPlayer, (distance + PushBackOffset));
 
                 // 当たっていたら規定距離分プレイヤーを壁の法線方向に移動させる
                 // 移動後の位置を更新（移動後の場所を補正）
-                fixedPosition = VAdd(fixedPosition, VScale(floorPolygon->Normal, distance));
+                //fixedPosition = VAdd(fixedPosition, VScale(floorPolygon->Normal, distance));
+                fixedPosition = VAdd(fixedPosition, pushBackVector);
 
                 // 移動した壁ポリゴンと接触しているかどうかを判定
                 for (int j = 0; j < wallNum; j++)
