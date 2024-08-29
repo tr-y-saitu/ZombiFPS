@@ -85,6 +85,6 @@ protected:
     int vhsSmallFontHandle;     // VHSフォントハンドル(小)
     int vhsJPLargeFontHandle;   // VHS日本語対応フォントハンドル(大)
     int vhsJPSmallFontHandle;   // VHS日本語対応フォントハンドル(小)
-
+    int waveStateFontHandle;    // ウェーブの表示時に使用するフォントハンドル
 };
 

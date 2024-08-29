@@ -3,6 +3,7 @@
 #include "ImageDataManager.h"
 #include "GunPowerUpMachine.h"
 #include "AmmoBox.h"
+#include "GunBase.h"
 
 /// <summary>
 /// コンストラクタ
@@ -120,15 +121,19 @@ void GameSceneUI::DrawPlayerInformation(Player& player)
 /// <param name="waveState">現在のウェーブステート</param>
 void GameSceneUI::DrawWaveState(int waveState)
 {
-    /*char waveStateString[256];
-    sprintf_s(waveStateString, "%d", waveState++);
+    // 「Round文字」
+    DrawStringToHandle(210, 800, "WAVE", CurrentWaveStateFontColor, vhsSmallFontHandle);
+
+    // 現在のウェーブ数
+    char waveStateString[256];
+    sprintf_s(waveStateString, "%d/10", waveState++);
     DrawStringToHandle(CurrentWaveStateDrawPositionX, CurrentWaveStateDrawPositionY,
-        waveStateString, CurrentWaveStateFontColor, outlastFontHandle);*/
+        waveStateString, CurrentWaveStateFontColor, waveStateFontHandle);
 
     // 現在のウェーブステートを描画
-    DrawGraph(CurrentWaveStateDrawPositionX, CurrentWaveStateDrawPositionY,
+    /*DrawGraph(CurrentWaveStateDrawPositionX, CurrentWaveStateDrawPositionY,
         waveImageDataList[(EnemyWaveController::WaveState)waveState],
-        true);
+        true);*/
 }
 
 /// <summary>
@@ -269,7 +274,8 @@ void GameSceneUI::DrawPlayerMoney(Player& player)
 {
     char moneyString[256];
     snprintf(moneyString, sizeof(moneyString), "$:%d", player.GetMoney());
-    DrawStringToHandle(1600, 800, moneyString, DebugFontColor, vhsJPLargeFontHandle);
+    DrawStringToHandle(PlayerMoneyDrawPositionX, PlayerMoneyDrawPositionY,
+        moneyString, DebugFontColor, vhsJPLargeFontHandle);
 }
 
 /// <summary>
@@ -333,6 +339,11 @@ void GameSceneUI::DrawPlayerHitPoint(Player& player)
         }
 
     }
+
+    // HPバーに「HP」の文字を描画
+    DrawFormatStringToHandle(HitPointTextDrawPositionX, HitPointTextDrawPositionY,
+        FontColorBlack, vhsSmallFontHandle, "HP");
+
     // ヒット時のフィルター画像を描画
     if (currentHitPoint != previousHitPoint && currentHitPoint < previousHitPoint)
     {
@@ -398,6 +409,8 @@ void GameSceneUI::DrawCrosshair(Player& player)
 /// <param name="player">プレイヤー</param>
 void GameSceneUI::DrawEquippedGunName(Player& player)
 {
+    bool isWeaponPowerUp;
+
     switch (player.GetCurrentGunType())
     {
     case Player::GunType::AssaultRifle:
@@ -409,7 +422,21 @@ void GameSceneUI::DrawEquippedGunName(Player& player)
         break;
 
     case Player::GunType::SubmachineGun:
-        DrawStringToHandle(1600, 850, "XP5", DebugFontColor, vhsJPLargeFontHandle);
+
+        // 武器が強化状態であれば名前変更
+        isWeaponPowerUp = (GunBase::GunPowerUpState)player.GetEquippedGunPowerUpState() != GunBase::GunPowerUpState::None;
+
+        if (isWeaponPowerUp)
+        {
+            DrawStringToHandle(GunNamePositionX, GunNamePositionY,
+                "Tartarus", DebugFontColor, vhsJPLargeFontHandle);
+        }
+        else
+        {
+            DrawStringToHandle(GunNamePositionX, GunNamePositionY,
+                "XP5", DebugFontColor, vhsJPLargeFontHandle);
+        }
+
         break;
     default:
         break;

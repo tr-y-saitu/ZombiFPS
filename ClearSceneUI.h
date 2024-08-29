@@ -50,6 +50,8 @@ private:
     int     goodEndTextImageHandle;             // グッドエンド用のテキスト画像
     VECTOR  goodEndTextPosition;                // グッドエンド用のテキスト画像の座標
 
+    // ステータス
+    int     frameCount;                         // フレームカウント
 };
 
 

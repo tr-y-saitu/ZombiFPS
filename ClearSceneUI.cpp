@@ -5,6 +5,7 @@
 /// コンストラクタ
 /// </summary>
 ClearSceneUI::ClearSceneUI()
+    : frameCount            (0)
 {
     // 画像ハンドルクラスのアドレスをもらう
     imageDataManager = ImageDataManager::GetInstance();
@@ -31,7 +32,7 @@ void ClearSceneUI::Initialize()
     goodEndTextImageHandle  = imageDataManager->GetImageHandle(ImageDataManager::ClearSceneTextImageData);
 
     // 画像のハンドルの座標初期化
-    goodEndTextPosition = VGet(ScreenWidthHalf, ScreenHeightHalf, 0);
+    goodEndTextPosition = VGet(ScreenWidthHalf, ScreenHeight, 0);
 }
 
 /// <summary>
@@ -39,7 +40,16 @@ void ClearSceneUI::Initialize()
 /// </summary>
 void ClearSceneUI::Update()
 {
+    // フレームカウントの更新
+    frameCount++;
 
+    // 文字画像を徐々に上に上げる
+    int textPositionY = frameCount;
+    if (textPositionY >= ScreenHeightHalf)
+    {
+        textPositionY = ScreenHeightHalf;
+    }
+    goodEndTextPosition.y = ScreenHeight - textPositionY;
 }
 
 /// <summary>

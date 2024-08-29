@@ -1376,6 +1376,15 @@ const int Player::GetEquippedBackUpAmmo()
 }
 
 /// <summary>
+/// 現在装備中の武器の強化状態を返す
+/// </summary>
+/// <returns>武器の強化状態</returns>
+const int Player::GetEquippedGunPowerUpState()
+{
+    return (int)equippedGun->GetGunPowerUpState();
+}
+
+/// <summary>
 /// エフェクトの更新
 /// </summary>
 void Player::UpdateEffect()

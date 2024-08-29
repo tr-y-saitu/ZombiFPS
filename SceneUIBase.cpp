@@ -22,6 +22,9 @@ SceneUIBase::SceneUIBase()
 
     // VHS風日本語対応フォント(小)
     vhsJPSmallFontHandle = CreateFontToHandle("VCR-JP Regular", 25, 2, DX_FONTTYPE_NORMAL);
+
+    // ウェーブの表示時に使用するフォント
+    waveStateFontHandle = CreateFontToHandle("VCR OSD Mono", 100, 2, DX_FONTTYPE_NORMAL);
 }
 
 /// <summary>

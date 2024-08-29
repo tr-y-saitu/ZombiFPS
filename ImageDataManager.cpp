@@ -124,7 +124,7 @@ void ImageDataManager::ImageDataLoad()
 
     // クリアシーン
     imageDataList[ClearSceneBackImageData]      = LoadGraph("Data/UI/ClearScene/GoodEndBackImage.png");
-    imageDataList[ClearSceneTextImageData]      = LoadGraph("Data/UI/ClearScene/GoodEndTextImage.png");
+    imageDataList[ClearSceneTextImageData]      = LoadGraph("Data/UI/ClearScene/GoodEndTextImag.png");
 
     // バッドエンド
     imageDataList[BadEndImageData]              = LoadGraph("Data/UI/GameScene/BadEndImage.png");

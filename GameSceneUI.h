@@ -155,6 +155,8 @@ private:
     static constexpr int    AmmoHalfRate                            = 2;        // 銃の総弾数を半分にするための値
     static constexpr int    LowAmmoWarningTextBlinkInterval         = 300;      // 銃の総弾数が少なくなった時の警告表示の点滅間隔
     static constexpr int    LowAmmoWarningTextDrawPositionY         = 300;      // 銃の総弾数が少なくなった時の警告表示の描画Y位置
+    static constexpr int    GunNamePositionX                        = 1600;     // 銃の名前の描画X座標
+    static constexpr int    GunNamePositionY                        = 910;      // 銃の名前の描画Y座標
     // 武器強化マシン
     static constexpr VECTOR GunPowerUpMachineIconDrawOffset         = { 0.0f,3.0f,0.0f };   // 武器強化マシンのアイコン描画ずらし量
     // 弾薬補充箱
@@ -169,11 +171,15 @@ private:
     static constexpr float  IconAngle                               = 0.0f;     // アイコンの描画角度
     // プレイヤー
     static constexpr int    HitPointBarDrawPositionX                = 1600;     // ヒットポイント描画X位置
-    static constexpr int    HitPointBarDrawPositionY                = 910;      // ヒットポイント描画Y位置
+    static constexpr int    HitPointBarDrawPositionY                = 810;      // ヒットポイント描画Y位置
     static constexpr int    HitPointBarMaxWidth                     = 350;      // ヒットポイントバーの最大幅
-    static constexpr int    HitPointBarHeight                       = 30;       // ヒットポイントバーの高さ
+    static constexpr int    HitPointBarHeight                       = 40;       // ヒットポイントバーの高さ
     static constexpr int    HitPointBarFrameThickness               = 5;        // ヒットポイントバーの枠の太さ
     const int               HitPointBarColor                        = GetColor(0, 255, 0);  // ヒットポイントバーの色
+    static constexpr int    HitPointTextDrawPositionX               = 1750;     // 「HP」のテキストを描画するX座標
+    static constexpr int    HitPointTextDrawPositionY               = 805;      // 「HP」のテキストを描画するY座標
+    static constexpr int    PlayerMoneyDrawPositionX                = 1600;     // プレイヤーの所持金の描画Ｘ座標
+    static constexpr int    PlayerMoneyDrawPositionY                = 750;      // プレイヤーの所持金の描画Ｙ座標
     // リロード
     static constexpr int    ReloadBarWidth                          = 500;      // リロード進行状態を知らせるバーの幅
     static constexpr int    ReloadBarHeight                         = 40;       // リロード進行状態を知らせるバーの高さ
