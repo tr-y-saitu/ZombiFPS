@@ -38,10 +38,13 @@ Player::Player()
     , interactionCost               (0)
     , currentGunType                (GunType::SubmachineGun)
 {
+    // 自身の関数ポインタを作成
+    addMoney = std::bind(&Player::AddMoney, this, std::placeholders::_1);
+
     collisionManager        = CollisionManager::GetInstance();
     modelDataManager        = ModelDataManager::GetInstance();
     Initialize();
-    bulletObjectPools       = new BulletObjectPools();
+    bulletObjectPools       = new BulletObjectPools(addMoney);
     equippedGun             = new SubmachineGun();
     playerCamera            = new PlayerCamera();
     currentState            = new PlayerIdleState(modelHandle, animationData);
@@ -51,6 +54,7 @@ Player::Player()
 
     // 当たり判定に必要なデータを渡す
     collisionManager->RegisterCollisionData(&collisionData);
+
 }
 
 /// <summary>
@@ -194,6 +198,9 @@ void Player::Draw(const Stage& stage)
     // 体力の描画
     DrawFormatString(100, 400, DebugFontColor, "HP:%.1f", hitPoint);
 
+    // 所持金
+    DrawFormatString(1000, 300, DebugFontColor, "Money:%d", money);
+
     // インタラクト状態の描画
     switch (interactLocationState)
     {
@@ -261,6 +268,15 @@ void Player::OnHitFloor()
         // 着地時はアニメーションのブレンドは行わない
         animationBlendRate = 1.0f;
     }
+}
+
+/// <summary>
+/// 所持金を増やす
+/// </summary>
+/// <param name="getMoney">増やしたい金額</param>
+void Player::AddMoney(int getMoney)
+{
+    money += getMoney;
 }
 
 /// <summary>
