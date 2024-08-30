@@ -132,9 +132,10 @@ void GameScene::DrawUI()
 /// </summary>
 void GameScene::UpdateSound()
 {
-    // お金を払った時の音
+    // インタラクト時のサウンドを再生
     if (player->GetIsInteracted())
     {
+        // お金を払った時の音
         soundManager->PlaySoundListSE(SoundManager::MoneyUseSE);
 
         // シャッターを開けた場合
