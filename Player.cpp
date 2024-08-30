@@ -44,7 +44,7 @@ Player::Player()
     collisionManager        = CollisionManager::GetInstance();
     modelDataManager        = ModelDataManager::GetInstance();
     Initialize();
-    bulletObjectPools       = new BulletObjectPools(addMoney);
+    bulletObjectPools       = new BulletObjectPools();
     equippedGun             = new SubmachineGun();
     playerCamera            = new PlayerCamera();
     currentState            = new PlayerIdleState(modelHandle, animationData);

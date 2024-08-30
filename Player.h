@@ -131,7 +131,7 @@ public:
     const InteractLocationState GetInteractLocationState() { return interactLocationState; }
     const int GetInteractionCost()const { return interactionCost; }
     const GunType GetCurrentGunType()const { return currentGunType; }
-    const std::function<void(int)> GetPlayerAddMoney()const { addMoney; }
+    const std::function<void(int)> GetPlayerAddMoney()const { return addMoney; }
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //

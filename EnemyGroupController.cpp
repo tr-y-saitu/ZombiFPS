@@ -14,6 +14,16 @@ EnemyGroupController::EnemyGroupController()
 }
 
 /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    /// <param name="playerAddMoney">プレイヤーの所持金を増加させる関数ポインタ</param>
+EnemyGroupController::EnemyGroupController(std::function<void(int)> playerAddMoney)
+{
+    // エネミーのオブジェクトプール
+    enemyObjectPools = new EnemyObjectPools(playerAddMoney);
+}
+
+/// <summary>
 /// デストラクタ
 /// </summary>
 EnemyGroupController::~EnemyGroupController()

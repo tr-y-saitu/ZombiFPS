@@ -12,9 +12,15 @@ class EnemyGroupController
 {
 public:
     /// <summary>
-    /// コンストラクタ
+    /// デフォルトコンストラクタ
     /// </summary>
     EnemyGroupController();
+
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    /// <param name="playerAddMoney">プレイヤーの所持金を増加させる関数ポインタ</param>
+    EnemyGroupController(std::function<void(int)> playerAddMoney);
     
     /// <summary>
     /// デストラクタ
