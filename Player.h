@@ -117,6 +117,12 @@ public:
     void OnHitFloor();
 
     /// <summary>
+    /// 所持金を増やす
+    /// </summary>
+    /// <param name="getMoney">増やしたい金額</param>
+    void AddMoney(int getMoney);
+
+    /// <summary>
     /// オブジェクトと接触した時の処理
     /// </summary>
     /// <param name="hitObjectData"></param>
@@ -139,6 +145,7 @@ public:
     const int GetInteractionCost()const { return interactionCost; }
     const GunType GetCurrentGunType()const { return currentGunType; }
     const ReloadState GetReloadState()const { return reloadState; }
+    const std::function<void(int)> GetPlayerAddMoney()const { return addMoney; }
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -338,5 +345,8 @@ private:
     float       runAnimationFactor;                 // 走りアニメーションの適用率
     int         reloadAnimationCount;               // リロードアニメーションを再生するカウント
     float       reloadAnimationFactor;              // リロードアニメーションの適用率
+
+    // 関数ポインタ
+    std::function<void(int)> addMoney;              // 所持金を加算する関数のポインタ
 };
 

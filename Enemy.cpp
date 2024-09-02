@@ -31,6 +31,31 @@ Enemy::Enemy()
 }
 
 /// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="playerAddMoney">プレイヤーの所持金を増加させる関数ポインタ</param>
+Enemy::Enemy(std::function<void(int)> playerAddMoney)
+    : hitPoints(InitializeHitPoints)
+    , currentPlayAnimation(-1)
+    , previousPlayAnimation(-1)
+    , animationBlendRate(1.0f)
+    , targetMoveDirection(InitializeDirection)
+    , currentJumpPower(0.0f)
+    , currentState(State::Run)
+    , position(InitializePosition)
+    , targetNextPosition(InitializePosition)
+    , isTouchingRoomCenter(false)
+    , isActive(true)
+    , deathFrameCount(0)
+{
+    modelDataManager = ModelDataManager::GetInstance();
+    collisionManager = CollisionManager::GetInstance();
+    soundManager = SoundManager::GetInstance();
+    effectManager = EffectManager::GetInstance();
+    addMoney = playerAddMoney;
+}
+
+/// <summary>
 /// デストラクタ
 /// </summary>
 Enemy::~Enemy()
@@ -199,36 +224,51 @@ void Enemy::OnHit(CollisionData hitObjectData)
     // オブジェクトごとに処理
     switch (hitObjectData.tag)
     {
-    case ObjectTag::Bullet: // 弾丸と当たった時
-
-        // すでに当たったオブジェクトどうかを確認
-        if (tempBullet != nullptr)
+        case ObjectTag::Bullet: // 弾丸と当たった時
         {
-            if (tempBullet->IsObjectHit((HitObjectAddress*)this))
+            // すでに当たったオブジェクトどうかを確認
+            if (tempBullet != nullptr)
             {
-                return;
+                if (tempBullet->IsObjectHit((HitObjectAddress*)this))
+                {
+                    return;
+                }
             }
+
+            // HPを減少
+            hitPoints -= hitObjectData.bulletPower;
+
+            // 当たった時の音を出す
+            // FIXME:当たり判定が上手く処理できていないため、コメントアウト
+            //soundManager->PlaySoundListSE(SoundManager::EnemyHitSE);
+
+            // 当たった時の血しぶきエフェクトを再生
+            VECTOR effectPlayPosition = VAdd(position, BloodEffectOffset);
+            effectManager->PlayBloodSplatterEffect(effectPlayPosition);
+
+            // 所持金を加算
+            if (hitPoints - hitObjectData.bulletPower <= 0)
+            {
+                // この弾丸でHPがゼロになる場合
+                addMoney(EnemyKillReward);
+            }
+            else
+            {
+                addMoney(EnemyHitReward);
+            }
+
+            break;
         }
+        case ObjectTag::EnemyBoby:  // エネミーと当たった時
+        {
+            // 押し出し処理を行う
 
-        // HPを減少
-        hitPoints -= hitObjectData.bulletPower;
-
-        // 当たった時の音を出す
-        //soundManager->PlaySoundListSE(SoundManager::EnemyHitSE);
-
-        // 当たった時の血しぶきエフェクトを再生
-        VECTOR effectPlayPosition = VAdd(position, BloodEffectOffset);
-        effectManager->PlayBloodSplatterEffect(effectPlayPosition);
-
-        break;
-
-    case ObjectTag::EnemyBoby:  // エネミーと当たった時
-        // 押し出し処理を行う
-
-        break;
-
-    default:
-        break;
+            break;
+        }
+        default:
+        {
+            break;
+        }
     }
 }
 
@@ -261,9 +301,6 @@ void Enemy::UpdateCollisionData()
 
         // カプセルの半径を登録
         collisionData.radius = CollisionRadius;
-
-        // 体力
-        collisionData.objectHP = hitPoints;
 
         // 自身のアドレス
         collisionData.objectAddress = this;

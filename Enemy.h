@@ -52,9 +52,15 @@ public:
     };
 
     /// <summary>
-    /// コンストラクタ
+    /// デフォルトコンストラクタ
     /// </summary>
     Enemy();
+
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    /// <param name="playerAddMoney">プレイヤーの所持金を増加させる関数ポインタ</param>
+    Enemy(std::function<void(int)> playerAddMoney);
 
     /// <summary>
     /// デストラクタ
@@ -209,6 +215,9 @@ private:
     static constexpr float  AnimationBlendSpeed     = 0.1f;                             // アニメーションのブレンド率変化速度
     // エフェクト
     static constexpr VECTOR BloodEffectOffset       = { 0.0f, 4.5f, 0.0f };             // 血しぶきエフェクトのずらし量
+    // 獲得金額
+    static constexpr int    EnemyKillReward         = 100;                              // エネミーをキルした時の獲得金額
+    static constexpr int    EnemyHitReward          = 20;                               // エネミーに弾丸を当てたときの獲得金額
     // デバッグ
     static constexpr int    DebugHitPointDrawX      = 0;                                // デバッグ時のHP表示X座標
     static constexpr int    DebugHitPointDrawY      = 100;                              // デバッグ時のHP表示Y座標
@@ -246,7 +255,6 @@ private:
     CollisionData           collisionData;          // 当たり判定用情報
     CollisionData           attackCollisionData;    // 攻撃時の当たり判定情報
 
-
     // アニメーション情報
     int         currentPlayAnimation;       // 再生しているアニメーションのアタッチ番号( -1:何もアニメーションがアタッチされていない )
     float       currentAnimationCount;      // 再生しているアニメーションの再生時間
@@ -254,5 +262,7 @@ private:
     float       previousAnimationCount;     // 前の再生アニメーションの再生時間
     float       animationBlendRate;         // 現在と過去のアニメーションのブレンド率
 
+    // 関数ポインタ
+    std::function<void(int)> addMoney;              // 所持金を加算する関数のポインタ
 };
 
