@@ -28,6 +28,29 @@ Enemy::Enemy()
 }
 
 /// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="playerAddMoney">プレイヤーの所持金を増加させる関数ポインタ</param>
+Enemy::Enemy(std::function<void(int)> playerAddMoney)
+    : hitPoints(InitializeHitPoints)
+    , currentPlayAnimation(-1)
+    , previousPlayAnimation(-1)
+    , animationBlendRate(1.0f)
+    , targetMoveDirection(InitializeDirection)
+    , currentJumpPower(0.0f)
+    , currentState(State::Run)
+    , position(InitializePosition)
+    , targetNextPosition(InitializePosition)
+    , isTouchingRoomCenter(false)
+    , isActive(true)
+    , deathFrameCount(0)
+{
+    modelDataManager = ModelDataManager::GetInstance();
+    collisionManager = CollisionManager::GetInstance();
+    addMoney = playerAddMoney;
+}
+
+/// <summary>
 /// デストラクタ
 /// </summary>
 Enemy::~Enemy()
@@ -160,6 +183,17 @@ void Enemy::OnHit(CollisionData hitObjectData)
             // FIXME:当たり判定が上手く処理できていないため、コメントアウト
             //soundManager->PlaySoundListSE(SoundManager::EnemyHitSE);
 
+            // 所持金を加算
+            if (hitPoints - hitObjectData.bulletPower <= 0)
+            {
+                // この弾丸でHPがゼロになる場合
+                addMoney(EnemyKillReward);
+            }
+            else
+            {
+                addMoney(EnemyHitReward);
+            }
+
             break;
         }
         case ObjectTag::EnemyBoby:  // エネミーと当たった時
@@ -201,9 +235,6 @@ void Enemy::UpdateCollisionData()
 
     // カプセルの半径を登録
     collisionData.radius = CollisionRadius;
-
-    // 体力
-    collisionData.objectHP = hitPoints;
 }
 
 /// <summary>

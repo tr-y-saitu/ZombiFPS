@@ -43,7 +43,7 @@ GameScene::GameScene()
     // オブジェクト関連
     stage                   = new Stage();
     player                  = new Player();
-    enemyGroupController    = new EnemyGroupController();
+    enemyGroupController    = new EnemyGroupController(player->GetPlayerAddMoney());
     enemyWaveController     = new EnemyWaveController();
     shutterController       = new ShutterController();
 
