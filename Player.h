@@ -105,6 +105,12 @@ public:
     void OnHitFloor();
 
     /// <summary>
+    /// 所持金を増やす
+    /// </summary>
+    /// <param name="getMoney">増やしたい金額</param>
+    void AddMoney(int getMoney);
+
+    /// <summary>
     /// オブジェクトと接触した時の処理
     /// </summary>
     /// <param name="hitObjectData"></param>
@@ -120,7 +126,12 @@ public:
     float GetCurrentJumpPower() const { return currentJumpPower; }
     const MATRIX GetRotationMatrix()const { return rotationMatrix; }
     const int GetEquippedGunAmmo();
+    const int GetEquippedBackUpAmmo();
     const int GetMoney()const { return money; }
+    const InteractLocationState GetInteractLocationState() { return interactLocationState; }
+    const int GetInteractionCost()const { return interactionCost; }
+    const GunType GetCurrentGunType()const { return currentGunType; }
+    const std::function<void(int)> GetPlayerAddMoney()const { return addMoney; }
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
@@ -276,7 +287,8 @@ private:
     // 基本情報
     PlayerCamera*           playerCamera;               // プレイヤー専用のカメラ(FPS視点カメラ)
     PlayerStateBase*        currentState;               // 現在のステート
-    GunBase*                equippedGun;                // 装備中の武器
+    GunBase*                equippedGun;                // 装備中の銃
+    GunType                 currentGunType;             // 装備中の銃の種類名
     BulletObjectPools*      bulletObjectPools;          // 弾丸のオブジェクトプール
     int                     shootFireRateCount;         // 銃の連射力をカウント
     bool                    isHitEnemyAttack;           // エネミーの攻撃を受けている
@@ -310,5 +322,8 @@ private:
     float       runAnimationFactor;                 // 走りアニメーションの適用率
     int         reloadAnimationCount;               // リロードアニメーションを再生するカウント
     float       reloadAnimationFactor;              // リロードアニメーションの適用率
+
+    // 関数ポインタ
+    std::function<void(int)> addMoney;              // 所持金を加算する関数のポインタ
 };
 

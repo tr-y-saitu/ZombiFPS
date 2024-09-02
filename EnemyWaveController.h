@@ -54,16 +54,16 @@ public:
 
     // Getter
     const bool GetEnemySpawnFlag()const { return enemySpawnFlag; }
+    const int GetCurrentWaveState()const { return currentWaveState; }
 
 private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
-    static constexpr int EnemySpawnLimit            = 15;   // 同時に存在できるエネミーの数
-    static constexpr int EnemySpawnResponseTime     = 2;    // 敵の出現頻度
-    static constexpr int EnemySpawnRate             = 5;    // 現在のウェーブにこの値を掛けてそのウェーブに出現するエネミーの数を決定する
-    static constexpr int WaveDurationMS             = 1000; //
-    static constexpr int EnemySpawnDelayMS          = 5000; // ウェーブが切り替わってからエネミーが出現するまでの時間
+    static constexpr int EnemySpawnLimit            = 15;       // 同時に存在できるエネミーの数
+    static constexpr int EnemySpawnResponseTime     = 2000;     // 敵の出現頻度
+    static constexpr int EnemySpawnRate             = 5;        // 現在のウェーブにこの値を掛けてそのウェーブに出現するエネミーの数を決定する
+    static constexpr int EnemySpawnDelayMS          = 5000;     // ウェーブが切り替わってからエネミーが出現するまでの時間
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
@@ -76,6 +76,8 @@ private:
     bool        enemySpawnFlag;         // エネミーを出現させる指示
     int         currentWaveSpawnCount;  // 現在のウェーブで出現させたエネミーの数
     bool        canSwichWave;           // ウェーブ切り替え可能かどうか
+    int         waveChangeStartTime;    // ウェーブ切り替えの開始時間
+    bool        isWaitingWaveChange;    // ウェーブ切り替え待機中かどうか
 };
 
 

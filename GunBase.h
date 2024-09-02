@@ -63,9 +63,11 @@ public:
     const int GetGunAmmo()const { return gunAmmo; }
     const int GetGunMaxAmmo()const { return gunMaxAmmo; }
     const int GetRewardMoney()const { return rewardMoney; }
+    const int GetBackUpAmmo()const { return backUpAmmo; }
 
     // セッター
     void SetGunAmmo(int set) { gunAmmo = set; }
+    void SetBackUpAmmo(int set) { backUpAmmo = set; }
 
 protected:
 
@@ -114,7 +116,7 @@ protected:
     void PlayReloadAnimation();
 
     //---------------------------------------------------------------------------------//
-    //                                      変数                                       //
+    //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     // 腰だめ
     static constexpr float  HipShootHorizontalAngle     = 3.0f * DX_PI_F / 180.0f;      // 水平回転用：腰だめの位置に調整するために回転させるY軸回転度(ラジアン)
@@ -142,6 +144,7 @@ protected:
     int             gunAmmo;                    // 銃の総弾数
     int             gunMaxAmmo;                 // 銃の最大総弾数
     int             rewardMoney;                // 獲得した金額
+    int             backUpAmmo;                 // 予備弾薬
 
     // 弾丸
     Bullet::BulletInitializeData bulletData;    // 弾丸のデータ

@@ -16,9 +16,15 @@ class EnemyGroup
 {
 public:
     /// <summary>
-    /// コンストラクタ
+    /// デフォルトコンストラクタ
     /// </summary>
     EnemyGroup();
+
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    /// <param name="playerAddMoney">プレイヤーの所持金を増加させる関数ポインタ</param>
+    EnemyGroup(std::function<void(int)> playerAddMoney);
 
     /// <summary>
     /// デストラクタ

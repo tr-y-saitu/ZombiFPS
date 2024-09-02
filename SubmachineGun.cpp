@@ -58,6 +58,7 @@ void SubmachineGun::Initialize()
     positionOffsetAmount    = VGet(0, 0.5, -1);
     gunAmmo                 = GunMaxAmmo;           // 総弾数
     gunMaxAmmo              = GunMaxAmmo;           // 銃の最大総弾数
+    backUpAmmo              = MaxBackUpAmmo;        // 予備弾薬数
 
     // スケールを調整
     MV1SetScale(modelHandle, InitializeScale);
