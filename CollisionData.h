@@ -50,9 +50,6 @@ struct CollisionData
     VECTOR      lineEndPosition;        // 線の終点
     int         bulletPower;            // 弾丸の威力
 
-    // ステータス
-    float       objectHP;               // オブジェクトの体力
-
     // インタラクト
     float       interactRadius;         // そのオブジェクトにアクセルできる半径
     int         interactionCost;        // そのオブジェクトのインタラクトにかかるコスト
