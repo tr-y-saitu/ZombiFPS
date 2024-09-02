@@ -134,7 +134,7 @@ void SoundManager::StopAllSounds()
 /// 読み込んだサウンドリストから効果音再生
 /// </summary>
 /// <param name="soundType">再生したい効果音の種類</param>
-void SoundManager::PlaySoundListSE(PlaySoundSE soundType)
+void SoundManager::PlaySoundListSE(SoundEffectType soundType)
 {
     playingSoundHandle = soundListSE[soundType];
     playingList.push_back(playingSoundHandle);
@@ -145,7 +145,7 @@ void SoundManager::PlaySoundListSE(PlaySoundSE soundType)
 /// 読み込んだサウンドリストから効果音再生（ループ再生したい効果音用）
 /// </summary>
 /// <param name="soundType">再生したい効果音の種類</param>
-void SoundManager::PlaySoundListSETypeLoop(PlaySoundSE soundType)
+void SoundManager::PlaySoundListSETypeLoop(SoundEffectType soundType)
 {
     playingSoundHandle = soundListSE[soundType];
     if (!CheckSoundMem(playingSoundHandle))
@@ -159,7 +159,7 @@ void SoundManager::PlaySoundListSETypeLoop(PlaySoundSE soundType)
 /// 読み込んだサウンドリストからBGM再生
 /// </summary>
 /// <param name="soundType">再生したいBGMの種類</param>
-void SoundManager::PlaySoundListBGM(PlaySoundBGM soundType)
+void SoundManager::PlaySoundListBGM(LoopSoundType soundType)
 {
     playingSoundHandle = soundListBGM[soundType];
     if (!CheckSoundMem(playingSoundHandle))
