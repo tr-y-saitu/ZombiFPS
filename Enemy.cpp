@@ -151,22 +151,27 @@ void Enemy::OnHit(CollisionData hitObjectData)
 
     switch (hitObjectData.tag)
     {
-    case ObjectTag::Bullet: // 弾丸と当たった時
-        // HPを減少
-        hitPoints -= hitObjectData.bulletPower;
+        case ObjectTag::Bullet: // 弾丸と当たった時
+        {
+            // HPを減少
+            hitPoints -= hitObjectData.bulletPower;
 
-        // 当たった時の音を出す
-        //soundManager->PlaySoundListSE(SoundManager::EnemyHitSE);
+            // 当たった時の音を出す
+            // FIXME:当たり判定が上手く処理できていないため、コメントアウト
+            //soundManager->PlaySoundListSE(SoundManager::EnemyHitSE);
 
-        break;
+            break;
+        }
+        case ObjectTag::EnemyBoby:  // エネミーと当たった時
+        {
+            // 押し出し処理を行う
 
-    case ObjectTag::EnemyBoby:  // エネミーと当たった時
-        // 押し出し処理を行う
-
-        break;
-
-    default:
-        break;
+            break;
+        }
+        default:
+        {
+            break;
+        }
     }
 }
 

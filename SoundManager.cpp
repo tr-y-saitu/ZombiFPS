@@ -38,6 +38,7 @@ void SoundManager::LoadData()
     soundListSE[MoneyUseSE]     = moneyUseSE;
 
     // プレイヤー
+    // TODO:現段階で必要最低限の音を入れたため、のちに実装予定
     int playerDamageSE              = LoadSoundMem("");
     int playerWalkingSE             = LoadSoundMem("Data/Sound/SE/Player/PlayerWalkingSE.mp3");
     int playerRunSE                 = LoadSoundMem("Data/Sound/SE/Player/PlayerRunSE.mp3");
