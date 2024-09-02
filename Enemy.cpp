@@ -33,6 +33,31 @@ Enemy::Enemy()
 }
 
 /// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="playerAddMoney">プレイヤーの所持金を増加させる関数ポインタ</param>
+Enemy::Enemy(std::function<void(int)> playerAddMoney)
+    : hitPoints(InitializeHitPoints)
+    , currentPlayAnimation(-1)
+    , previousPlayAnimation(-1)
+    , animationBlendRate(1.0f)
+    , targetMoveDirection(InitializeDirection)
+    , currentJumpPower(0.0f)
+    , currentState(State::Run)
+    , position(InitializePosition)
+    , targetNextPosition(InitializePosition)
+    , isTouchingRoomCenter(false)
+    , isActive(true)
+    , deathFrameCount(0)
+{
+    modelDataManager = ModelDataManager::GetInstance();
+    collisionManager = CollisionManager::GetInstance();
+    soundManager = SoundManager::GetInstance();
+    effectManager = EffectManager::GetInstance();
+    addMoney = playerAddMoney;
+}
+
+/// <summary>
 /// デストラクタ
 /// </summary>
 Enemy::~Enemy()
@@ -252,6 +277,17 @@ void Enemy::OnHitBullet(CollisionData hitObjectData)
     // 当たった時の音を出す
     soundManager->PlaySoundListSE(SoundManager::EnemyHitSE);
 
+    // 所持金を加算
+    if (hitPoints - hitObjectData.bulletPower <= 0)
+    {
+        // この弾丸でHPがゼロになる場合
+        addMoney(EnemyKillReward);
+    }
+    else
+    {
+        addMoney(EnemyHitReward);
+    }
+
     // 当たった時の血しぶきエフェクトを再生
     VECTOR effectPlayPosition = VAdd(position, BloodEffectOffset);
     effectManager->PlayBloodSplatterEffect(effectPlayPosition);
@@ -383,9 +419,6 @@ void Enemy::UpdateCollisionData()
 
         // カプセルの半径を登録
         collisionData.radius = CollisionRadius;
-
-        // 体力
-        collisionData.objectHP = hitPoints;
 
         // 自身のアドレス
         collisionData.objectAddress = this;

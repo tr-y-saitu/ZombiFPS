@@ -78,22 +78,28 @@ void GunBase::UpdateAngle(VECTOR cameraForwardVector, float pitch,Player::State 
     // 回転の設定関数はこれよりも後に行う
     switch (playerState)
     {
-    case Player::State::Run:
-        PlayRunAnimation();
-        break;
-
-    case Player::State::Shot:
-        PlayShotAnimation(cameraForwardVector);
-        break;
-
-    case Player::State::Reload:
-        break;
-
-    case Player::State::OnHitEnemy:
-        break;
-
-    default:
-        break;
+        case Player::State::Run:
+        {
+            PlayRunAnimation();
+            break;
+        }
+        case Player::State::Shot:
+        {
+            PlayShotAnimation(cameraForwardVector);
+            break;
+        }
+        case Player::State::Reload:
+        {
+            break;
+        }
+        case Player::State::OnHitEnemy:
+        {
+            break;
+        }
+        default:
+        {
+            break;
+        }
     }
 
     // モデルに回転行列を適用
