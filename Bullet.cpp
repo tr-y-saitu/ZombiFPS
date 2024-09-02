@@ -55,21 +55,6 @@ void Bullet::Initialize(BulletInitializeData initializeData)
 /// </summary>
 void Bullet::Update()
 {
-
-    //FIXME:エネミーのOnHit関数で獲得金額を上昇させるように変更する
-    //      この部分がない場合、獲得金額加算ができないため実装
-    //      プレイヤーにポイント加算の関数を作成し、その関数ポインタをエネミーに渡し、
-    //      エネミー側のOnHit関数で呼び出す形に変更する
-    // 弾丸は１フレームのみ存在する
-    if (activeFrameCount)
-    {
-        activeFrameCount--;     // アクティブ数を数える
-    }
-    else
-    {
-        isActive = false;       // 未使用のプールに戻す
-    }
-
     // 移動量を計算
     VECTOR velocity = VScale(direction, speed);
 
@@ -82,6 +67,9 @@ void Bullet::Update()
 
     // 当たり判定に必要なデータを更新する
     UpdateCollisionData();
+
+    // 弾丸は１フレームのみ存在する
+    isActive = false;       // 未使用のプールに戻す
 }
 
 /// <summary>
@@ -119,16 +107,7 @@ void Bullet::OnHit(CollisionData hitObjectData)
     switch (hitObjectData.tag)
     {
     case ObjectTag::EnemyBoby:
-        // 残りHPがこの一撃で0以下になる場合
-        if (hitObjectData.objectHP - power <= 0)
-        {
-            getMoney = +50;  // あと一撃で倒せる場合は50ポイント
-        }
-        else
-        {
-            getMoney = +20;  // それ以外の場合は20ポイント
-        }
-        hitterList.push_back(hitObjectData);
+        // 処理なし
 
         break;
 
