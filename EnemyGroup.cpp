@@ -15,6 +15,19 @@ EnemyGroup::EnemyGroup()
 }
 
 /// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="playerAddMoney">プレイヤーの所持金を増加させる関数ポインタ</param>
+EnemyGroup::EnemyGroup(std::function<void(int)> playerAddMoney)
+{
+    // 線形探索クラス
+    pathfinding = new Pathfinding();
+
+    // ゾンビを生成
+    enemys.push_back(new Enemy(playerAddMoney));
+}
+
+/// <summary>
 /// デストラクタ
 /// </summary>
 EnemyGroup::~EnemyGroup()
