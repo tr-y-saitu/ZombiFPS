@@ -189,7 +189,7 @@ void Player::Draw(const Stage& stage)
         DebugFontColor,"X:%f Y:%f Z:%f",position.x,position.y,position.z);*/
 
     // 現在ステートの描画
-    switch (state)
+    /*switch (state)
     {
         case Player::State::Idle:
         {
@@ -251,7 +251,7 @@ void Player::Draw(const Stage& stage)
             DrawString(1200, 100, "InteractLocationState::Shutter", DebugFontColor, true);
             break;
         }
-        case Player::InteractLocationState::PlayerPowerUpMachine:
+        case Player::InteractLocationState::PowerUpMachine:
         {
             DrawString(1200, 100, "InteractLocationState::PowerUpMachine", DebugFontColor, true);
             break;
@@ -566,53 +566,41 @@ void Player::UpdateInteract(const Input& input)
     // インタラクトの更新
     switch (interactLocationState)
     {
-        case Player::InteractLocationState::None:
-        {
-            // 処理なし
-            break;
-        }
-        case Player::InteractLocationState::Shutter:
-        {
-            // 所持金があるかつ、インタラクトキーが入力されていれば
-            if (canInteract && !isInteracted)
-            {
-                isInteracted = true;        // インタラクトしている
-                money -= interactionCost;   // 所持金を支払う
-                moneyUsed = true;           // お金を支払った
+    case Player::InteractLocationState::None:
 
-                // シャッターの上がる音を再生
-                soundManager->PlaySoundListSE(SoundManager::ShutterOpenSE);
-            }
-            break;
-        }
-        case Player::InteractLocationState::AmmoBox:
-        {
-            // 所持金があるかつ、インタラクトキーが入力されていれば
-            if (canInteract && !isInteracted)
-            {
-                isInteracted = true;        // インタラクトしている
-                money -= interactionCost;   // 所持金を支払う
-                moneyUsed = true;           // お金を支払った
+        // 処理なし
+        break;
 
-                // 装備中の所持弾薬を最大まで補充する
-                int addAmmo = equippedGun->GetBackUpMaxAmmo();
-                equippedGun->SetBackUpAmmo(addAmmo);
-            }
-            break;
-        }
-        case Player::InteractLocationState::GunPowerUpMachine:
+        // シャッター //
+    case Player::InteractLocationState::Shutter:
+        // 所持金があるかつ、インタラクトキーが入力されていれば
+        if (canInteract && !isInteracted)
         {
-            // 所持金があるかつ、インタラクトキーが入力されていれば
-            if (canInteract && !isInteracted)
-            {
-                isInteracted = true;        // インタラクトしている
-                money -= interactionCost;   // 所持金を支払う
-                moneyUsed = true;           // お金を支払った
+            isInteracted = true;        // インタラクトしている
+            money -= interactionCost;   // 所持金を支払う
+            moneyUsed = true;           // お金を支払った
 
-                // 装備中の武器を強化する
-                equippedGun->SetPowerUpWeapon(true);
+            // シャッターの上がる音を再生
+            soundManager->PlaySoundListSE(SoundManager::ShutterOpenSE);
+        }
+        break;
+
+        // 弾薬補充箱 //
+    case Player::InteractLocationState::AmmoBox:
+        // 所持金があるかつ、インタラクトキーが入力されていれば
+        if (canInteract && !isInteracted)
+        {
+            isInteracted = true;        // インタラクトしている
+            money -= interactionCost;   // 所持金を支払う
+            moneyUsed = true;           // お金を支払った
+
+            // 装備中の所持弾薬を最大まで補充する
+            int addAmmo = equippedGun->GetBackUpMaxAmmo();
+            equippedGun->SetBackUpAmmo(addAmmo);
+        }
+
+                break;
             }
-            break;
         }
         default:
         {
