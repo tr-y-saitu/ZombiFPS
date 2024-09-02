@@ -6,7 +6,7 @@
 
 
 /// <summary>
-/// コンストラクタ
+/// デフォルトコンストラクタ
 /// </summary>
 EnemyGroupController::EnemyGroupController()
     : frameCount        (0)
