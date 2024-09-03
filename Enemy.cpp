@@ -239,8 +239,7 @@ void Enemy::OnHit(CollisionData hitObjectData)
             hitPoints -= hitObjectData.bulletPower;
 
             // 当たった時の音を出す
-            // FIXME:当たり判定が上手く処理できていないため、コメントアウト
-            //soundManager->PlaySoundListSE(SoundManager::EnemyHitSE);
+            soundManager->PlaySoundListSE(SoundManager::EnemyHitSE);
 
             // 当たった時の血しぶきエフェクトを再生
             VECTOR effectPlayPosition = VAdd(position, BloodEffectOffset);
