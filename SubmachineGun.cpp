@@ -75,6 +75,20 @@ void SubmachineGun::Initialize()
 }
 
 /// <summary>
+/// 弾丸情報の初期化
+/// </summary>
+void SubmachineGun::InitializeBulletData(VECTOR cameraPosition, VECTOR targetPosition)
+{
+    bulletData.lineStartPosition = cameraPosition;           // カメラの座標
+    bulletData.lineEndPosition = targetPosition;           // カメラの向いている座標
+    bulletData.direction = VNorm(VSub(targetPosition, cameraPosition));  // 弾丸の移動方向
+    bulletData.position = position;                 // 座標
+    bulletData.power = bulletDamagePower;        // 威力
+    bulletData.speed = BulletSpeed;              // 速度
+    bulletData.penetratingPower = bulletPenetrationPower;   // 貫通力
+}
+
+/// <summary>
 /// 更新
 /// </summary>
 void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR cameraTargetVector,
@@ -100,6 +114,21 @@ void SubmachineGun::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR camer
 
     // 武器強化時のマテリアル更新
     UpdatePowerUpGunMaterial();
+}
+
+/// <summary>
+/// 描画
+/// </summary>
+void SubmachineGun::Draw()
+{
+    // モデルの描画
+    MV1DrawModel(modelHandle);
+
+    // 現在使用中の弾丸を描画
+    for (auto it = activeBullet.begin(); it != activeBullet.end(); ++it)
+    {
+        (*it)->Draw();
+    }
 }
 
 /// <summary>
@@ -185,35 +214,6 @@ VECTOR SubmachineGun::FixedReloadPosition(Player::State playerState)
     // 現在の適用率を返す
     VECTOR reloadOffset = VScale(Player::ReloadAnimationOffset, reloadAnimationFactor);
     return reloadOffset;
-}
-
-/// <summary>
-/// 弾丸情報の初期化
-/// </summary>
-void SubmachineGun::InitializeBulletData(VECTOR cameraPosition, VECTOR targetPosition)
-{
-    bulletData.lineStartPosition    = cameraPosition;           // カメラの座標
-    bulletData.lineEndPosition      = targetPosition;           // カメラの向いている座標
-    bulletData.direction            = VNorm(VSub(targetPosition, cameraPosition));  // 弾丸の移動方向
-    bulletData.position             = position;                 // 座標
-    bulletData.power                = bulletDamagePower;        // 威力
-    bulletData.speed                = BulletSpeed;              // 速度
-    bulletData.penetratingPower     = bulletPenetrationPower;   // 貫通力
-}
-
-/// <summary>
-/// 描画
-/// </summary>
-void SubmachineGun::Draw()
-{
-    // モデルの描画
-    MV1DrawModel(modelHandle);
-
-    // 現在使用中の弾丸を描画
-    for (auto it = activeBullet.begin(); it != activeBullet.end(); ++it)
-    {
-        (*it)->Draw();
-    }
 }
 
 /// <summary>

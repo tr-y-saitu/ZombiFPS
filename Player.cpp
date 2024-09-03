@@ -53,7 +53,7 @@ Player::Player()
     // 初期化
     Initialize();
     bulletObjectPools       = new BulletObjectPools();
-    equippedGun             = new SubmachineGun();
+    equippedGun             = new AssaultRifle();
     playerCamera            = new PlayerCamera();
     currentState            = new PlayerIdleState(modelHandle, animationData);
 }
@@ -154,7 +154,6 @@ void Player::Update(const Input& input, Stage& stage)
     UpdateReload(input);
 
     // 装備中の武器の更新
-    VECTOR pos = playerCamera->GetCameraForwardVector();
     equippedGun->Update(position, playerCamera->GetCameraForwardVector(),
         playerCamera->GetTargetPosition(),playerCamera->GetCameraPosition(),
         playerCamera->GetCameraPitch(),state,currentAimState);
