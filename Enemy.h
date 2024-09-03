@@ -8,11 +8,13 @@ class ModelDataManager;
 class Stage;
 class CollisionManager;
 class SoundManager;
+class EffectManager;
+class HitObjectAddress;
 
 /// <summary>
 /// エネミー(ゾンビ)
 /// </summary>
-class Enemy
+class Enemy : public HitObjectAddress
 {
 public:
     /// <summary>
@@ -204,12 +206,14 @@ private:
     // アニメーション
     static constexpr float  PlayAnimationSpeed      = 0.5f;                             // アニメーション速度
     static constexpr float  AnimationBlendSpeed     = 0.1f;                             // アニメーションのブレンド率変化速度
+    // エフェクト
+    static constexpr VECTOR BloodEffectOffset       = { 0.0f, 4.5f, 0.0f };             // 血しぶきエフェクトのずらし量
     // 獲得金額
     static constexpr int    EnemyKillReward         = 100;                              // エネミーをキルした時の獲得金額
     static constexpr int    EnemyHitReward          = 20;                               // エネミーに弾丸を当てたときの獲得金額
     // デバッグ
-    static constexpr int DebugHitPointDrawX = 0;        // デバッグ時のHP表示X座標
-    static constexpr int DebugHitPointDrawY = 100;      // デバッグ時のHP表示Y座標
+    static constexpr int    DebugHitPointDrawX      = 0;                                // デバッグ時のHP表示X座標
+    static constexpr int    DebugHitPointDrawY      = 100;                              // デバッグ時のHP表示Y座標
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
@@ -218,6 +222,7 @@ private:
     ModelDataManager*   modelDataManager;
     CollisionManager*   collisionManager;
     SoundManager*       soundManager;
+    EffectManager*      effectManager;
 
     // ステータス
     VECTOR      position;                   // 座標

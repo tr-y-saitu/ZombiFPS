@@ -1,5 +1,6 @@
 ﻿#include "Player.h"
 #include "Input.h"
+#include "EffectManager.h"
 #include "PlayerCamera.h"
 #include "Stage.h"
 #include "PlayerIdleState.h"
@@ -44,6 +45,9 @@ Player::Player()
 
     collisionManager        = CollisionManager::GetInstance();
     modelDataManager        = ModelDataManager::GetInstance();
+    effectManager           = EffectManager::GetInstance();
+
+    // 初期化
     Initialize();
     bulletObjectPools       = new BulletObjectPools();
     equippedGun             = new SubmachineGun();
@@ -150,6 +154,9 @@ void Player::Update(const Input& input, Stage& stage)
 
     // 当たり判定用の情報を更新
     UpdateCollisionData();
+
+    // エフェクトを更新
+    UpdateEffect();
 }
 
 /// <summary>
@@ -1070,4 +1077,30 @@ const int Player::GetEquippedGunAmmo()
 const int Player::GetEquippedBackUpAmmo()
 {
     return equippedGun->GetBackUpAmmo();
+}
+
+/// <summary>
+/// エフェクトの更新
+/// </summary>
+void Player::UpdateEffect()
+{
+    // 発砲エフェクトを描画
+    if (isShooting)
+    {
+        // カメラの前方ベクトルを取得
+        VECTOR cameraForwardVector = playerCamera->GetCameraForwardVector();
+        cameraForwardVector.y = 0.0f;
+
+        // カメラの位置を取得
+        VECTOR gunPosition = equippedGun->GetPosition();
+
+        // エフェクトのオフセット距離を定義（VECTOR型）
+        float effectOffset = 3.0f; // 前方2単位分のオフセット
+
+        // エフェクト再生位置を計算
+        VECTOR effectPosition = VAdd(gunPosition, VScale(cameraForwardVector, effectOffset));
+
+        // エフェクトを再生
+        effectManager->PlayMuzzleFlashEffect(effectPosition);
+    }
 }

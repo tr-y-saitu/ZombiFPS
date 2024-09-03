@@ -99,8 +99,11 @@ SceneBase* GameScene::UpdateScene()
     enemyWaveController->Update(enemyGroupController->GetEnemyGroupSize());
     shutterController->Update();                                    // シャッター
     collisionManager->Update();                                     // 当たり判定処理
+    effectManager->Update();                                        // エフェクト管理クラス更新
     UpdateSound();                                                  // 音の更新
     gameSceneUI->Update();                                          // UIの更新
+
+    UpdateEffekseer3D();                                            // エフェクト更新
 
     // 現状のシーンを返す
     return this;
@@ -116,6 +119,7 @@ void GameScene::Draw()
     enemyGroupController->Draw(player->GetPosition());       // エネミーの集合体
     enemyWaveController->Draw();        // エネミーウェーブ
     shutterController->Draw();          // シャッター
+    DrawEffekseer3D();                  // 3Dエフェクト描画
     DrawUI();                           // UIの描画
 }
 

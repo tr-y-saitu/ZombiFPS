@@ -2,8 +2,10 @@
 #include "Enemy.h"
 #include "ModelDataManager.h"
 #include "SoundManager.h"
+#include "EffectManager.h"
 #include "Stage.h"
 #include "Calculation.h"
+#include "Bullet.h"
 
 /// <summary>
 /// コンストラクタ
@@ -25,6 +27,7 @@ Enemy::Enemy()
     modelDataManager    = ModelDataManager::GetInstance();
     collisionManager    = CollisionManager::GetInstance();
     soundManager        = SoundManager::GetInstance();
+    effectManager       = EffectManager::GetInstance();
 }
 
 /// <summary>
@@ -47,6 +50,8 @@ Enemy::Enemy(std::function<void(int)> playerAddMoney)
 {
     modelDataManager = ModelDataManager::GetInstance();
     collisionManager = CollisionManager::GetInstance();
+    soundManager = SoundManager::GetInstance();
+    effectManager = EffectManager::GetInstance();
     addMoney = playerAddMoney;
 }
 
@@ -101,6 +106,9 @@ void Enemy::Initialize()
 
     // 当たり判定に必要なデータを渡す
     collisionManager->RegisterCollisionData(&collisionData);
+
+    // 自身のアドレスを初期化する
+    collisionData.objectAddress = nullptr;
 }
 
 /// <summary>
@@ -172,16 +180,32 @@ void Enemy::OnHit(CollisionData hitObjectData)
     float radiusSum;
     float penetrationDepth;
 
+    // 弾丸のすでに接触しているオブジェクトについての情報を確認する
+    Bullet* tempBullet = (Bullet*)hitObjectData.objectAddress;
+    
+    // オブジェクトごとに処理
     switch (hitObjectData.tag)
     {
         case ObjectTag::Bullet: // 弾丸と当たった時
         {
+            // すでに当たったオブジェクトどうかを確認
+            if (tempBullet != nullptr)
+            {
+                if (tempBullet->IsObjectHit((HitObjectAddress*)this))
+                {
+                    return;
+                }
+            }
+
             // HPを減少
             hitPoints -= hitObjectData.bulletPower;
 
             // 当たった時の音を出す
-            // FIXME:当たり判定が上手く処理できていないため、コメントアウト
-            //soundManager->PlaySoundListSE(SoundManager::EnemyHitSE);
+            soundManager->PlaySoundListSE(SoundManager::EnemyHitSE);
+
+            // 当たった時の血しぶきエフェクトを再生
+            VECTOR effectPlayPosition = VAdd(position, BloodEffectOffset);
+            effectManager->PlayBloodSplatterEffect(effectPlayPosition);
 
             // 所持金を加算
             if (hitPoints - hitObjectData.bulletPower <= 0)
@@ -235,6 +259,9 @@ void Enemy::UpdateCollisionData()
 
     // カプセルの半径を登録
     collisionData.radius = CollisionRadius;
+
+    // 自身のアドレス
+    collisionData.objectAddress = this;
 }
 
 /// <summary>

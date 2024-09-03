@@ -3,11 +3,12 @@
 #include "CollisionData.h"
 
 class CollisionManager;
+class HitObjectAddress;
 
 /// <summary>
 /// 銃弾
 /// </summary>
-class Bullet
+class Bullet: public HitObjectAddress
 {
 public:
     /// <summary>
@@ -61,10 +62,22 @@ public:
     /// <param name="hitObjectData">オブジェクトのデータ</param>
     void OnHit(CollisionData hitObjectData);
 
+    /// <summary>
+    /// 選択したオブジェクトをすでに接触しているかを確認する
+    /// </summary>
+    /// <param name="hitObjectAddress">接触済みか調べるオブジェクトのアドレス</param>
+    /// <returns>１度でも接触していたら:true  それ以外は:false</returns>
+    bool IsObjectHit(HitObjectAddress* hitObjectAddress);
+
     // ゲッター、セッター
     const bool GetIsActive()const { return isActive; }
     const int GetMoney()const { return getMoney; }
     void SetCollisionDataIsActive(bool set) { collisionData.isCollisionActive = set; }
+
+    //---------------------------------------------------------------------------------//
+    //                                      変数                                       //
+    //---------------------------------------------------------------------------------//
+    vector<CollisionData> hitterList;       // すでに接触済みのオブジェクト
 
 private:
     //---------------------------------------------------------------------------------//

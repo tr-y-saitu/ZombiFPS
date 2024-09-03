@@ -21,7 +21,11 @@ public:
     /// </summary>
     enum EffectType
     {
-
+        // 銃
+        MuzzleFlashEffect,      // マズルフラッシュ
+        BloodSplatter,          // 血しぶき
+        Explosion,              // 爆発
+        BulletRay,              // 弾道
     };
 
     /// <summary>
@@ -76,6 +80,18 @@ public:
     ///      1.0fが読み込み時サイズ
     void PlayEffectList(EffectType effectType, VECTOR playPosition, VECTOR scale = { 1.0f,1.0f,1.0f });
 
+    /// <summary>
+    /// マズルフラッシュえエフェクト再生
+    /// </summary>
+    /// <param name="playPosition">再生座標</param>
+    void PlayMuzzleFlashEffect(VECTOR playPosition);
+
+    /// <summary>
+    /// 血しぶきのエフェクト再生
+    /// </summary>
+    /// <param name="playPosition">再生座標</param>
+    void PlayBloodSplatterEffect(VECTOR playPosition);
+
 private:
     /// <summary>
     /// コンストラクタ
@@ -83,12 +99,15 @@ private:
     EffectManager();
 
     // 管理用
-    static EffectManager* effectManager;    // エフェクトマネージャーのインスタンス
-    int playingEffectHandle;                        // 現在再生中のエフェクトのハンドル
-    vector<int> playingList;                        // 現在再生中のリスト
-    map< EffectType, int> effectList;               // 再生するエフェクトのリスト
+    static EffectManager*   effectManager;          // エフェクトマネージャーのインスタンス
+    int                     playingEffectHandle;    // 現在再生中のエフェクトのハンドル
+    vector<int>             playingList;            // 現在再生中のリスト
+    map< EffectType, int>   effectList;             // 再生するエフェクトのリスト
 
     // ハンドル
-
+    int muzzleFlashEffectHandle;        // マズルフラシュ
+    int bloodSplatterEffectHandle;      // 血しぶき
+    int explosionEffectHandle;          // 爆発
+    int bulletRayEffectHandle;          // 弾道
 };
 

@@ -12,6 +12,7 @@ class Stage;
 class ModelDataManager;
 class BulletObjectPools;
 struct AnimationData;
+class EffectManager;
 
 /// <summary>
 /// プレイヤー
@@ -258,6 +259,11 @@ private:
     /// <param name="newState">新しいステート</param>
     void ChangeState(State newState);
 
+    /// <summary>
+    /// エフェクトの更新
+    /// </summary>
+    void UpdateEffect();
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
@@ -290,12 +296,15 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
+    // エフェクト管理
+    EffectManager*          effectManager;              // エフェクト管理クラス
+
     // ロード関係
-    ModelDataManager*   modelDataManager;   // モデルデータマネージャー
+    ModelDataManager*       modelDataManager;           // モデルデータマネージャー
 
     // 当たり判定関係
-    CollisionManager*   collisionManager;   // 当たり判定管理クラス
-    CollisionData       collisionData;      // 当たり判定用情報
+    CollisionManager*       collisionManager;           // 当たり判定管理クラス
+    CollisionData           collisionData;              // 当たり判定用情報
 
     // 基本情報
     PlayerCamera*           playerCamera;               // プレイヤー専用のカメラ(FPS視点カメラ)
