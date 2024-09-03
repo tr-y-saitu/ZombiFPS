@@ -160,18 +160,6 @@ void GameScene::UpdateSound()
     // ゲームシーンBGMを再生
     soundManager->PlaySoundListBGM(SoundManager::GameSceneBGM);
 
-    // お金を払った時の音
-    if (player->GetIsInteracted())
-    {
-        soundManager->PlaySoundListSE(SoundManager::MoneyUseSE);
-
-        // シャッターを開けた場合
-        if (player->GetInteractLocationState() == Player::InteractLocationState::Shutter)
-        {
-            soundManager->PlaySoundListSE(SoundManager::ShutterOpenSE);
-        }
-    }
-
     // プレイヤーのステートごとの音
     switch (player->GetState())
     {
