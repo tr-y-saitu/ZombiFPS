@@ -2,13 +2,25 @@
 #include "Bullet.h"
 #include "GunStateBase.h"
 #include "ModelDataManager.h"
+#include "ImageDataManager.h"
+#include "EffectManager.h"
+#include "GunIdleState.h"
+#include "GunReloadState.h"
+#include "GunRunState.h"
+#include "GunShotState.h"
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
 AssaultRifle::AssaultRifle()
+    : runAnimationFactor(0.0f)
+    , reloadAnimationFactor(0.0f)
+    , isEmissiveIncreasing(false)
+    , emissiveIntensity(MinimumEmissive)
 {
-    modelDataManager = ModelDataManager::GetInstance();
+    modelDataManager    = ModelDataManager::GetInstance();
+    imageDataManager    = ImageDataManager::GetInstance();
+    effectManager       = EffectManager::GetInstance();
     Initialize();
 }
 
@@ -17,6 +29,14 @@ AssaultRifle::AssaultRifle()
 /// </summary>
 AssaultRifle::~AssaultRifle()
 {
+    // 要素の削除
+    activeBullet.clear();
+
+    // メモリ解放
+    for (Bullet* bullet : activeBullet)
+    {
+        delete(bullet);
+    }
 }
 
 /// <summary>

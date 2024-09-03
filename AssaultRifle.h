@@ -4,6 +4,7 @@
 class GunStateBase;
 class Bullet;
 class ModelDataManager;
+class ImageDataManager;
 
 /// <summary>
 /// アサルトライフル
@@ -40,27 +41,43 @@ public:
     /// <summary>
     /// 描画
     /// </summary>
-    void Draw();
+    void Draw() override;
 
 private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
-    // ステータス
-    static constexpr float  BulletDamagePower         = 1.0f;     // 弾丸の威力
-    static constexpr float  BulletPenetrationPower    = 1.0f;     // 弾丸の貫通力
-    static constexpr float  GunFireRate             = 1.0f;     // 銃の連射力
-    static constexpr float  GunRecoil               = 1.0f;     // 銃の反動
-    static constexpr float  GunAccuracy             = 1.0f;     // 銃の精度(拡散度合い)
-    static constexpr VECTOR InitializeScale = { 0.1f,0.1f,0.1f };   // 初期化時のスケール
+    // 弾丸
+    static constexpr float  BulletDamagePower       = 15.0f;        // 弾丸の威力
+    static constexpr float  BulletPenetrationPower  = 1.0f;         // 弾丸の貫通力
+    static constexpr float  BulletSpeed             = 100.0f;       // 弾丸の速度
+    static constexpr VECTOR BulletDirection         = { 0,0,1 };    // 弾丸の移動方向
+    // 銃
+    static constexpr int    GunMaxAmmo              = 30;           // 銃の総弾数
+    static constexpr int    GunFireRate             = 5;            // 銃の連射力(このフレームに１回発射する)
+    static constexpr float  GunRecoil               = 1.0f;         // 銃の反動
+    static constexpr float  GunAccuracy             = 4.0f;         // 銃の精度(拡散度合い)
+    static constexpr VECTOR InitializeScale         = { 0.07f,0.07f,0.07f };    // 初期化時のスケール
+    static constexpr int    MaxBackUpAmmo           = 210;          // 銃の最大予備弾薬数
+    // 強化時
+    static constexpr float  MaximumEmissive = 0.9f;         // 最大発光量
+    static constexpr float  MinimumEmissive = 0.4f;         // 最小発光量
+    static constexpr float  EmissiveSpeed = 0.005f;       // 発光量の変化スピード
     // ずらし量
-    static constexpr VECTOR GunOffset = { 0.0f,0.1f,0.0f };   // 銃のプレイヤーの腕からのずらし量
+    static constexpr VECTOR GunOffset = { 0.0f,0.5f,0.0f };         // 銃のプレイヤーの腕からのずらし量
 
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
-    ModelDataManager* modelDataManager;       // モデルデータ読み込み用クラスのアドレス
+    ModelDataManager*   modelDataManager;       // モデルデータ読み込み用クラスのアドレス
+    ImageDataManager*   imageDataManager;       // 画像データ読み込み用クラスのアドレス
+    EffectManager*      effectManager;          // エフェクト管理クラス
+    float               runAnimationFactor;     // 走りアニメーション再生時の適応率
+    float               reloadAnimationFactor;  // リロードアニメーションの再生時の適応率
 
+    // 強化時
+    bool                isEmissiveIncreasing;   // 発光量上昇中であるかどうか
+    float               emissiveIntensity;      // 現在の発光量
 };
 
 
