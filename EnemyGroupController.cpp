@@ -6,7 +6,7 @@
 
 
 /// <summary>
-/// コンストラクタ
+/// デフォルトコンストラクタ
 /// </summary>
 EnemyGroupController::EnemyGroupController()
     : frameCount        (0)
@@ -17,6 +17,19 @@ EnemyGroupController::EnemyGroupController()
     // エネミーのオブジェクトプール
     enemyObjectPools = new EnemyObjectPools();
 
+}
+
+/// <summary>
+    /// コンストラクタ
+    /// </summary>
+    /// <param name="playerAddMoney">プレイヤーの所持金を増加させる関数ポインタ</param>
+EnemyGroupController::EnemyGroupController(std::function<void(int)> playerAddMoney)
+{
+    // 音管理クラスのインスタンスをもらう
+    soundManager = SoundManager::GetInstance();
+
+    // エネミーのオブジェクトプール
+    enemyObjectPools = new EnemyObjectPools(playerAddMoney);
 }
 
 /// <summary>

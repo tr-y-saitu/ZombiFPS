@@ -38,6 +38,7 @@ void SoundManager::LoadData()
     soundListSE[MoneyUseSE]     = moneyUseSE;
 
     // プレイヤー
+    // TODO:現段階で必要最低限の音を入れたため、のちに実装予定
     int playerDamageSE              = LoadSoundMem("");
     int playerWalkingSE             = LoadSoundMem("Data/Sound/SE/Player/PlayerWalkingSE.mp3");
     int playerRunSE                 = LoadSoundMem("Data/Sound/SE/Player/PlayerRunSE.mp3");
@@ -134,7 +135,7 @@ void SoundManager::StopAllSounds()
 /// 読み込んだサウンドリストから効果音再生
 /// </summary>
 /// <param name="soundType">再生したい効果音の種類</param>
-void SoundManager::PlaySoundListSE(PlaySoundSE soundType)
+void SoundManager::PlaySoundListSE(SoundEffectType soundType)
 {
     playingSoundHandle = soundListSE[soundType];
     playingList.push_back(playingSoundHandle);
@@ -145,7 +146,7 @@ void SoundManager::PlaySoundListSE(PlaySoundSE soundType)
 /// 読み込んだサウンドリストから効果音再生（ループ再生したい効果音用）
 /// </summary>
 /// <param name="soundType">再生したい効果音の種類</param>
-void SoundManager::PlaySoundListSETypeLoop(PlaySoundSE soundType)
+void SoundManager::PlaySoundListSETypeLoop(SoundEffectType soundType)
 {
     playingSoundHandle = soundListSE[soundType];
     if (!CheckSoundMem(playingSoundHandle))
@@ -159,7 +160,7 @@ void SoundManager::PlaySoundListSETypeLoop(PlaySoundSE soundType)
 /// 読み込んだサウンドリストからBGM再生
 /// </summary>
 /// <param name="soundType">再生したいBGMの種類</param>
-void SoundManager::PlaySoundListBGM(PlaySoundBGM soundType)
+void SoundManager::PlaySoundListBGM(LoopSoundType soundType)
 {
     playingSoundHandle = soundListBGM[soundType];
     if (!CheckSoundMem(playingSoundHandle))
