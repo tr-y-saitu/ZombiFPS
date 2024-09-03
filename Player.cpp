@@ -608,6 +608,7 @@ void Player::UpdateInteract(const Input& input)
                 int addAmmo = equippedGun->GetBackUpMaxAmmo();
                 equippedGun->SetBackUpAmmo(addAmmo);
             }
+            break;
         }
         case Player::InteractLocationState::GunPowerUpMachine:
         {
