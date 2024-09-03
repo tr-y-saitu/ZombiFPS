@@ -1,6 +1,7 @@
 ﻿#include "CollisionManager.h"
 #include "Enemy.h"
 #include "ModelDataManager.h"
+#include "SoundManager.h"
 #include "Stage.h"
 #include "Calculation.h"
 
@@ -21,8 +22,9 @@ Enemy::Enemy()
     , isActive                  (true)
     , deathFrameCount           (0)
 {
-    modelDataManager = ModelDataManager::GetInstance();
-    collisionManager = CollisionManager::GetInstance();
+    modelDataManager    = ModelDataManager::GetInstance();
+    collisionManager    = CollisionManager::GetInstance();
+    soundManager        = SoundManager::GetInstance();
 }
 
 /// <summary>
@@ -172,30 +174,38 @@ void Enemy::OnHit(CollisionData hitObjectData)
 
     switch (hitObjectData.tag)
     {
-    case ObjectTag::Bullet: // 弾丸と当たった時
-        // HPを減少
-        hitPoints -= hitObjectData.bulletPower;
-
-        // 所持金を加算
-        if (hitPoints - hitObjectData.bulletPower <= 0)
+        case ObjectTag::Bullet: // 弾丸と当たった時
         {
-            // この弾丸でHPがゼロになる場合
-            addMoney(EnemyKillReward);
+            // HPを減少
+            hitPoints -= hitObjectData.bulletPower;
+
+            // 当たった時の音を出す
+            // FIXME:当たり判定が上手く処理できていないため、コメントアウト
+            //soundManager->PlaySoundListSE(SoundManager::EnemyHitSE);
+
+            // 所持金を加算
+            if (hitPoints - hitObjectData.bulletPower <= 0)
+            {
+                // この弾丸でHPがゼロになる場合
+                addMoney(EnemyKillReward);
+            }
+            else
+            {
+                addMoney(EnemyHitReward);
+            }
+
+            break;
         }
-        else
+        case ObjectTag::EnemyBoby:  // エネミーと当たった時
         {
-            addMoney(EnemyHitReward);
+            // 押し出し処理を行う
+
+            break;
         }
-
-        break;
-
-    case ObjectTag::EnemyBoby:  // エネミーと当たった時
-        // 押し出し処理を行う
-
-        break;
-
-    default:
-        break;
+        default:
+        {
+            break;
+        }
     }
 }
 

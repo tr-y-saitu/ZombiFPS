@@ -37,6 +37,7 @@ Player::Player()
     , isInteracted                  (false)
     , interactionCost               (0)
     , currentGunType                (GunType::SubmachineGun)
+    , reloadState                   (ReloadState::None)
 {
     // 自身の関数ポインタを作成
     addMoney = std::bind(&Player::AddMoney, this, std::placeholders::_1);
@@ -170,29 +171,45 @@ void Player::Draw(const Stage& stage)
     // 現在ステートの描画
     switch (state)
     {
-    case Player::State::Idle:
-        DrawString(100, 200, "Idle", DebugFontColor, true);
-        break;
-    case Player::State::Walk:
-        DrawString(100, 200, "Walk", DebugFontColor, true);
-        break;
-    case Player::State::Run:
-        DrawString(100, 200, "Run", DebugFontColor, true);
-        break;
-    case Player::State::Shot:
-        DrawString(100, 200, "Shot", DebugFontColor, true);
-        break;
-    case Player::State::Reload:
-        DrawString(100, 200, "Reload", DebugFontColor, true);
-        break;
-    case Player::State::Jump:
-        DrawString(100, 200, "Jump", DebugFontColor, true);
-        break;
-    case Player::State::OnHitEnemy:
-        DrawString(100, 200, "OnHitEnemy", DebugFontColor, true);
-        break;
-    default:
-        break;
+        case Player::State::Idle:
+        {
+            DrawString(100, 200, "Idle", DebugFontColor, true);
+            break;
+        }
+        case Player::State::Walk:
+        {
+            DrawString(100, 200, "Walk", DebugFontColor, true);
+            break;
+        }
+        case Player::State::Run:
+        {
+            DrawString(100, 200, "Run", DebugFontColor, true);
+            break;
+        }
+        case Player::State::Shot:
+        {
+            DrawString(100, 200, "Shot", DebugFontColor, true);
+            break;
+        }
+        case Player::State::Reload:
+        {
+            DrawString(100, 200, "Reload", DebugFontColor, true);
+            break;
+        }
+        case Player::State::Jump:
+        {
+            DrawString(100, 200, "Jump", DebugFontColor, true);
+            break;
+        }
+        case Player::State::OnHitEnemy:
+        {
+            DrawString(100, 200, "OnHitEnemy", DebugFontColor, true);
+            break;
+        }
+        default:
+        {
+            break;
+        }
     }
 
     // 体力の描画
@@ -204,20 +221,30 @@ void Player::Draw(const Stage& stage)
     // インタラクト状態の描画
     switch (interactLocationState)
     {
-    case Player::InteractLocationState::None:
-        DrawString(1200, 100, "InteractLocationState::None", DebugFontColor, true);
-        break;
-    case Player::InteractLocationState::Shutter:
-        DrawString(1200, 100, "InteractLocationState::Shutter", DebugFontColor, true);
-        break;
-    case Player::InteractLocationState::PowerUpMachine:
-        DrawString(1200, 100, "InteractLocationState::PowerUpMachine", DebugFontColor, true);
-        break;
-    case Player::InteractLocationState::AmmoBox:
-        DrawString(1200, 100, "InteractLocationState::AmmoBox", DebugFontColor, true);
-        break;
-    default:
-        break;
+        case Player::InteractLocationState::None:
+        {
+            DrawString(1200, 100, "InteractLocationState::None", DebugFontColor, true);
+            break;
+        }
+        case Player::InteractLocationState::Shutter:
+        {
+            DrawString(1200, 100, "InteractLocationState::Shutter", DebugFontColor, true);
+            break;
+        }
+        case Player::InteractLocationState::PowerUpMachine:
+        {
+            DrawString(1200, 100, "InteractLocationState::PowerUpMachine", DebugFontColor, true);
+            break;
+        }
+        case Player::InteractLocationState::AmmoBox:
+        {
+            DrawString(1200, 100, "InteractLocationState::AmmoBox", DebugFontColor, true);
+            break;
+        }
+        default:
+        {
+            break;
+        }
     }
 }
 
@@ -290,44 +317,48 @@ void Player::OnHitObject(CollisionData hitObjectData)
     // 接触したオブジェクトごとに別の処理
     switch (hitObjectData.tag)
     {
-    case ObjectTag::EnemyAttack:    // エネミーの攻撃
-        // HPを減らす
-        hitPoint -= hitObjectData.attackPower;
-
-        break;
-
-    case ObjectTag::Shutter:    // シャッター
-        // 実際の当たり判定に入っているか
-
-        // オブジェクトとの距離を計算
-        difference = VSub(position, hitObjectData.centerPosition);
-        distance = VSize(difference);
-
-        // インタラクトの範囲に入っているか確認
-        if (distance <= hitObjectData.radius + collisionData.radius)
+        case ObjectTag::EnemyAttack:    // エネミーの攻撃
         {
-            // 押し出し処理を行う
-            ProcessExtrusion(hitObjectData);
+            // HPを減らす
+            hitPoint -= hitObjectData.attackPower;
 
-            // シャッターのインタラクトの範囲に入っている
-            interactLocationState = InteractLocationState::Shutter;
-
-            // シャッターのインタラクトコストをもらう
-            interactionCost = hitObjectData.interactionCost;
+            break;
         }
-        else
+        case ObjectTag::Shutter:    // シャッター
         {
-            // シャッターのインタラクトの範囲に入っている
-            interactLocationState = InteractLocationState::Shutter;
+            // 実際の当たり判定に入っているか
 
-            // シャッターのインタラクトコストをもらう
-            interactionCost = hitObjectData.interactionCost;
+            // オブジェクトとの距離を計算
+            difference = VSub(position, hitObjectData.centerPosition);
+            distance = VSize(difference);
+
+            // インタラクトの範囲に入っているか確認
+            if (distance <= hitObjectData.radius + collisionData.radius)
+            {
+                // 押し出し処理を行う
+                ProcessExtrusion(hitObjectData);
+
+                // シャッターのインタラクトの範囲に入っている
+                interactLocationState = InteractLocationState::Shutter;
+
+                // シャッターのインタラクトコストをもらう
+                interactionCost = hitObjectData.interactionCost;
+            }
+            else
+            {
+                // シャッターのインタラクトの範囲に入っている
+                interactLocationState = InteractLocationState::Shutter;
+
+                // シャッターのインタラクトコストをもらう
+                interactionCost = hitObjectData.interactionCost;
+            }
+
+            break;
         }
-
-        break;
-
-    default:
-        break;
+        default:
+        {
+            break;
+        }
     }
 }
 
@@ -390,27 +421,35 @@ void Player::UpdateInteract(const Input& input)
 
     switch (interactLocationState)
     {
-    case Player::InteractLocationState::None:
-        // 処理なし
-        break;
-    case Player::InteractLocationState::Shutter:
-        // 所持金があるかつ、インタラクトキーが入力されていれば
-        if (input.GetCurrentFrameInput() & PAD_INPUT_1 || CheckHitKey(KEY_INPUT_F)
-            && interactionCost <= money)
+        case Player::InteractLocationState::None:
         {
-            isInteracted = true;        // インタラクトしている
-            money -= interactionCost;   // 所持金を支払う
+            // 処理なし
+            break;
         }
+        case Player::InteractLocationState::Shutter:
+        {
+            // 所持金があるかつ、インタラクトキーが入力されていれば
+            if (input.GetCurrentFrameInput() & PAD_INPUT_1 || CheckHitKey(KEY_INPUT_F)
+                && interactionCost <= money)
+            {
+                isInteracted = true;        // インタラクトしている
+                money -= interactionCost;   // 所持金を支払う
+            }
 
-        break;
-    case Player::InteractLocationState::PowerUpMachine:
-
-        break;
-    case Player::InteractLocationState::AmmoBox:
-
-        break;
-    default:
-        break;
+            break;
+        }
+        case Player::InteractLocationState::PowerUpMachine:
+        {
+            break;
+        }
+        case Player::InteractLocationState::AmmoBox:
+        {
+            break;
+        }
+        default:
+        {
+            break;
+        }
     }
 
     // 状態を初期化する
@@ -469,35 +508,45 @@ float Player::SettingMoveSpeed(State state)
 
     switch (state)
     {
-    case Player::State::Idle:
-        moveSpeed = 0.0f;
-        break;
-
-    case Player::State::Walk:
-        moveSpeed = WalkMoveSpeed;
-        break;
-
-    case Player::State::Run:
-        moveSpeed = RunMoveSpeed;
-        break;
-
-    case Player::State::Shot:
-        moveSpeed = WalkMoveSpeed;
-        break;
-
-    case Player::State::Reload:
-        moveSpeed = WalkMoveSpeed;
-        break;
-
-    case Player::State::Jump:
-        moveSpeed = 0.0f;
-        break;
-
-    case Player::State::OnHitEnemy:
-        moveSpeed = OnHitEnemyMoveSpeed;
-        break;
-    default:
-        break;
+        case Player::State::Idle:
+        {
+            moveSpeed = 0.0f;
+            break;
+        }
+        case Player::State::Walk:
+        {
+            moveSpeed = WalkMoveSpeed;
+            break;
+        }
+        case Player::State::Run:
+        {
+            moveSpeed = RunMoveSpeed;
+            break;
+        }
+        case Player::State::Shot:
+        {
+            moveSpeed = WalkMoveSpeed;
+            break;
+        }
+        case Player::State::Reload:
+        {
+            moveSpeed = WalkMoveSpeed;
+            break;
+        }
+        case Player::State::Jump:
+        {
+            moveSpeed = 0.0f;
+            break;
+        }
+        case Player::State::OnHitEnemy:
+        {
+            moveSpeed = OnHitEnemyMoveSpeed;
+            break;
+        }
+        default:
+        {
+            break;
+        }
     }
 
     return moveSpeed;
@@ -788,6 +837,11 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
             currentAmmo--;
             equippedGun->SetGunAmmo(currentAmmo);
         }
+        else
+        {
+            // 発砲していない
+            isShooting = false;
+        }
     }
     else
     {
@@ -811,11 +865,26 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
 /// <param name="input">入力情報</param>
 void Player::UpdateReload(const Input& input)
 {
+    // 前のフレームでリロード終了していればNoneに戻す
+    if (reloadState == ReloadState::End)
+    {
+        reloadState = ReloadState::None;
+    }
+
+    // 前のフレームでリロード開始しているのであればNowに移行する
+    if (reloadState == ReloadState::Start)
+    {
+        reloadState = ReloadState::Now;
+    }
+
     // 「R」が押されているかつ、予備弾薬数があればリロード
     if (CheckHitKey(KEY_INPUT_R) && equippedGun->GetBackUpAmmo() > 0)
     {
         // リロードしている
         isReload = true;
+
+        // リロード開始
+        reloadState = ReloadState::Start;
     }
 
     // 一定フレーム期間リロードさせる
@@ -844,11 +913,14 @@ void Player::UpdateReload(const Input& input)
                 reloadAmmo = equippedGun->GetBackUpAmmo();
             }
 
-            int currentGunAmmo = equippedGun->GetGunAmmo(); // 現在の所持弾薬
+            int currentGunAmmo = equippedGun->GetGunAmmo();         // 現在の所持弾薬
             int currentBackUpAmmo = equippedGun->GetBackUpAmmo();   // 現在の予備弾薬
             
-            equippedGun->SetBackUpAmmo(currentBackUpAmmo - reloadAmmo); // 予備弾薬数を更新
-            equippedGun->SetGunAmmo(equippedGun->GetGunAmmo() + reloadAmmo);      // 銃の最大総弾数まで回復
+            equippedGun->SetBackUpAmmo(currentBackUpAmmo - reloadAmmo);         // 予備弾薬数を更新
+            equippedGun->SetGunAmmo(equippedGun->GetGunAmmo() + reloadAmmo);    // 銃の最大総弾数まで回復
+
+            // リロード終了
+            reloadState = ReloadState::End;
         }
     }
 }
@@ -928,44 +1000,57 @@ void Player::ChangeState(State newState)
     // ステートの切り替え
     switch (newState)
     {
-    case Player::State::Idle:
-        // 何もしていない状態へ推移
-        state = State::Idle;
-        currentState = new PlayerIdleState(modelHandle,previousData);
+        case Player::State::Idle:
+        {
+            // 何もしていない状態へ推移
+            state = State::Idle;
+            currentState = new PlayerIdleState(modelHandle,previousData);
 
-        break;
-    case Player::State::Walk:
-        // 歩き状態に推移
-        state = State::Walk;
-        currentState = new PlayerWalkState(modelHandle, previousData);
+            break;
+        }
+        case Player::State::Walk:
+        {
+            // 歩き状態に推移
+            state = State::Walk;
+            currentState = new PlayerWalkState(modelHandle, previousData);
 
-        break;
-    case Player::State::Run:
-        // 走り状態に推移
-        state = State::Run;
-        currentState = new PlayerRunState(modelHandle, previousData);
+            break;
+        }
+        case Player::State::Run:
+        {
+            // 走り状態に推移
+            state = State::Run;
+            currentState = new PlayerRunState(modelHandle, previousData);
 
-        break;
-    case Player::State::Shot:
-        // 発砲状態に推移
-        state = State::Shot;
-        currentState = new PlayerShotState(modelHandle, previousData);
+            break;
+        }
+        case Player::State::Shot:
+        {
+            // 発砲状態に推移
+            state = State::Shot;
+            currentState = new PlayerShotState(modelHandle, previousData);
 
-        break;
-    case Player::State::Reload:
-        // リロード状態に推移
-        state = State::Reload;
-        currentState = new PlayerReloadState(modelHandle, previousData);
-        break;
+            break;
+        }
+        case Player::State::Reload:
+        {
+            // リロード状態に推移
+            state = State::Reload;
+            currentState = new PlayerReloadState(modelHandle, previousData);
+            break;
+        }
+        case Player::State::OnHitEnemy:
+        {
+            // エネミーに攻撃されている状態へ推移
+            state = State::OnHitEnemy;
+            currentState = new PlayerOnHitEnemyState();
 
-    case Player::State::OnHitEnemy:
-        // エネミーに攻撃されている状態へ推移
-        state = State::OnHitEnemy;
-        currentState = new PlayerOnHitEnemyState();
-
-        break;
-    default:
-        break;
+            break;
+        }
+        default:
+        {
+            break;
+        }
     }
 }
 

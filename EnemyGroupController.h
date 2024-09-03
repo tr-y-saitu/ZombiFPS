@@ -4,6 +4,7 @@
 class EnemyGroup;
 class Stage;
 class EnemyObjectPools;
+class SoundManager;
 
 /// <summary>
 /// 集合したエネミーを一つにまとめる
@@ -53,15 +54,24 @@ public:
     const int GetEnemyGroupSize()const { return activeEnemyGroup.size(); }
 
 private:
+    /// <summary>
+    /// 音の更新
+    /// </summary>
+    void UpdateSound();
+
     // 定数
     // TODO: エネミーウェーブコントローラーで生成数を管理する
     //       オブジェクトプールでの管理ものちに行う
-    static constexpr int TestEnemyGroupNumber = 1;  // 仮のエネミーの生成数
+    static constexpr int TestEnemyGroupNumber   = 1;    // 仮のエネミーの生成数
+    static constexpr int ZombieSoundInterval    = 300;  // ゾンビの声を再生するフレーム間隔
+    static constexpr int ZombieSoundTypeNumber  = 3;    // ゾンビの声の種類数
 
     // 変数
+    SoundManager*       soundManager;       // サウンドマネージャー
     vector<EnemyGroup*> enemyGroup;         // エネミーの集合体
     list<EnemyGroup*>   activeEnemyGroup;   // 使用中のエネミーの集合体
     EnemyObjectPools*   enemyObjectPools;   // エネミーのオブジェクトプール
+    int                 frameCount;         // フレームカウント
 };
 
 

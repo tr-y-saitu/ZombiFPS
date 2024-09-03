@@ -87,9 +87,6 @@ void ShutterController::CreateInitializeData()
 /// </summary>
 void ShutterController::Update()
 {
-    // デバッグ用初期化
-    //Initialize();
-
     // シャッターの更新
     for (int i = 0; i < shutterList.size(); i++)
     {

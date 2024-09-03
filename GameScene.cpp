@@ -27,6 +27,9 @@ GameScene::GameScene()
     // フォントサイズ設定
     SetFontSize(GameSceneFontSize);
 
+    // 乱数を初期化
+    srand(unsigned int(time(nullptr)));
+
     // 入力処理
     input                   = new Input();
 
@@ -96,6 +99,7 @@ SceneBase* GameScene::UpdateScene()
     enemyWaveController->Update(enemyGroupController->GetEnemyGroupSize());
     shutterController->Update();                                    // シャッター
     collisionManager->Update();                                     // 当たり判定処理
+    UpdateSound();                                                  // 音の更新
     gameSceneUI->Update();                                          // UIの更新
 
     // 現状のシーンを返す
@@ -128,7 +132,80 @@ void GameScene::DrawUI()
 /// </summary>
 void GameScene::UpdateSound()
 {
+    // インタラクト時のサウンドを再生
+    if (player->GetIsInteracted())
+    {
+        // お金を払った時の音
+        soundManager->PlaySoundListSE(SoundManager::MoneyUseSE);
 
+        // シャッターを開けた場合
+        if (player->GetInteractLocationState() == Player::InteractLocationState::Shutter)
+        {
+            soundManager->PlaySoundListSE(SoundManager::ShutterOpenSE);
+        }
+    }
+
+    // プレイヤーのステートごとの音
+    switch (player->GetState())
+    {
+        case Player::State::Run:
+        {
+            // 走る音
+            soundManager->PlaySoundListSETypeLoop(SoundManager::PlayerRunSE);
+
+            break;
+        }
+        case Player::State::Walk:
+        {
+            // それ以外は歩く音
+            soundManager->PlaySoundListSETypeLoop(SoundManager::PlayerWalkingSE);
+
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
+
+    // 銃の発砲音
+    if (player->GetIsShooting())
+    {
+        soundManager->PlaySoundListSE(SoundManager::SubmachineGunShootingSE);
+    }
+
+    // 空撃ち音
+    if (input->GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT && !player->GetEquippedGunAmmo())
+    {
+        soundManager->PlaySoundListSE(SoundManager::DryFireSE);
+    }
+
+    // リロード音
+    switch (player->GetReloadState())
+    {
+        case Player::ReloadState::None:
+        {
+            // 処理なし
+            break;
+        }
+        case Player::ReloadState::Start:
+        {
+            // マガジンを抜く音を再生
+            soundManager->PlaySoundListSE(SoundManager::GunReloadStartSE);
+            break;
+        }
+        case Player::ReloadState::End:
+        {
+            // マガジンを挿入する音を再生
+            soundManager->PlaySoundListSE(SoundManager::GunReloadEndSE);
+
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
 }
 
 /// <summary>
