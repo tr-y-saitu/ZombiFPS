@@ -31,7 +31,7 @@ Stage::~Stage()
 void Stage::Initialize()
 {
     // モデル読み込み
-    modelHandle = modelDataManager->GetOriginalModelHandle(ModelDataManager::ModelDataType::StageModelData);
+    modelHandle = modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ModelDataType::StageModelData);
 
     // モデルのスケールを調整
     // スケールを小さくしすぎると当たり判定できなくなる
@@ -39,11 +39,27 @@ void Stage::Initialize()
 
     // スケールを調整
     MV1SetScale(modelHandle, StageModelScale);
-    
+
     // モデル全体のコリジョン情報のセットアップ
     MV1SetupCollInfo(modelHandle, SelectCollisionEntire);
     
     isCreatedHitDim = false;
+}
+
+/// <summary>
+/// タイトルシーンでの初期化
+/// </summary>
+void Stage::InitializeTitleScene()
+{
+    // モデル読み込み
+    modelHandle = modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ModelDataType::StageModelData);
+
+    // モデルのスケールを調整
+    // スケールを小さくしすぎると当たり判定できなくなる
+    MV1SetScale(modelHandle, VGet(0.1, 0.1, 0.1));
+
+    // スケールを調整
+    MV1SetScale(modelHandle, StageModelScale);
 }
 
 /// <summary>

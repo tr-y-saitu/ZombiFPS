@@ -37,6 +37,11 @@ public:
     void Initialize();
 
     /// <summary>
+    /// タイトルシーンでの初期化
+    /// </summary>
+    void InitializeTitleScene();
+
+    /// <summary>
     /// 更新
     /// </summary>
     /// <param name="playerPosition">プレイヤーの座標</param>
@@ -58,6 +63,8 @@ public:
 
     // Getter
     const bool GetIsActive()const { return isActive; }
+    const Pathfinding::Room GetCurrentRoom();
+    const VECTOR GetPosition();
 
     // Setter
     void SetCollisionDataIsActive(bool set);

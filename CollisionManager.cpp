@@ -138,8 +138,6 @@ void CollisionManager::Update()
                         data2.onHit(data1);
                     }
                 }
-
-
             }
 
             // 当たり判定を消してほしい場合

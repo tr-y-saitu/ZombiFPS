@@ -1,6 +1,17 @@
 ﻿#include "Common.h"
 #include "TitleScene.h"
 #include "GameScene.h"
+#include "SoundManager.h"
+#include "EffectManager.h"
+#include "CollisionManager.h"
+#include "CollisionData.h"
+#include "Stage.h"
+#include "ShutterController.h"
+#include "EnemyGroup.h"
+#include "SceneCamera.h"
+#include "Input.h"
+#include "ImageDataManager.h"
+#include "ModelDataManager.h"
 
 /// <summary>
 /// コンストラクタ
@@ -10,7 +21,27 @@ TitleScene::TitleScene()
     , isKeyRelease      (false)
     , isPreviousKeyOn   (false)
 {
-    titleSceneUI = TitleSceneUI();
+    // リソース管理
+    imageDataManager    = ImageDataManager::GetInstance();
+    modelDataManager    = ModelDataManager::GetInstance();
+
+    // 当たり判定
+    //collisionManager    = CollisionManager::GetInstance();
+
+    // 演出関連
+    soundManager        = SoundManager::GetInstance();
+    effectManager       = EffectManager::GetInstance();
+
+    // オブジェクト関連
+    stage               = new Stage();
+    shutterController   = new ShutterController();
+    enemy               = new EnemyGroup();
+
+    // カメラ
+    sceneCamera         = new SceneCamera();
+
+    // UI
+    titleSceneUI        = new TitleSceneUI();
 
     // 初期化
     Initialize();
@@ -21,6 +52,12 @@ TitleScene::TitleScene()
 /// </summary>
 TitleScene::~TitleScene()
 {
+    // メモリ開放
+    delete(stage);
+    delete(sceneCamera);
+    delete(titleSceneUI);
+    delete(shutterController);
+    delete(enemy);
 }
 
 /// <summary>
@@ -28,7 +65,14 @@ TitleScene::~TitleScene()
 /// </summary>
 void TitleScene::Initialize()
 {
+    // オブジェクトの初期化関数を呼ぶ
+    stage->InitializeTitleScene();
+    sceneCamera->Initialize(InitializeCameraPosition, InitializeCameraTargetPosition);
+    shutterController->InitializeTitleScene();
+    enemy->InitializeTitleScene();
 
+    // 初期化
+    enemyTargetPosition = Pathfinding::East4RoomCenterPosition;
 }
 
 /// <summary>
@@ -37,14 +81,15 @@ void TitleScene::Initialize()
 /// <returns>次のシーンのポインタ</returns>
 SceneBase* TitleScene::UpdateScene()
 {
-    // テスト描画
-    DrawString(0, 0, "Title", GetColor(255, 255, 255), true);
-
     // キー入力の更新
     UpdateKeyState();
 
     // オブジェクト更新
-    titleSceneUI.Update();      // UIの更新
+    shutterController->Update();                            // シャッター
+    sceneCamera->UpdateTitleScene(enemy->GetPosition());    // カメラ
+    enemy->Update(enemyTargetPosition,*stage);              // エネミー
+    UpdateEnemy();                                          // エネミーの更新
+    titleSceneUI->Update();                                 // UI
 
     // スペースキーが入力されたらシーン推移
     if (isKeyRelease)
@@ -73,6 +118,11 @@ void TitleScene::UpdateSound()
 /// </summary>
 void TitleScene::Draw()
 {
+    // オブジェクト描画
+    stage->Draw();
+    enemy->Draw(enemyTargetPosition);
+    shutterController->Draw();
+
     // UIの描画
     DrawUI();
 }
@@ -82,7 +132,7 @@ void TitleScene::Draw()
 /// </summary>
 void TitleScene::DrawUI()
 {
-    titleSceneUI.Draw();
+    titleSceneUI->Draw();
 }
 
 /// <summary>
@@ -116,3 +166,24 @@ void TitleScene::UpdateKeyState()
         isPreviousKeyOn = false;  // このフレームでキーは押されなかった
     }
 }
+
+/// <summary>
+/// エネミーの更新
+/// </summary>
+void TitleScene::UpdateEnemy()
+{
+    // エネミーがEast4とWest4を行き来するように処理
+
+    // East4にたどり着いたら
+    if (enemy->GetCurrentRoom().roomNumber == Pathfinding::RoomNumber::East4)
+    {
+        enemyTargetPosition = Pathfinding::West4RoomCenterPosition;
+    }
+
+    // West4にたどり着いたら
+    if (enemy->GetCurrentRoom().roomNumber == Pathfinding::RoomNumber::West4)
+    {
+        enemyTargetPosition = Pathfinding::East4RoomCenterPosition;
+    }
+}
+

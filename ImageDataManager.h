@@ -27,6 +27,7 @@ public:
         VHSFiltersImageData,    // VHSフィルター
         CrosshairImageData,     // 銃のクロスヘア
         RECImageData,           // REC(録画)
+        TitleLogo,              // タイトルロゴ
     };
 
     /// <summary>

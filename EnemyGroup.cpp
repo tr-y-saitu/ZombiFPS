@@ -12,9 +12,6 @@ EnemyGroup::EnemyGroup()
 
     // ゾンビを生成
     enemys.push_back(new Enemy());
-
-    // 初期化
-    Initialize();
 }
 
 /// <summary>
@@ -60,6 +57,18 @@ void EnemyGroup::Initialize()
 }
 
 /// <summary>
+/// タイトルシーンでの初期化
+/// </summary>
+void EnemyGroup::InitializeTitleScene()
+{
+    // エネミーの数だけ初期化
+    for (int i = 0; i < enemys.size(); i++)
+    {
+        enemys[i]->InitializeTitleScene();
+    }
+}
+
+/// <summary>
 /// 更新
 /// </summary>
 /// <param name="playerPosition">プレイヤーの座標</param>
@@ -74,6 +83,12 @@ void EnemyGroup::Update(VECTOR playerPosition, Stage& stage)
     {
         // 線形探索
         VECTOR enemyTargetPosition = UpdateEnemyTargetPosition(playerPosition, *enemys[i], stage);
+
+        // エネミーの現在の部屋を更新
+        Pathfinding::Room enemyPreviousRoom = enemys[i]->GetPreviousRoom();
+        Pathfinding::Room enemyRoom = pathfinding->GetCurrentRoom(enemys[i]->GetPosition(), enemyPreviousRoom);
+        enemys[i]->SetCurrentRoom(enemyRoom);
+        
 
         // ターゲットがプレイヤーか部屋の中心座標かチェック
         float distance = Calculation::Distance3D(playerPosition, enemyTargetPosition);
@@ -111,11 +126,11 @@ void EnemyGroup::Draw(VECTOR playerPosition)
     }
 
     // 線形探索用に区切った部屋を描画
-    pathfinding->Draw();
+    //pathfinding->Draw();
 
     // プレイヤーの位置する部屋を描画
-    Pathfinding::Room playerRoom = pathfinding->GetCurrentRoom(playerPosition, playerPreviousRoom);
-    DrawFormatString(100, 500, DebugFontColor, "PlayerRoom:%d", playerRoom.roomNumber);
+    //Pathfinding::Room playerRoom = pathfinding->GetCurrentRoom(playerPosition, playerPreviousRoom);
+    //DrawFormatString(100, 500, DebugFontColor, "PlayerRoom:%d", playerRoom.roomNumber);
 }
 
 /// <summary>
@@ -167,5 +182,28 @@ void EnemyGroup::SetCollisionDataIsActive(bool set)
     for (int i = 0; i < enemys.size(); i++)
     {
         enemys[i]->SetCollisionDataIsActive(set);
+    }
+}
+
+/// <summary>
+/// エネミーの現在の部屋を取得
+/// </summary>
+const Pathfinding::Room EnemyGroup::GetCurrentRoom()
+{
+    for (int i = 0; i < enemys.size(); i++)
+    {
+        return enemys[i]->GetCurrentRoom();
+    }
+}
+
+/// <summary>
+/// エネミーの座標を返す
+/// </summary>
+/// <returns>エネミーの座標</returns>
+const VECTOR EnemyGroup::GetPosition()
+{
+    for (int i = 0; i < enemys.size(); i++)
+    {
+        return enemys[i]->GetPosition();
     }
 }

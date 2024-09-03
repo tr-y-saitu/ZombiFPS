@@ -21,8 +21,7 @@ Shutter::Shutter()
     // 生成時に当たり判定を開始してほしいので当たり判定をアクティブ化する
     collisionData.isCollisionActive = true;
 
-    // 当たり判定に必要なデータを渡す
-    collisionManager->RegisterCollisionData(&collisionData);
+    
 }
 
 /// <summary>
@@ -48,6 +47,31 @@ void Shutter::Initialize(ShutterController::ShutterInitializeData initializeData
 
     // モデルを回転させる
     MV1SetRotationMatrix(modelHandle, rotationMatrix);
+
+    // 当たり判定に必要なデータを渡す
+    collisionManager->RegisterCollisionData(&collisionData);
+}
+
+/// <summary>
+/// タイトルシーンでの初期化
+/// </summary>
+/// <param name="initializeData"></param>
+void Shutter::InitializeTitleScene(ShutterController::ShutterInitializeData initializeData)
+{
+    shutterTag = initializeData.tag;                           // シャッターの固有名称
+    position = initializeData.initializePosition;            // 座標
+    rotationMatrix = initializeData.initializeRotationMatrix;      // 回転率
+    modelHandle = initializeData.modelHandle;                   // モデルハンドル
+    interactionCost = initializeData.interactionCost;               // インタラクトにかかるコスト
+
+    // モデルのサイズを設定
+    MV1SetScale(modelHandle, initializeData.initializeScale);
+
+    // モデルを回転させる
+    MV1SetRotationMatrix(modelHandle, rotationMatrix);
+
+    // 当たり判定はしてほしくないので非アクティブ化する
+    collisionData.isCollisionActive = false;
 }
 
 /// <summary>

@@ -73,6 +73,11 @@ public:
     void Initialize();
 
     /// <summary>
+    /// タイトルシーンでの初期化
+    /// </summary>
+    void InitializeTitleScene();
+
+    /// <summary>
     /// 更新
     /// </summary>
     /// <param name="targetPosition">目標座標</param>
@@ -97,12 +102,14 @@ public:
     // Getter
     const VECTOR GetPosition()const { return position; }
     const Pathfinding::Room GetPreviousRoom()const { return previousRoom; }
+    const Pathfinding::Room GetCurrentRoom()const { return currentRoom; }
     const bool GetIsTouchingRoomCenter()const { return isTouchingRoomCenter; }
     const Pathfinding::RoomEntryState GetRoomEntryState() const { return roomEntryState; }
     const bool GetIsActive()const { return isActive; }
 
     // Setter
     void SetPreviousRoom(Pathfinding::Room set) { previousRoom = set; }
+    void SetCurrentRoom(Pathfinding::Room set) { currentRoom = set; }
     void SetTargetNextPosition(VECTOR set) { targetNextPosition = set; }
     void SetIsTouchingRoomCenter(bool set) { isTouchingRoomCenter = set; }
     void SetRoomEntryState(Pathfinding::RoomEntryState set) { roomEntryState = set; }
@@ -238,9 +245,10 @@ private:
     int         deathFrameCount;            // 死亡してから何フレーム経過するか
 
     // 線形探索用
-    Pathfinding::Room previousRoom;                 // 以前いた部屋
-    VECTOR      targetNextPosition;                 // 線形探索を行った結果、次に移動したい座標
-    bool        isTouchingRoomCenter;               // 今いる部屋の中心座標に接触したか
+    Pathfinding::Room   previousRoom;               // 以前いた部屋
+    Pathfinding::Room   currentRoom;                // 現在いる部屋
+    VECTOR              targetNextPosition;         // 線形探索を行った結果、次に移動したい座標
+    bool                isTouchingRoomCenter;       // 今いる部屋の中心座標に接触したか
     Pathfinding::RoomEntryState roomEntryState;     // 部屋に対して何を行っている状態か
 
     // 当たり判定用

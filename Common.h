@@ -7,6 +7,9 @@
 #include <unordered_map>
 #include <cstdio>
 #include <string>
+#include <ctime>
+#include <iomanip>
+#include <sstream>
 #include "math.h"
 #include "DxLib.h"
 #include "EffekseerForDXLib.h"
@@ -23,3 +26,5 @@ const int        DebugFontColor         = GetColor(255, 255, 225);      // デ�
 const int        DebugPolygonColorRed   = GetColor(200, 0, 0);          // デバッグ時のポリゴンの色(赤)
 const int        DebugPolygonColorBlue  = GetColor(0, 0,200);           // デバッグ時のポリゴンの色(青)
 static const int DebugSphereDivision    = 16;                           // デバッグ時のポリゴンの細かさ
+static const int DefaultExpansion       = 1;                            // デフォルトの拡大率
+static const int DefaultAngle           = 0;                            // デフォルトの回転率

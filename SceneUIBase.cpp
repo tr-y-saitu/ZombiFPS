@@ -62,7 +62,19 @@ void SceneUIBase::DrawStringCenterScreen(const char* string, int drawPositionY, 
     int stringLength = strlen(string);
 
     // 文字列の描画幅を取得
-    int stringWidth = GetDrawStringWidth(string, stringLength);
+    int stringWidth;
+
+    // フォントハンドルがある場合
+    if (fontHandle)
+    {
+        // 指定フォントの文字の描画幅を得る
+        stringWidth = GetDrawFormatStringWidthToHandle(fontHandle, string);
+    }
+    else
+    {
+        // デフォルトフォントの文字描画幅を得る
+        stringWidth = GetDrawStringWidth(string, stringLength);
+    }
 
     // 描画する座標を設定
     int drawPositionX = ScreenWidthHalf - (stringWidth / 2);
