@@ -13,10 +13,10 @@
 /// コンストラクタ
 /// </summary>
 AssaultRifle::AssaultRifle()
-    : runAnimationFactor(0.0f)
-    , reloadAnimationFactor(0.0f)
-    , isEmissiveIncreasing(false)
-    , emissiveIntensity(MinimumEmissive)
+    : runAnimationFactor        (0.0f)
+    , reloadAnimationFactor     (0.0f)
+    , isEmissiveIncreasing      (false)
+    , emissiveIntensity         (MinimumEmissive)
 {
     modelDataManager    = ModelDataManager::GetInstance();
     imageDataManager    = ImageDataManager::GetInstance();
