@@ -14,6 +14,19 @@ EnemyObjectPools::EnemyObjectPools()
 }
 
 /// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="playerAddMoney">プレイヤーの所持金を増加させる関数ポインタ</param>
+EnemyObjectPools::EnemyObjectPools(std::function<void(int)> playerAddMoney)
+{
+    // エネミーのインスタンスを作成
+    for (int i = 0; i < EnemyTotalNumber; i++)
+    {
+        inactiveEnemy.push_back(new EnemyGroup(playerAddMoney));
+    }
+}
+
+/// <summary>
 /// デストラクタ
 /// </summary>
 EnemyObjectPools::~EnemyObjectPools()

@@ -12,9 +12,15 @@ class EnemyObjectPools
 {
 public:
     /// <summary>
-    /// コンストラクタ
+    /// デフォルトコンストラクタ
     /// </summary>
     EnemyObjectPools();
+
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    /// <param name="playerAddMoney">プレイヤーの所持金を増加させる関数ポインタ</param>
+    EnemyObjectPools(std::function<void(int)> playerAddMoney);
 
     /// <summary>
     /// デストラクタ

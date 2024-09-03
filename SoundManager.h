@@ -11,7 +11,7 @@ public:
     /// <summary>
     /// 再生する効果音
     /// </summary>
-    enum PlaySoundSE
+    enum SoundEffectType
     {
         // システム
         PUSH_SE,                    // ボタン入力音
@@ -46,9 +46,9 @@ public:
     };
 
     /// <summary>
-    /// 再生するBGM
+    /// ループ再生したいサウンド
     /// </summary>
-    enum PlaySoundBGM
+    enum LoopSoundType
     {
         // タイトル
         TitleSceneBGM,          // タイトルシーンBGM
@@ -104,19 +104,19 @@ public:
     /// 読み込んだサウンドリストから効果音再生
     /// </summary>
     /// <param name="soundType">再生したい効果音の種類</param>
-    void PlaySoundListSE(PlaySoundSE soundType);
+    void PlaySoundListSE(SoundEffectType soundType);
 
     /// <summary>
     /// 読み込んだサウンドリストから効果音再生（ループ再生したい効果音用）
     /// </summary>
     /// <param name="soundType">再生したい効果音の種類</param>
-    void PlaySoundListSETypeLoop(PlaySoundSE soundType);
+    void PlaySoundListSETypeLoop(SoundEffectType soundType);
 
     /// <summary>
-    /// 読み込んだサウンドリストからBGM再生
+    /// 読み込んだサウンドリストからループ再生
     /// </summary>
-    /// <param name="soundType">再生したいBGMの種類</param>
-    void PlaySoundListBGM(PlaySoundBGM soundType);
+    /// <param name="soundType">ループ再生したい音の種類</param>
+    void PlaySoundListBGM(LoopSoundType soundType);
 
 private:
     /// <summary>
@@ -131,8 +131,8 @@ private:
     static SoundManager*    soundManager;           // サウンドマネージャークラスのインスタンス
     int                     playingSoundHandle;     // 現在再生中のサウンド
     vector<int>             playingList;            // 現在再生中のサウンドリスト
-    map<PlaySoundSE, int>   soundListSE;            // 再生する効果音のリスト
-    map<PlaySoundBGM, int>  soundListBGM;           // 再生するBGMのリスト
+    map<SoundEffectType, int>   soundListSE;        // 再生する効果音のリスト
+    map<LoopSoundType, int>  soundListBGM;          // 再生するループサウンドのリスト
 
     //                  サウンドデータ                  //
     // 共通
