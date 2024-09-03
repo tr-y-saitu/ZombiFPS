@@ -71,7 +71,7 @@ void AssaultRifle::Initialize()
     MV1SetScale(modelHandle, InitializeScale);
 
     // 武器強化時のテクスチャハンドルをもらう
-    //powerUpTextureHandle = imageDataManager->GetImageHandle(ImageDataManager::MP5PowerUpTexture);
+    powerUpTextureHandle = imageDataManager->GetImageHandle(ImageDataManager::MP5PowerUpTexture);
 }
 
 /// <summary>
@@ -108,6 +108,9 @@ void AssaultRifle::Update(VECTOR setPosition, VECTOR cameraVector, VECTOR camera
 
     // 移動更新
     UpdateMove(setPosition, playerState);
+
+    // レーザーポインタ更新
+    UpdateLaserPointer(cameraPosition,cameraVector);
 
     // 武器強化指示が出れば強化
     InitializePowerUpWeapon();
@@ -232,13 +235,76 @@ void AssaultRifle::UpdateShooting(VECTOR cameraPosition, VECTOR targetPosition)
 /// </summary>
 void AssaultRifle::InitializePowerUpWeapon()
 {
+    // 武器強化指示が出た場合
+    if (powerUpWeapon)
+    {
+        // パワーアップした状態である
+        gunPowerUpState = GunPowerUpState::FirstUpGraeded;
 
+        // 各種武器性能を強化
+        bulletDamagePower = (bulletDamagePower + PowerUpDamage) * GunPowerUpRate;     // 威力
+        bulletPenetrationPower = BulletPenetrationPower * GunPowerUpRate;                  // 貫通力
+        recoil = GunRecoil / GunPowerUpRate;                               // 反動
+        gunAmmo = GunMaxAmmo * GunPowerUpRate;                              // 総弾数
+        gunMaxAmmo = GunMaxAmmo * GunPowerUpRate;                              // 銃の最大総弾数
+        backUpAmmo = MaxBackUpAmmo * GunPowerUpRate;                           // 予備弾薬数
+        backUpMaxAmmo = MaxBackUpAmmo * GunPowerUpRate;                           // 予備弾薬の最大数
+
+        // テクスチャを張り替える
+        MV1SetTextureGraphHandle(modelHandle, 5, powerUpTextureHandle, true);
+        MV1SetTextureGraphHandle(modelHandle, 6, powerUpTextureHandle, true);
+
+        // 強化済み
+        powerUpWeapon = false;
+    }
 }
 
 /// <summary>
 /// 武器強化時のモデルマテリアルの更新
 /// </summary>
 void AssaultRifle::UpdatePowerUpGunMaterial()
+{
+    // 強化済みか確認
+    if (!(gunPowerUpState == GunPowerUpState::None))
+    {
+        // エミッシブカラー(自然発光)の値を変更する
+
+        // 上昇
+        if (isEmissiveIncreasing)
+        {
+            emissiveIntensity += EmissiveSpeed; // 発光量を増加
+            if (emissiveIntensity >= MaximumEmissive)
+            {
+                emissiveIntensity = MaximumEmissive;
+                isEmissiveIncreasing = false;   // 降下に切り替える
+            }
+        }
+        else
+        {
+            emissiveIntensity -= EmissiveSpeed;
+            if (emissiveIntensity <= MinimumEmissive)
+            {
+                emissiveIntensity = MinimumEmissive;
+                isEmissiveIncreasing = true;    // 上昇に切り替える
+            }
+        }
+
+        // エミッシブカラー(自然発光)の値を更新
+        VECTOR emissiveColor = VGet(emissiveIntensity, emissiveIntensity, emissiveIntensity);
+        MV1SetMaterialEmiColor(modelHandle, 5,
+            GetColorF(emissiveColor.x, emissiveColor.y, emissiveColor.z, 1.0f));
+        MV1SetMaterialEmiColor(modelHandle, 6,
+            GetColorF(emissiveColor.x, emissiveColor.y, emissiveColor.z, 1.0f));
+    }
+}
+
+/// <summary>
+/// レーザーポインターの更新
+/// </summary>
+/// <param name="cameraForwardVector">カメラの前方向ベクトル</param>
+/// TODO:武器強化時に銃からカメラの視点に向かって赤いラインを引き
+///      レーザーのようにする
+void AssaultRifle::UpdateLaserPointer(VECTOR cameraPosition,VECTOR cameraForwardVector)
 {
 
 }

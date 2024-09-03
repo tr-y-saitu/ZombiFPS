@@ -86,6 +86,9 @@ public:
     /// <param name="playPosition">再生座標</param>
     void PlayMuzzleFlashEffect(VECTOR playPosition);
 
+
+    void UpdateMuzzleFlashEffect(VECTOR newPosition);
+
     /// <summary>
     /// 血しぶきのエフェクト再生
     /// </summary>

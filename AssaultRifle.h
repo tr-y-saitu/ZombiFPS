@@ -81,6 +81,11 @@ private:
     /// </summary>
     void UpdatePowerUpGunMaterial();
 
+    /// <summary>
+    /// レーザーポインターの更新
+    /// </summary>
+    void UpdateLaserPointer(VECTOR cameraPosition,VECTOR cameraForwardVector);
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//

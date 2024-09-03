@@ -1388,22 +1388,22 @@ const int Player::GetEquippedGunPowerUpState()
 /// </summary>
 void Player::UpdateEffect()
 {
+    // カメラの前方ベクトルを取得
+    VECTOR cameraForwardVector = playerCamera->GetCameraForwardVector();
+    cameraForwardVector.y = 0.0f;
+
+    // カメラの位置を取得
+    VECTOR gunPosition = equippedGun->GetPosition();
+
+    // エフェクトのオフセット距離を定義（VECTOR型）
+    float effectOffset = 3.0f; // 前方2単位分のオフセット
+
+    // エフェクト再生位置を計算
+    VECTOR effectPosition = VAdd(gunPosition, VScale(cameraForwardVector, effectOffset));
+
     // 発砲エフェクトを描画
     if (isShooting)
     {
-        // カメラの前方ベクトルを取得
-        VECTOR cameraForwardVector = playerCamera->GetCameraForwardVector();
-        cameraForwardVector.y = 0.0f;
-
-        // カメラの位置を取得
-        VECTOR gunPosition = equippedGun->GetPosition();
-
-        // エフェクトのオフセット距離を定義（VECTOR型）
-        float effectOffset = 3.0f; // 前方2単位分のオフセット
-
-        // エフェクト再生位置を計算
-        VECTOR effectPosition = VAdd(gunPosition, VScale(cameraForwardVector, effectOffset));
-
         // エフェクトを再生
         if (equippedGun->GetGunPowerUpState() == GunBase::GunPowerUpState::None)
         {

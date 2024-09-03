@@ -176,7 +176,7 @@ void EffectManager::PlayEffectList(EffectType effectType, VECTOR playPosition, V
 }
 
 /// <summary>
-/// マズルフラッシュえエフェクト再生
+/// マズルフラッシュエフェクト再生
 /// </summary>
 /// <param name="playPosition">再生座標</param>
 void EffectManager::PlayMuzzleFlashEffect(VECTOR playPosition)
@@ -184,6 +184,24 @@ void EffectManager::PlayMuzzleFlashEffect(VECTOR playPosition)
     playingEffectHandle = PlayEffekseer3DEffect(muzzleFlashEffectHandle);
     playingList.push_back(playingEffectHandle);
     SetPosPlayingEffekseer3DEffect(playingEffectHandle, playPosition.x, playPosition.y, playPosition.z);
+}
+
+/// <summary>
+/// 再生中のエフェクトの座標を更新する
+/// </summary>
+/// <param name="newPosition"></param>
+/// TODO:初めに再生された位置からエフェクト座標が更新されないため
+///      マズルフラッシュなどは銃の位置に毎フレーム更新する
+void EffectManager::UpdateMuzzleFlashEffect(VECTOR newPosition)
+{
+    // 再生中のマズルフラッシュエフェクトを検索
+    for (int i = 0; i < playingList.size(); i++)
+    {
+        SetPosPlayingEffekseer3DEffect(playingList[i], newPosition.x, newPosition.y, newPosition.z);
+        if (playingList[i] == powerUpMuzzleFlashEffectHandle)
+        {
+        }
+    }
 }
 
 /// <summary>
