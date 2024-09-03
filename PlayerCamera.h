@@ -128,6 +128,7 @@ private:
     static constexpr float  ViewTargetShiftLeftOffset   = -0.5f;    // 腰だめの位置に調整するためのターゲットの視点ずらし量
     // 視野角
     static constexpr float  AimFov                      = 40.0f * DX_PI_F / 180.f;  // エイム時の視野角
+    static constexpr float  AimFovScope                 = 10.0f * DX_PI_F / 180.0f; // スコープ使用時の視野角
     static constexpr float  HipShootFov                 = 60.0f * DX_PI_F / 180.f;  // 腰だめ時の視野角
     static constexpr float  FovChangeSpeed              = 2.0f * DX_PI_F / 180.f;   // 視野角の変更スピード
     // MEMO:現在の視野角と、目標の視野角をfloatで表しているが、

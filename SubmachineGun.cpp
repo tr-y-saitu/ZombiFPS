@@ -79,13 +79,13 @@ void SubmachineGun::Initialize()
 /// </summary>
 void SubmachineGun::InitializeBulletData(VECTOR cameraPosition, VECTOR targetPosition)
 {
-    bulletData.lineStartPosition = cameraPosition;           // カメラの座標
-    bulletData.lineEndPosition = targetPosition;           // カメラの向いている座標
-    bulletData.direction = VNorm(VSub(targetPosition, cameraPosition));  // 弾丸の移動方向
-    bulletData.position = position;                 // 座標
-    bulletData.power = bulletDamagePower;        // 威力
-    bulletData.speed = BulletSpeed;              // 速度
-    bulletData.penetratingPower = bulletPenetrationPower;   // 貫通力
+    bulletData.lineStartPosition    = cameraPosition;           // カメラの座標
+    bulletData.lineEndPosition      = targetPosition;           // カメラの向いている座標
+    bulletData.direction            = VNorm(VSub(targetPosition, cameraPosition));  // 弾丸の移動方向
+    bulletData.position             = position;                 // 座標
+    bulletData.power                = bulletDamagePower;        // 威力
+    bulletData.speed                = BulletSpeed;              // 速度
+    bulletData.penetratingPower     = bulletPenetrationPower;   // 貫通力
 }
 
 /// <summary>
@@ -191,7 +191,7 @@ VECTOR SubmachineGun::FixedRunPosition(Player::State playerState)
 /// <returns>調整された自身のポジション</returns>
 VECTOR SubmachineGun::FixedReloadPosition(Player::State playerState)
 {
-    // 走りアニメーション時の処理
+    // リロードアニメーション時の処理
     if (playerState == Player::State::Reload)
     {
         // アニメーションの適用率を増加させる

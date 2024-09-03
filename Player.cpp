@@ -53,7 +53,7 @@ Player::Player()
     // 初期化
     Initialize();
     bulletObjectPools       = new BulletObjectPools();
-    equippedGun             = new AssaultRifle();
+    equippedGun             = new BattleRifle();
     playerCamera            = new PlayerCamera();
     currentState            = new PlayerIdleState(modelHandle, animationData);
 }
