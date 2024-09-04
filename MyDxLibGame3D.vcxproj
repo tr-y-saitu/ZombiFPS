@@ -27,6 +27,7 @@
     <ClCompile Include="ClearScene.cpp" />
     <ClCompile Include="ClearSceneUI.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="DebugLogger.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyGroup.cpp" />
     <ClCompile Include="EnemyGroupController.cpp" />
@@ -89,6 +90,7 @@
     <ClInclude Include="ClearSceneUI.h" />
     <ClInclude Include="CollisionData.h" />
     <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="DebugLogger.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyGroup.h" />
     <ClInclude Include="EnemyGroupController.h" />

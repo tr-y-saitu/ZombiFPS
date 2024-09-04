@@ -92,7 +92,7 @@ public:
     static void CreateInstance();
 
     /// <summary>
-    /// エフェクトマネージャーのインスタンスのポインタを渡す
+    /// インスタンスのポインタを渡す
     /// </summary>
     /// <returns>EffectManagerのポインタ</returns>
     static ImageDataManager* GetInstance();
