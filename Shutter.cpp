@@ -95,7 +95,7 @@ void Shutter::Draw()
 {
     // モデルを描画
     MV1DrawModel(modelHandle);
-
+#if _DEBUG
     //// デバッグ当たり判定の描画
     //DrawSphere3D(collisionData.centerPosition, collisionData.radius,
     //    DebugSphereDivision, DebugPolygonColorBlue, DebugPolygonColorBlue,false);
@@ -103,6 +103,7 @@ void Shutter::Draw()
     //// デバッグシャッターにアクセルできる半径を描画
     //DrawSphere3D(collisionData.centerPosition, collisionData.interactRadius,
     //    DebugSphereDivision, DebugPolygonColorRed, DebugPolygonColorRed, false);
+#endif
 }
 
 /// <summary>

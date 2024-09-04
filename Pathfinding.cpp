@@ -66,6 +66,8 @@ void Pathfinding::CreateRooms()
 /// </summary>
 void Pathfinding::InitializeRoomsData()
 {
+
+    //TODO:データを外部ファイル化
     // 部屋のデータ         // 部屋番号     // 中心座標                 // 幅     // 奥行        // 画像データ
     initRoomData[West1]     = { West1,     West1RoomCenterPosition  ,      30,        40,       imageDataManager->GetImageHandle(ImageDataManager::West1ImageData) };
     initRoomData[West2]     = { West2,     West2RoomCenterPosition  ,      45,        13,       imageDataManager->GetImageHandle(ImageDataManager::West2ImageData) };
@@ -134,7 +136,8 @@ void Pathfinding::Draw()
     // 初期化
     Initialize();
 
-    // 部屋の情報を描画
+#if _DEBUG
+    // デバッグ部屋の情報を描画
     for (auto& room : roomList)
     {
         // 中心座標を球体で描画
@@ -151,6 +154,7 @@ void Pathfinding::Draw()
         // 部屋とする範囲を描画する
         DrawDebugRoomArea(room->centerPosition, room->width, room->depth);
     }
+#endif
 }
 
 /// <summary>
@@ -184,6 +188,8 @@ void Pathfinding::DrawDebugRoomArea(VECTOR centerPosition, float width, float de
 /// <param name="objectPosition">どの部屋にいるか調べたいキャラの座標</param>
 /// <param name="previousRoom">今ままで位置していた部屋</param>
 /// <returns>現在位置する部屋情報</returns>
+/// TODO:Room&の値を関数内で書き換えることをやめる
+///      パブリック変数と変わらなくなってしまう
 Pathfinding::Room Pathfinding::GetCurrentRoom(VECTOR objectPosition, Room& previousRoom)
 {
     Room room;

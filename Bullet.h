@@ -72,7 +72,7 @@ public:
     // ゲッター、セッター
     const bool GetIsActive()const { return isActive; }
     const int GetMoney()const { return getMoney; }
-    void SetCollisionDataIsActive(bool set) { collisionData.isCollisionActive = set; }
+    void SetCollisionDataActive(bool set) { collisionData.isCollisionActive = set; }
 
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //

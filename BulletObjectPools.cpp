@@ -75,7 +75,7 @@ void BulletObjectPools::ReturnActiveBulletInstance(list<Bullet*>& activeBullet)
         if (!bullet->GetIsActive())
         {
             // 弾丸の当たり判定を非アクティブ化する
-            bullet->SetCollisionDataIsActive(false);
+            bullet->SetCollisionDataActive(false);
 
             // 弾丸を未使用リストに移動
             inactiveBullet.splice(inactiveBullet.end(), activeBullet, it++);

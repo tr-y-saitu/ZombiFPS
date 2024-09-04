@@ -161,11 +161,11 @@ VECTOR EnemyGroup::UpdateEnemyTargetPosition(VECTOR playerPosition,Enemy& enemy,
 /// エネミーグループ内のエネミーのコリジョンデータを使用するかどうかを設定する
 /// </summary>
 /// <param name="set">使用したいかどうか</param>
-void EnemyGroup::SetCollisionDataIsActive(bool set)
+void EnemyGroup::SetCollisionDataActive(bool set)
 {
     for (int i = 0; i < enemys.size(); i++)
     {
-        enemys[i]->SetCollisionDataIsActive(set);
+        enemys[i]->SetCollisionDataActive(set);
     }
 }
 

@@ -41,7 +41,7 @@ public:
 
     // ゲッター
     int GetCurrentFrameInput() const { return currentFrameInput; }
-    int GetNowNewFrameInput() const { return nowFrameNewInput; }
+    int GetCurrentNewFrameInput() const { return currentFrameNewInput; }
     const MousePosition GetMousePosition() const { return mousePosition; }
     int GetMouseCurrentFrameInput()const { return mouseCurrentFrameInput; }
     int GetMouseNowFrameInput()const { return mouseNowFrameInput; }
@@ -52,11 +52,13 @@ public:
 private:
 
     // 変数
-    int     currentFrameInput;      // 現在のフレームで押されていボタン
-    int     nowFrameNewInput;       // 現在のフレームで新たに入力されたボタン
-    int     previousFrameInput;     // 前のフレームで入力されたボタン
-    MousePosition mousePosition;    // マウスの座標
-    int     mouseCurrentFrameInput; // 現在のフレームで押されたボタン
-    int     mouseNowFrameInput;     // 現在のフレームで新たに入力されたマウスボタン
+    int             currentFrameInput;          // 現在のフレームで押されていボタン
+    int             currentFrameNewInput;       // 現在のフレームで新たに入力されたボタン
+    MousePosition   mousePosition;              // マウスの座標
+    int             mouseCurrentFrameInput;     // 現在のフレームで押されたボタン
+    int             mouseNowFrameInput;         // 現在のフレームで新たに入力されたマウスボタン
+
+    // TODO:キー入力とマウス入力の変数を同じにする
+    //      char key[256]みたいにしてもよい
 };
 

@@ -53,7 +53,7 @@ void EnemyGroupController::CreateEnemy(int currentWave)
     if (enemy != nullptr)
     {
         enemy->Initialize(currentWave);         // 初期化
-        enemy->SetCollisionDataIsActive(true);  // 当たり判定をアクティブにする
+        enemy->SetCollisionDataActive(true);  // 当たり判定をアクティブにする
         activeEnemyGroup.push_back(enemy);      // エネミーの追加
     }
 }

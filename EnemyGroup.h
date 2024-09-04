@@ -61,7 +61,7 @@ public:
     const VECTOR GetPosition();
 
     // Setter
-    void SetCollisionDataIsActive(bool set);
+    void SetCollisionDataActive(bool set);
     void SetIsActive(bool set);
 
 private:

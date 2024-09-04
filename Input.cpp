@@ -8,7 +8,7 @@
 /// </summary>
 Input::Input()
     : currentFrameInput         (0)
-    , nowFrameNewInput          (0)
+    , currentFrameNewInput      (0)
     , mousePosition             ({0,0})
     , mouseCurrentFrameInput    (0)
     , mouseNowFrameInput        (0)
@@ -41,9 +41,9 @@ void Input::Update()
 #endif
 
     // 現在のフレームで新たに入力されたボタンのビットが立っている値を
-    // nowFrameNewInput に代入する
+    // currentFrameNewInput に代入する
     // 連続入力を防ぐために行う
-    nowFrameNewInput = currentFrameInput & ~oldFrameInput;
+    currentFrameNewInput = currentFrameInput & ~oldFrameInput;
 }
 
 /// <summary>

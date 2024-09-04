@@ -571,7 +571,7 @@ void Player::UpdateInteract(const Input& input)
     bool moneyUsed = false; 
 
     // インタラクトキーが入力されているか
-    bool enteredInteractKey = (input.GetNowNewFrameInput() & PAD_INPUT_1 || CheckHitKey(KEY_INPUT_F));
+    bool enteredInteractKey = (input.GetCurrentNewFrameInput() & PAD_INPUT_1 || CheckHitKey(KEY_INPUT_F));
 
     // インタラクトできる所持金があるかどうか
     bool canPay = interactionCost <= money;
@@ -1036,7 +1036,7 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
             if (bullet != nullptr)
             {
                 bullet->Initialize(initData);                       // 弾丸の初期化
-                bullet->SetCollisionDataIsActive(true);             // 当たり判定を適用する
+                bullet->SetCollisionDataActive(true);             // 当たり判定を適用する
                 equippedGun->GetActiveBullet().push_back(bullet);   // 弾丸の追加
             }
 

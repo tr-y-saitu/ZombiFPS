@@ -101,7 +101,15 @@ void EffectManager::DeleteInstance()
 /// </summary>
 void EffectManager::Initialize()
 {
-    //// 再生中のエフェクトを削除する
+    // 処理なし
+}
+
+/// <summary>
+/// シーンが切り替わった時の処理
+/// </summary>
+void EffectManager::OnChangedScene()
+{
+    // 再生中のエフェクトを削除する
     for (int i = playingList.size() - 1; i >= 0; i--)
     {
         // 再生中か調べる
@@ -133,7 +141,8 @@ void EffectManager::Update()
 /// 現在再生中のエフェクトがあるかどうか
 /// </summary>
 /// <returns>ある:true  ない:false</returns>
-bool EffectManager::IsAnyEffectPlaying()
+/// HasPlayingEffect
+bool EffectManager::HasPlayingEffect()
 {
     bool isPlaying = false;
 
@@ -157,7 +166,8 @@ bool EffectManager::IsAnyEffectPlaying()
 /// <param name="scale">※エフェクトの描画サイズ</param>
 /// NOTE:第3引数の「scale」はデフォルト引数　デフォルト値{1.0f,1.0f,1.0f}
 ///      1.0fが読み込み時サイズ
-void EffectManager::PlayEffectList(EffectType effectType, VECTOR playPosition, VECTOR scale)
+/// TODO:すべての再生を行えるようにしたいが、リストの管理ができておらず未実装
+void EffectManager::PlayEffectByEffectList(EffectType effectType, VECTOR playPosition, VECTOR scale)
 {
     // 再生するエフェクトを設定
     playingEffectHandle = effectList[effectType];

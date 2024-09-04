@@ -36,9 +36,6 @@ void Stage::Initialize()
 
     // モデルのスケールを調整
     // スケールを小さくしすぎると当たり判定できなくなる
-    MV1SetScale(modelHandle, VGet(0.1,0.1,0.1));
-
-    // スケールを調整
     MV1SetScale(modelHandle, StageModelScale);
 
     // モデル全体のコリジョン情報のセットアップ
@@ -121,7 +118,8 @@ void Stage::Draw()
 /// </summary>
 /// <param name="player">プレイヤー</param>
 /// <param name="checkPosition">当たり判定をしたい座標</param>
-/// <param name="moveVector"></param>
+/// <param name="moveVector">移動ベクトル</param>
+/// <returns>修正された座標</returns>
 VECTOR Stage::IsHitCollision(Player& player, const VECTOR& checkPosition, const VECTOR& moveVector)
 {
     // 検出したプレイヤーの周囲のポリゴン情報を開放する
@@ -188,6 +186,7 @@ VECTOR Stage::IsHitCollisionEnemy(Enemy& enemy, const VECTOR& checkPosition, con
     return fixedPosition;
 }
 
+/// <summary>
 /// 判定処理する壁と床のポリゴン数を検出する
 /// </summary>
 /// <param name="CheckPosition">判定する座標</param>
@@ -264,7 +263,7 @@ VECTOR Stage::CheckHitWithWall(Player& player, const VECTOR& CheckPosition)
             // プレイヤーと当たっているなら
             if (HitCheck_Capsule_Triangle(fixedPosition,
                 VAdd(fixedPosition, VGet(0.0f, HitHeight, 0.0f)), HitWidth,
-                floorPolygon->Position[0],floorPolygon->Position[1], floorPolygon->Position[2]) == TRUE)
+                floorPolygon->Position[0],floorPolygon->Position[1], floorPolygon->Position[2]))
             {
                 // プレイヤーがステージにめり込んだ分押し出し処理をする
 

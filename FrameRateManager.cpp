@@ -78,13 +78,13 @@ void FrameRateManager::Update()
 void FrameRateManager::SleepForFPS()
 {
     //かかった時間
-    int _tookTime = GetNowCount() - fpsCountStartTime;
+    int tookTime = GetNowCount() - fpsCountStartTime;
     //待つべき時間
-    int _waitTime = nowFpsCount * 1000 / SetFPS - _tookTime;
+    int waitTime = nowFpsCount * 1000 / SetFPS - tookTime;
 
     //待つべき時間待機する
-    if (_waitTime > 0)
+    if (waitTime > 0)
     {
-        Sleep(_waitTime);
+        Sleep(waitTime);
     }
 }

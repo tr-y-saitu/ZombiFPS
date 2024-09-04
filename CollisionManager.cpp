@@ -224,19 +224,7 @@ bool CollisionManager::IsCollisionCapsuleLine(VECTOR capsuleStartPosition, VECTO
     float distance = Segment_Segment_MinLength(capsuleStartPosition, capuseleEndPosition, lineStartPosition, lineEndPosition);
 
     // 最短距離よりも半径の方が短ければ当たっている
-    if (distance <= capuseleRadius)
-    {
-        isHit = true;
-    }
-
-    return isHit;
-}
-
-// カプセルと線分の当たり判定
-bool CollisionManager::IsCollisionSphereCapsule(VECTOR sphereCenter, float sphereRadius,
-    VECTOR capsuleStart, VECTOR capsuleEnd, float capuleRadius)
-{
-    return 1;
+    return distance <= capuseleRadius;
 }
 
 /// <summary>
@@ -259,15 +247,7 @@ bool CollisionManager::IsCollisionSphere(VECTOR position1, float radius1,
     float radiusSumSquared = radiusSum * radiusSum;     // 2乗
 
     // 中心点間の距離よりも半径の和の方が近いなら当たっている
-    if (distance <= radiusSumSquared)
-    {
-        return true;        // 当たった
-    }
-    else
-    {
-        return false;       // 当たってない
-    }
-
+    return distance <= radiusSumSquared;
 }
 
 /// <summary>

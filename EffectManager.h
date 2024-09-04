@@ -60,6 +60,11 @@ public:
     void Initialize();
 
     /// <summary>
+    /// シーンが切り替わった時の処理
+    /// </summary>
+    void OnChangedScene();
+
+    /// <summary>
     /// 更新
     /// </summary>
     void Update();
@@ -68,7 +73,7 @@ public:
     /// 現在再生中のエフェクトがあるかどうか
     /// </summary>
     /// <returns></returns>
-    bool IsAnyEffectPlaying();
+    bool HasPlayingEffect();
 
     /// <summary>
     /// 読み込んだエフェクトリストから再生
@@ -78,7 +83,7 @@ public:
     /// <param name="scale">※エフェクトの描画サイズ</param>
     /// NOTE:第3引数の「scale」はデフォルト引数　デフォルト値{1.0f,1.0f,1.0f}
     ///      1.0fが読み込み時サイズ
-    void PlayEffectList(EffectType effectType, VECTOR playPosition, VECTOR scale = { 1.0f,1.0f,1.0f });
+    void PlayEffectByEffectList(EffectType effectType, VECTOR playPosition, VECTOR scale = { 1.0f,1.0f,1.0f });
 
     /// <summary>
     /// マズルフラッシュエフェクト再生

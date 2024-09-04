@@ -75,18 +75,6 @@ private:
         VECTOR lineStartPosition, VECTOR lineEndPosition);
 
     /// <summary>
-    /// 球とカプセルの当たり判定
-    /// </summary>
-    /// <param name="sphereCenter"></param>
-    /// <param name="sphereRadius"></param>
-    /// <param name="capsuleStart"></param>
-    /// <param name="capsuleEnd"></param>
-    /// <param name="capuleRadius"></param>
-    /// <returns></returns>
-    bool IsCollisionSphereCapsule(VECTOR sphereCenter, float sphereRadius,
-        VECTOR capsuleStart, VECTOR capsuleEnd, float capuleRadius);
-
-    /// <summary>
     /// 球と球との当たり判定
     /// </summary>
     /// <param name="position1">対象１の座標</param>
@@ -118,6 +106,7 @@ private:
     vector<CapsuleCollisionData*>   capsuleCollisionData;       // カプセル型の当たり判定を行うリスト
     vector<LineCollisionData*>      lineCollisionData;          // 線分の当たり判定を行うリスト
 
+    // TODO:staticをなくす
     static vector<CollisionData*>   collisionDataList;          // 当たり判定情報リスト
 };
 

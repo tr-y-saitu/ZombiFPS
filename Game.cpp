@@ -35,6 +35,7 @@ Game::Game()
 Game::~Game()
 {
     delete(nowScene);
+    delete(input);
 }
 
 /// <summary>
@@ -85,6 +86,9 @@ void Game::ChangeScene()
 
     // 再生中の音をすべて停止
     soundManager->StopAllSounds();
+
+    // エフェクトの切り替え処理
+    effectManager->OnChangedScene();
 }
 
 /// <summary>

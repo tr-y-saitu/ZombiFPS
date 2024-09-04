@@ -152,13 +152,13 @@ void TitleScene::UpdateKeyState()
     // キー入力すでにされている場合
     if (isKeyOn)
     {
-        if (CheckHitKey(KEY_INPUT_SPACE) == 0)
+        if (!CheckHitKey(KEY_INPUT_SPACE))
         {
             isKeyOn = false;          // キーが入力されていない
             isKeyRelease = true;      // キーが離れた
         }
     }
-    else if (isPreviousKeyOn == false && CheckHitKey(KEY_INPUT_SPACE) == 1)
+    else if (!isPreviousKeyOn && CheckHitKey(KEY_INPUT_SPACE))
     {
         // キーは長押しされていない && 前フレームで入力なし && キーが押された
         isKeyRelease = false;   // キーは離れていない
@@ -166,7 +166,7 @@ void TitleScene::UpdateKeyState()
     }
 
     // キー入力されたら
-    if (CheckHitKey(KEY_INPUT_SPACE) == 1)
+    if (CheckHitKey(KEY_INPUT_SPACE))
     {
         isPreviousKeyOn = true;   // このフレームではキーが押された
     }

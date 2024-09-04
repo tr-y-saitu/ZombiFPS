@@ -116,7 +116,7 @@ public:
     void SetTargetNextPosition(VECTOR set) { targetNextPosition = set; }
     void SetIsTouchingRoomCenter(bool set) { isTouchingRoomCenter = set; }
     void SetRoomEntryState(Pathfinding::RoomEntryState set) { roomEntryState = set; }
-    void SetCollisionDataIsActive(bool set) { collisionData.isCollisionActive = set; }
+    void SetCollisionDataActive(bool set) { collisionData.isCollisionActive = set; }
     void SetIsActive(bool set) { isActive = set; }
 
 private:
