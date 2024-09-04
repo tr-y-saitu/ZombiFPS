@@ -76,7 +76,6 @@ bool EnemyObjectPools::ReturnActiveEnemyInstance(list<EnemyGroup*>& activeEnemy)
         {
             // エネミーの当たり判定を非アクティブ化する
             enemy->SetCollisionDataActive(false);
-            enemy->SetIsActive(false);
 
             // エネミーを未使用リストに移動
             inactiveEnemy.splice(inactiveEnemy.end(), activeEnemy, it++);

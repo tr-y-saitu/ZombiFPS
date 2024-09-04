@@ -139,7 +139,7 @@ public:
     //                                Getter/Setter                                    //
     //---------------------------------------------------------------------------------//
     const VECTOR& GetPosition() const { return position; }
-    bool GetCurrentFrameMove() const { return currentFrameMove; }
+    bool GetCurrentFrameMove() const { return moveingCurrentFrame; }
     bool GetIsShooting()const { return isShooting; }
     bool GetIsReload()const { return isReload; }
     State GetState() const { return state; }
@@ -206,9 +206,9 @@ private:
     /// <param name="input">入力情報</param>
     /// <param name="upModveVector">上方向ベクトル</param>
     /// <param name="leftMoveVector">左方向ベクトル</param>
-    /// <param name="currentFrameMoveVector">移動ベクトル</param>
+    /// <param name="moveingCurrentFrameVector">移動ベクトル</param>
     void UpdateMoveVector(const Input& input, VECTOR& upModveVector,
-        VECTOR& leftMoveVector, VECTOR& currentFrameMoveVector);
+        VECTOR& leftMoveVector, VECTOR& moveingCurrentFrameVector);
 
     /// <summary>
     /// 移動処理
@@ -403,7 +403,7 @@ private:
     VECTOR      targetMoveDirection;        // モデルが向くべき方向のベクトル
     float       currentJumpPower;           // Ｙ軸方向の速度
     int         modelHandle;                // モデルハンドル
-    bool        currentFrameMove;           // そのフレームで動いたかどうか
+    bool        moveingCurrentFrame;           // そのフレームで動いたかどうか
     bool        pressMoveButton;            // 移動用のボタンが入力されているか
 
     // アニメーション関係

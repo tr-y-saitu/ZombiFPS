@@ -264,7 +264,7 @@ private:
     float       currentJumpPower;           // Ｙ軸方向の速度
     int         modelHandle;                // モデルハンドル
     int         shadowHandle;               // 影画像ハンドル
-    bool        currentFrameMove;           // そのフレームで動いたかどうか
+    bool        moveingCurrentFrame;           // そのフレームで動いたかどうか
     State       currentState;               // 状態
     int         hitPoints;                  // 体力
     bool        isActive;                   // 使用中かどうか

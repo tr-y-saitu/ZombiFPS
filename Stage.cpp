@@ -120,6 +120,7 @@ void Stage::Draw()
 /// <param name="checkPosition">当たり判定をしたい座標</param>
 /// <param name="moveVector">移動ベクトル</param>
 /// <returns>修正された座標</returns>
+/// TODO:命名を修正する。Isだとbool型を返す関数だと思われる
 VECTOR Stage::IsHitCollision(Player& player, const VECTOR& checkPosition, const VECTOR& moveVector)
 {
     // 検出したプレイヤーの周囲のポリゴン情報を開放する
