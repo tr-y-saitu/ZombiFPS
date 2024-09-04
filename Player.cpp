@@ -581,13 +581,13 @@ void Player::UpdateInteract(const Input& input)
 
     switch (interactLocationState)
     {
-    case Player::InteractLocationState::None:
+    case InteractLocationState::None:
 
         // 処理なし
         break;
 
         // シャッター //
-    case Player::InteractLocationState::Shutter:
+    case InteractLocationState::Shutter:
         // 所持金があるかつ、インタラクトキーが入力されていれば
         if (canInteract && !isInteracted)
         {
@@ -601,7 +601,7 @@ void Player::UpdateInteract(const Input& input)
         break;
 
         // 弾薬補充箱 //
-    case Player::InteractLocationState::AmmoBox:
+    case InteractLocationState::AmmoBox:
         // 所持金があるかつ、インタラクトキーが入力されていれば
         if (canInteract && !isInteracted)
         {
@@ -619,7 +619,7 @@ void Player::UpdateInteract(const Input& input)
         break;
 
         // 銃強化マシン //
-    case Player::InteractLocationState::GunPowerUpMachine:
+    case InteractLocationState::GunPowerUpMachine:
         // 所持金があるかつ、インタラクトキーが入力されていれば
         if (canInteract && !isInteracted)
         {
