@@ -186,37 +186,37 @@ void Player::Draw(const Stage& stage)
     equippedGun->Draw();
 
     // デバッグ //
-    // 座標描画
-    /*DrawFormatString(DebugPositionDrawX, DebugPositionDrawY,
-        DebugFontColor,"X:%f Y:%f Z:%f",position.x,position.y,position.z);*/
+    //// 座標描画
+    //DrawFormatString(DebugPositionDrawX, DebugPositionDrawY,
+    //    DebugFontColor,"X:%f Y:%f Z:%f",position.x,position.y,position.z);
 
-    // 現在ステートの描画
-    /*switch (state)
-    {
-    case Player::State::Idle:
-        DrawString(100, 200, "Idle", DebugFontColor, true);
-        break;
-    case Player::State::Walk:
-        DrawString(100, 200, "Walk", DebugFontColor, true);
-        break;
-    case Player::State::Run:
-        DrawString(100, 200, "Run", DebugFontColor, true);
-        break;
-    case Player::State::Shot:
-        DrawString(100, 200, "Shot", DebugFontColor, true);
-        break;
-    case Player::State::Reload:
-        DrawString(100, 200, "Reload", DebugFontColor, true);
-        break;
-    case Player::State::Jump:
-        DrawString(100, 200, "Jump", DebugFontColor, true);
-        break;
-    case Player::State::OnHitEnemy:
-        DrawString(100, 200, "OnHitEnemy", DebugFontColor, true);
-        break;
-    default:
-        break;
-    }*/
+    //// 現在ステートの描画
+    //switch (state)
+    //{
+    //case Player::State::Idle:
+    //    DrawString(100, 200, "Idle", DebugFontColor, true);
+    //    break;
+    //case Player::State::Walk:
+    //    DrawString(100, 200, "Walk", DebugFontColor, true);
+    //    break;
+    //case Player::State::Run:
+    //    DrawString(100, 200, "Run", DebugFontColor, true);
+    //    break;
+    //case Player::State::Shot:
+    //    DrawString(100, 200, "Shot", DebugFontColor, true);
+    //    break;
+    //case Player::State::Reload:
+    //    DrawString(100, 200, "Reload", DebugFontColor, true);
+    //    break;
+    //case Player::State::Jump:
+    //    DrawString(100, 200, "Jump", DebugFontColor, true);
+    //    break;
+    //case Player::State::OnHitEnemy:
+    //    DrawString(100, 200, "OnHitEnemy", DebugFontColor, true);
+    //    break;
+    //default:
+    //    break;
+    //}
 
     //// 体力の描画
     //DrawFormatString(100, 400, DebugFontColor, "HP:%.3f", hitPoint);
