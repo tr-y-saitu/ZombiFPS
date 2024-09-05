@@ -32,6 +32,9 @@ DebugLogger::DebugLogger()
 /// </summary>
 DebugLogger::~DebugLogger()
 {
+    // デバッグ情報の初期化
+    ClearDebugDataList();
+
     //コンソール解放
     FreeConsole();
 }
@@ -87,6 +90,11 @@ void DebugLogger::Update()
     {
         isKeyRelease = false;
 
+        // 画面をクリア
+        // MEMO:ウィンドウズに直接コンソール画面をクリアにする指示を出す
+        //      なんか行けるらしい
+        system("cls");
+
         // デバッグ情報を上書き表示
         for (const auto& info : debugDataList)
         {
@@ -97,9 +105,6 @@ void DebugLogger::Update()
                 << info->vector.y << ", " << info->vector.z
                 << ") | Float: " << info->floatData << std::endl;
         }
-
-        // デバッグ情報を初期化
-        ClearDebugDataList();
     }
 
 }
@@ -117,29 +122,19 @@ void DebugLogger::ClearDebugDataList()
 /// </summary>
 void DebugLogger::UpdateKeyState()
 {
-    // キー入力すでにされている場合
-    if (isKeyOn)
-    {
-        if (!CheckHitKey(KEY_INPUT_E))
-        {
-            isKeyOn = false;          // キーが入力されていない
-            isKeyRelease = true;      // キーが離れた
-        }
-    }
-    else if (!isPreviousKeyOn && CheckHitKey(KEY_INPUT_E))
-    {
-        // キーは長押しされていない && 前フレームで入力なし && キーが押された
-        isKeyRelease = false;   // キーは離れていない
-        isKeyOn = true;         // キーが押された
-    }
+    // 現在のキー状態を取得
+    int keyState = CheckHitKey(KEY_INPUT_E);
 
-    // キー入力されたら
-    if (CheckHitKey(KEY_INPUT_E))
+    // キーが押されていない状態から押された状態に変わった場合
+    if (!isKeyOn && keyState)
     {
-        isPreviousKeyOn = true;   // このフレームではキーが押された
+        isKeyOn = true;
+        isKeyRelease = false;
     }
-    else
+    // キーが押されていた状態から離された場合
+    else if (isKeyOn && !keyState)
     {
-        isPreviousKeyOn = false;  // このフレームでキーは押されなかった
+        isKeyOn = false;
+        isKeyRelease = true;
     }
 }

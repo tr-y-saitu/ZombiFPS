@@ -66,8 +66,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     bool isPaused = false;
 
     DebugLogger* debugLogger = DebugLogger::GetInstance();
-    int hp = 100;
-    DebugLogger::DebugPrintData data = { "Player","HP",hp };
+    DebugLogger::DebugPrintData data = { "Player","HP",100 };
     debugLogger->RegisterDebugData(&data);
     
     
@@ -77,7 +76,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     {
         // ゲームの更新
         game.Update();
-        hp++;
+        data.floatData++;
 
         // デバッグ処理をコンソール画面に出力
         debugLogger->Update();
