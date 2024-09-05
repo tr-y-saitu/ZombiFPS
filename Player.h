@@ -3,6 +3,7 @@
 #include "PlayerStateBase.h"
 #include "CollisionData.h"
 #include "CollisionManager.h"
+#include "DebugManager.h"
 
 class PlayerStateBase;
 class GunBase;
@@ -14,6 +15,7 @@ class BulletObjectPools;
 struct AnimationData;
 class EffectManager;
 class SoundManager;
+class DebugManager;
 
 /// <summary>
 /// プレイヤー
@@ -320,6 +322,11 @@ private:
     /// </summary>
     void UpdateEffect();
 
+    /// <summary>
+    /// デバッグデータを登録する
+    /// </summary>
+    void RegistrationDebugData();
+
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
@@ -358,6 +365,10 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      変数                                       //
     //---------------------------------------------------------------------------------//
+    // デバッグ表示
+    DebugManager*           debugManager;               // デバッグ表示管理クラス
+    vector<DebugManager::DebugPrintData> debugDataList;    // デバッグ用のデータリスト
+
     // 演出管理
     EffectManager*          effectManager;              // エフェクト管理クラス
     SoundManager*           soundManager;               // 音管理クラス

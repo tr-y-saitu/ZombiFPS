@@ -15,6 +15,7 @@
 #include "SubmachineGun.h"
 #include "BulletObjectPools.h"
 #include "SoundManager.h"
+#include "DebugManager.h"
 
 
 /// <summary>
@@ -49,6 +50,7 @@ Player::Player()
     modelDataManager        = ModelDataManager::GetInstance();
     soundManager            = SoundManager::GetInstance();
     effectManager           = EffectManager::GetInstance();
+    debugManager            = DebugManager::GetInstance();
 
     // 初期化
     Initialize();
@@ -124,6 +126,9 @@ void Player::Initialize()
 
     // 当たり判定情報更新
     UpdateCollisionData();
+
+    // デバッグ情報の登録
+    RegistrationDebugData();
 }
 
 /// <summary>
@@ -1414,4 +1419,20 @@ void Player::UpdateEffect()
             effectManager->PlayGunPowerUpMuzzleFlashEffect(effectPosition);
         }
     }
+}
+
+/// <summary>
+/// デバッグ情報の登録
+/// </summary>
+void Player::RegistrationDebugData()
+{
+    // HP
+    debugDataList.push_back({ "HP","Player",this->hitPoint });
+
+    // デバッグ管理クラスに登録
+    for (int i = 0; i < debugDataList.size(); i++)
+    {
+        debugManager->RegisterDebugData(&debugDataList[i]);
+    }
+
 }

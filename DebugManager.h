@@ -5,7 +5,7 @@
 /// デバッグ表示クラス
 /// </summary>
 /// MEMO:シングルトン
-class DebugLogger final
+class DebugManager final
 {
 public:
     /// <summary>
@@ -22,7 +22,7 @@ public:
     /// <summary>
     /// デストラクタ
     /// </summary>
-    virtual ~DebugLogger();
+    virtual ~DebugManager();
 
     /// <summary>
     /// インスタス作成
@@ -33,7 +33,7 @@ public:
     /// インスタンスのポインタを渡す
     /// </summary>
     /// <returns>EffectManagerのポインタ</returns>
-    static DebugLogger* GetInstance();
+    static DebugManager* GetInstance();
 
     /// <summary>
     /// インスタンスの削除
@@ -70,11 +70,11 @@ private:
     /// <summary>
     /// コンストラクタ
     /// </summary>
-    DebugLogger();
+    DebugManager();
 
 
     // 変数
-    static DebugLogger* debugLogger;    // デバッグ表示クラスのインスタンス
+    static DebugManager* debugManager;    // デバッグ表示クラスのインスタンス
     static vector<DebugPrintData*> debugDataList;   // デバッグ表示したいリスト
 
     // 入力関係

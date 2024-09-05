@@ -155,7 +155,7 @@
     <Filter Include="ZombiFPS\GameObject\ShadowMap">
       <UniqueIdentifier>{c0cfa84d-b185-4db0-80b5-27a76716ad76}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ZombiFPS\System\DebugLogger">
+    <Filter Include="ZombiFPS\System\DebugManager">
       <UniqueIdentifier>{62ab17ca-5599-4cab-9895-b72f4fd1949a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -337,8 +337,8 @@
     <ClCompile Include="ClearSceneUI.cpp">
       <Filter>ZombiFPS\System\SceneUI</Filter>
     </ClCompile>
-    <ClCompile Include="DebugLogger.cpp">
-      <Filter>ZombiFPS\System\DebugLogger</Filter>
+    <ClCompile Include="DebugManager.cpp">
+      <Filter>ZombiFPS\System\DebugManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -522,8 +522,8 @@
     <ClInclude Include="ClearSceneUI.h">
       <Filter>ZombiFPS\System\SceneUI</Filter>
     </ClInclude>
-    <ClInclude Include="DebugLogger.h">
-      <Filter>ZombiFPS\System\DebugLogger</Filter>
+    <ClInclude Include="DebugManager.h">
+      <Filter>ZombiFPS\System\DebugManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

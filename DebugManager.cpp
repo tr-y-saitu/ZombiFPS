@@ -1,16 +1,16 @@
-﻿#include "DebugLogger.h"
+﻿#include "DebugManager.h"
 
 // 初期化
-DebugLogger* DebugLogger::debugLogger = nullptr;
-vector<DebugLogger::DebugPrintData*> DebugLogger::debugDataList;
-bool DebugLogger::isKeyOn;
-bool DebugLogger::isKeyRelease;
-bool DebugLogger::isPreviousKeyOn;
+DebugManager* DebugManager::debugManager = nullptr;
+vector<DebugManager::DebugPrintData*> DebugManager::debugDataList;
+bool DebugManager::isKeyOn;
+bool DebugManager::isKeyRelease;
+bool DebugManager::isPreviousKeyOn;
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
-DebugLogger::DebugLogger()
+DebugManager::DebugManager()
 {
     // デバッグ用コンソール呼び出し
     AllocConsole();
@@ -30,7 +30,7 @@ DebugLogger::DebugLogger()
 /// <summary>
 /// デストラクタ
 /// </summary>
-DebugLogger::~DebugLogger()
+DebugManager::~DebugManager()
 {
     // デバッグ情報の初期化
     ClearDebugDataList();
@@ -42,12 +42,12 @@ DebugLogger::~DebugLogger()
 /// <summary>
 /// インスタンスの作成
 /// </summary>
-void DebugLogger::CreateInstance()
+void DebugManager::CreateInstance()
 {
     // まだインスタンス化されていないなら作成
-    if (debugLogger == nullptr)
+    if (debugManager == nullptr)
     {
-        debugLogger = new DebugLogger();
+        debugManager = new DebugManager();
     }
 }
 
@@ -55,24 +55,24 @@ void DebugLogger::CreateInstance()
 /// インスタンスのポインタを渡す
 /// </summary>
 /// <returns></returns>
-DebugLogger* DebugLogger::GetInstance()
+DebugManager* DebugManager::GetInstance()
 {
-    return debugLogger;
+    return debugManager;
 }
 
 /// <summary>
 /// インスタンスの削除
 /// </summary>
-void DebugLogger::DeleteInstance()
+void DebugManager::DeleteInstance()
 {
-    delete(debugLogger);
+    delete(debugManager);
 }
 
 /// <summary>
 /// デバッグ表示リストに登録する
 /// </summary>
 /// <param name="data">登録するデータ</param>
-void DebugLogger::RegisterDebugData(DebugPrintData* data)
+void DebugManager::RegisterDebugData(DebugPrintData* data)
 {
     // データリストに追加
     debugDataList.push_back(data);
@@ -81,7 +81,7 @@ void DebugLogger::RegisterDebugData(DebugPrintData* data)
 /// <summary>
 /// 更新
 /// </summary>
-void DebugLogger::Update()
+void DebugManager::Update()
 {
     // 入力更新
     UpdateKeyState();
@@ -99,7 +99,7 @@ void DebugLogger::Update()
 /// <summary>
 /// 新しくデバッグ情報を描画する
 /// </summary>
-void DebugLogger::PrintDebugData()
+void DebugManager::PrintDebugData()
 {
     // 画面をクリア
     // MEMO:ウィンドウズに直接コンソール画面をクリアにする指示を出す
@@ -121,7 +121,7 @@ void DebugLogger::PrintDebugData()
 /// <summary>
 /// デバッグ情報リストをクリアにする
 /// </summary>
-void DebugLogger::ClearDebugDataList()
+void DebugManager::ClearDebugDataList()
 {
     debugDataList.clear();
 }
@@ -129,7 +129,7 @@ void DebugLogger::ClearDebugDataList()
 /// <summary>
 /// 入力更新
 /// </summary>
-void DebugLogger::UpdateKeyState()
+void DebugManager::UpdateKeyState()
 {
     // 現在のキー状態を取得
     int keyState = CheckHitKey(KEY_INPUT_E);
