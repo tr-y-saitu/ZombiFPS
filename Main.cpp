@@ -68,8 +68,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     DebugLogger* debugLogger = DebugLogger::GetInstance();
     DebugLogger::DebugPrintData data = { "Player","HP",100 };
     debugLogger->RegisterDebugData(&data);
-    
-    
 
     // エスケープキーが押されるかウインドウが閉じられるまでループ
     while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)

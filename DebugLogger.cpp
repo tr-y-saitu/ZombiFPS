@@ -83,6 +83,7 @@ void DebugLogger::RegisterDebugData(DebugPrintData* data)
 /// </summary>
 void DebugLogger::Update()
 {
+    // 入力更新
     UpdateKeyState();
 
     // コンソール画面をクリア
@@ -90,23 +91,31 @@ void DebugLogger::Update()
     {
         isKeyRelease = false;
 
-        // 画面をクリア
-        // MEMO:ウィンドウズに直接コンソール画面をクリアにする指示を出す
-        //      なんか行けるらしい
-        system("cls");
-
-        // デバッグ情報を上書き表示
-        for (const auto& info : debugDataList)
-        {
-            // デバッグ情報の出力
-            std::cout << "Object: " << info->objectName
-                << " | Type: " << info->dataType
-                << " | Vector: (" << info->vector.x << ", "
-                << info->vector.y << ", " << info->vector.z
-                << ") | Float: " << info->floatData << std::endl;
-        }
+        // 新しくデバッグ情報を描画
+        PrintDebugData();
     }
+}
 
+/// <summary>
+/// 新しくデバッグ情報を描画する
+/// </summary>
+void DebugLogger::PrintDebugData()
+{
+    // 画面をクリア
+    // MEMO:ウィンドウズに直接コンソール画面をクリアにする指示を出す
+    //      なんか行けるらしい
+    system("cls");
+
+    // デバッグ情報を上書き表示
+    for (const auto& data : debugDataList)
+    {
+        // デバッグ情報の出力
+        std::cout << " | Type: "    << data->dataType
+                  << " | Name: "    << data->objectName
+                  << " | Float: "   << data->floatData
+                  << " | Vector: "  << "(" << data->vector.x << "," << data->vector.y << "," << data->vector.z << ") "
+                  << std::endl;
+    }
 }
 
 /// <summary>

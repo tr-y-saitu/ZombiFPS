@@ -13,10 +13,10 @@ public:
     /// </summary>
     struct DebugPrintData
     {
-        string  objectName; // オブジェクトの名前
         string  dataType;   // データの種類
-        float   floatData;  // float型情報
+        string  objectName; // オブジェクトの名前
         VECTOR  vector;     // VECTOR型情報
+        float   floatData;  // float型情報
     };
 
     /// <summary>
@@ -60,6 +60,11 @@ public:
     /// 入力更新
     /// </summary>
     static void UpdateKeyState();
+
+    /// <summary>
+    /// 新しくデバッグ情報を描画する
+    /// </summary>
+    static void PrintDebugData();
 
 private:
     /// <summary>
