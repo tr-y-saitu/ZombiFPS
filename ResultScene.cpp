@@ -164,7 +164,7 @@ void ResultScene::DrawUI()
 void ResultScene::UpdateSound()
 {
     // リザルトシーンBGMを再生
-    soundManager->PlaySoundListBGM(SoundManager::ResultSceneBGM);
+    soundManager->PlaySoundListSETypeLoop(SoundManager::ResultSceneBGM);
 }
 
 /// <summary>

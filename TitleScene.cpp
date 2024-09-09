@@ -119,7 +119,7 @@ SceneBase* TitleScene::UpdateScene()
 void TitleScene::UpdateSound()
 {
     // タイトルシーンのBGMを再生
-    soundManager->PlaySoundListBGM(SoundManager::TitleSceneBGM);
+    soundManager->PlaySoundListSETypeLoop(SoundManager::TitleSceneBGM);
 }
 
 /// <summary>
