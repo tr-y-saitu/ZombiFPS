@@ -90,7 +90,7 @@ private:
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
     // 弾丸
-    static constexpr float  BulletDamagePower       = 25.0f;        // 弾丸の威力
+    static constexpr float  BulletDamagePower       = 35.0f;        // 弾丸の威力
     static constexpr float  BulletPenetrationPower  = 1.0f;         // 弾丸の貫通力
     static constexpr float  BulletSpeed             = 100.0f;       // 弾丸の速度
     static constexpr VECTOR BulletDirection         = { 0,0,1 };    // 弾丸の移動方向
@@ -100,7 +100,7 @@ private:
     static constexpr float  GunRecoil               = 1.0f;         // 銃の反動
     static constexpr float  GunAccuracy             = 4.0f;         // 銃の精度(拡散度合い)
     static constexpr VECTOR InitializeScale         = { 0.018f,0.018f,0.018f };    // 初期化時のスケール
-    static constexpr int    MaxBackUpAmmo           = 210;          // 銃の最大予備弾薬数
+    static constexpr int    MaxBackUpAmmo           = 180;          // 銃の最大予備弾薬数
     // 強化時
     static constexpr float  MaximumEmissive         = 0.9f;         // 最大発光量
     static constexpr float  MinimumEmissive         = 0.4f;         // 最小発光量
