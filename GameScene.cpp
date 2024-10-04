@@ -259,3 +259,11 @@ void GameScene::UpdateBadEnd()
         gameEndState = GameEndState::GameFinish;
     }
 }
+
+/// <summary>
+/// グッドエンド演出更新
+/// </summary>
+void GameScene::UpdateGoodEnd()
+{
+    // 処理なし
+}

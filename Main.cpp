@@ -57,27 +57,27 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     EffectManager::CreateInstance();        // エフェクト管理
     SoundManager::CreateInstance();         // サウンド管理
     CollisionManager::CreateInstance();     // 当たり判定管理
-    DebugManager::CreateInstance();          // デバッグ表示管理
+    //DebugManager::CreateInstance();          // デバッグ表示管理
 
     // ゲームのインスタンスを作成
     Game game;
 
     // ゲームの進行を制御するフラグ
-    bool isPaused = false;
+    //bool isPaused = false;
 
-    DebugManager* debugManager = DebugManager::GetInstance();
+    /*DebugManager* debugManager = DebugManager::GetInstance();
     DebugManager::DebugPrintData data = { "Player","HP",100 };
-    debugManager->RegisterDebugData(&data);
+    debugManager->RegisterDebugData(&data);*/
 
     // エスケープキーが押されるかウインドウが閉じられるまでループ
     while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
     {
         // ゲームの更新
         game.Update();
-        data.floatData++;
+        //data.floatData++;
 
-        // デバッグ処理をコンソール画面に出力
-        debugManager->Update();
+        /* デバッグ処理をコンソール画面に出力
+        debugManager->Update();*/
     }
 
     // シングルトンクラスを解放
@@ -87,7 +87,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     EffectManager::DeleteInstance();        // エフェクト管理
     SoundManager::DeleteInstance();         // サウンド管理
     CollisionManager::DeleteInstance();     // 当たり判定管理
-    DebugManager::DeleteInstance();          // デバッグ描画管理
+    //DebugManager::DeleteInstance();          // デバッグ描画管理
 
     // Effekseerを終了する。
     Effkseer_End();

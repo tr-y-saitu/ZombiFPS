@@ -57,12 +57,6 @@ private:
     CollisionManager();
 
     /// <summary>
-    /// 球と線の当たり判定
-    /// </summary>
-    bool IsCollisionLineSphere(VECTOR sphereCenter, float radius,
-        VECTOR lineStart, VECTOR lineEnd);
-
-    /// <summary>
     /// カプセルと線分の当たり判定
     /// </summary>
     /// <param name="capsuleTopPosition">カプセルを形成する開始座標</param>

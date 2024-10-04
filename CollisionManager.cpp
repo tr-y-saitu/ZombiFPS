@@ -199,13 +199,6 @@ void CollisionManager::Update()
     }
 }
 
-// 線と球との当たり判定
-bool CollisionManager::IsCollisionLineSphere(VECTOR sphereCenter, float radius,
-    VECTOR lineStart, VECTOR lineEnd)
-{
-    return 1;
-}
-
 /// <summary>
 /// カプセルと線分の当たり判定
 /// </summary>
