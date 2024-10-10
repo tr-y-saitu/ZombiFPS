@@ -15,18 +15,25 @@ public:
     /// </summary>
     enum RoomNumber
     {
-        West1,      // 西の部屋１        0
-        West2,      // 西の部屋２        1
-        West3,      // 西の部屋３        2
-        West4,      // 西の部屋４        3
-        Center1,    // 中央の部屋１      4
-        Center2,    // 中央の部屋２      5
-        Center3,    // 中央の部屋３      6
-        Center4,    // 中央の部屋４      7
-        East1,      // 東の部屋１        8
-        East2,      // 東の部屋２        9
-        East3,      // 東の部屋３        10
-        East4,      // 東の部屋４        11
+        West1,          // 西の部屋１        0
+        West2,          // 西の部屋２        1
+        West3,          // 西の部屋３        2
+        West4,          // 西の部屋４        3
+        Center1,        // 中央の部屋１      4
+        Center2,        // 中央の部屋２      5
+        Center3,        // 中央の部屋３      6
+        Center4,        // 中央の部屋４      7
+        East1,          // 東の部屋１        8
+        East2,          // 東の部屋２        9
+        East3,          // 東の部屋３        10
+        East4,          // 東の部屋４        11
+
+        // 沸き位置
+        West3Spawn,     // 西の部屋３の沸き位置
+        West4Spawn,     // 西の部屋４の沸き位置
+        Center1Spawn,   // 中央の部屋１の沸き位置
+        East1Spawn,     // 東の部屋１の沸き位置
+        East3Spawn,     // 東の部屋２の沸き位置
     };
     
     /// <summary>
