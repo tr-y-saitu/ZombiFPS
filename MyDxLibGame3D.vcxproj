@@ -105,6 +105,7 @@
     <ClInclude Include="GunStateBase.h" />
     <ClInclude Include="IncomeDouble.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="MaxAmmo.h" />
     <ClInclude Include="BulletObjectPools.h" />
     <ClInclude Include="Pathfinding.h" />
@@ -142,6 +143,9 @@
     <ClInclude Include="TitleSceneUI.h" />
     <ClInclude Include="TutorialScene.h" />
     <ClInclude Include="TutorialSceneUI.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MapData.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{229C6CCE-D20D-4863-AA78-E2C8A1C45EF6}</ProjectGuid>
@@ -216,13 +220,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Dxlib_h;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Effekseer_Dxlib_h</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\ゲームプロジェクト\ZombiFPS\nlohmann;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Dxlib_h;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Effekseer_Dxlib_h</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Dxlib_h;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Effekseer_Dxlib_h</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\ゲームプロジェクト\ZombiFPS\nlohmann;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Dxlib_h;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Effekseer_Dxlib_h</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -233,13 +237,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Dxlib_h;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Effekseer_Dxlib_h</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\ゲームプロジェクト\ZombiFPS\nlohmann;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Dxlib_h;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Effekseer_Dxlib_h</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Dxlib_h;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Effekseer_Dxlib_h</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\ゲームプロジェクト\ZombiFPS\nlohmann;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Dxlib_h;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Effekseer_Dxlib_h</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -252,7 +256,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Dxlib_h;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Effekseer_Dxlib_h</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\ゲームプロジェクト\ZombiFPS\nlohmann;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Dxlib_h;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Effekseer_Dxlib_h</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -260,7 +264,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Dxlib_h;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Effekseer_Dxlib_h</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\ゲームプロジェクト\ZombiFPS\nlohmann;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Dxlib_h;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Effekseer_Dxlib_h</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -273,7 +277,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Dxlib_h;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Effekseer_Dxlib_h</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\ゲームプロジェクト\ZombiFPS\nlohmann;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Dxlib_h;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Effekseer_Dxlib_h</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -281,7 +285,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Dxlib_h;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Effekseer_Dxlib_h</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\ゲームプロジェクト\ZombiFPS\nlohmann;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Dxlib_h;C:\自主制作プログラミング\ゲーム自主制作（現行再作中）\ゲームプログラミング（現行制作中）\Effekseer_Dxlib_h</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

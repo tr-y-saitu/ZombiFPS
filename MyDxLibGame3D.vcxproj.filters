@@ -158,6 +158,12 @@
     <Filter Include="ZombiFPS\System\DebugManager">
       <UniqueIdentifier>{62ab17ca-5599-4cab-9895-b72f4fd1949a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ZombiFPS\System\Json">
+      <UniqueIdentifier>{a8cded7a-9175-4ab9-b2b2-ddf7a5454e8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ZombiFPS\System\Json\MapData">
+      <UniqueIdentifier>{6eef2d4e-c9cf-4f28-9407-b69268d2dd85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -525,5 +531,13 @@
     <ClInclude Include="DebugManager.h">
       <Filter>ZombiFPS\System\DebugManager</Filter>
     </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>ZombiFPS\System\Json</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MapData.cpp">
+      <Filter>ZombiFPS\System\Json\MapData</Filter>
+    </None>
   </ItemGroup>
 </Project>
