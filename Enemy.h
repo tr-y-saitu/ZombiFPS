@@ -230,7 +230,7 @@ private:
     static constexpr float  AttackRange             = 5.0f;                             // この範囲に入ったら攻撃を開始する
     // 攻撃
     static constexpr float  AttackCollisionRadius   = 5.0f;                             // 攻撃の球型の当たり判定半径
-    static constexpr float  AttackPower             = 10.0f;                            // 攻撃力
+    static constexpr float  AttackPower             = 1.0f;                            // 攻撃力
     // 重力関係
     static constexpr float  Gravity                 = 3.0f;                             // 重力
     static constexpr float  FallUpPower             = 20.0f;                            // 足を踏み外した時のジャンプ力
