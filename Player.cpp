@@ -993,7 +993,8 @@ void Player::PlayAnimation(AnimationType type)
 void Player::UpdateShootingEquippedWeapon(const Input& input)
 {
     // 左クリック入力、銃の総弾数がある、リロード注出ない場合射撃可能、かつ走っていない
-    bool canShooting = (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT && equippedGun->GetGunAmmo() > 0 && !isReload && state != State::Run);
+    bool canShooting = (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT || input.GetCurrentFrameInput() & PAD_INPUT_6
+        && equippedGun->GetGunAmmo() > 0 && !isReload && state != State::Run);
 
     // 射撃出来れば
     if (canShooting)
@@ -1085,7 +1086,7 @@ void Player::UpdateShootingEquippedWeapon(const Input& input)
 void Player::UpdateDryFire(const Input& input)
 {
     // 空撃ち時,自動リロードさせる
-    if (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT && !equippedGun->GetGunAmmo() && equippedGun->GetBackUpAmmo() > 0)
+    if (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_LEFT || input.GetCurrentFrameInput() & PAD_INPUT_6 && !equippedGun->GetGunAmmo() && equippedGun->GetBackUpAmmo() > 0)
     {
         // 空撃ち音再生
         soundManager->PlaySoundListSE(SoundManager::DryFireSE);
@@ -1105,7 +1106,7 @@ void Player::UpdateDryFire(const Input& input)
 void Player::UpdateAimEquippedWeapon(const Input& input)
 {
     // 右クリックされているか
-    bool aiming = (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_RIGHT);
+    bool aiming = (input.GetMouseCurrentFrameInput() & MOUSE_INPUT_RIGHT || input.GetCurrentFrameInput() & PAD_INPUT_5);
 
     // 現在のフレームのaimStateを設定
     if (aiming)
@@ -1157,7 +1158,7 @@ void Player::UpdateReload(const Input& input)
     }
 
     // 「R」が押されているかつ、予備弾薬数があればリロード
-    if (CheckHitKey(KEY_INPUT_R) && equippedGun->GetBackUpAmmo() > 0 && equippedGun->GetGunMaxAmmo() != equippedGun->GetGunAmmo())
+    if (CheckHitKey(KEY_INPUT_R) || input.GetCurrentFrameInput() & PAD_INPUT_3 && equippedGun->GetBackUpAmmo() > 0 && equippedGun->GetGunMaxAmmo() != equippedGun->GetGunAmmo())
     {
         // リロードしている
         isReload = true;
