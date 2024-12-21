@@ -110,6 +110,7 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
+    const            int    DeadZone                    = 300;   // カメラのデッドゾーン
     static constexpr float  CameraNearClip              = 0.1f;     // カメラのニアクリップ
     static constexpr float  CameraFarClip               = 200.0f;   // カメラのファークリップ
     static constexpr float  AngleSpeed                  = 0.05f;    // 旋回速度
@@ -135,7 +136,7 @@ private:
     //      目標の視野角に到達した場合の[＝]等号式で表したいが誤差があり無理なので
     //      絶対値を利用してその誤差をどこまで許容するかの値
     static constexpr float  FovMargin                   = 0.01f * DX_PI_F / 180.0f;
-
+    
     // 反動
     static constexpr float  HipShootRecoil              = 0.005f;                   // 腰だめ時の銃の反動
     static constexpr float  AimShootRecoil              = 0.005f;                   // エイム時の銃の反動

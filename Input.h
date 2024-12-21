@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#define USE_MOUSE       // マウスを使用する
+//#define USE_MOUSE       // マウスを使用する
 
 /// <summary>
 /// 入力管理クラス

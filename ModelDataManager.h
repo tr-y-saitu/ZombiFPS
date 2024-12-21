@@ -80,7 +80,7 @@ private:
 
     // 変数
     static ModelDataManager*            modelDataManager;   // モデル管理クラスのインスタンスのアドレス
-    map<ModelDataType, int>      modelDataList;      // 使用するモデルデータのリスト
+    map<ModelDataType, int>             modelDataList;      // 使用するモデルデータのリスト
 
 };
 

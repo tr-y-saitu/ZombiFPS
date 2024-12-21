@@ -85,8 +85,6 @@ void CollisionManager::Update()
     {
         for (int j = 0; j < collisionDataList.size(); j++)
         {
-
-
             // 同じオブジェクト間の当たり判定をスキップ
             if (i == j)
             {

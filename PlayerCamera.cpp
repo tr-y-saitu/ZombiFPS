@@ -107,56 +107,45 @@ void PlayerCamera::Update(const Input& input, VECTOR setPosition,
 /// <param name="input">入力処理</param>
 void PlayerCamera::UpdateCameraAngle(const Input& input)
 {
-    // パッドの３ボタンか、シフトキーが押されている場合のみ角度変更操作を行う
-    if (CheckHitKey(KEY_INPUT_LSHIFT) || (input.GetCurrentFrameInput() & PAD_INPUT_C))
+    // パッドの右スティックの入力状態を取得
+    DINPUT_JOYSTATE padState;
+    if (GetJoypadDirectInputState(DX_INPUT_PAD1, &padState) == 0) // 正常に取得できた場合
     {
-        // 「←」ボタンが押されていたら水平角度をマイナスする
-        if (input.GetCurrentFrameInput() & PAD_INPUT_LEFT)
+        // 右スティックのX軸とY軸の値を取得
+        int rightStickX = padState.Rx; // 右スティックX軸の値 (-1000～1000程度)
+        int rightStickY = padState.Ry; // 右スティックY軸の値 (-1000～1000程度)
+
+        // 水平方向（右スティックのX軸に応じて角度を変更）
+        if (abs(rightStickX) > DeadZone)
         {
-            angleHorizon -= AngleSpeed;
-        
-            // －１８０度以下になったら角度値が大きくなりすぎないように３６０度を足す
+            angleHorizon += (rightStickX / 1000.0f) * AngleSpeed; // スティックの動きに比例
             if (angleHorizon < -DX_PI_F)
             {
                 angleHorizon += DX_TWO_PI_F;
             }
-        }
-        
-        // 「→」ボタンが押されていたら水平角度をプラスする
-        if (input.GetCurrentFrameInput() & PAD_INPUT_RIGHT)
-        {
-            angleHorizon += AngleSpeed;
-    
-            // １８０度以上になったら角度値が大きくなりすぎないように３６０度を引く
             if (angleHorizon > DX_PI_F)
             {
                 angleHorizon -= DX_TWO_PI_F;
             }
         }
-        
-        // 「↑」ボタンが押されていたら垂直角度をマイナスする
-        if (input.GetCurrentFrameInput() & PAD_INPUT_UP)
+
+        // 垂直方向（右スティックのY軸に応じて角度を変更）
+        if (abs(rightStickY) > DeadZone)
         {
-            angleVertical -= AngleSpeed;
-    
-            // ある一定角度以下にはならないようにする
+            angleVertical -= (rightStickY / 1000.0f) * AngleSpeed; // Y軸は上下反転させる場合が多い
             if (angleVertical < -DX_PI_F / AngleVerticalOffset)
             {
                 angleVertical = -DX_PI_F / AngleVerticalOffset;
             }
-        }
-        
-        // 「↓」ボタンが押されていたら垂直角度をプラスする
-        if (input.GetCurrentFrameInput() & PAD_INPUT_DOWN)
-        {
-            angleVertical += AngleSpeed;
-    
-            // ある一定角度以上にはならないようにする
             if (angleVertical > DX_PI_F / 2.0f - 0.6f)
             {
                 angleVertical = DX_PI_F / 2.0f - 0.6f;
             }
         }
+    }
+    else
+    {
+        // 入力取得失敗時の処理（必要に応じて）
     }
 }
 
