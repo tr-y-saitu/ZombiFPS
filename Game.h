@@ -6,6 +6,7 @@ class FrameRateManager;
 class EffectManager;
 class SoundManager;
 class Input;
+class DebugManager;
 
 /// <summary>
 /// ゲーム全体の管理
@@ -56,14 +57,17 @@ private:
     SceneBase* nextScene;                   // 次のシーン
 
     // 管理クラス
-    FrameRateManager* frameRateManager;     // フレームレート制御
-    EffectManager* effectManager;   // エフェクト管理
-    SoundManager* soundManager;     // サウンド管理
-    Input* input;                           // 入力処理
+    FrameRateManager*   frameRateManager;   // フレームレート制御
+    EffectManager*      effectManager;      // エフェクト管理
+    SoundManager*       soundManager;       // サウンド管理
+    Input*              input;              // 入力処理
+    DebugManager*       debugManager;       // デバッグ管理
 
     // キー入力
     bool    keyOn;                          // キー入力されているか
     bool    keyRelease;                     // キー入力が離れたか
     bool    prevKeyOn;                      // 前フレームでキー入力があったか
+
+    int miniScreen;
 };
 

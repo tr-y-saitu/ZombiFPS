@@ -4,6 +4,7 @@
 #include "EffectManager.h"
 #include "SoundManager.h"
 #include "Input.h"
+#include "DebugManager.h"
 
 /// <summary>
 /// コンストラクタ
@@ -24,6 +25,7 @@ Game::Game()
     frameRateManager = FrameRateManager::GetInstance();
     effectManager = EffectManager::GetInstance();
     soundManager = SoundManager::GetInstance();
+    debugManager = DebugManager::GetInstance();
 
     // 管理クラス
     input = new Input();
@@ -50,6 +52,7 @@ void Game::Update()
     frameRateManager->Update();
 
     // 現在シーンの更新・描画
+    debugManager->Update();
     nextScene = nowScene->UpdateScene();
     nowScene->Draw();
 

@@ -66,12 +66,12 @@ public:
     /// </summary>
     static void PrintDebugData();
 
+    static bool     isDebug;            // デバッグ状態が有効であるかどうか
 private:
     /// <summary>
     /// コンストラクタ
     /// </summary>
     DebugManager();
-
 
     // 変数
     static DebugManager* debugManager;    // デバッグ表示クラスのインスタンス
@@ -81,6 +81,7 @@ private:
     static bool     isKeyOn;            // キー入力されたか
     static bool     isKeyRelease;       // キー入力が離れたか
     static bool     isPreviousKeyOn;    // 前フレームでキー入力があったか
+
 };
 
 

@@ -191,75 +191,79 @@ void Player::Draw(const Stage& stage)
     equippedGun->Draw();
 
     // デバッグ //
-    //// 座標描画
-    //DrawFormatString(DebugPositionDrawX, DebugPositionDrawY,
-    //    DebugFontColor,"X:%f Y:%f Z:%f",position.x,position.y,position.z);
+    if (debugManager->isDebug)
+    {
+        // 座標描画
+        DrawFormatString(DebugPositionDrawX, DebugPositionDrawY,
+            DebugFontColor,"X:%f Y:%f Z:%f",position.x,position.y,position.z);
 
-    //// 現在ステートの描画
-    //switch (state)
-    //{
-    //case Player::State::Idle:
-    //    DrawString(100, 200, "Idle", DebugFontColor, true);
-    //    break;
-    //case Player::State::Walk:
-    //    DrawString(100, 200, "Walk", DebugFontColor, true);
-    //    break;
-    //case Player::State::Run:
-    //    DrawString(100, 200, "Run", DebugFontColor, true);
-    //    break;
-    //case Player::State::Shot:
-    //    DrawString(100, 200, "Shot", DebugFontColor, true);
-    //    break;
-    //case Player::State::Reload:
-    //    DrawString(100, 200, "Reload", DebugFontColor, true);
-    //    break;
-    //case Player::State::Jump:
-    //    DrawString(100, 200, "Jump", DebugFontColor, true);
-    //    break;
-    //case Player::State::OnHitEnemy:
-    //    DrawString(100, 200, "OnHitEnemy", DebugFontColor, true);
-    //    break;
-    //default:
-    //    break;
-    //}
+        // 現在ステートの描画
+        switch (state)
+        {
+        case Player::State::Idle:
+            DrawString(100, 200, "Idle", DebugFontColor, true);
+            break;
+        case Player::State::Walk:
+            DrawString(100, 200, "Walk", DebugFontColor, true);
+            break;
+        case Player::State::Run:
+            DrawString(100, 200, "Run", DebugFontColor, true);
+            break;
+        case Player::State::Shot:
+            DrawString(100, 200, "Shot", DebugFontColor, true);
+            break;
+        case Player::State::Reload:
+            DrawString(100, 200, "Reload", DebugFontColor, true);
+            break;
+        case Player::State::Jump:
+            DrawString(100, 200, "Jump", DebugFontColor, true);
+            break;
+        case Player::State::OnHitEnemy:
+            DrawString(100, 200, "OnHitEnemy", DebugFontColor, true);
+            break;
+        default:
+            break;
+        }
 
-    //// 体力の描画
-    //DrawFormatString(100, 400, DebugFontColor, "HP:%.3f", hitPoint);
+        // 体力の描画
+        DrawFormatString(100, 400, DebugFontColor, "HP:%.3f", hitPoint);
 
-    //// インタラクト状態の描画
-    //switch (interactLocationState)
-    //{
-    //case Player::InteractLocationState::None:
-    //    DrawString(1200, 100, "InteractLocationState::None", DebugFontColor, true);
-    //    break;
-    //case Player::InteractLocationState::Shutter:
-    //    DrawString(1200, 100, "InteractLocationState::Shutter", DebugFontColor, true);
-    //    break;
-    //case Player::InteractLocationState::AmmoBox:
-    //    DrawString(1200, 100, "InteractLocationState::AmmoBox", DebugFontColor, true);
-    //    break;
-    //default:
-    //    break;
-    //}
+        // インタラクト状態の描画
+        switch (interactLocationState)
+        {
+        case Player::InteractLocationState::None:
+            DrawString(1200, 100, "InteractLocationState::None", DebugFontColor, true);
+            break;
+        case Player::InteractLocationState::Shutter:
+            DrawString(1200, 100, "InteractLocationState::Shutter", DebugFontColor, true);
+            break;
+        case Player::InteractLocationState::AmmoBox:
+            DrawString(1200, 100, "InteractLocationState::AmmoBox", DebugFontColor, true);
+            break;
+        default:
+            break;
+        }
 
-    //// エイムステートの実装
-    //switch (currentAimState)
-    //{
-    //case Player::AimState::None:
-    //    DrawString(1200, 100, "AimState::None", DebugFontColor, true);
-    //    break;
-    //case Player::AimState::Start:
-    //    DrawString(1200, 100, "AimState::Start", DebugFontColor, true);
-    //    break;
-    //case Player::AimState::Now:
-    //    DrawString(1200, 100, "AimState::Now", DebugFontColor, true);
-    //    break;
-    //case Player::AimState::End:
-    //    DrawString(1200, 100, "AimState::End", DebugFontColor, true);
-    //    break;
-    //default:
-    //    break;
-    //}
+        // エイムステートの実装
+        switch (currentAimState)
+        {
+        case Player::AimState::None:
+            DrawString(1200, 100, "AimState::None", DebugFontColor, true);
+            break;
+        case Player::AimState::Start:
+            DrawString(1200, 100, "AimState::Start", DebugFontColor, true);
+            break;
+        case Player::AimState::Now:
+            DrawString(1200, 100, "AimState::Now", DebugFontColor, true);
+            break;
+        case Player::AimState::End:
+            DrawString(1200, 100, "AimState::End", DebugFontColor, true);
+            break;
+        default:
+            break;
+        }
+    }
+
 }
 
 /// <summary>

@@ -6,6 +6,7 @@ vector<DebugManager::DebugPrintData*> DebugManager::debugDataList;
 bool DebugManager::isKeyOn;
 bool DebugManager::isKeyRelease;
 bool DebugManager::isPreviousKeyOn;
+bool DebugManager::isDebug;
 
 /// <summary>
 /// コンストラクタ
@@ -13,18 +14,19 @@ bool DebugManager::isPreviousKeyOn;
 DebugManager::DebugManager()
 {
     // デバッグ用コンソール呼び出し
-    AllocConsole();
-    FILE* file;
-    freopen_s(&file, "CONOUT$", "w", stdout);  // 標準出力をコンソールにリダイレクト
-    freopen_s(&file, "CONIN$", "r", stdin);    // 標準入力をコンソールにリダイレクト
+    //AllocConsole();
+    //FILE* file;
+    //freopen_s(&file, "CONOUT$", "w", stdout);  // 標準出力をコンソールにリダイレクト
+    //freopen_s(&file, "CONIN$", "r", stdin);    // 標準入力をコンソールにリダイレクト
 
-    // デバッグコンソールがアクティブウィンドウになるので
-    // ゲーム本体のウィンドウをアクティブにする
-    SetForegroundWindow(GetMainWindowHandle());
+    //// デバッグコンソールがアクティブウィンドウになるので
+    //// ゲーム本体のウィンドウをアクティブにする
+    //SetForegroundWindow(GetMainWindowHandle());
 
     isKeyOn = false;
     isKeyRelease = false;
     isPreviousKeyOn = false;
+    isDebug = false;
 }
 
 /// <summary>
@@ -33,10 +35,10 @@ DebugManager::DebugManager()
 DebugManager::~DebugManager()
 {
     // デバッグ情報の初期化
-    ClearDebugDataList();
+    //ClearDebugDataList();
 
     //コンソール解放
-    FreeConsole();
+    //FreeConsole();
 }
 
 /// <summary>
@@ -75,7 +77,7 @@ void DebugManager::DeleteInstance()
 void DebugManager::RegisterDebugData(DebugPrintData* data)
 {
     // データリストに追加
-    debugDataList.push_back(data);
+    //debugDataList.push_back(data);
 }
 
 /// <summary>
@@ -84,7 +86,7 @@ void DebugManager::RegisterDebugData(DebugPrintData* data)
 void DebugManager::Update()
 {
     // 入力更新
-    UpdateKeyState();
+    //UpdateKeyState();
 
     // コンソール画面をクリア
     if (isKeyRelease)
@@ -92,7 +94,13 @@ void DebugManager::Update()
         isKeyRelease = false;
 
         // 新しくデバッグ情報を描画
-        PrintDebugData();
+       // PrintDebugData();
+    }
+
+    // デバッグを有効にする
+    if (CheckHitKey(KEY_INPUT_P))
+    {
+        !isDebug;
     }
 }
 
@@ -104,18 +112,18 @@ void DebugManager::PrintDebugData()
     // 画面をクリア
     // MEMO:ウィンドウズに直接コンソール画面をクリアにする指示を出す
     //      なんか行けるらしい
-    system("cls");
+    //system("cls");
 
-    // デバッグ情報を上書き表示
-    for (const auto& data : debugDataList)
-    {
-        // デバッグ情報の出力
-        std::cout << " | Type: "    << data->dataType
-                  << " | Name: "    << data->objectName
-                  << " | Float: "   << data->floatData
-                  << " | Vector: "  << "(" << data->vector.x << "," << data->vector.y << "," << data->vector.z << ") "
-                  << std::endl;
-    }
+    //// デバッグ情報を上書き表示
+    //for (const auto& data : debugDataList)
+    //{
+    //    // デバッグ情報の出力
+    //    std::cout << " | Type: "    << data->dataType
+    //              << " | Name: "    << data->objectName
+    //              << " | Float: "   << data->floatData
+    //              << " | Vector: "  << "(" << data->vector.x << "," << data->vector.y << "," << data->vector.z << ") "
+    //              << std::endl;
+    //}
 }
 
 /// <summary>
@@ -123,7 +131,7 @@ void DebugManager::PrintDebugData()
 /// </summary>
 void DebugManager::ClearDebugDataList()
 {
-    debugDataList.clear();
+    //debugDataList.clear();
 }
 
 /// <summary>
