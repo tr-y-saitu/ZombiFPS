@@ -8,6 +8,7 @@ class Boids;
 class Enemy;
 class Pathfinding;
 class Stage;
+class DebugManager;
 
 /// <summary>
 /// エネミーの集合体
@@ -74,5 +75,7 @@ private:
     bool            isActive;       // エネミーが使用中かどうか
 
     Pathfinding::Room       playerPreviousRoom;     // プレイヤーが以前いた部屋
+
+    DebugManager*   debugManager;   // デバッグ管理
 };
 

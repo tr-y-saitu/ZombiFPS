@@ -137,7 +137,7 @@ void DebugManager::ClearDebugDataList()
 void DebugManager::UpdateKeyState()
 {
     // 現在のキー状態を取得
-    int keyState = CheckHitKey(KEY_INPUT_P);
+    int keyState = CheckHitKey(KEY_INPUT_P) && CheckHitKey(KEY_INPUT_LCONTROL);
 
     // キーが押されていない状態から押された状態に変わった場合
     if (!isKeyOn && keyState)

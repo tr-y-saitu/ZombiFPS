@@ -6,6 +6,7 @@
 class CollisionManager;
 class ShutterController;
 enum ShutterTag;
+class DebugManager;
 
 /// <summary>
 /// シャッター(障害物のドア)
@@ -75,6 +76,7 @@ private:
     // 当たり判定
     CollisionManager*   collisionManager;   // 当たり判定管理クラス
     CollisionData       collisionData;      // 当たり判定用データ
+    DebugManager*       debugManager;       // デバッグ管理クラス
 
     // 基本情報
     VECTOR      position;           // 座標

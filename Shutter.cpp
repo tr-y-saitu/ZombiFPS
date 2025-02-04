@@ -1,7 +1,7 @@
 ﻿#include "Shutter.h"
 #include "CollisionManager.h"
 #include "ShutterController.h"
-
+#include "DebugManager.h"
 
 /// <summary>
 /// コンストラクタ
@@ -13,7 +13,8 @@ Shutter::Shutter()
     , isOpen            (false)
 {
     // 当たり判定管理クラスの参照をもらう
-    collisionManager = CollisionManager::GetInstance();
+    collisionManager    = CollisionManager::GetInstance();
+    debugManager        = DebugManager::GetInstance();
 }
 
 /// <summary>
@@ -95,15 +96,17 @@ void Shutter::Draw()
 {
     // モデルを描画
     MV1DrawModel(modelHandle);
-#if _DEBUG
-    //// デバッグ当たり判定の描画
-    //DrawSphere3D(collisionData.centerPosition, collisionData.radius,
-    //    DebugSphereDivision, DebugPolygonColorBlue, DebugPolygonColorBlue,false);
 
-    //// デバッグシャッターにアクセルできる半径を描画
-    //DrawSphere3D(collisionData.centerPosition, collisionData.interactRadius,
-    //    DebugSphereDivision, DebugPolygonColorRed, DebugPolygonColorRed, false);
-#endif
+    if (debugManager->isDebug)
+    {
+        // デバッグ当たり判定の描画
+        DrawSphere3D(collisionData.centerPosition, collisionData.radius,
+            DebugSphereDivision, DebugPolygonColorBlue, DebugPolygonColorBlue,false);
+
+        // デバッグシャッターにアクセルできる半径を描画
+        DrawSphere3D(collisionData.centerPosition, collisionData.interactRadius,
+            DebugSphereDivision, DebugPolygonColorRed, DebugPolygonColorRed, false);
+    }
 }
 
 /// <summary>

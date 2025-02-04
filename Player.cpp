@@ -177,6 +177,12 @@ void Player::Update(const Input& input, Stage& stage)
 
     // エフェクトを更新
     UpdateEffect();
+
+    // デバッグであれば所持金を固定
+    if (debugManager->isDebug)
+    {
+        money = DebugMoney;
+    }
 }
 
 /// <summary>

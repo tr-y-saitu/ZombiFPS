@@ -1,6 +1,7 @@
 ﻿#include "EnemyGroup.h"
 #include "Stage.h"
 #include"Calculation.h"
+#include "DebugManager.h"
 
 /// <summary>
 /// コンストラクタ
@@ -12,6 +13,9 @@ EnemyGroup::EnemyGroup()
 
     // ゾンビを生成
     enemys.push_back(new Enemy());
+
+    // 管理クラスのインスタンスを取得
+    debugManager = DebugManager::GetInstance();
 }
 
 /// <summary>
@@ -109,12 +113,16 @@ void EnemyGroup::Draw(VECTOR playerPosition)
         enemys[i]->Draw();
     }
 
-    // 線形探索用に区切った部屋を描画
-    //pathfinding->Draw();
+    if (debugManager->isDebug)
+    {
+        // 線形探索用に区切った部屋を描画
+        pathfinding->Draw();
 
-    // プレイヤーの位置する部屋を描画
-    //Pathfinding::Room playerRoom = pathfinding->GetCurrentRoom(playerPosition, playerPreviousRoom);
-    //DrawFormatString(100, 500, DebugFontColor, "PlayerRoom:%d", playerRoom.roomNumber);
+        // プレイヤーの位置する部屋を描画
+        Pathfinding::Room playerRoom = pathfinding->GetCurrentRoom(playerPosition, playerPreviousRoom);
+        DrawFormatString(100, 500, DebugFontColor, "PlayerRoom:%d", playerRoom.roomNumber);
+    }
+
 }
 
 /// <summary>
