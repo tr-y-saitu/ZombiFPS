@@ -10,6 +10,7 @@ class CollisionManager;
 class SoundManager;
 class EffectManager;
 class HitObjectAddress;
+class DebugManager;
 
 /// <summary>
 /// エネミー(ゾンビ)
@@ -256,6 +257,7 @@ private:
     CollisionManager*   collisionManager;
     SoundManager*       soundManager;
     EffectManager*      effectManager;
+    DebugManager*       debugManager;
 
     // ステータス
     VECTOR      position;                   // 座標

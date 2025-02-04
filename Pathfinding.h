@@ -3,6 +3,7 @@
 
 class ImageDataManager;
 class Enemy;
+class DebugManager;
 
 /// <summary>
 /// 線形探索クラス
@@ -165,6 +166,7 @@ private:
 
     // 管理クラス
     ImageDataManager*   imageDataManager;                   // 画像データ読み込みクラス
+    DebugManager* debugManager;                             // デバッグ管理クラス
 
 };
 

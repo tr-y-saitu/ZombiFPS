@@ -1,6 +1,7 @@
 ﻿#include "ImageDataManager.h"
 #include "Pathfinding.h"
 #include "Enemy.h"
+#include "DebugManager.h"
 
 
 /// <summary>
@@ -10,6 +11,7 @@ Pathfinding::Pathfinding()
 {
     // 画像データ管理クラス
     imageDataManager = ImageDataManager::GetInstance();
+    debugManager = DebugManager::GetInstance();
 
     // すべての部屋をメモリ確保
     InitializeRoomsData();
@@ -136,25 +138,26 @@ void Pathfinding::Draw()
     // 初期化
     Initialize();
 
-#if _DEBUG
-    // デバッグ部屋の情報を描画
-    for (auto& room : roomList)
+    if (debugManager->isDebug)
     {
-        // 中心座標を球体で描画
-        DrawSphere3D(room->centerPosition, DebugRoomCenterPositionSphereRadius,
-            DebugRoomCenterPositionSphereDivision,
-            DebugPolygonColorRed, DebugPolygonColorRed, true);
+        // デバッグ部屋の情報を描画
+        for (auto& room : roomList)
+        {
+            // 中心座標を球体で描画
+            DrawSphere3D(room->centerPosition, DebugRoomCenterPositionSphereRadius,
+                DebugRoomCenterPositionSphereDivision,
+                DebugPolygonColorRed, DebugPolygonColorRed, true);
 
-        // 部屋番号を画像で描画
-        VECTOR drawPosition = room->centerPosition;
-        drawPosition.y = DebugRoomNumberImageOffset;
-        DrawBillboard3D(drawPosition, DebugRoomNumberImageDrawCenter, 0.0f,
-            DebugRoomNumberImageSize, DebugRoomNumberImageAngle, room->imageHandle, true);
+            // 部屋番号を画像で描画
+            VECTOR drawPosition = room->centerPosition;
+            drawPosition.y = DebugRoomNumberImageOffset;
+            DrawBillboard3D(drawPosition, DebugRoomNumberImageDrawCenter, 0.0f,
+                DebugRoomNumberImageSize, DebugRoomNumberImageAngle, room->imageHandle, true);
 
-        // 部屋とする範囲を描画する
-        DrawDebugRoomArea(room->centerPosition, room->width, room->depth);
+            // 部屋とする範囲を描画する
+            DrawDebugRoomArea(room->centerPosition, room->width, room->depth);
+        }
     }
-#endif
 }
 
 /// <summary>

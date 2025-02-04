@@ -3,11 +3,13 @@
 #include "ModelDataManager.h"
 #include "SoundManager.h"
 #include "EffectManager.h"
+#include "DebugManager.h"
 #include "Stage.h"
 #include "Calculation.h"
 #include "Bullet.h"
 #include "Pathfinding.h"
 #include "Player.h"
+
 
 /// <summary>
 /// コンストラクタ
@@ -31,6 +33,7 @@ Enemy::Enemy()
     collisionManager    = CollisionManager::GetInstance();
     soundManager        = SoundManager::GetInstance();
     effectManager       = EffectManager::GetInstance();
+    debugManager        = DebugManager::GetInstance();
 
     // モデルハンドルを取得
     modelHandle = modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ModelDataType::EnemyModelData);
@@ -186,20 +189,23 @@ void Enemy::Draw()
     // 自身のモデルを描画
     MV1DrawModel(modelHandle);
 
-    // カプセル型の当たり判定描画
-    /*DrawCapsule3D(collisionData.startPosition, collisionData.endPosition,
-        collisionData.radius, PolygonDetail, DebugPolygonColorRed, DebugPolygonColorRed, false);*/
-
-    // 自身のHPを描画
-    /*DrawFormatString(DebugHitPointDrawX, DebugHitPointDrawY,
-        DebugFontColor, "HP:%d", hitPoints);*/
-
-    // 攻撃の当たり判定を描画する
-    /*if (attackCollisionData.isCollisionActive)
+    if (debugManager->isDebug)
     {
-        DrawSphere3D(attackCollisionData.centerPosition, attackCollisionData.radius,
-            DebugSphereDivision, DebugPolygonColorBlue, DebugPolygonColorBlue, true);
-    }*/
+        // カプセル型の当たり判定描画
+        DrawCapsule3D(collisionData.startPosition, collisionData.endPosition,
+            collisionData.radius, PolygonDetail, DebugPolygonColorRed, DebugPolygonColorRed, false);
+
+        // 自身のHPを描画
+        DrawFormatString(DebugHitPointDrawX, DebugHitPointDrawY,
+            DebugFontColor, "HP:%d", hitPoints);
+
+        // 攻撃の当たり判定を描画する
+        if (attackCollisionData.isCollisionActive)
+        {
+            DrawSphere3D(attackCollisionData.centerPosition, attackCollisionData.radius,
+                DebugSphereDivision, DebugPolygonColorBlue, DebugPolygonColorBlue, true);
+        }
+    }
 }
 
 /// <summary>

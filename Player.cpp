@@ -362,6 +362,12 @@ void Player::OnHitEnemyAttack(CollisionData hitObjectData)
     // HPを減らす
     hitPoint -= hitObjectData.attackPower;
 
+    // HPがゼロよりも下にならないように修正
+    if (hitPoint < 0)
+    {
+        hitPoint = 0;
+    }
+
     // エネミーの攻撃が当たった際の音を再生
     soundManager->PlaySoundListSE(SoundManager::OnHitEnemyAttackSE);
 
@@ -553,6 +559,12 @@ void Player::ProcessExtrusion(CollisionData hitObjectData)
 
     // 計算したベクトルからプレイヤーの位置を変更
     position = VAdd(position, pushBackVector);
+
+    // 上に上がったら上限まで修正
+    if (position.y >= PlayerPositionYLimit)
+    {
+        position.y = PlayerPositionYLimit;
+    }
 
     // モデルの位置も合わせて修正
     MV1SetPosition(modelHandle, position);

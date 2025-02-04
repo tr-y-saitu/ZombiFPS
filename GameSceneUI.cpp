@@ -342,7 +342,7 @@ void GameSceneUI::DrawPlayerHitPoint(Player& player)
 
     // HPバーに「HP」の文字を描画
     DrawFormatStringToHandle(HitPointTextDrawPositionX, HitPointTextDrawPositionY,
-        FontColorBlack, vhsSmallFontHandle, "HP");
+        HitPointTextColor, vhsSmallFontHandle, "HP");
 
     // ヒット時のフィルター画像を描画
     if (currentHitPoint != previousHitPoint && currentHitPoint < previousHitPoint)

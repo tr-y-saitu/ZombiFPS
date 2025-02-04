@@ -86,7 +86,7 @@ void DebugManager::RegisterDebugData(DebugPrintData* data)
 void DebugManager::Update()
 {
     // 入力更新
-    //UpdateKeyState();
+    UpdateKeyState();
 
     // コンソール画面をクリア
     if (isKeyRelease)
@@ -94,14 +94,11 @@ void DebugManager::Update()
         isKeyRelease = false;
 
         // 新しくデバッグ情報を描画
-       // PrintDebugData();
+        // PrintDebugData();
+
+        isDebug = !isDebug;
     }
 
-    // デバッグを有効にする
-    if (CheckHitKey(KEY_INPUT_P))
-    {
-        !isDebug;
-    }
 }
 
 /// <summary>
@@ -140,7 +137,7 @@ void DebugManager::ClearDebugDataList()
 void DebugManager::UpdateKeyState()
 {
     // 現在のキー状態を取得
-    int keyState = CheckHitKey(KEY_INPUT_E);
+    int keyState = CheckHitKey(KEY_INPUT_P);
 
     // キーが押されていない状態から押された状態に変わった場合
     if (!isKeyOn && keyState)

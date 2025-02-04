@@ -178,6 +178,7 @@ private:
     const int               HitPointBarColor                        = GetColor(0, 255, 0);  // ヒットポイントバーの色
     static constexpr int    HitPointTextDrawPositionX               = 1750;     // 「HP」のテキストを描画するX座標
     static constexpr int    HitPointTextDrawPositionY               = 805;      // 「HP」のテキストを描画するY座標
+    const int               HitPointTextColor                       = GetColor(255, 0, 0);  // 「HP」のテキストの文字色
     static constexpr int    PlayerMoneyDrawPositionX                = 1600;     // プレイヤーの所持金の描画Ｘ座標
     static constexpr int    PlayerMoneyDrawPositionY                = 750;      // プレイヤーの所持金の描画Ｙ座標
     // リロード

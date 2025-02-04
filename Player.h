@@ -173,7 +173,7 @@ public:
     static constexpr float  ReloadAnimationFactorSpeed  = 0.05f;                    // リロードアニメーションの再生速度
     static constexpr int    ReloadTimeFrame             = 60;                       // リロードに必要なフレーム数
     static constexpr float  PlayerPositionYLimit        = 4.5f;                     // プレイヤーのY座標の固定値
-    static constexpr int    HitPointMaxValue            = 50;                       // プレイヤーの体力の最大値
+    static constexpr int    HitPointMaxValue            = 200;                      // プレイヤーの体力の最大値
 
 private:
     /// <summary>
@@ -354,9 +354,9 @@ private:
     static constexpr float  HipShootVerticalAngle   = 20.0f * DX_PI_F / 180.0f;     // 垂直回転用：腰だめの位置に調整するために回転させる水平方向からの角度(ラジアン)
     static constexpr float  HipShootAccuracyRate    = 0.05f;                        // 腰だめ時の精度の減算値
     // ヒットポイント
-    static constexpr float  InitializeHitPoint      = 50.0f;                        // プレイヤーの初期体力
+    static constexpr float  InitializeHitPoint      = 200.0f;                       // プレイヤーの初期体力
     static constexpr int    RecoveryWaitFrames      = 150;                          // 回復を開始する待機フレーム数
-    static constexpr int    MaxHitPoint             = 50;                           // ヒットポイントの最大値
+    static constexpr int    MaxHitPoint             = 200;                          // ヒットポイントの最大値
     static constexpr float  HitPointRecoverySpeed   = 0.1f;                         // ヒットポイントを回復する速度
     // デバッグ
     static constexpr int    DebugPositionDrawX      = 100;                          // 座標情報を描画するX位置
