@@ -100,7 +100,7 @@ private:
     static constexpr float  GunRecoil               = 1.0f;         // 銃の反動
     static constexpr float  GunAccuracy             = 4.0f;         // 銃の精度(拡散度合い)
     static constexpr VECTOR InitializeScale         = { 0.07f,0.07f,0.07f };    // 初期化時のスケール
-    static constexpr int    MaxBackUpAmmo           = 210;          // 銃の最大予備弾薬数
+    static constexpr int    MaxBackUpAmmo           = 300;          // 銃の最大予備弾薬数
     // 強化時
     static constexpr float  MaximumEmissive         = 0.9f;         // 最大発光量
     static constexpr float  MinimumEmissive         = 0.4f;         // 最小発光量

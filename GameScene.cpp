@@ -148,7 +148,9 @@ SceneBase* GameScene::UpdateScene()
     if (goodEnd)
     {
         // クリアシーンに推移
-        return new ClearScene();
+        return new ClearScene(player->GetGameScore(),
+            enemyGroupController->GetEnemyKillCount(),
+            enemyWaveController->GetCurrentWaveState());
     }
 
 

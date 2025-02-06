@@ -65,7 +65,7 @@ private:
     //---------------------------------------------------------------------------------//
     //                                      定数                                       //
     //---------------------------------------------------------------------------------//
-    static constexpr float  HitBoxRadius            = 3.5f;     // 当たり判定の半径
+    static constexpr float  HitBoxRadius            = 4.5f;     // 当たり判定の半径
     static constexpr float  HItBoxInteractRadius    = 10.0f;    // シャッターにアクセスできる当たり判定
     static constexpr float  OpenSpeed               = 0.1f;     // シャッターが開く速度
     static constexpr float  RiseUpperLimit          = 15.0f;     // 上昇上限

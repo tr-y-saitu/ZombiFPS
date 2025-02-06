@@ -192,8 +192,13 @@ void GameSceneUI::DrawLowAmmoWarning()
     // 文字を描画
     if (visibleAmmoLowWarningText)
     {
+        // 弾薬が少ないことを表示
         DrawStringCenterScreen("!!! No Ammo !!!", LowAmmoWarningTextDrawPositionY,
             GetColor(255,0,0), vhsLargeFontHandle);
+
+        // リロードキーを表示
+        DrawStringCenterScreen("[R] ﾞﾘﾛｰﾄﾞ", ReloadKeyTextDrawPositionY,
+            GetColor(255, 0, 0), vhsJPLargeFontHandle);
     }
 }
 

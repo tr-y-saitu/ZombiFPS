@@ -91,10 +91,10 @@ void ShutterController::CreateInitializeData()
     750};
 
     // シャッター３
-    MATRIX shutter3Matrix = MGetRotY(-90.0f * DX_PI_F / 180.f);
+    /*MATRIX shutter3Matrix = MGetRotY(-90.0f * DX_PI_F / 180.f);
     shutterInitializeDataList[2] = { Shutter3,VGet(49,0,-19),shutter3Matrix,VGet(3.0f, 5.0f, 2.8f),
         modelDataManager->GetDuplicatesModelHandle(ModelDataManager::ShutterModelData)
-    ,1000};
+    ,1000};*/
 }
 
 /// <summary>

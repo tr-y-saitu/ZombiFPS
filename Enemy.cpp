@@ -91,6 +91,10 @@ void Enemy::Initialize(int currentWave)
     {
         position = SpawnPositionWest4;      // West4でスポーン
     }
+    else if (spawnRoom == SpawnEast3)
+    {
+        position = SpawnPositionEast3;
+    }
 
     // ステータス
     hitPoints = (InitializeHitPoints * currentWave) / HitPointsRate;

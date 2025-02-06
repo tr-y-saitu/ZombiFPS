@@ -20,6 +20,11 @@ public:
     ClearScene();
 
     /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    ClearScene(int setScore, int setKillCount, int setWaveCount);
+
+    /// <summary>
     /// デストラクタ
     /// </summary>
     virtual ~ClearScene();
@@ -78,6 +83,11 @@ private:
 
     // UI
     ClearSceneUI*       clearSceneUI;       // UI
+
+    // スコア
+    int                 score;                          // スコア
+    int                 killCount;                      // エネミーを殺した数
+    int                 waveCount;                      // 最終ウェーブ数
 };
 
 

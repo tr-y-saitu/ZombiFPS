@@ -16,6 +16,14 @@ public:
     ClearSceneUI();
 
     /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    /// <param name="setScore"></param>
+    /// <param name="setKillCount"></param>
+    /// <param name="setWaveCount"></param>
+    ClearSceneUI(int setScore, int setKillCount, int setWaveCount);
+
+    /// <summary>
     /// デストラクタ
     /// </summary>
     virtual ~ClearSceneUI();
@@ -52,6 +60,11 @@ private:
 
     // ステータス
     int     frameCount;                         // フレームカウント
+
+    // スコア
+    int                 score;                          // スコア
+    int                 killCount;                      // エネミーを殺した数
+    int                 waveCount;                      // 最終ウェーブ数
 };
 
 

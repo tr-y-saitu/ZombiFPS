@@ -178,10 +178,13 @@ void Player::Update(const Input& input, Stage& stage)
     // エフェクトを更新
     UpdateEffect();
 
-    // デバッグであれば所持金を固定
+    // デバッグ状態であれば
     if (debugManager->isDebug)
     {
+        // 所持金を最大化
         money = DebugMoney;
+        // HPを最大化
+        hitPoint = InitializeHitPoint;
     }
 }
 

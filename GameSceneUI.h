@@ -155,6 +155,7 @@ private:
     static constexpr int    AmmoHalfRate                            = 2;        // 銃の総弾数を半分にするための値
     static constexpr int    LowAmmoWarningTextBlinkInterval         = 300;      // 銃の総弾数が少なくなった時の警告表示の点滅間隔
     static constexpr int    LowAmmoWarningTextDrawPositionY         = 300;      // 銃の総弾数が少なくなった時の警告表示の描画Y位置
+    static constexpr int    ReloadKeyTextDrawPositionY              = 500;      // リロードキーを表示する位置
     static constexpr int    GunNamePositionX                        = 1600;     // 銃の名前の描画X座標
     static constexpr int    GunNamePositionY                        = 910;      // 銃の名前の描画Y座標
     // 武器強化マシン

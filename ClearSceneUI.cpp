@@ -15,6 +15,25 @@ ClearSceneUI::ClearSceneUI()
 }
 
 /// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="setScore"></param>
+/// <param name="setKillCount"></param>
+/// <param name="setWaveCount"></param>
+ClearSceneUI::ClearSceneUI(int setScore, int setKillCount, int setWaveCount)
+    : score         (setScore)
+    , killCount     (setKillCount)
+    , waveCount     (setWaveCount)
+    , frameCount    (0)
+{
+    // 画像ハンドルクラスのアドレスをもらう
+    imageDataManager = ImageDataManager::GetInstance();
+
+    // 初期化
+    Initialize();
+}
+
+/// <summary>
 /// デストラクタ
 /// </summary>
 ClearSceneUI::~ClearSceneUI()

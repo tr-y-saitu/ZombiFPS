@@ -30,6 +30,33 @@ ClearScene::ClearScene()
 }
 
 /// <summary>
+/// コンストラクタ
+/// </summary>
+ClearScene::ClearScene(int setScore, int setKillCount, int setWaveCount)
+    : isKeyOn           (false)
+    , isKeyRelease      (false)
+    , isPreviousKeyOn   (false)
+    , score             (setScore)
+    , killCount         (setKillCount)
+    , waveCount         (setWaveCount)
+{
+    // リソース管理
+    imageDataManager = ImageDataManager::GetInstance();
+
+    // 演出関連
+    soundManager = SoundManager::GetInstance();
+
+    // 入力関連
+    input = new Input();
+
+    // UI
+    clearSceneUI = new ClearSceneUI(setScore,setKillCount,setWaveCount);
+
+    // 初期化
+    Initialize();
+}
+
+/// <summary>
 /// デストラクタ
 /// </summary>
 ClearScene::~ClearScene()
@@ -66,7 +93,7 @@ SceneBase* ClearScene::UpdateScene()
         isKeyRelease = false;
 
         // チュートリアルシーンに推移
-        return new ResultScene();
+        return new ResultScene(score,killCount,waveCount);
     }
 
     // 現状のシーン
